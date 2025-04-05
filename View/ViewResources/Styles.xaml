@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:Independiente"
                     xmlns:p="clr-namespace:Independiente.Properties"
                     xmlns:conv="clr-namespace:Independiente.Converters">
-    
+
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/View/ViewResources/Icons.xaml" />
         <ResourceDictionary Source="pack://application:,,,/View/ViewResources/Colors.xaml" />

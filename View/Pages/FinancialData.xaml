@@ -41,7 +41,8 @@
                 Style="{DynamicResource IconButtonStyle}"
                 Tag="{DynamicResource BackIcon}"
                 Foreground="{StaticResource IconBlackColor}"
-                Margin="7,7,7,7" />
+                Margin="7,7,7,7" 
+                Command="{Binding GoBackCommand}"/>
 
 
         <ScrollViewer Grid.Column="1"
@@ -85,6 +86,7 @@
                 <Grid HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
                       Margin="10">
+
                     <Grid.Style>
                         <Style TargetType="Grid">
                             <Style.Triggers>
@@ -102,6 +104,7 @@
                             </Style.Triggers>
                         </Style>
                     </Grid.Style>
+
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"
                                        MinHeight="300" />
@@ -127,7 +130,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox x:Name="PhoneNumberTextBox"
+                        <TextBox Text="{Binding DepositAccount.CLABE, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -149,7 +152,7 @@
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Center"
                                   ItemsSource="{Binding BanksList}"
-                                  SelectedItem="{Binding SelectedBankDeposit, Mode=TwoWay}">
+                                  SelectedItem="{Binding DepositAccount.Bank, Mode=TwoWay}">
                         </ComboBox>
 
 
@@ -170,7 +173,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox x:Name="CityTextBox"
+                        <TextBox Text="{Binding ChargeAccount.CLABE, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -185,7 +188,7 @@
                                FontWeight="Bold" />
                         <ComboBox 
                                   ItemsSource="{Binding BanksList}"
-                                  SelectedItem="{Binding SelectedBankCharge, Mode=TwoWay}"
+                                  SelectedItem="{Binding ChargeAccount.Bank, Mode=TwoWay}"
                                   Tag="{x:Static p:Resources.BankPlaceHolderGlobal}"
                                   MinWidth="150"
                                   Width="300"

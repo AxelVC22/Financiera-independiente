@@ -157,7 +157,7 @@
                 Width="135"
                 Height="30"
                 Command="{Binding LoginCommand}"
-                Cursor="" />
+                />
 
     </Grid>
 </Window>

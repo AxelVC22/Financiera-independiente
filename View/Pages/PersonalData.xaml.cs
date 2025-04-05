@@ -21,30 +21,18 @@ namespace Independiente.View.Pages
     public partial class PersonalData : Page
     {
         PersonalDataViewModel _personalDataViewModel;
-        public PersonalData(RegistrationType type, PageMode mode)
+        public PersonalData(PersonalDataViewModel personalDataViewModel)
         {
             InitializeComponent();
 
 
-            _personalDataViewModel = new PersonalDataViewModel();
-            _personalDataViewModel.Type = type;
-            _personalDataViewModel.SwitchMode(mode);
+            _personalDataViewModel = personalDataViewModel;
            
-            _personalDataViewModel.RequestClose += ViewModel_RequestClose;
             this.DataContext = _personalDataViewModel;
         }
       
 
-        private void ViewModel_RequestClose(object sender, EventArgs e)
-        {
-            if (_personalDataViewModel.IsNextSuccessful)
-            {
-                if (_personalDataViewModel.Type == RegistrationType.Client)
-                {
-                    this.NavigationService.Navigate(new FinancialData(PageMode.View));
-                }
-            }
-        }
+       
 
 
 

@@ -13,7 +13,7 @@
       Title="PersonalData">
 
     <Page.DataContext>
-        <vm:PersonalDataViewModel />
+        <vm:ReferencesViewModel />
     </Page.DataContext>
 
     <Page.Resources>

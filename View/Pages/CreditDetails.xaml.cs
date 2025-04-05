@@ -16,22 +16,20 @@ using System.Windows.Shapes;
 
 namespace Independiente.View.Pages
 {
-   
-    public partial class FinancialData : Page
+    /// <summary>
+    /// Lógica de interacción para CreditDetails.xaml
+    /// </summary>
+    public partial class CreditDetails : Page
     {
-        private FinancialDataViewModel _financialDataViewModel;
-        public FinancialData(FinancialDataViewModel financialDataViewModel)
+        CreditDetailsViewModel _creditDetailsViewModel;
+        public CreditDetails(CreditDetailsViewModel creditDetailsViewModel)
         {
-
             InitializeComponent();
 
-            _financialDataViewModel = financialDataViewModel;
+            _creditDetailsViewModel = creditDetailsViewModel;
 
-            this.DataContext = _financialDataViewModel;
-           
+            this.DataContext = _creditDetailsViewModel;
+            
         }
-
-      
-
     }
 }

@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace Independiente.ViewModel
 {
-    internal class ReferencesViewModel : INotifyPropertyChanged
+    public class ReferencesViewModel : ModificableViewModel
     {
         public Reference FirstReference { get; set; }
 
@@ -25,78 +25,40 @@ namespace Independiente.ViewModel
         private List<string> _statesList;
         private string _selectedState;
 
-        private bool _isReadOnlyMode { get; set; }
+        private IDialogService _dialogService {  get; set; }
+        private INavigationService _navigationService { get; set; }
 
-        private bool _isViewMode { get; set; }
+        private PageMode _pageMode { get; set; }
 
-        private bool _isUpdateMode { set; get; }
+        public ReferencesViewModel ()
+        {
 
-        public PageMode Mode { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public event EventHandler RequestClose;
-
-        public ICommand NextCommand { get; set; }
-        public ICommand EditCommand { get; set; }
-
-        public ICommand CancelCommand { get; set; }
-        public ICommand SaveCommand { get; set; }
-
-        public bool IsNextSuccessful;
-
-        public ReferencesViewModel()
+        }
+        public ReferencesViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode)
         {
             NextCommand = new RelayCommand(Next, CanNext);
             EditCommand = new RelayCommand(Edit, CanNext);
             CancelCommand = new RelayCommand(Cancel, CanNext);
             SaveCommand = new RelayCommand(Save, CanNext);
+            GoBackCommand = new RelayCommand(GoBack, CanNext);
+
             FirstReference = new Reference();
 
             SecondReference = new Reference();
-            IsNextSuccessful = false;
-
+            _navigationService = navigationService;
+            _dialogService = dialogService;
+            SwitchMode(mode);
+            _pageMode = mode;
         }
-
-
-
-        public void SwitchMode(PageMode mode)
+        private void GoBack(object obj)
         {
-            switch (mode)
-            {
-                case PageMode.Registration:
-                    IsReadOnlyMode = true;
-                    IsUpdateMode = false;
-                    IsViewMode = false;
-                    break;
-                case PageMode.Update:
-                    IsReadOnlyMode = true;
-                    IsUpdateMode = true;
-                    IsViewMode = false;
-                    break;
-                case PageMode.View:
-                    IsReadOnlyMode = true;
-                    IsUpdateMode = false;
-                    IsViewMode = true;
-                    break;
-            }
+            _navigationService.GoBack();
         }
+
         private void Next(object obj)
         {
-            Console.WriteLine(FirstReference.Name);
-            
-            if (FirstReference.Name != null && FirstReference.Name.Length > 0)
-            {
-                IsNextSuccessful = true;
-                RequestClose?.Invoke(this, EventArgs.Empty);
-            }
-            else
-            {
 
-                IDialogService dialogService = new DialogService();
-                dialogService.Dismiss("gg");
-                IsNextSuccessful = false;
-            }
+            _navigationService.NavigateTo<CreditDetailsViewModel>(new PersonalDataParams(_pageMode));
 
         }
 
@@ -122,11 +84,7 @@ namespace Independiente.ViewModel
         {
             return true;
         }
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
+     
         public List<string> StatesList
         {
             get => _statesList;
@@ -137,46 +95,5 @@ namespace Independiente.ViewModel
             }
         }
 
-        public bool IsReadOnlyMode
-        {
-            get => _isReadOnlyMode;
-            set
-            {
-                _isReadOnlyMode = value;
-                OnPropertyChanged(nameof(IsReadOnlyMode));
-            }
-        }
-
-        public bool IsViewMode
-        {
-            get => _isViewMode;
-            set
-            {
-                _isViewMode = value;
-                OnPropertyChanged(nameof(IsViewMode));
-            }
-        }
-
-        public bool IsUpdateMode
-        {
-            get => _isUpdateMode;
-            set
-            {
-                _isUpdateMode = value;
-                OnPropertyChanged(nameof(IsUpdateMode));
-            }
-        }
-        public string SelectedState
-        {
-            get => _selectedState;
-            set
-            {
-                if (_selectedState != value)
-                {
-                    _selectedState = value;
-                    OnPropertyChanged(nameof(SelectedState));
-                }
-            }
-        }
     }
 }

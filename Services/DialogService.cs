@@ -18,7 +18,7 @@ namespace Independiente.Services
     {
         public bool Confirm(string mensaje)
         {
-            return MessageBox.Show(mensaje,"", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+            return MessageBox.Show(mensaje, "", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
         }
         public void Dismiss(string mensaje)
         {

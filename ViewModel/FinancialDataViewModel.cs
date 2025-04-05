@@ -14,38 +14,63 @@ using System.Windows.Input;
 
 namespace Independiente.ViewModel
 {
-    public class FinancialDataViewModel : INotifyPropertyChanged
+    public class FinancialDataViewModel : ModificableViewModel
     {
         public ObservableCollection<Bank> BanksList { get; set; }
         private Bank _selectedBankCharge;
 
         private Bank _selectedBankDeposit;
 
-        public FinancialData FinancialData { get; set; }
+        private PageMode _pageMode;
 
-        private bool _isReadOnlyMode { get; set; }
-
-        public bool _isViewMode { get; set; }
-
-        public bool _isUpdateMode { set; get; }
-
-        public PageMode Mode { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public event EventHandler RequestClose;
         public bool IsNextSuccessful;
 
-        
-
-
-        public ICommand NextCommand { get; set; }
-        public ICommand EditCommand { get; set; }
-
-        public ICommand CancelCommand { get; set; }
-        public ICommand SaveCommand { get; set; }
+        private INavigationService _navigationService { get; set; }
+        private IDialogService _dialogService { get; set; }
 
         public FinancialDataViewModel()
+        {
+
+        }
+
+        private Account _chargeAccount;
+
+        public Account ChargeAccount
+        {
+            get => _chargeAccount;
+            set
+            {
+                if (_chargeAccount != value)
+                {
+                    _chargeAccount = value;
+                    OnPropertyChanged(nameof(Account));
+                }
+            }
+        }
+
+        private Account _depositAccount;
+
+        public Account DepositAccount
+        {
+            get => _depositAccount;
+            set
+            {
+                if (_depositAccount != value)
+                {
+                    _depositAccount = value;
+                    OnPropertyChanged(nameof(Account));  // Notificar a la vista cuando cambia PersonalData
+                }
+            }
+        }
+
+        private void GoBack(object obj)
+        {
+            _navigationService.GoBack();
+        }
+
+        public FinancialDataViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode)
         {
             BanksList = new ObservableCollection<Bank>
                 {
@@ -57,66 +82,34 @@ namespace Independiente.ViewModel
             EditCommand = new RelayCommand(Edit, CanNext);
             CancelCommand = new RelayCommand(Cancel, CanNext);
             SaveCommand = new RelayCommand(Save, CanNext);
-            FinancialData = new FinancialData();
-
-        }
-
-
-
-
-        public void SwitchMode(PageMode mode)
-        {
-            switch (mode)
-            {
-                case PageMode.Registration:
-                    IsReadOnlyMode = true;
-                    IsUpdateMode = false;
-                    IsViewMode = false;
-                    break;
-                case PageMode.Update:
-                    IsReadOnlyMode = true;
-                    IsUpdateMode = true;
-                    IsViewMode = false;
-                    break;
-                case PageMode.View:
-                    IsReadOnlyMode = true;
-                    IsUpdateMode = false;
-                    IsViewMode = true;
-                    break;
-            }
+            GoBackCommand = new RelayCommand(GoBack, CanNext);
+            _navigationService = navigationService;
+            _dialogService = dialogService;
+            SwitchMode(mode);
+            _pageMode = mode;
+            ChargeAccount = new Account();
+            DepositAccount = new Account();
         }
         private void Next(object obj)
         {
-            if (FinancialData != null)
-            {
-                IsNextSuccessful = true;
-                RequestClose?.Invoke(this, EventArgs.Empty);
-            }
-            else
-            {
-
-                IDialogService dialogService = new DialogService();
-                dialogService.Dismiss("gg");
-                IsNextSuccessful = false;
-            }
+            _navigationService.NavigateTo<ReferencesViewModel>(new PersonalDataParams(_pageMode));
 
         }
 
         private void Cancel(object obj)
         {
-            Console.WriteLine("cancelaste");
             SwitchMode(PageMode.View);
         }
 
         private void Save(object obj)
         {
-            Console.WriteLine("guardaste");
             SwitchMode(PageMode.View);
         }
 
         private void Edit(object obj)
         {
-            Console.WriteLine("vas a editar");
+            Console.WriteLine(ChargeAccount.ToString());
+            Console.WriteLine(DepositAccount.ToString());
 
             SwitchMode(PageMode.Update);
         }
@@ -125,42 +118,6 @@ namespace Independiente.ViewModel
         {
             return true;
         }
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-
-        public bool IsReadOnlyMode
-        {
-            get => _isReadOnlyMode;
-            set
-            {
-                _isReadOnlyMode = value;
-                OnPropertyChanged(nameof(IsReadOnlyMode));
-            }
-        }
-
-        public bool IsViewMode
-        {
-            get => _isViewMode;
-            set
-            {
-                _isViewMode = value;
-                OnPropertyChanged(nameof(IsViewMode));
-            }
-        }
-
-        public bool IsUpdateMode
-        {
-            get => _isUpdateMode;
-            set
-            {
-                _isUpdateMode = value;
-                OnPropertyChanged(nameof(IsUpdateMode));
-            }
-        }
-
 
         public Bank SelectedBankCharge
         {

@@ -1,4 +1,4 @@
-﻿<Page x:Class="Independiente.View.Pages.PersonalData"
+﻿<Page x:Class="Independiente.View.Pages.CreditDetails"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -13,7 +13,7 @@
       Title="PersonalData">
 
     <Page.DataContext>
-        <vm:PersonalDataViewModel />
+        <vm:CreditDetailsViewModel />
     </Page.DataContext>
 
     <Page.Resources>
@@ -42,7 +42,7 @@
                 Style="{DynamicResource IconButtonStyle}"
                 Tag="{DynamicResource BackIcon}"
                 Foreground="{StaticResource IconBlackColor}"
-                Margin="7,7,7,7"
+                Margin="7,7,7,7" 
                 Command="{Binding GoBackCommand}"/>
 
 
@@ -114,224 +114,212 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
+
                     <StackPanel Grid.Column="0"
                                 VerticalAlignment="Stretch">
-                        <Label Content="{x:Static p:Resources.PersonalDataLabelGlobal}"
+                        <Label Content="{x:Static p:Resources.CreditDetailsLabelGlobal}"
                                Foreground="Black"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Top"
                                FontWeight="Black" />
 
 
-                        <Label Content="{x:Static p:Resources.NameLabelGlobal}"
+                        <Label Content="{x:Static p:Resources.LoanAmountLabelGlobal}"
                                Foreground="Black"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding PersonalData.Name}"
+                        <TextBox x:Name="LoanAmountTextBox"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
                                  Width="300"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
-                                 Tag="{x:Static p:Resources.NamePlaceHolderGlobal}" />
+                                 Tag="{x:Static p:Resources.MoneyPlaceHolderGlobal}" />
 
-                        <Label Content="{x:Static p:Resources.PaternalSurnameLabelGlobal}"
+                        <Label Content="{x:Static p:Resources.PromotionLabelGlobal}"
                                Foreground="Black"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding PersonalData.LastName}"
+                        <ComboBox Style="{StaticResource ComboBoxWithPlaceholderStyle}"
+                                  Tag="{x:Static p:Resources.PromotionPlaceHolderGlobal}"
+                                  MinWidth="150"
+                                  Width="300"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Center"
+                                
+                                  >
+                        </ComboBox>
+
+
+                        <Label Content="{x:Static p:Resources.PaymentFrecuencyLabelGlobal}"
+                               Foreground="Black"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               FontWeight="Bold" />
+                        <ComboBox Style="{StaticResource ComboBoxWithPlaceholderStyle}"
+                                  Tag="{x:Static p:Resources.PaymentFrecuencyPlaceHolderGlobal}"
+                                  MinWidth="150"
+                                  Width="300"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Center"
+                                  
+                                  >
+                        </ComboBox>
+
+                        <Label Content="{x:Static p:Resources.LoanTermLabelGlobal}"
+                               Foreground="Black"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               FontWeight="Bold" />
+                        <TextBox x:Name="LoanTermTextBox"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
                                  Width="300"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
-                                 Tag="{x:Static p:Resources.PaternalSurnamePlaceHolderGlobal}" />
+                                 Tag="{x:Static p:Resources.LoanTermPlaceHolderGlobal}" />
 
-                        <Label Content="{x:Static p:Resources.MaternalSurnameLabelGlobal}"
+                        <Label Content="{x:Static p:Resources.InteresRateLabelGlobal}"
                                Foreground="Black"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding PersonalData.Surname}"
+                        <TextBox x:Name="InteresRateTextBox"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
                                  Width="300"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
-                                 Tag="{x:Static p:Resources.MaternalSurnamePlaceHolderGlobal}" />
-
-                        <Label Content="{x:Static p:Resources.BirthDayLabelGlobal}"
-                               Foreground="Black"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               FontWeight="Bold" />
-                        <Canvas Height="25">
-                          
-                            <DatePicker SelectedDate="{Binding PersonalData.BirthDate}" Width="300"/>
-
-
-                        </Canvas>
-
-                        <Label Content="{x:Static p:Resources.RFCLabelGlobal}"
-                               Foreground="Black"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               FontWeight="Bold" />
-                        <TextBox Text="{Binding PersonalData.RFC}"
-                                 Style="{StaticResource TextBoxWithPlaceholderStyle}"
-                                 TextWrapping="Wrap"
-                                 MinWidth="150"
-                                 Width="300"
-                                 HorizontalAlignment="Left"
-                                 VerticalAlignment="Center"
-                                 CharacterCasing="Upper"
-                                 Tag="{x:Static p:Resources.RFCPlaceHolderGlobal}" />
-                        <Label Content="{x:Static p:Resources.CURPLabelGlobal}"
-                               Foreground="Black"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               FontWeight="Bold" />
-                        <TextBox Text="{Binding PersonalData.CURP}"
-                                 Style="{StaticResource TextBoxWithPlaceholderStyle}"
-                                 TextWrapping="Wrap"
-                                 MinWidth="150"
-                                 Width="300"
-                                 HorizontalAlignment="Left"
-                                 VerticalAlignment="Center"
-                                 Tag="{x:Static p:Resources.CURPPlaceHolderGlobal}"
-                                 CharacterCasing="Upper"/>
-
+                                 Tag="{x:Static p:Resources.InteresRatePlaceHolderGlobal}" />
 
                     </StackPanel>
 
                     <StackPanel  Grid.Column="2"
                                  VerticalAlignment="Stretch">
-                        <Label Content="{x:Static p:Resources.ContactDataLabelGlobal}"
+                        <Label Content="{x:Static p:Resources.DocumentationLabelGlobal}"
                                Foreground="Black"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Top"
                                FontWeight="Black"
                                Margin="10,10,10,20" />
 
-                        <Label Content="{x:Static p:Resources.PhoneNumberLabelGlobal}"
+
+                        <Label Content="{x:Static p:Resources.INELabelGlobal}"
                                Foreground="Black"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding PersonalData.PhoneNumber}"
-                                 Style="{StaticResource TextBoxWithPlaceholderStyle}"
-                                 TextWrapping="Wrap"
-                                 MinWidth="150"
-                                 Width="300"
-                                 HorizontalAlignment="Left"
-                                 VerticalAlignment="Center"
-                                 Tag="{x:Static 
-                            p:Resources.PhoneNumberPlaceHolderGlobal}" />
+                        <Canvas Height="25"
+                                Width="300"
+                                HorizontalAlignment="Left">
+                            <TextBox Style="{StaticResource TextBoxWithPlaceholderStyle}"
+                                     TextWrapping="Wrap"
+                                     MinWidth="150"
+                                     Width="300"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Center"
+                                     IsEnabled="False"
+                                     Text="{Binding INEFileName, Mode=OneWay}"  />
+                            <Button Width="18"
+                                    Height="18"
+                                    Style="{StaticResource IconButtonStyle}"
+                                    Tag="{DynamicResource UploadIcon}"
+                                    Foreground="{StaticResource IconBlackColor}"
+                                    Canvas.Left="276"
+                                    Canvas.Top="4"
+                                    Command="{Binding SelectINECommand}" />
 
-                        <Label Content="{x:Static p:Resources.AlternativePhoneNumberLabelGlobal}"
+
+                        </Canvas>
+
+                        <Label Content="{x:Static p:Resources.ProofOfAddressLabelGlobal}"
                                Foreground="Black"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding PersonalData.AlternativePhoneNumber}"
-                                 Style="{StaticResource TextBoxWithPlaceholderStyle}"
-                                 TextWrapping="Wrap"
-                                 MinWidth="150"
-                                 Width="300"
-                                 HorizontalAlignment="Left"
-                                 VerticalAlignment="Center"
-                                 Tag="{x:Static p:Resources.PhoneNumberPlaceHolderGlobal}" />
+                        <Canvas Height="25">
+                            <TextBox x:Name="ProofOfAddressTextBox"
+                                     Style="{StaticResource TextBoxWithPlaceholderStyle}"
+                                     TextWrapping="Wrap"
+                                     MinWidth="150"
+                                     Width="300"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Center"
+                                     IsEnabled="False" />
+                            <Button Width="18"
+                                    Height="18"
+                                    Style="{StaticResource IconButtonStyle}"
+                                    Tag="{DynamicResource UploadIcon}"
+                                    Foreground="{StaticResource IconBlackColor}"
+                                    Canvas.Left="276"
+                                    Canvas.Top="4" />
 
-                        <Label Content="{x:Static p:Resources.EmailAddressLabelGlobal}"
+
+                        </Canvas>
+
+                        <Label Content="{x:Static p:Resources.AccountStatementCoverPageLabelGlobal}"
                                Foreground="Black"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding PersonalData.Email}"
-                                 Style="{StaticResource TextBoxWithPlaceholderStyle}"
-                                 TextWrapping="Wrap"
-                                 MinWidth="150"
-                                 Width="300"
-                                 HorizontalAlignment="Left"
-                                 VerticalAlignment="Center"
-                                 Tag="{x:Static p:Resources.EmailAddressPlaceHolderGlobal}" />
+                        <Canvas Height="25">
+                            <TextBox x:Name="AccountStatementCoverPageTextBox"
+                                     Style="{StaticResource TextBoxWithPlaceholderStyle}"
+                                     TextWrapping="Wrap"
+                                     MinWidth="150"
+                                     Width="300"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Center"
+                                     IsEnabled="False" />
+                            <Button Width="18"
+                                    Height="18"
+                                    Style="{StaticResource IconButtonStyle}"
+                                    Tag="{DynamicResource UploadIcon}"
+                                    Foreground="{StaticResource IconBlackColor}"
+                                    Canvas.Left="276"
+                                    Canvas.Top="4" />
 
 
 
+                        </Canvas>
 
-
-
-                        <Label Content="{x:Static p:Resources.AddressLabelGlobal}"
-                               Foreground="Black"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Top"
-                               FontWeight="Black"
-                               Margin="10,20,10,20" />
-
-                        <Label Content="{x:Static p:Resources.StreetLabelGlobal}"
-                               Foreground="Black"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               FontWeight="Bold" />
-                        <TextBox Text="{Binding AddressData.Street}"
-                                 Style="{StaticResource TextBoxWithPlaceholderStyle}"
-                                 TextWrapping="Wrap"
-                                 MinWidth="150"
-                                 Width="300"
-                                 HorizontalAlignment="Left"
-                                 VerticalAlignment="Center"
-                                 Tag="{x:Static p:Resources.StreetPlaceHolderGlobal}" />
-
-
-                        <Label Content="{x:Static p:Resources.NeighborhoodLabelGlobal}"
+                        <Label Content="{x:Static p:Resources.CreditApplicationLabelGlobal}"
                                Foreground="Black"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding AddressData.NeighborHood}"
-                                 Style="{StaticResource TextBoxWithPlaceholderStyle}"
-                                 TextWrapping="Wrap"
-                                 MinWidth="150"
-                                 Width="300"
-                                 HorizontalAlignment="Left"
-                                 VerticalAlignment="Center"
-                                 Tag="{x:Static p:Resources.NeighborhoodPlaceHolderGlobal}" />
+                        <Canvas Height="25">
+                            <TextBox x:Name="CreditApplicationTextBox"
+                                     Style="{StaticResource TextBoxWithPlaceholderStyle}"
+                                     TextWrapping="Wrap"
+                                     MinWidth="150"
+                                     Width="300"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Center"
+                                     IsEnabled="False" />
+                            <Button Width="18"
+                                    Height="18"
+                                    Style="{StaticResource IconButtonStyle}"
+                                    Tag="{DynamicResource UploadIcon}"
+                                    Foreground="{StaticResource IconBlackColor}"
+                                    Canvas.Left="276"
+                                    Canvas.Top="4" />
+                        </Canvas>
 
-
-                        <Label Content="{x:Static p:Resources.CityLabelGlobal}"
-                               Foreground="Black"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               FontWeight="Bold" />
-                        <TextBox x:Name="CityTextBox"
-                                 Style="{StaticResource TextBoxWithPlaceholderStyle}"
-                                 TextWrapping="Wrap"
-                                 MinWidth="150"
-                                 Width="300"
-                                 HorizontalAlignment="Left"
-                                 VerticalAlignment="Center"
-                                 Tag="{x:Static p:Resources.CityPlaceHolderGlobal}" />
-                        <Label Content="{x:Static p:Resources.StateLabelGlobal}"
-                               Foreground="Black"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               FontWeight="Bold" />
-                        <ComboBox Tag="{x:Static p:Resources.StatePlaceHolderGlobal}"
-                                  MinWidth="150"
-                                  Width="300"
-                                  HorizontalAlignment="Left"
-                                  VerticalAlignment="Center"
-                                  ItemsSource="{Binding StatesList}"
-                                  SelectedItem="{Binding SelectedState, Mode=TwoWay}">
-                        </ComboBox>
-
-
-
+                        <Button Grid.Column="1"
+                                Grid.Row="1"
+                                Content="{x:Static p:Resources.GenerateApplicationButtonLocal}"
+                                Style="{DynamicResource MainButtonStyle}"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Left"
+                                Margin="0,30,0,0"
+                                Width="135"
+                                Height="30" />
                     </StackPanel>
                 </Grid>
 

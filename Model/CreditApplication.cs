@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Independiente.Model
 {
-    public class FinancialData
+    public class CreditApplication
     {
+
     }
 }
