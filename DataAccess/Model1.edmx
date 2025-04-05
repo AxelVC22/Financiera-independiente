@@ -1,0 +1,1666 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="IndependienteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="AccountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CLABE" Type="nvarchar" MaxLength="18" Nullable="false" />
+          <Property Name="BankId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AddressData">
+          <Key>
+            <PropertyRef Name="AddressDataId" />
+          </Key>
+          <Property Name="AddressDataId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Street" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="State" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Neighborhood" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Independiente.dbo.AmortizationSchedule' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="AmortizationSchedule">
+          <Key>
+            <PropertyRef Name="PaymentNumber" />
+            <PropertyRef Name="PaymentDate" />
+            <PropertyRef Name="FixedPayment" />
+            <PropertyRef Name="Interest" />
+            <PropertyRef Name="OutstandingBalance" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="CreditId" />
+          </Key>
+          <Property Name="PaymentNumber" Type="int" Nullable="false" />
+          <Property Name="PaymentDate" Type="date" Nullable="false" />
+          <Property Name="FixedPayment" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Interest" Type="decimal" Precision="5" Scale="4" Nullable="false" />
+          <Property Name="OutstandingBalance" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreditId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bank">
+          <Key>
+            <PropertyRef Name="BankId" />
+          </Key>
+          <Property Name="BankId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="WorkCenterId" Type="int" Nullable="false" />
+          <Property Name="PersonalDataId" Type="int" Nullable="false" />
+          <Property Name="AddressDataId" Type="int" Nullable="false" />
+          <Property Name="FirstReference" Type="int" />
+          <Property Name="SecondReference" Type="int" />
+        </EntityType>
+        <EntityType Name="Credit">
+          <Key>
+            <PropertyRef Name="CreditId" />
+          </Key>
+          <Property Name="CreditId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AcceptanceDate" Type="date" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreditApplicationId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CreditApplication">
+          <Key>
+            <PropertyRef Name="CreditApplicationId" />
+          </Key>
+          <Property Name="CreditApplicationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoanAmount" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="LoanApplicationDate" Type="date" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="FileId" Type="int" Nullable="false" />
+          <Property Name="PromotionalOfferId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CreditPolicy">
+          <Key>
+            <PropertyRef Name="CreditPolicyId" />
+          </Key>
+          <Property Name="CreditPolicyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="RegistrationDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NSS" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="Department" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="HireDate" Type="date" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="PersonalDataId" Type="int" Nullable="false" />
+          <Property Name="AddressDataId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="FileId" />
+          </Key>
+          <Property Name="FileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="File" Type="varbinary(max)" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonalData">
+          <Key>
+            <PropertyRef Name="PersonalDataId" />
+          </Key>
+          <Property Name="PersonalDataId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Lastname" Type="varchar" MaxLength="45" />
+          <Property Name="Surname" Type="varchar" MaxLength="45" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="RFC" Type="nvarchar" MaxLength="13" Nullable="false" />
+          <Property Name="CURP" Type="nvarchar" MaxLength="18" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PromotionalOffer">
+          <Key>
+            <PropertyRef Name="PromotionalOfferId" />
+          </Key>
+          <Property Name="PromotionalOfferId" Type="int" Nullable="false" />
+          <Property Name="InterestRate" Type="decimal" Precision="4" Scale="4" Nullable="false" />
+          <Property Name="LoanTerm" Type="int" Nullable="false" />
+          <Property Name="PaymentFrecuency" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="IVA" Type="decimal" Precision="4" Scale="4" />
+        </EntityType>
+        <EntityType Name="Reference">
+          <Key>
+            <PropertyRef Name="ReferenceId" />
+          </Key>
+          <Property Name="ReferenceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="FullLastName" Type="varchar" MaxLength="90" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Relationship" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="ReportId" />
+          </Key>
+          <Property Name="ReportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Notes" Type="varchar" MaxLength="512" Nullable="false" />
+          <Property Name="ReviewingDate" Type="date" Nullable="false" />
+          <Property Name="CreditApplicationId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Independiente.dbo.Report_CreditPolicy' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Report_CreditPolicy">
+          <Key>
+            <PropertyRef Name="ReportId" />
+            <PropertyRef Name="CreditPolicyId" />
+          </Key>
+          <Property Name="ReportId" Type="int" Nullable="false" />
+          <Property Name="CreditPolicyId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkCenter">
+          <Key>
+            <PropertyRef Name="WorkCenterId" />
+          </Key>
+          <Property Name="WorkCenterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="HiringDate" Type="date" Nullable="false" />
+          <Property Name="MontlyIncome" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Independiente.dbo.ClientView' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="ClientView">
+          <Key>
+            <PropertyRef Name="CLABE" />
+            <PropertyRef Name="BankId" />
+            <PropertyRef Name="Street" />
+            <PropertyRef Name="State" />
+            <PropertyRef Name="Neighborhood" />
+            <PropertyRef Name="ClientId" />
+            <PropertyRef Name="ClientName" />
+            <PropertyRef Name="BirthDate" />
+            <PropertyRef Name="RFC" />
+            <PropertyRef Name="CURP" />
+            <PropertyRef Name="ClientPhoneNumber" />
+            <PropertyRef Name="ClientEmail" />
+            <PropertyRef Name="FirstReferenceName" />
+            <PropertyRef Name="FirstReferenceLastname" />
+            <PropertyRef Name="FirstReferencePhoneNumber" />
+            <PropertyRef Name="FirstReferenceRelationship" />
+            <PropertyRef Name="FirstReferenceEmail" />
+            <PropertyRef Name="SecondReferenceName" />
+            <PropertyRef Name="SecondReferenceLastname" />
+            <PropertyRef Name="SecondReferencePhoneNumber" />
+            <PropertyRef Name="SecondReferenceRelationship" />
+            <PropertyRef Name="SecondReferenceEmail" />
+            <PropertyRef Name="WorkCenterName" />
+            <PropertyRef Name="Role" />
+            <PropertyRef Name="HiringDate" />
+            <PropertyRef Name="MontlyIncome" />
+            <PropertyRef Name="AddressDataId" />
+            <PropertyRef Name="PersonalDataId" />
+            <PropertyRef Name="WorkCenterId" />
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="CLABE" Type="nvarchar" MaxLength="18" Nullable="false" />
+          <Property Name="BankId" Type="int" Nullable="false" />
+          <Property Name="Street" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="State" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Neighborhood" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="ClientName" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="ClientLastname" Type="varchar" MaxLength="45" />
+          <Property Name="ClientSurname" Type="varchar" MaxLength="45" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="RFC" Type="nvarchar" MaxLength="13" Nullable="false" />
+          <Property Name="CURP" Type="nvarchar" MaxLength="18" Nullable="false" />
+          <Property Name="ClientPhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="ClientEmail" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="FirstReferenceName" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="FirstReferenceLastname" Type="varchar" MaxLength="90" Nullable="false" />
+          <Property Name="FirstReferencePhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="FirstReferenceRelationship" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="FirstReferenceEmail" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="SecondReferenceName" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="SecondReferenceLastname" Type="varchar" MaxLength="90" Nullable="false" />
+          <Property Name="SecondReferencePhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SecondReferenceRelationship" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="SecondReferenceEmail" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="WorkCenterName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="HiringDate" Type="date" Nullable="false" />
+          <Property Name="MontlyIncome" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="SecondReference" Type="int" />
+          <Property Name="FirstReference" Type="int" />
+          <Property Name="AddressDataId" Type="int" Nullable="false" />
+          <Property Name="PersonalDataId" Type="int" Nullable="false" />
+          <Property Name="WorkCenterId" Type="int" Nullable="false" />
+          <Property Name="AccountId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="EmployeeView">
+          <Key>
+            <PropertyRef Name="Role" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="AddressDataId" />
+            <PropertyRef Name="PersonalDataId" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="HireDate" />
+            <PropertyRef Name="Department" />
+            <PropertyRef Name="NSS" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="BirthDate" />
+            <PropertyRef Name="RFC" />
+            <PropertyRef Name="CURP" />
+            <PropertyRef Name="PhoneNumber" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Street" />
+            <PropertyRef Name="State" />
+            <PropertyRef Name="Neighborhood" />
+          </Key>
+          <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="AddressDataId" Type="int" Nullable="false" />
+          <Property Name="PersonalDataId" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="HireDate" Type="date" Nullable="false" />
+          <Property Name="Department" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="NSS" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Lastname" Type="varchar" MaxLength="45" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="45" />
+          <Property Name="RFC" Type="nvarchar" MaxLength="13" Nullable="false" />
+          <Property Name="CURP" Type="nvarchar" MaxLength="18" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Street" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="State" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Neighborhood" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="Account_Bank">
+          <End Role="Bank" Type="Self.Bank" Multiplicity="1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bank">
+              <PropertyRef Name="BankId" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="BankId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AmortizationSchudele_Credit">
+          <End Role="Credit" Type="Self.Credit" Multiplicity="1" />
+          <End Role="AmortizationSchedule" Type="Self.AmortizationSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Credit">
+              <PropertyRef Name="CreditId" />
+            </Principal>
+            <Dependent Role="AmortizationSchedule">
+              <PropertyRef Name="CreditId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Client_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Client_AddressData">
+          <End Role="AddressData" Type="Self.AddressData" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AddressData">
+              <PropertyRef Name="AddressDataId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="AddressDataId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Client_PersonalData">
+          <End Role="PersonalData" Type="Self.PersonalData" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalData">
+              <PropertyRef Name="PersonalDataId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="PersonalDataId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Client_WorkCenter">
+          <End Role="WorkCenter" Type="Self.WorkCenter" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkCenter">
+              <PropertyRef Name="WorkCenterId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="WorkCenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Credit_CreditApplication">
+          <End Role="CreditApplication" Type="Self.CreditApplication" Multiplicity="1" />
+          <End Role="Credit" Type="Self.Credit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreditApplication">
+              <PropertyRef Name="CreditApplicationId" />
+            </Principal>
+            <Dependent Role="Credit">
+              <PropertyRef Name="CreditApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CreditApplication_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="CreditApplication" Type="Self.CreditApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="CreditApplication">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CreditApplication_File">
+          <End Role="File" Type="Self.File" Multiplicity="1" />
+          <End Role="CreditApplication" Type="Self.CreditApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="FileId" />
+            </Principal>
+            <Dependent Role="CreditApplication">
+              <PropertyRef Name="FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CreditApplication_PromotionalOffer">
+          <End Role="PromotionalOffer" Type="Self.PromotionalOffer" Multiplicity="1" />
+          <End Role="CreditApplication" Type="Self.CreditApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionalOffer">
+              <PropertyRef Name="PromotionalOfferId" />
+            </Principal>
+            <Dependent Role="CreditApplication">
+              <PropertyRef Name="PromotionalOfferId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Employee_AddressData">
+          <End Role="AddressData" Type="Self.AddressData" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AddressData">
+              <PropertyRef Name="AddressDataId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="AddressDataId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Employee_PersonalData">
+          <End Role="PersonalData" Type="Self.PersonalData" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalData">
+              <PropertyRef Name="PersonalDataId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="PersonalDataId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Employee_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="File_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="File" Type="Self.File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="File">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_FirstReference">
+          <End Role="Reference" Type="Self.Reference" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reference">
+              <PropertyRef Name="ReferenceId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="FirstReference" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_SecondReference">
+          <End Role="Reference" Type="Self.Reference" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reference">
+              <PropertyRef Name="ReferenceId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="SecondReference" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Report_CreditApplication">
+          <End Role="CreditApplication" Type="Self.CreditApplication" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreditApplication">
+              <PropertyRef Name="CreditApplicationId" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="CreditApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Report_CreditPolicy_CreditPolicy">
+          <End Role="CreditPolicy" Type="Self.CreditPolicy" Multiplicity="1" />
+          <End Role="Report_CreditPolicy" Type="Self.Report_CreditPolicy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreditPolicy">
+              <PropertyRef Name="CreditPolicyId" />
+            </Principal>
+            <Dependent Role="Report_CreditPolicy">
+              <PropertyRef Name="ReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Report_CreditPolicy_Report">
+          <End Role="Report" Type="Self.Report" Multiplicity="1" />
+          <End Role="Report_CreditPolicy" Type="Self.Report_CreditPolicy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Report">
+              <PropertyRef Name="ReportId" />
+            </Principal>
+            <Dependent Role="Report_CreditPolicy">
+              <PropertyRef Name="ReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="IndependienteModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AddressData" EntityType="Self.AddressData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bank" EntityType="Self.Bank" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Credit" EntityType="Self.Credit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CreditApplication" EntityType="Self.CreditApplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CreditPolicy" EntityType="Self.CreditPolicy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="File" EntityType="Self.File" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonalData" EntityType="Self.PersonalData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PromotionalOffer" EntityType="Self.PromotionalOffer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reference" EntityType="Self.Reference" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Report" EntityType="Self.Report" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkCenter" EntityType="Self.WorkCenter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AmortizationSchedule" EntityType="Self.AmortizationSchedule" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AmortizationSchedule].[PaymentNumber] AS [PaymentNumber], 
+    [AmortizationSchedule].[PaymentDate] AS [PaymentDate], 
+    [AmortizationSchedule].[FixedPayment] AS [FixedPayment], 
+    [AmortizationSchedule].[Interest] AS [Interest], 
+    [AmortizationSchedule].[OutstandingBalance] AS [OutstandingBalance], 
+    [AmortizationSchedule].[Status] AS [Status], 
+    [AmortizationSchedule].[CreditId] AS [CreditId]
+    FROM [dbo].[AmortizationSchedule] AS [AmortizationSchedule]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Report_CreditPolicy" EntityType="Self.Report_CreditPolicy" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Report_CreditPolicy].[ReportId] AS [ReportId], 
+    [Report_CreditPolicy].[CreditPolicyId] AS [CreditPolicyId]
+    FROM [dbo].[Report_CreditPolicy] AS [Report_CreditPolicy]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ClientView" EntityType="Self.ClientView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ClientView].[CLABE] AS [CLABE], 
+    [ClientView].[BankId] AS [BankId], 
+    [ClientView].[Street] AS [Street], 
+    [ClientView].[State] AS [State], 
+    [ClientView].[Neighborhood] AS [Neighborhood], 
+    [ClientView].[ClientId] AS [ClientId], 
+    [ClientView].[ClientName] AS [ClientName], 
+    [ClientView].[ClientLastname] AS [ClientLastname], 
+    [ClientView].[ClientSurname] AS [ClientSurname], 
+    [ClientView].[BirthDate] AS [BirthDate], 
+    [ClientView].[RFC] AS [RFC], 
+    [ClientView].[CURP] AS [CURP], 
+    [ClientView].[ClientPhoneNumber] AS [ClientPhoneNumber], 
+    [ClientView].[ClientEmail] AS [ClientEmail], 
+    [ClientView].[FirstReferenceName] AS [FirstReferenceName], 
+    [ClientView].[FirstReferenceLastname] AS [FirstReferenceLastname], 
+    [ClientView].[FirstReferencePhoneNumber] AS [FirstReferencePhoneNumber], 
+    [ClientView].[FirstReferenceRelationship] AS [FirstReferenceRelationship], 
+    [ClientView].[FirstReferenceEmail] AS [FirstReferenceEmail], 
+    [ClientView].[SecondReferenceName] AS [SecondReferenceName], 
+    [ClientView].[SecondReferenceLastname] AS [SecondReferenceLastname], 
+    [ClientView].[SecondReferencePhoneNumber] AS [SecondReferencePhoneNumber], 
+    [ClientView].[SecondReferenceRelationship] AS [SecondReferenceRelationship], 
+    [ClientView].[SecondReferenceEmail] AS [SecondReferenceEmail], 
+    [ClientView].[WorkCenterName] AS [WorkCenterName], 
+    [ClientView].[Role] AS [Role], 
+    [ClientView].[HiringDate] AS [HiringDate], 
+    [ClientView].[MontlyIncome] AS [MontlyIncome], 
+    [ClientView].[SecondReference] AS [SecondReference], 
+    [ClientView].[FirstReference] AS [FirstReference], 
+    [ClientView].[AddressDataId] AS [AddressDataId], 
+    [ClientView].[PersonalDataId] AS [PersonalDataId], 
+    [ClientView].[WorkCenterId] AS [WorkCenterId], 
+    [ClientView].[AccountId] AS [AccountId]
+    FROM [dbo].[ClientView] AS [ClientView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="EmployeeView" EntityType="Self.EmployeeView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [EmployeeView].[Role] AS [Role], 
+    [EmployeeView].[Password] AS [Password], 
+    [EmployeeView].[UserId] AS [UserId], 
+    [EmployeeView].[AddressDataId] AS [AddressDataId], 
+    [EmployeeView].[PersonalDataId] AS [PersonalDataId], 
+    [EmployeeView].[Status] AS [Status], 
+    [EmployeeView].[HireDate] AS [HireDate], 
+    [EmployeeView].[Department] AS [Department], 
+    [EmployeeView].[NSS] AS [NSS], 
+    [EmployeeView].[Name] AS [Name], 
+    [EmployeeView].[Lastname] AS [Lastname], 
+    [EmployeeView].[BirthDate] AS [BirthDate], 
+    [EmployeeView].[Surname] AS [Surname], 
+    [EmployeeView].[RFC] AS [RFC], 
+    [EmployeeView].[CURP] AS [CURP], 
+    [EmployeeView].[PhoneNumber] AS [PhoneNumber], 
+    [EmployeeView].[Email] AS [Email], 
+    [EmployeeView].[Street] AS [Street], 
+    [EmployeeView].[State] AS [State], 
+    [EmployeeView].[Neighborhood] AS [Neighborhood]
+    FROM [dbo].[EmployeeView] AS [EmployeeView]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="Account_Bank" Association="Self.Account_Bank">
+            <End Role="Bank" EntitySet="Bank" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="AmortizationSchudele_Credit" Association="Self.AmortizationSchudele_Credit">
+            <End Role="Credit" EntitySet="Credit" />
+            <End Role="AmortizationSchedule" EntitySet="AmortizationSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="Client_Account" Association="Self.Client_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="Client_AddressData" Association="Self.Client_AddressData">
+            <End Role="AddressData" EntitySet="AddressData" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="Client_PersonalData" Association="Self.Client_PersonalData">
+            <End Role="PersonalData" EntitySet="PersonalData" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="Client_WorkCenter" Association="Self.Client_WorkCenter">
+            <End Role="WorkCenter" EntitySet="WorkCenter" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="Credit_CreditApplication" Association="Self.Credit_CreditApplication">
+            <End Role="CreditApplication" EntitySet="CreditApplication" />
+            <End Role="Credit" EntitySet="Credit" />
+          </AssociationSet>
+          <AssociationSet Name="CreditApplication_Client" Association="Self.CreditApplication_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="CreditApplication" EntitySet="CreditApplication" />
+          </AssociationSet>
+          <AssociationSet Name="CreditApplication_File" Association="Self.CreditApplication_File">
+            <End Role="File" EntitySet="File" />
+            <End Role="CreditApplication" EntitySet="CreditApplication" />
+          </AssociationSet>
+          <AssociationSet Name="CreditApplication_PromotionalOffer" Association="Self.CreditApplication_PromotionalOffer">
+            <End Role="PromotionalOffer" EntitySet="PromotionalOffer" />
+            <End Role="CreditApplication" EntitySet="CreditApplication" />
+          </AssociationSet>
+          <AssociationSet Name="Employee_AddressData" Association="Self.Employee_AddressData">
+            <End Role="AddressData" EntitySet="AddressData" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="Employee_PersonalData" Association="Self.Employee_PersonalData">
+            <End Role="PersonalData" EntitySet="PersonalData" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="Employee_User" Association="Self.Employee_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="File_Client" Association="Self.File_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="File" EntitySet="File" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_FirstReference" Association="Self.FK_Client_FirstReference">
+            <End Role="Reference" EntitySet="Reference" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_SecondReference" Association="Self.FK_Client_SecondReference">
+            <End Role="Reference" EntitySet="Reference" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="Report_CreditApplication" Association="Self.Report_CreditApplication">
+            <End Role="CreditApplication" EntitySet="CreditApplication" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="Report_CreditPolicy_CreditPolicy" Association="Self.Report_CreditPolicy_CreditPolicy">
+            <End Role="CreditPolicy" EntitySet="CreditPolicy" />
+            <End Role="Report_CreditPolicy" EntitySet="Report_CreditPolicy" />
+          </AssociationSet>
+          <AssociationSet Name="Report_CreditPolicy_Report" Association="Self.Report_CreditPolicy_Report">
+            <End Role="Report" EntitySet="Report" />
+            <End Role="Report_CreditPolicy" EntitySet="Report_CreditPolicy" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IndependienteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="AccountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CLABE" Type="String" MaxLength="18" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BankId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bank" Relationship="Self.Account_Bank" FromRole="Account" ToRole="Bank" />
+          <NavigationProperty Name="Client" Relationship="Self.Client_Account" FromRole="Account" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="AddressData">
+          <Key>
+            <PropertyRef Name="AddressDataId" />
+          </Key>
+          <Property Name="AddressDataId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Neighborhood" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.Client_AddressData" FromRole="AddressData" ToRole="Client" />
+          <NavigationProperty Name="Employee" Relationship="Self.Employee_AddressData" FromRole="AddressData" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Bank">
+          <Key>
+            <PropertyRef Name="BankId" />
+          </Key>
+          <Property Name="BankId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.Account_Bank" FromRole="Bank" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="WorkCenterId" Type="Int32" Nullable="false" />
+          <Property Name="PersonalDataId" Type="Int32" Nullable="false" />
+          <Property Name="AddressDataId" Type="Int32" Nullable="false" />
+          <Property Name="FirstReference" Type="Int32" />
+          <Property Name="SecondReference" Type="Int32" />
+          <NavigationProperty Name="Account" Relationship="Self.Client_Account" FromRole="Client" ToRole="Account" />
+          <NavigationProperty Name="AddressData" Relationship="Self.Client_AddressData" FromRole="Client" ToRole="AddressData" />
+          <NavigationProperty Name="PersonalData" Relationship="Self.Client_PersonalData" FromRole="Client" ToRole="PersonalData" />
+          <NavigationProperty Name="WorkCenter" Relationship="Self.Client_WorkCenter" FromRole="Client" ToRole="WorkCenter" />
+          <NavigationProperty Name="CreditApplication" Relationship="Self.CreditApplication_Client" FromRole="Client" ToRole="CreditApplication" />
+          <NavigationProperty Name="File" Relationship="Self.File_Client" FromRole="Client" ToRole="File" />
+          <NavigationProperty Name="Reference" Relationship="Self.FK_Client_FirstReference" FromRole="Client" ToRole="Reference" />
+          <NavigationProperty Name="Reference1" Relationship="Self.FK_Client_SecondReference" FromRole="Client" ToRole="Reference" />
+        </EntityType>
+        <EntityType Name="Credit">
+          <Key>
+            <PropertyRef Name="CreditId" />
+          </Key>
+          <Property Name="CreditId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AcceptanceDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreditApplicationId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AmortizationSchedule" Relationship="Self.AmortizationSchudele_Credit" FromRole="Credit" ToRole="AmortizationSchedule" />
+          <NavigationProperty Name="CreditApplication" Relationship="Self.Credit_CreditApplication" FromRole="Credit" ToRole="CreditApplication" />
+        </EntityType>
+        <EntityType Name="CreditApplication">
+          <Key>
+            <PropertyRef Name="CreditApplicationId" />
+          </Key>
+          <Property Name="CreditApplicationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoanAmount" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="LoanApplicationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Status" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="FileId" Type="Int32" Nullable="false" />
+          <Property Name="PromotionalOfferId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.CreditApplication_Client" FromRole="CreditApplication" ToRole="Client" />
+          <NavigationProperty Name="Credit" Relationship="Self.Credit_CreditApplication" FromRole="CreditApplication" ToRole="Credit" />
+          <NavigationProperty Name="File" Relationship="Self.CreditApplication_File" FromRole="CreditApplication" ToRole="File" />
+          <NavigationProperty Name="PromotionalOffer" Relationship="Self.CreditApplication_PromotionalOffer" FromRole="CreditApplication" ToRole="PromotionalOffer" />
+          <NavigationProperty Name="Report" Relationship="Self.Report_CreditApplication" FromRole="CreditApplication" ToRole="Report" />
+        </EntityType>
+        <EntityType Name="CreditPolicy">
+          <Key>
+            <PropertyRef Name="CreditPolicyId" />
+          </Key>
+          <Property Name="CreditPolicyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RegistrationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Report_CreditPolicy" Relationship="Self.Report_CreditPolicy_CreditPolicy" FromRole="CreditPolicy" ToRole="Report_CreditPolicy" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NSS" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Department" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PersonalDataId" Type="Int32" Nullable="false" />
+          <Property Name="AddressDataId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AddressData" Relationship="Self.Employee_AddressData" FromRole="Employee" ToRole="AddressData" />
+          <NavigationProperty Name="PersonalData" Relationship="Self.Employee_PersonalData" FromRole="Employee" ToRole="PersonalData" />
+          <NavigationProperty Name="User" Relationship="Self.Employee_User" FromRole="Employee" ToRole="User" />
+        </EntityType>
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="FileId" />
+          </Key>
+          <Property Name="FileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="File1" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.File_Client" FromRole="File" ToRole="Client" />
+          <NavigationProperty Name="CreditApplication" Relationship="Self.CreditApplication_File" FromRole="File" ToRole="CreditApplication" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="PersonalData">
+          <Key>
+            <PropertyRef Name="PersonalDataId" />
+          </Key>
+          <Property Name="PersonalDataId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Lastname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Surname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RFC" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CURP" Type="String" MaxLength="18" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.Client_PersonalData" FromRole="PersonalData" ToRole="Client" />
+          <NavigationProperty Name="Employee" Relationship="Self.Employee_PersonalData" FromRole="PersonalData" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="PromotionalOffer">
+          <Key>
+            <PropertyRef Name="PromotionalOfferId" />
+          </Key>
+          <Property Name="PromotionalOfferId" Type="Int32" Nullable="false" />
+          <Property Name="InterestRate" Type="Decimal" Precision="4" Scale="4" Nullable="false" />
+          <Property Name="LoanTerm" Type="Int32" Nullable="false" />
+          <Property Name="PaymentFrecuency" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IVA" Type="Decimal" Precision="4" Scale="4" />
+          <NavigationProperty Name="CreditApplication" Relationship="Self.CreditApplication_PromotionalOffer" FromRole="PromotionalOffer" ToRole="CreditApplication" />
+        </EntityType>
+        <EntityType Name="Reference">
+          <Key>
+            <PropertyRef Name="ReferenceId" />
+          </Key>
+          <Property Name="ReferenceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FullLastName" Type="String" MaxLength="90" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Relationship" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Client_FirstReference" FromRole="Reference" ToRole="Client" />
+          <NavigationProperty Name="Client1" Relationship="Self.FK_Client_SecondReference" FromRole="Reference" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="ReportId" />
+          </Key>
+          <Property Name="ReportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Notes" Type="String" MaxLength="512" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReviewingDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreditApplicationId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CreditApplication" Relationship="Self.Report_CreditApplication" FromRole="Report" ToRole="CreditApplication" />
+          <NavigationProperty Name="Report_CreditPolicy" Relationship="Self.Report_CreditPolicy_Report" FromRole="Report" ToRole="Report_CreditPolicy" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.Employee_User" FromRole="User" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="WorkCenter">
+          <Key>
+            <PropertyRef Name="WorkCenterId" />
+          </Key>
+          <Property Name="WorkCenterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HiringDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MontlyIncome" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.Client_WorkCenter" FromRole="WorkCenter" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="AmortizationSchedule">
+          <Key>
+            <PropertyRef Name="PaymentNumber" />
+            <PropertyRef Name="PaymentDate" />
+            <PropertyRef Name="FixedPayment" />
+            <PropertyRef Name="Interest" />
+            <PropertyRef Name="OutstandingBalance" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="CreditId" />
+          </Key>
+          <Property Name="PaymentNumber" Type="Int32" Nullable="false" />
+          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FixedPayment" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Interest" Type="Decimal" Precision="5" Scale="4" Nullable="false" />
+          <Property Name="OutstandingBalance" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreditId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Credit" Relationship="Self.AmortizationSchudele_Credit" FromRole="AmortizationSchedule" ToRole="Credit" />
+        </EntityType>
+        <EntityType Name="Report_CreditPolicy">
+          <Key>
+            <PropertyRef Name="ReportId" />
+            <PropertyRef Name="CreditPolicyId" />
+          </Key>
+          <Property Name="ReportId" Type="Int32" Nullable="false" />
+          <Property Name="CreditPolicyId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CreditPolicy" Relationship="Self.Report_CreditPolicy_CreditPolicy" FromRole="Report_CreditPolicy" ToRole="CreditPolicy" />
+          <NavigationProperty Name="Report" Relationship="Self.Report_CreditPolicy_Report" FromRole="Report_CreditPolicy" ToRole="Report" />
+        </EntityType>
+        <EntityType Name="ClientView">
+          <Key>
+            <PropertyRef Name="CLABE" />
+            <PropertyRef Name="BankId" />
+            <PropertyRef Name="Street" />
+            <PropertyRef Name="State" />
+            <PropertyRef Name="Neighborhood" />
+            <PropertyRef Name="ClientId" />
+            <PropertyRef Name="ClientName" />
+            <PropertyRef Name="BirthDate" />
+            <PropertyRef Name="RFC" />
+            <PropertyRef Name="CURP" />
+            <PropertyRef Name="ClientPhoneNumber" />
+            <PropertyRef Name="ClientEmail" />
+            <PropertyRef Name="FirstReferenceName" />
+            <PropertyRef Name="FirstReferenceLastname" />
+            <PropertyRef Name="FirstReferencePhoneNumber" />
+            <PropertyRef Name="FirstReferenceRelationship" />
+            <PropertyRef Name="FirstReferenceEmail" />
+            <PropertyRef Name="SecondReferenceName" />
+            <PropertyRef Name="SecondReferenceLastname" />
+            <PropertyRef Name="SecondReferencePhoneNumber" />
+            <PropertyRef Name="SecondReferenceRelationship" />
+            <PropertyRef Name="SecondReferenceEmail" />
+            <PropertyRef Name="WorkCenterName" />
+            <PropertyRef Name="Role" />
+            <PropertyRef Name="HiringDate" />
+            <PropertyRef Name="MontlyIncome" />
+            <PropertyRef Name="AddressDataId" />
+            <PropertyRef Name="PersonalDataId" />
+            <PropertyRef Name="WorkCenterId" />
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="CLABE" Type="String" MaxLength="18" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BankId" Type="Int32" Nullable="false" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Neighborhood" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="ClientName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClientLastname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="ClientSurname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RFC" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CURP" Type="String" MaxLength="18" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClientPhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClientEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstReferenceName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstReferenceLastname" Type="String" MaxLength="90" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstReferencePhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstReferenceRelationship" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstReferenceEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SecondReferenceName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SecondReferenceLastname" Type="String" MaxLength="90" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SecondReferencePhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SecondReferenceRelationship" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SecondReferenceEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WorkCenterName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HiringDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MontlyIncome" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="SecondReference" Type="Int32" />
+          <Property Name="FirstReference" Type="Int32" />
+          <Property Name="AddressDataId" Type="Int32" Nullable="false" />
+          <Property Name="PersonalDataId" Type="Int32" Nullable="false" />
+          <Property Name="WorkCenterId" Type="Int32" Nullable="false" />
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeeView">
+          <Key>
+            <PropertyRef Name="Role" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="AddressDataId" />
+            <PropertyRef Name="PersonalDataId" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="HireDate" />
+            <PropertyRef Name="Department" />
+            <PropertyRef Name="NSS" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="BirthDate" />
+            <PropertyRef Name="RFC" />
+            <PropertyRef Name="CURP" />
+            <PropertyRef Name="PhoneNumber" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Street" />
+            <PropertyRef Name="State" />
+            <PropertyRef Name="Neighborhood" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressDataId" Type="Int32" Nullable="false" />
+          <Property Name="PersonalDataId" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Department" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NSS" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Lastname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Surname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="RFC" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CURP" Type="String" MaxLength="18" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Neighborhood" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="Account_Bank">
+          <End Role="Bank" Type="Self.Bank" Multiplicity="1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bank">
+              <PropertyRef Name="BankId" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="BankId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Client_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Client_AddressData">
+          <End Role="AddressData" Type="Self.AddressData" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AddressData">
+              <PropertyRef Name="AddressDataId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="AddressDataId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Employee_AddressData">
+          <End Role="AddressData" Type="Self.AddressData" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AddressData">
+              <PropertyRef Name="AddressDataId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="AddressDataId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Client_PersonalData">
+          <End Role="PersonalData" Type="Self.PersonalData" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalData">
+              <PropertyRef Name="PersonalDataId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="PersonalDataId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Client_WorkCenter">
+          <End Role="WorkCenter" Type="Self.WorkCenter" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkCenter">
+              <PropertyRef Name="WorkCenterId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="WorkCenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CreditApplication_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="CreditApplication" Type="Self.CreditApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="CreditApplication">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="File_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="File" Type="Self.File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="File">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_FirstReference">
+          <End Role="Reference" Type="Self.Reference" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reference">
+              <PropertyRef Name="ReferenceId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="FirstReference" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_SecondReference">
+          <End Role="Reference" Type="Self.Reference" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reference">
+              <PropertyRef Name="ReferenceId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="SecondReference" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AmortizationSchudele_Credit">
+          <End Role="Credit" Type="Self.Credit" Multiplicity="1" />
+          <End Role="AmortizationSchedule" Type="Self.AmortizationSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Credit">
+              <PropertyRef Name="CreditId" />
+            </Principal>
+            <Dependent Role="AmortizationSchedule">
+              <PropertyRef Name="CreditId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Credit_CreditApplication">
+          <End Role="CreditApplication" Type="Self.CreditApplication" Multiplicity="1" />
+          <End Role="Credit" Type="Self.Credit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreditApplication">
+              <PropertyRef Name="CreditApplicationId" />
+            </Principal>
+            <Dependent Role="Credit">
+              <PropertyRef Name="CreditApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CreditApplication_File">
+          <End Role="File" Type="Self.File" Multiplicity="1" />
+          <End Role="CreditApplication" Type="Self.CreditApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="FileId" />
+            </Principal>
+            <Dependent Role="CreditApplication">
+              <PropertyRef Name="FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CreditApplication_PromotionalOffer">
+          <End Role="PromotionalOffer" Type="Self.PromotionalOffer" Multiplicity="1" />
+          <End Role="CreditApplication" Type="Self.CreditApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionalOffer">
+              <PropertyRef Name="PromotionalOfferId" />
+            </Principal>
+            <Dependent Role="CreditApplication">
+              <PropertyRef Name="PromotionalOfferId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Report_CreditApplication">
+          <End Role="CreditApplication" Type="Self.CreditApplication" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreditApplication">
+              <PropertyRef Name="CreditApplicationId" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="CreditApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Report_CreditPolicy_CreditPolicy">
+          <End Role="CreditPolicy" Type="Self.CreditPolicy" Multiplicity="1" />
+          <End Role="Report_CreditPolicy" Type="Self.Report_CreditPolicy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreditPolicy">
+              <PropertyRef Name="CreditPolicyId" />
+            </Principal>
+            <Dependent Role="Report_CreditPolicy">
+              <PropertyRef Name="ReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Employee_PersonalData">
+          <End Role="PersonalData" Type="Self.PersonalData" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalData">
+              <PropertyRef Name="PersonalDataId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="PersonalDataId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Employee_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Report_CreditPolicy_Report">
+          <End Role="Report" Type="Self.Report" Multiplicity="1" />
+          <End Role="Report_CreditPolicy" Type="Self.Report_CreditPolicy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Report">
+              <PropertyRef Name="ReportId" />
+            </Principal>
+            <Dependent Role="Report_CreditPolicy">
+              <PropertyRef Name="ReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="IndependienteEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Account" EntityType="Self.Account" />
+          <EntitySet Name="AddressData" EntityType="Self.AddressData" />
+          <EntitySet Name="Bank" EntityType="Self.Bank" />
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Credit" EntityType="Self.Credit" />
+          <EntitySet Name="CreditApplication" EntityType="Self.CreditApplication" />
+          <EntitySet Name="CreditPolicy" EntityType="Self.CreditPolicy" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" />
+          <EntitySet Name="File" EntityType="Self.File" />
+          <EntitySet Name="Log" EntityType="Self.Log" />
+          <EntitySet Name="PersonalData" EntityType="Self.PersonalData" />
+          <EntitySet Name="PromotionalOffer" EntityType="Self.PromotionalOffer" />
+          <EntitySet Name="Reference" EntityType="Self.Reference" />
+          <EntitySet Name="Report" EntityType="Self.Report" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="WorkCenter" EntityType="Self.WorkCenter" />
+          <EntitySet Name="AmortizationSchedule" EntityType="Self.AmortizationSchedule" />
+          <EntitySet Name="Report_CreditPolicy" EntityType="Self.Report_CreditPolicy" />
+          <EntitySet Name="ClientView" EntityType="Self.ClientView" />
+          <EntitySet Name="EmployeeView" EntityType="Self.EmployeeView" />
+          <AssociationSet Name="Account_Bank" Association="Self.Account_Bank">
+            <End Role="Bank" EntitySet="Bank" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="Client_Account" Association="Self.Client_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="Client_AddressData" Association="Self.Client_AddressData">
+            <End Role="AddressData" EntitySet="AddressData" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="Employee_AddressData" Association="Self.Employee_AddressData">
+            <End Role="AddressData" EntitySet="AddressData" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="Client_PersonalData" Association="Self.Client_PersonalData">
+            <End Role="PersonalData" EntitySet="PersonalData" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="Client_WorkCenter" Association="Self.Client_WorkCenter">
+            <End Role="WorkCenter" EntitySet="WorkCenter" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="CreditApplication_Client" Association="Self.CreditApplication_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="CreditApplication" EntitySet="CreditApplication" />
+          </AssociationSet>
+          <AssociationSet Name="File_Client" Association="Self.File_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="File" EntitySet="File" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_FirstReference" Association="Self.FK_Client_FirstReference">
+            <End Role="Reference" EntitySet="Reference" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_SecondReference" Association="Self.FK_Client_SecondReference">
+            <End Role="Reference" EntitySet="Reference" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="AmortizationSchudele_Credit" Association="Self.AmortizationSchudele_Credit">
+            <End Role="Credit" EntitySet="Credit" />
+            <End Role="AmortizationSchedule" EntitySet="AmortizationSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="Credit_CreditApplication" Association="Self.Credit_CreditApplication">
+            <End Role="CreditApplication" EntitySet="CreditApplication" />
+            <End Role="Credit" EntitySet="Credit" />
+          </AssociationSet>
+          <AssociationSet Name="CreditApplication_File" Association="Self.CreditApplication_File">
+            <End Role="File" EntitySet="File" />
+            <End Role="CreditApplication" EntitySet="CreditApplication" />
+          </AssociationSet>
+          <AssociationSet Name="CreditApplication_PromotionalOffer" Association="Self.CreditApplication_PromotionalOffer">
+            <End Role="PromotionalOffer" EntitySet="PromotionalOffer" />
+            <End Role="CreditApplication" EntitySet="CreditApplication" />
+          </AssociationSet>
+          <AssociationSet Name="Report_CreditApplication" Association="Self.Report_CreditApplication">
+            <End Role="CreditApplication" EntitySet="CreditApplication" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="Report_CreditPolicy_CreditPolicy" Association="Self.Report_CreditPolicy_CreditPolicy">
+            <End Role="CreditPolicy" EntitySet="CreditPolicy" />
+            <End Role="Report_CreditPolicy" EntitySet="Report_CreditPolicy" />
+          </AssociationSet>
+          <AssociationSet Name="Employee_PersonalData" Association="Self.Employee_PersonalData">
+            <End Role="PersonalData" EntitySet="PersonalData" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="Employee_User" Association="Self.Employee_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="Report_CreditPolicy_Report" Association="Self.Report_CreditPolicy_Report">
+            <End Role="Report" EntitySet="Report" />
+            <End Role="Report_CreditPolicy" EntitySet="Report_CreditPolicy" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="IndependienteModelStoreContainer" CdmEntityContainer="IndependienteEntities">
+          <EntitySetMapping Name="Account">
+            <EntityTypeMapping TypeName="IndependienteModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="CLABE" ColumnName="CLABE" />
+                <ScalarProperty Name="BankId" ColumnName="BankId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AddressData">
+            <EntityTypeMapping TypeName="IndependienteModel.AddressData">
+              <MappingFragment StoreEntitySet="AddressData">
+                <ScalarProperty Name="AddressDataId" ColumnName="AddressDataId" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Neighborhood" ColumnName="Neighborhood" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bank">
+            <EntityTypeMapping TypeName="IndependienteModel.Bank">
+              <MappingFragment StoreEntitySet="Bank">
+                <ScalarProperty Name="BankId" ColumnName="BankId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="IndependienteModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="WorkCenterId" ColumnName="WorkCenterId" />
+                <ScalarProperty Name="PersonalDataId" ColumnName="PersonalDataId" />
+                <ScalarProperty Name="AddressDataId" ColumnName="AddressDataId" />
+                <ScalarProperty Name="FirstReference" ColumnName="FirstReference" />
+                <ScalarProperty Name="SecondReference" ColumnName="SecondReference" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Credit">
+            <EntityTypeMapping TypeName="IndependienteModel.Credit">
+              <MappingFragment StoreEntitySet="Credit">
+                <ScalarProperty Name="CreditId" ColumnName="CreditId" />
+                <ScalarProperty Name="AcceptanceDate" ColumnName="AcceptanceDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreditApplicationId" ColumnName="CreditApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CreditApplication">
+            <EntityTypeMapping TypeName="IndependienteModel.CreditApplication">
+              <MappingFragment StoreEntitySet="CreditApplication">
+                <ScalarProperty Name="CreditApplicationId" ColumnName="CreditApplicationId" />
+                <ScalarProperty Name="LoanAmount" ColumnName="LoanAmount" />
+                <ScalarProperty Name="LoanApplicationDate" ColumnName="LoanApplicationDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="FileId" ColumnName="FileId" />
+                <ScalarProperty Name="PromotionalOfferId" ColumnName="PromotionalOfferId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CreditPolicy">
+            <EntityTypeMapping TypeName="IndependienteModel.CreditPolicy">
+              <MappingFragment StoreEntitySet="CreditPolicy">
+                <ScalarProperty Name="CreditPolicyId" ColumnName="CreditPolicyId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="IndependienteModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="NSS" ColumnName="NSS" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="PersonalDataId" ColumnName="PersonalDataId" />
+                <ScalarProperty Name="AddressDataId" ColumnName="AddressDataId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="File">
+            <EntityTypeMapping TypeName="IndependienteModel.File">
+              <MappingFragment StoreEntitySet="File">
+                <ScalarProperty Name="FileId" ColumnName="FileId" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="File1" ColumnName="File" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Log">
+            <EntityTypeMapping TypeName="IndependienteModel.Log">
+              <MappingFragment StoreEntitySet="Log">
+                <ScalarProperty Name="LogId" ColumnName="LogId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonalData">
+            <EntityTypeMapping TypeName="IndependienteModel.PersonalData">
+              <MappingFragment StoreEntitySet="PersonalData">
+                <ScalarProperty Name="PersonalDataId" ColumnName="PersonalDataId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PromotionalOffer">
+            <EntityTypeMapping TypeName="IndependienteModel.PromotionalOffer">
+              <MappingFragment StoreEntitySet="PromotionalOffer">
+                <ScalarProperty Name="PromotionalOfferId" ColumnName="PromotionalOfferId" />
+                <ScalarProperty Name="InterestRate" ColumnName="InterestRate" />
+                <ScalarProperty Name="LoanTerm" ColumnName="LoanTerm" />
+                <ScalarProperty Name="PaymentFrecuency" ColumnName="PaymentFrecuency" />
+                <ScalarProperty Name="IVA" ColumnName="IVA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reference">
+            <EntityTypeMapping TypeName="IndependienteModel.Reference">
+              <MappingFragment StoreEntitySet="Reference">
+                <ScalarProperty Name="ReferenceId" ColumnName="ReferenceId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FullLastName" ColumnName="FullLastName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Report">
+            <EntityTypeMapping TypeName="IndependienteModel.Report">
+              <MappingFragment StoreEntitySet="Report">
+                <ScalarProperty Name="ReportId" ColumnName="ReportId" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="ReviewingDate" ColumnName="ReviewingDate" />
+                <ScalarProperty Name="CreditApplicationId" ColumnName="CreditApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="IndependienteModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkCenter">
+            <EntityTypeMapping TypeName="IndependienteModel.WorkCenter">
+              <MappingFragment StoreEntitySet="WorkCenter">
+                <ScalarProperty Name="WorkCenterId" ColumnName="WorkCenterId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="HiringDate" ColumnName="HiringDate" />
+                <ScalarProperty Name="MontlyIncome" ColumnName="MontlyIncome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AmortizationSchedule">
+            <EntityTypeMapping TypeName="IndependienteModel.AmortizationSchedule">
+              <MappingFragment StoreEntitySet="AmortizationSchedule">
+                <ScalarProperty Name="PaymentNumber" ColumnName="PaymentNumber" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="FixedPayment" ColumnName="FixedPayment" />
+                <ScalarProperty Name="Interest" ColumnName="Interest" />
+                <ScalarProperty Name="OutstandingBalance" ColumnName="OutstandingBalance" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreditId" ColumnName="CreditId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Report_CreditPolicy">
+            <EntityTypeMapping TypeName="IndependienteModel.Report_CreditPolicy">
+              <MappingFragment StoreEntitySet="Report_CreditPolicy">
+                <ScalarProperty Name="ReportId" ColumnName="ReportId" />
+                <ScalarProperty Name="CreditPolicyId" ColumnName="CreditPolicyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientView">
+            <EntityTypeMapping TypeName="IndependienteModel.ClientView">
+              <MappingFragment StoreEntitySet="ClientView">
+                <ScalarProperty Name="CLABE" ColumnName="CLABE" />
+                <ScalarProperty Name="BankId" ColumnName="BankId" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Neighborhood" ColumnName="Neighborhood" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="ClientLastname" ColumnName="ClientLastname" />
+                <ScalarProperty Name="ClientSurname" ColumnName="ClientSurname" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="ClientPhoneNumber" ColumnName="ClientPhoneNumber" />
+                <ScalarProperty Name="ClientEmail" ColumnName="ClientEmail" />
+                <ScalarProperty Name="FirstReferenceName" ColumnName="FirstReferenceName" />
+                <ScalarProperty Name="FirstReferenceLastname" ColumnName="FirstReferenceLastname" />
+                <ScalarProperty Name="FirstReferencePhoneNumber" ColumnName="FirstReferencePhoneNumber" />
+                <ScalarProperty Name="FirstReferenceRelationship" ColumnName="FirstReferenceRelationship" />
+                <ScalarProperty Name="FirstReferenceEmail" ColumnName="FirstReferenceEmail" />
+                <ScalarProperty Name="SecondReferenceName" ColumnName="SecondReferenceName" />
+                <ScalarProperty Name="SecondReferenceLastname" ColumnName="SecondReferenceLastname" />
+                <ScalarProperty Name="SecondReferencePhoneNumber" ColumnName="SecondReferencePhoneNumber" />
+                <ScalarProperty Name="SecondReferenceRelationship" ColumnName="SecondReferenceRelationship" />
+                <ScalarProperty Name="SecondReferenceEmail" ColumnName="SecondReferenceEmail" />
+                <ScalarProperty Name="WorkCenterName" ColumnName="WorkCenterName" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="HiringDate" ColumnName="HiringDate" />
+                <ScalarProperty Name="MontlyIncome" ColumnName="MontlyIncome" />
+                <ScalarProperty Name="SecondReference" ColumnName="SecondReference" />
+                <ScalarProperty Name="FirstReference" ColumnName="FirstReference" />
+                <ScalarProperty Name="AddressDataId" ColumnName="AddressDataId" />
+                <ScalarProperty Name="PersonalDataId" ColumnName="PersonalDataId" />
+                <ScalarProperty Name="WorkCenterId" ColumnName="WorkCenterId" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeView">
+            <EntityTypeMapping TypeName="IndependienteModel.EmployeeView">
+              <MappingFragment StoreEntitySet="EmployeeView">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="AddressDataId" ColumnName="AddressDataId" />
+                <ScalarProperty Name="PersonalDataId" ColumnName="PersonalDataId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="NSS" ColumnName="NSS" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Neighborhood" ColumnName="Neighborhood" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

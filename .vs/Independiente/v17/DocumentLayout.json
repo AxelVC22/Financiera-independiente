@@ -1,129 +1,49 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Independiente\\",
+  "WorkspaceRootPath": "C:\\independiente\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|c:\\independiente\\converters\\emptystringtovisibilityconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:converters\\emptystringtovisibilityconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|c:\\independiente\\services\\fieldvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:services\\fieldvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|c:\\independiente\\converters\\datetimetostringconverter .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:converters\\datetimetostringconverter .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|c:\\independiente\\converters\\booltovisibilityconverter .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:converters\\booltovisibilityconverter .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|c:\\independiente\\viewmodel\\referencesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:viewmodel\\referencesviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\Independiente\\view\\pages\\financialdata.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:view\\pages\\financialdata.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|c:\\independiente\\view\\pages\\references.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:view\\pages\\references.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|c:\\independiente\\view\\pages\\personaldata.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:view\\pages\\personaldata.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\Independiente\\viewmodel\\financialdataviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:viewmodel\\financialdataviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\Independiente\\viewmodel\\personaldataviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:viewmodel\\personaldataviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\Independiente\\model\\personaldata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:model\\personaldata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\Independiente\\model\\financialdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:model\\financialdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|c:\\independiente\\view\\pages\\references.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:view\\pages\\references.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|c:\\independiente\\model\\workcenter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:model\\workcenter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|c:\\independiente\\model\\reference.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:model\\reference.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\Independiente\\view\\pages\\personaldata.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:view\\pages\\personaldata.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\Independiente\\model\\bank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:model\\bank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\Independiente\\view\\pages\\financialdata.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:view\\pages\\financialdata.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\Independiente\\view\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:view\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\Independiente\\viewmodel\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\independiente\\viewmodel\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:viewmodel\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\Independiente\\view\\login.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:view\\login.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\independiente\\services\\sessionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:services\\sessionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\Independiente\\viewmodel\\mainwindowviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:viewmodel\\mainwindowviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\Independiente\\view\\login.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:view\\login.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\Independiente\\services\\dialogservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\independiente\\services\\dialogservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:services\\dialogservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\Independiente\\view\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:view\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\Independiente\\model\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\independiente\\model\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:model\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\Independiente\\view\\viewresources\\styles.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:view\\viewresources\\styles.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\independiente\\properties\\messages.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:properties\\messages.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\Independiente\\model\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:model\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\independiente\\view\\login.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:view\\login.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|C:\\independiente\\view\\login.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{C3B72414-B62E-426D-9F29-181F857FBE91}|Independiente.csproj|solutionrelative:view\\login.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
     {
-      "Orientation": 0,
+      "Orientation": 1,
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "DockedHeight": 200,
+          "SelectedChildIndex": 6,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{a80febb4-e7e0-4147-b476-21aaf2453969}"
@@ -138,7 +58,44 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DialogService.cs",
+              "DocumentMoniker": "C:\\independiente\\Services\\DialogService.cs",
+              "RelativeDocumentMoniker": "Services\\DialogService.cs",
+              "ToolTip": "C:\\independiente\\Services\\DialogService.cs",
+              "RelativeToolTip": "Services\\DialogService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-05T22:16:43.566Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SessionService.cs",
+              "DocumentMoniker": "C:\\independiente\\Services\\SessionService.cs",
+              "RelativeDocumentMoniker": "Services\\SessionService.cs",
+              "ToolTip": "C:\\independiente\\Services\\SessionService.cs",
+              "RelativeToolTip": "Services\\SessionService.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAzwDUAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-05T22:40:26.436Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FieldValidator.cs",
+              "DocumentMoniker": "C:\\independiente\\Services\\FieldValidator.cs",
+              "RelativeDocumentMoniker": "Services\\FieldValidator.cs",
+              "ToolTip": "C:\\independiente\\Services\\FieldValidator.cs",
+              "RelativeToolTip": "Services\\FieldValidator.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACMAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-05T15:14:12.263Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
@@ -147,379 +104,61 @@
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "References.xaml.cs",
-              "DocumentMoniker": "C:\\Independiente\\View\\Pages\\References.xaml.cs",
-              "RelativeDocumentMoniker": "View\\Pages\\References.xaml.cs",
-              "ToolTip": "C:\\Independiente\\View\\Pages\\References.xaml.cs",
-              "RelativeToolTip": "View\\Pages\\References.xaml.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAmwCcAAAANAAAAAAAAAA==",
+              "Title": "Messages.Designer.cs",
+              "DocumentMoniker": "C:\\independiente\\Properties\\Messages.Designer.cs",
+              "RelativeDocumentMoniker": "Properties\\Messages.Designer.cs",
+              "ToolTip": "C:\\independiente\\Properties\\Messages.Designer.cs",
+              "RelativeToolTip": "Properties\\Messages.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T00:25:39.205Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ReferencesViewModel.cs",
-              "DocumentMoniker": "C:\\Independiente\\ViewModel\\ReferencesViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModel\\ReferencesViewModel.cs",
-              "ToolTip": "C:\\Independiente\\ViewModel\\ReferencesViewModel.cs",
-              "RelativeToolTip": "ViewModel\\ReferencesViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwBMAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T00:10:04.012Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "References.xaml",
-              "DocumentMoniker": "C:\\Independiente\\View\\Pages\\References.xaml",
-              "RelativeDocumentMoniker": "View\\Pages\\References.xaml",
-              "ToolTip": "C:\\Independiente\\View\\Pages\\References.xaml",
-              "RelativeToolTip": "View\\Pages\\References.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-04-05T00:07:01.992Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "EmptyStringToVisibilityConverter.cs",
-              "DocumentMoniker": "C:\\Independiente\\Converters\\EmptyStringToVisibilityConverter.cs",
-              "RelativeDocumentMoniker": "Converters\\EmptyStringToVisibilityConverter.cs",
-              "ToolTip": "C:\\Independiente\\Converters\\EmptyStringToVisibilityConverter.cs",
-              "RelativeToolTip": "Converters\\EmptyStringToVisibilityConverter.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T23:51:21.763Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "BoolToVisibilityConverter .cs",
-              "DocumentMoniker": "C:\\Independiente\\Converters\\BoolToVisibilityConverter .cs",
-              "RelativeDocumentMoniker": "Converters\\BoolToVisibilityConverter .cs",
-              "ToolTip": "C:\\Independiente\\Converters\\BoolToVisibilityConverter .cs",
-              "RelativeToolTip": "Converters\\BoolToVisibilityConverter .cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T23:50:55.963Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DateTimeToStringConverter .cs",
-              "DocumentMoniker": "C:\\Independiente\\Converters\\DateTimeToStringConverter .cs",
-              "RelativeDocumentMoniker": "Converters\\DateTimeToStringConverter .cs",
-              "ToolTip": "C:\\Independiente\\Converters\\DateTimeToStringConverter .cs",
-              "RelativeToolTip": "Converters\\DateTimeToStringConverter .cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABEAAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T23:46:43.333Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "PersonalData.xaml.cs",
-              "DocumentMoniker": "C:\\Independiente\\View\\Pages\\PersonalData.xaml.cs",
-              "RelativeDocumentMoniker": "View\\Pages\\PersonalData.xaml.cs",
-              "ToolTip": "C:\\Independiente\\View\\Pages\\PersonalData.xaml.cs",
-              "RelativeToolTip": "View\\Pages\\PersonalData.xaml.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAjwCEAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T17:37:15.633Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "FinancialDataViewModel.cs",
-              "DocumentMoniker": "C:\\Independiente\\ViewModel\\FinancialDataViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModel\\FinancialDataViewModel.cs",
-              "ToolTip": "C:\\Independiente\\ViewModel\\FinancialDataViewModel.cs",
-              "RelativeToolTip": "ViewModel\\FinancialDataViewModel.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAiwCYAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T20:43:22.174Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "Bank.cs",
-              "DocumentMoniker": "C:\\Independiente\\Model\\Bank.cs",
-              "RelativeDocumentMoniker": "Model\\Bank.cs",
-              "ToolTip": "C:\\Independiente\\Model\\Bank.cs",
-              "RelativeToolTip": "Model\\Bank.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T22:16:31.052Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "PersonalData.xaml",
-              "DocumentMoniker": "C:\\Independiente\\View\\Pages\\PersonalData.xaml",
-              "RelativeDocumentMoniker": "View\\Pages\\PersonalData.xaml",
-              "ToolTip": "C:\\Independiente\\View\\Pages\\PersonalData.xaml",
-              "RelativeToolTip": "View\\Pages\\PersonalData.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-04-04T17:37:13.472Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "PersonalDataViewModel.cs",
-              "DocumentMoniker": "C:\\Independiente\\ViewModel\\PersonalDataViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModel\\PersonalDataViewModel.cs",
-              "ToolTip": "C:\\Independiente\\ViewModel\\PersonalDataViewModel.cs",
-              "RelativeToolTip": "ViewModel\\PersonalDataViewModel.cs",
-              "ViewState": "AgIAACUAAAAAAAAAAAAkwDgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T17:27:33.831Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-05T22:17:11.299Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "FinancialData.xaml.cs",
-              "DocumentMoniker": "C:\\Independiente\\View\\Pages\\FinancialData.xaml.cs",
-              "RelativeDocumentMoniker": "View\\Pages\\FinancialData.xaml.cs",
-              "ToolTip": "C:\\Independiente\\View\\Pages\\FinancialData.xaml.cs",
-              "RelativeToolTip": "View\\Pages\\FinancialData.xaml.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAiwBkAAAAJAAAAAAAAAA==",
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\independiente\\Model\\User.cs",
+              "RelativeDocumentMoniker": "Model\\User.cs",
+              "ToolTip": "C:\\independiente\\Model\\User.cs",
+              "RelativeToolTip": "Model\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAgAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T21:32:33.384Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-05T18:45:37.908Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "FinancialData.xaml",
-              "DocumentMoniker": "C:\\Independiente\\View\\Pages\\FinancialData.xaml",
-              "RelativeDocumentMoniker": "View\\Pages\\FinancialData.xaml",
-              "ToolTip": "C:\\Independiente\\View\\Pages\\FinancialData.xaml",
-              "RelativeToolTip": "View\\Pages\\FinancialData.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-04-04T20:39:56.003Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Independiente\\View\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "View\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Independiente\\View\\MainWindow.xaml.cs",
-              "RelativeToolTip": "View\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAtwCMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T17:26:46.273Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "Login.xaml.cs",
-              "DocumentMoniker": "C:\\Independiente\\View\\Login.xaml.cs",
-              "RelativeDocumentMoniker": "View\\Login.xaml.cs",
-              "ToolTip": "C:\\Independiente\\View\\Login.xaml.cs",
-              "RelativeToolTip": "View\\Login.xaml.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAQwBwAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T17:13:51.137Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 1,
               "Title": "LoginViewModel.cs",
-              "DocumentMoniker": "C:\\Independiente\\ViewModel\\LoginViewModel.cs",
+              "DocumentMoniker": "C:\\independiente\\ViewModel\\LoginViewModel.cs",
               "RelativeDocumentMoniker": "ViewModel\\LoginViewModel.cs",
-              "ToolTip": "C:\\Independiente\\ViewModel\\LoginViewModel.cs",
+              "ToolTip": "C:\\independiente\\ViewModel\\LoginViewModel.cs",
               "RelativeToolTip": "ViewModel\\LoginViewModel.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAowDYAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAABgAAAAAAAAAAAA1wDoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T17:14:57.609Z"
+              "WhenOpened": "2025-04-05T01:53:37.531Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "PersonalData.cs",
-              "DocumentMoniker": "C:\\Independiente\\Model\\PersonalData.cs",
-              "RelativeDocumentMoniker": "Model\\PersonalData.cs",
-              "ToolTip": "C:\\Independiente\\Model\\PersonalData.cs",
-              "RelativeToolTip": "Model\\PersonalData.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAwA8AAAAsAAAAAAAAAA==",
+              "DocumentIndex": 6,
+              "Title": "Login.xaml.cs",
+              "DocumentMoniker": "C:\\independiente\\View\\Login.xaml.cs",
+              "RelativeDocumentMoniker": "View\\Login.xaml.cs",
+              "ToolTip": "C:\\independiente\\View\\Login.xaml.cs",
+              "RelativeToolTip": "View\\Login.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T19:07:41.404Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-05T01:53:36.251Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "MainWindowViewModel.cs",
-              "DocumentMoniker": "C:\\Independiente\\ViewModel\\MainWindowViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModel\\MainWindowViewModel.cs",
-              "ToolTip": "C:\\Independiente\\ViewModel\\MainWindowViewModel.cs",
-              "RelativeToolTip": "ViewModel\\MainWindowViewModel.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAA3wBUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T17:26:32.394Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 7,
               "Title": "Login.xaml",
-              "DocumentMoniker": "C:\\Independiente\\View\\Login.xaml",
+              "DocumentMoniker": "C:\\independiente\\View\\Login.xaml",
               "RelativeDocumentMoniker": "View\\Login.xaml",
-              "ToolTip": "C:\\Independiente\\View\\Login.xaml",
+              "ToolTip": "C:\\independiente\\View\\Login.xaml",
               "RelativeToolTip": "View\\Login.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-04-04T20:11:51.069Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "FinancialData.cs",
-              "DocumentMoniker": "C:\\Independiente\\Model\\FinancialData.cs",
-              "RelativeDocumentMoniker": "Model\\FinancialData.cs",
-              "ToolTip": "C:\\Independiente\\Model\\FinancialData.cs",
-              "RelativeToolTip": "Model\\FinancialData.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T20:42:51.821Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "DialogService.cs",
-              "DocumentMoniker": "C:\\Independiente\\Services\\DialogService.cs",
-              "RelativeDocumentMoniker": "Services\\DialogService.cs",
-              "ToolTip": "C:\\Independiente\\Services\\DialogService.cs",
-              "RelativeToolTip": "Services\\DialogService.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAIBJwBQAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T21:15:48.797Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "Styles.xaml",
-              "DocumentMoniker": "C:\\Independiente\\View\\ViewResources\\Styles.xaml",
-              "RelativeDocumentMoniker": "View\\ViewResources\\Styles.xaml",
-              "ToolTip": "C:\\Independiente\\View\\ViewResources\\Styles.xaml",
-              "RelativeToolTip": "View\\ViewResources\\Styles.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-04-04T19:06:35.974Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Independiente\\View\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "View\\MainWindow.xaml",
-              "ToolTip": "C:\\Independiente\\View\\MainWindow.xaml",
-              "RelativeToolTip": "View\\MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-04-04T17:27:50.976Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "Client.cs",
-              "DocumentMoniker": "C:\\Independiente\\Model\\Client.cs",
-              "RelativeDocumentMoniker": "Model\\Client.cs",
-              "ToolTip": "C:\\Independiente\\Model\\Client.cs",
-              "RelativeToolTip": "Model\\Client.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T17:46:31.282Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Independiente\\Model\\User.cs",
-              "RelativeDocumentMoniker": "Model\\User.cs",
-              "ToolTip": "C:\\Independiente\\Model\\User.cs",
-              "RelativeToolTip": "Model\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T17:48:47.704Z"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "7c4a73ee-200e-4ec1-9450-997842410887",
-        "Display": 0,
-        "X": 494,
-        "Y": 350,
-        "Width": 1089,
-        "Height": 476,
-        "WindowState": 0
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Reference.cs",
-              "DocumentMoniker": "C:\\Independiente\\Model\\Reference.cs",
-              "RelativeDocumentMoniker": "Model\\Reference.cs",
-              "ToolTip": "C:\\Independiente\\Model\\Reference.cs",
-              "RelativeToolTip": "Model\\Reference.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T00:10:26.427Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "fff5ac5f-a394-4b48-83a6-17e54ed6568c",
-        "Display": 0,
-        "X": 565,
-        "Y": 371,
-        "Width": 1089,
-        "Height": 476,
-        "WindowState": 0
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "WorkCenter.cs",
-              "DocumentMoniker": "C:\\Independiente\\Model\\WorkCenter.cs",
-              "RelativeDocumentMoniker": "Model\\WorkCenter.cs",
-              "ToolTip": "C:\\Independiente\\Model\\WorkCenter.cs",
-              "RelativeToolTip": "Model\\WorkCenter.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T00:18:14.57Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-05T01:53:35.236Z"
             }
           ]
         }

@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("view/resources/icons.xml")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dataaccess/model1.context.tt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("dataaccess/model1.tt")]
 
 
