@@ -79,6 +79,15 @@ namespace Independiente.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a La CLABE debe tener 18 digitos..
+        /// </summary>
+        public static string InvalidCLABEMessage {
+            get {
+                return ResourceManager.GetString("InvalidCLABEMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El CURP es inválido. Debe seguir el siguiente formato: 4 letras + 6 dígitos + H/M + 2 letras + 5 alfanuméricos..
         /// </summary>
         public static string InvalidCURPMessage {
@@ -165,6 +174,60 @@ namespace Independiente.Properties {
         public static string LogOutMessage {
             get {
                 return ResourceManager.GetString("LogOutMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Seleccione un banco de la lista..
+        /// </summary>
+        public static string NoBankSelectedMessage {
+            get {
+                return ResourceManager.GetString("NoBankSelectedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Debe seleccionar un estado de la lista.
+        /// </summary>
+        public static string NoStateSelectionMessage {
+            get {
+                return ResourceManager.GetString("NoStateSelectionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Por políticas de la empresa, no se pueden otorgar créditos a mayores de 60 años.
+        /// </summary>
+        public static string OverSixtyYearsMessage {
+            get {
+                return ResourceManager.GetString("OverSixtyYearsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El numero de telefono y el numero de telefono alternativo deben ser diferentes. .
+        /// </summary>
+        public static string PhoneNumberIsRepeated {
+            get {
+                return ResourceManager.GetString("PhoneNumberIsRepeated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El RFC ingresado ya está registrado en el sistema.
+        /// </summary>
+        public static string RFCRegisteredMessage {
+            get {
+                return ResourceManager.GetString("RFCRegisteredMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El cliente debe tener al menos 18 años para solicitar un crédito..
+        /// </summary>
+        public static string UnderEighteenYearsMessage {
+            get {
+                return ResourceManager.GetString("UnderEighteenYearsMessage", resourceCulture);
             }
         }
     }

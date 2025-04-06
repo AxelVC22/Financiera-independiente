@@ -17,47 +17,43 @@ namespace Independiente.Services
         public Model.User CurrentUser { get; set; }
 
 
-        public(bool success, string message) AuthEmployee(string email, string password)
+        public (bool success, string message) AuthEmployee(string email, string password)
         {
-            bool auth;
-            string infoMessage;
+            bool auth = false;
+            string infoMessage = string.Empty;
 
-            if (!FieldValidator.IsValidEmail(email, out string emailError))
+            try
             {
-                auth = false;
-                infoMessage = emailError;
-                return (auth, infoMessage);
-            }
-
-            if (!FieldValidator.IsValidPassword(password, out string passwordError))
-            {
-                auth = false;
-                infoMessage = passwordError;
-                return (auth, infoMessage);
-            }
-
-            //String hashedPassword = EncryptPassword(Password);
-
-            using (var context = new IndependienteEntities())
-            {
-                var searchedEmployee = context.EmployeeView.FirstOrDefault(employee => employee.Email == email && employee.Password == password);
-                if (searchedEmployee != null)
+                if (FieldValidator.IsValidEmail(email) && FieldValidator.IsValidPassword(password))
                 {
-                    CurrentUser = new Model.User
+                    //String hashedPassword = EncryptPassword(Password);
+
+                    using (var context = new IndependienteEntities())
                     {
-                        Id = searchedEmployee.UserId,
-                        Name = searchedEmployee.Name,
-                        Role = searchedEmployee.Role,
-                    };
-                    auth = true;
-                    infoMessage = null;
-                } 
-                else
-                {
-                    auth = false;
-                    infoMessage = Messages.CredentialsNotFoundMessage;
+                        var searchedEmployee = context.EmployeeView.FirstOrDefault(employee => employee.Email == email && employee.Password == password);
+                        if (searchedEmployee != null)
+                        {
+                            CurrentUser = new Model.User
+                            {
+                                Id = searchedEmployee.UserId,
+                                Name = searchedEmployee.Name,
+                                Role = searchedEmployee.Role,
+                            };
+                            auth = true;
+                        }
+                        else
+                        {
+                            auth = false;
+                            infoMessage = Messages.CredentialsNotFoundMessage;
+                        }
+                    }
                 }
-            }
+            } 
+            catch (ArgumentException exception)
+            {
+                infoMessage = exception.Message;
+            }          
+
             return(auth, infoMessage);
         }
 

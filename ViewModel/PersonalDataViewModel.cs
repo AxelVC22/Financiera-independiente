@@ -1,5 +1,6 @@
 ﻿using Independiente.Commands;
 using Independiente.Model;
+using Independiente.Properties;
 using Independiente.Services;
 using Microsoft.Win32;
 using System;
@@ -32,13 +33,15 @@ namespace Independiente.ViewModel
         private IDialogService _dialogService { get; set; }
 
         private INavigationService _navigationService { get; set; }
+        
+        private IClientManagementService _clientManagementService { get; set; } 
 
         public PersonalDataViewModel()
         {
-           
+
         }
 
-        public PersonalDataViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode, RegistrationType type)
+        public PersonalDataViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode, RegistrationType type, IClientManagementService clientManagementService)
         {
             NextCommand = new RelayCommand(Next, CanNext);
             EditCommand = new RelayCommand(Edit, CanNext);
@@ -53,6 +56,7 @@ namespace Independiente.ViewModel
             SwitchMode(mode);
             _registrationType = type;
             _pageMode = mode;
+            _clientManagementService = clientManagementService;
         }
 
         private void GoBack(object obj)
@@ -76,22 +80,42 @@ namespace Independiente.ViewModel
 
         private void Next(object obj)
         {
+            string message = string.Empty;
+            bool validation = false;
+
             switch (_registrationType)
             {
                 case RegistrationType.Client:
+                    try
+                    {
+                        if (_clientManagementService.ValidateAddressData(AddressData) &&
+                            _clientManagementService.ValidatePersonalData(PersonalData))
+                        {
+                            if (!_clientManagementService.IsRFCRegistered(PersonalData.RFC, out message) &&
+                                !_clientManagementService.IsPhoneNumberRepeated(PersonalData.PhoneNumber, PersonalData.AlternativePhoneNumber, out message) &&
+                                _clientManagementService.IsValidAge(PersonalData.BirthDate.Value, out message))
+                            {
+                                validation = true;
+                            }
+                        }
+                    }
+                    catch (ArgumentException exception)
+                    {
+                        message = exception.Message;
+                    }
                     break;
                 case RegistrationType.Employee:
                     break;
             }
 
-            if (PersonalData.Name != null && PersonalData.Name.Length > 0)
+
+            if (validation)
             {
                 _navigationService.NavigateTo<FinancialDataViewModel>(new PersonalDataParams(_pageMode));
             }
             else
             {
-                IDialogService dialogService = new DialogService();
-                dialogService.Dismiss("gg");
+                _dialogService.Dismiss(message);
             }
         }
 

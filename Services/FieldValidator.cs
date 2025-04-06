@@ -19,121 +19,107 @@ namespace Independiente.Services
         private const string StreetRegex = @"^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ0-9\s#\-\.\,]+$";
         private const string NeighborhoodRegex = @"^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ0-9\s\-\.\,]+$";
         private const string CityRegex = @"^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s\-]+$";
+        private const string CLABERegex = @"^\d{18}$";
 
-        public static bool IsValidEmail(string email, out string errorMessage)
+        public static bool IsValidPassword(string password)
         {
-            errorMessage = null;
+            if (string.IsNullOrEmpty(password) || !Regex.IsMatch(password, PasswordRegex))
+            {
+                throw new ArgumentException(Messages.InvalidPasswordMessage);
+            }
+            return true;
+        }
+
+        public static bool IsValidEmail(string email)
+        {
 
             if (string.IsNullOrEmpty(email) || !Regex.IsMatch(email, EmailRegex))
             {
-                errorMessage = Messages.InvalidEmailMessage;
-                return false;
+                throw new ArgumentException(Messages.InvalidEmailMessage);
             }
             return true;
         }
 
-        public static bool IsValidPassword(string password, out string errorMessage)
+        public static bool IsValidName(string name)
         {
-            errorMessage = null;
-
-            if (string.IsNullOrEmpty(password) || !Regex.IsMatch(password, PasswordRegex))
-            {
-                errorMessage = Messages.InvalidPasswordMessage;
-                return false;
-            }
-            return true;
-        }
-
-        public static bool IsValidName(string name, out string errorMessage)
-        {
-            errorMessage = null;
-
             if (string.IsNullOrEmpty(name) || !Regex.IsMatch(name, NameRegex))
             {
-                errorMessage = Messages.InvalidNameMessage;
-                return false;
+                throw new ArgumentException(Messages.InvalidNameMessage);
             }
             return true;
         }
 
-        public static bool IsValidSurname(string surname, out string errorMessage)
+        public static bool IsValidSurname(string surname)
         {
-            errorMessage = null;
-
             if (string.IsNullOrEmpty(surname) || !Regex.IsMatch(surname, NameRegex))
             {
-                errorMessage = Messages.InvalidSurnameMessage;
-                return false;
+                throw new ArgumentException(Messages.InvalidSurnameMessage);
             }
             return true;
         }
 
-        public static bool IsValidRFC(string rfc, out string errorMessage)
+        public static bool IsValidRFC(string rfc)
         {
-            errorMessage = null;
-
             if (string.IsNullOrEmpty(rfc) || !Regex.IsMatch(rfc, RFCRegex))
             {
-                errorMessage = Messages.InvalidRFCMessage;
-                return false;
+                throw new ArgumentException(Messages.InvalidRFCMessage);
             }
             return true;
         }
 
-        public static bool IsValidCURP(string curp, out string errorMessage)
+        public static bool IsValidCURP(string curp)
         {
-            errorMessage = null;
-
             if (string.IsNullOrEmpty(curp) || !Regex.IsMatch(curp, CURPRegex))
             {
-                errorMessage = Messages.InvalidCURPMessage;
-                return false;
+                throw new ArgumentException(Messages.InvalidCURPMessage);
             }
             return true;
         }
 
-        public static bool IsValidPhoneNumber(string phoneNumber, out string errorMessage)
+        public static bool IsValidPhoneNumber(string phoneNumber)
         {
-            errorMessage = null;
             if (string.IsNullOrEmpty(phoneNumber) || !Regex.IsMatch(phoneNumber, PhoneNumberRegex))
             {
-                errorMessage = Messages.InvalidPhoneNumberMessage;
-                return false;
+                throw new ArgumentException(Messages.InvalidPhoneNumberMessage);
             }
             return true;
         }
 
-        public static bool IsValidStreet(string street, out string errorMessage)
+        public static bool IsValidStreet(string street)
         {
-            errorMessage = null;
             if (string.IsNullOrEmpty(street) || !Regex.IsMatch(street, StreetRegex))
             {
-                errorMessage = Messages.InvalidStreetMessage;
-                return false;
+                throw new ArgumentException(Messages.InvalidStreetMessage);
             }
             return true;
         }
 
-        public static bool IsValidNeighborhood(string neighborhood, out string errorMessage)
+        public static bool IsValidNeighborhood(string neighborhood)
         { 
-            errorMessage = null;
-            if (!string.IsNullOrEmpty(neighborhood) || !Regex.IsMatch(neighborhood, NeighborhoodRegex))
+            if (string.IsNullOrEmpty(neighborhood) || !Regex.IsMatch(neighborhood, NeighborhoodRegex))
             {
-                errorMessage = Messages.InvalidNeighborhoodMessage;
-                return false;
+                throw new ArgumentException(Messages.InvalidNeighborhoodMessage);
             }
             return true;
         }
 
-        public static bool IsValidCity(string city, out string errorMessage)
+        public static bool IsValidCity(string city)
         {
-            errorMessage = null;
-            if(!string.IsNullOrEmpty(city) || !Regex.IsMatch(city, CityRegex))
+            if(string.IsNullOrEmpty(city) || !Regex.IsMatch(city, CityRegex))
             {
-                errorMessage = Messages.InvalidCityMessage;
-                return false;
+                throw new ArgumentException(Messages.InvalidCityMessage);
             }
             return true;
         }
+
+        public static bool IsValidCLABE(string clabe)
+        {
+            if (string.IsNullOrEmpty(clabe) || !Regex.IsMatch(clabe, CLABERegex))
+            {
+                throw new ArgumentException(Messages.InvalidCLABEMessage);
+            }
+            return true;
+        }
+
     }
 }

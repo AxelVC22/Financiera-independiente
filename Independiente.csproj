@@ -151,7 +151,6 @@
     <Compile Include="Model\Bank.cs" />
     <Compile Include="Model\Client.cs" />
     <Compile Include="Model\CreditApplication.cs" />
-    <Compile Include="Model\CreditDetails.cs" />
     <Compile Include="Model\PersonalData.cs" />
     <Compile Include="Model\PromotionalOffer.cs" />
     <Compile Include="Model\Reference.cs" />
@@ -162,11 +161,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\PaymentFrecuencies.Designer.cs" />
+    <Compile Include="Properties\Relationships.Designer.cs" />
     <Compile Include="Properties\States.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>States.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\CatalogService.cs" />
+    <Compile Include="Services\ClientManagerService.cs" />
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\FieldValidator.cs" />
     <Compile Include="Services\FileManagerService.cs" />
@@ -257,6 +260,8 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\PaymentFrecuencies.resx" />
+    <EmbeddedResource Include="Properties\Relationships.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

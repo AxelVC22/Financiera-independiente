@@ -24,11 +24,14 @@ namespace Independiente
     public partial class MainWindow : Window
     {
         public INavigationService NavigationService { get; private set; }
+        public IClientManagementService ClientManagementService { get; private set; }
         public MainWindow()
         {
             InitializeComponent();
 
             IDialogService dialogService = new DialogService();
+            IClientManagementService ClientManagementService = new ClientManagerService();
+            ICatalogService CatalogManagerService = new CatalogManagerService();
 
             NavigationService = new FrameNavigationService(
                 PageFrame,
@@ -39,7 +42,7 @@ namespace Independiente
                         var param = parameter as PersonalDataParams ?? new PersonalDataParams(PageMode.Registration, RegistrationType.Client);
 
                         var viewModel = new PersonalDataViewModel(
-                            dialogService, NavigationService, param.Mode, param.RegistrationType
+                            dialogService, NavigationService, param.Mode, param.RegistrationType, ClientManagementService
                         );
 
                         return new View.Pages.PersonalData(viewModel);
@@ -49,7 +52,7 @@ namespace Independiente
                         var param = parameter as PersonalDataParams ?? new PersonalDataParams(PageMode.Registration, RegistrationType.Client);
 
                         var viewModel = new FinancialDataViewModel(
-                            dialogService, NavigationService, param.Mode
+                            dialogService, NavigationService, param.Mode, ClientManagementService, CatalogManagerService
                         );
 
                         return new FinancialData(viewModel);

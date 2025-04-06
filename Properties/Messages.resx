@@ -123,6 +123,9 @@
   <data name="InvalidCityMessage" xml:space="preserve">
     <value>La ciudad es inválida. Solo se permiten letras, espacios y guiones.</value>
   </data>
+  <data name="InvalidCLABEMessage" xml:space="preserve">
+    <value>La CLABE debe tener 18 digitos.</value>
+  </data>
   <data name="InvalidCURPMessage" xml:space="preserve">
     <value>El CURP es inválido. Debe seguir el siguiente formato: 4 letras + 6 dígitos + H/M + 2 letras + 5 alfanuméricos.</value>
   </data>
@@ -152,5 +155,23 @@
   </data>
   <data name="LogOutMessage" xml:space="preserve">
     <value>¿Está seguro de que desea cerrar sesión?</value>
+  </data>
+  <data name="NoBankSelectedMessage" xml:space="preserve">
+    <value>Seleccione un banco de la lista.</value>
+  </data>
+  <data name="NoStateSelectionMessage" xml:space="preserve">
+    <value>Debe seleccionar un estado de la lista</value>
+  </data>
+  <data name="OverSixtyYearsMessage" xml:space="preserve">
+    <value>Por políticas de la empresa, no se pueden otorgar créditos a mayores de 60 años</value>
+  </data>
+  <data name="PhoneNumberIsRepeated" xml:space="preserve">
+    <value>El numero de telefono y el numero de telefono alternativo deben ser diferentes. </value>
+  </data>
+  <data name="RFCRegisteredMessage" xml:space="preserve">
+    <value>El RFC ingresado ya está registrado en el sistema</value>
+  </data>
+  <data name="UnderEighteenYearsMessage" xml:space="preserve">
+    <value>El cliente debe tener al menos 18 años para solicitar un crédito.</value>
   </data>
 </root>
