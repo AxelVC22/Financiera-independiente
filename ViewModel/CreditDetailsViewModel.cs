@@ -207,7 +207,7 @@ namespace Independiente.ViewModel
 
         private void Next(object obj)
         {
-            _navigationService.NavigateTo<ReferencesViewModel>(new PersonalDataParams(_pageMode));
+            _navigationService.NavigateTo<ReferencesViewModel>(new PersonDataParams(_pageMode));
         }
 
         private void GoBack(object obj)

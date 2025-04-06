@@ -1,4 +1,5 @@
-﻿using Independiente.ViewModel;
+﻿using Independiente.Model;
+using Independiente.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,21 +51,30 @@ namespace Independiente.Services
         }
     }
 
-    public class PersonalDataParams
+    public class PersonDataParams
     {
+        public IPerson Person { get; set; }
         public PageMode Mode { get; set; }
         public RegistrationType RegistrationType { get; set; }
 
-        public PersonalDataParams(PageMode mode, RegistrationType registrationType)
+        public PersonDataParams(PageMode mode, RegistrationType registrationType, IPerson person)
         {
             Mode = mode;
             RegistrationType = registrationType;
+            Person = person;
         }
 
-        public PersonalDataParams(PageMode mode)
+        public PersonDataParams(PageMode mode)
         {
             Mode = mode;
         }
+
+        public PersonDataParams(PageMode mode, IPerson person)
+        {
+            Mode = mode;
+            Person = person;
+        }
+
     }
 
 

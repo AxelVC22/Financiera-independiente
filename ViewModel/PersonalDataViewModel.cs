@@ -17,7 +17,7 @@ namespace Independiente.ViewModel
 {
     public class PersonalDataViewModel : ModificableViewModel
     {
-        public PersonalData PersonalData { get; set; }
+        public IPerson Person { get; set; }
 
         public AddressData AddressData { get; set; }
         private RegistrationType _registrationType { get; set; }
@@ -38,14 +38,13 @@ namespace Independiente.ViewModel
            
         }
 
-        public PersonalDataViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode, RegistrationType type)
+        public PersonalDataViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode, RegistrationType type, IPerson person)
         {
             NextCommand = new RelayCommand(Next, CanNext);
             EditCommand = new RelayCommand(Edit, CanNext);
             CancelCommand = new RelayCommand(Cancel, CanNext);
             SaveCommand = new RelayCommand(Save, CanNext);
             GoBackCommand = new RelayCommand(GoBack, CanNext);
-            PersonalData = new PersonalData();
             AddressData = new AddressData();
             LoadStates();
             _dialogService = dialogService;
@@ -53,6 +52,7 @@ namespace Independiente.ViewModel
             SwitchMode(mode);
             _registrationType = type;
             _pageMode = mode;
+            Person = person;
         }
 
         private void GoBack(object obj)
@@ -84,9 +84,9 @@ namespace Independiente.ViewModel
                     break;
             }
 
-            if (PersonalData.Name != null && PersonalData.Name.Length > 0)
+            if (Person.PersonalData.Name != null && Person.PersonalData.Name.Length > 0)
             {
-                _navigationService.NavigateTo<FinancialDataViewModel>(new PersonalDataParams(_pageMode));
+                _navigationService.NavigateTo<FinancialDataViewModel>(new PersonDataParams(_pageMode));
             }
             else
             {
@@ -102,7 +102,7 @@ namespace Independiente.ViewModel
 
         private void Save(object obj)
         {
-            Console.WriteLine(PersonalData.ToString());
+            Console.WriteLine(Person.PersonalData.ToString());
             Console.WriteLine(AddressData.ToString());
 
             SwitchMode(PageMode.View);
