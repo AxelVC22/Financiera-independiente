@@ -77,7 +77,7 @@ namespace Independiente.ViewModel
         private void Next(object obj)
         {
 
-            _navigationService.NavigateTo<CreditDetailsViewModel>(new PersonalDataParams(_pageMode));
+            _navigationService.NavigateTo<CreditDetailsViewModel>(new PersonDataParams(_pageMode));
 
 
         }

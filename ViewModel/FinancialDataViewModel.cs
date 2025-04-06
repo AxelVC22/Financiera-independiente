@@ -23,40 +23,16 @@ namespace Independiente.ViewModel
         private INavigationService _navigationService { get; set; }
         private IDialogService _dialogService { get; set; }
 
+
+        public Account ChargeAccount { get; set; }
+
+
+        public Account DepositAccount { get; set; }
         public FinancialDataViewModel()
         {
 
         }
-
-        private Account _chargeAccount;
-
-        public Account ChargeAccount
-        {
-            get => _chargeAccount;
-            set
-            {
-                if (_chargeAccount != value)
-                {
-                    _chargeAccount = value;
-                    OnPropertyChanged(nameof(Account));
-                }
-            }
-        }
-
-        private Account _depositAccount;
-
-        public Account DepositAccount
-        {
-            get => _depositAccount;
-            set
-            {
-                if (_depositAccount != value)
-                {
-                    _depositAccount = value;
-                    OnPropertyChanged(nameof(Account));  
-                }
-            }
-        }
+       
 
         private void GoBack(object obj)
         {
@@ -85,7 +61,7 @@ namespace Independiente.ViewModel
         }
         private void Next(object obj)
         {
-            _navigationService.NavigateTo<ReferencesViewModel>(new PersonalDataParams(_pageMode));
+            _navigationService.NavigateTo<ReferencesViewModel>(new PersonDataParams(_pageMode));
 
         }
 

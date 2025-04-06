@@ -1,4 +1,5 @@
-﻿using Independiente.Services;
+﻿using Independiente.Model;
+using Independiente.Services;
 using Independiente.View.Pages;
 using Independiente.ViewModel;
 using System;
@@ -35,17 +36,17 @@ namespace Independiente
                 {
                     if (viewModelType == typeof(PersonalDataViewModel))
                     {
-                        var param = parameter as PersonalDataParams ?? new PersonalDataParams(PageMode.Registration, RegistrationType.Client);
+                        var param = parameter as PersonDataParams ?? new PersonDataParams(PageMode.Registration, RegistrationType.Client, new Client());
 
                         var viewModel = new PersonalDataViewModel(
-                            dialogService, NavigationService, param.Mode, param.RegistrationType
+                            dialogService, NavigationService, param.Mode, param.RegistrationType, param.Person
                         );
 
-                        return new PersonalData(viewModel);
+                        return new View.Pages.PersonalData(viewModel);
                     }
                     else if (viewModelType == typeof(FinancialDataViewModel))
                     {
-                        var param = parameter as PersonalDataParams ?? new PersonalDataParams(PageMode.Registration, RegistrationType.Client);
+                        var param = parameter as PersonDataParams ?? new PersonDataParams(PageMode.Registration, RegistrationType.Client, new Client());
 
                         var viewModel = new FinancialDataViewModel(
                             dialogService, NavigationService, param.Mode
@@ -55,7 +56,7 @@ namespace Independiente
                     }
                     else if (viewModelType == typeof(ReferencesViewModel))
                     {
-                        var param = parameter as PersonalDataParams ?? new PersonalDataParams(PageMode.Registration, RegistrationType.Client);
+                        var param = parameter as PersonDataParams ?? new PersonDataParams(PageMode.Registration, RegistrationType.Client, new Client());
 
                         var viewModel = new ReferencesViewModel(
                             dialogService, NavigationService, param.Mode
@@ -65,7 +66,7 @@ namespace Independiente
                     }
                     else if (viewModelType == typeof(CreditDetailsViewModel))
                     {
-                        var param = parameter as PersonalDataParams ?? new PersonalDataParams(PageMode.Registration, RegistrationType.Client);
+                        var param = parameter as PersonDataParams ?? new PersonDataParams(PageMode.Registration, RegistrationType.Client, new Client());
 
                         var viewModel = new CreditDetailsViewModel(
                             dialogService, NavigationService, param.Mode
@@ -73,12 +74,21 @@ namespace Independiente
 
                         return new CreditDetails(viewModel);
                     }
+                    else if (viewModelType == typeof(EmployeeAndClientConsultationViewModel))
+                    {
+
+                        var viewModel = new EmployeeAndClientConsultationViewModel(
+                            dialogService, NavigationService
+                        );
+
+                        return new EmployeeAndClientConsultation(viewModel);
+                    }
 
 
                     throw new ArgumentException("ViewModel desconocido");
                 });
 
-            NavigationService.NavigateTo<PersonalDataViewModel>(new PersonalDataParams(PageMode.Update, RegistrationType.Client));
+            NavigationService.NavigateTo<EmployeeAndClientConsultationViewModel>();
 
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(dialogService);
             this.DataContext = mainWindowViewModel;
