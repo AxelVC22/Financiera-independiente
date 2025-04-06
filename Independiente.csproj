@@ -146,9 +146,12 @@
     <Compile Include="DataAccess\WorkCenter.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Account.cs" />
+    <Compile Include="Model\AddressData.cs" />
     <Compile Include="Model\Bank.cs" />
     <Compile Include="Model\Client.cs" />
-    <Compile Include="Model\FinancialData.cs" />
+    <Compile Include="Model\CreditApplication.cs" />
+    <Compile Include="Model\CreditDetails.cs" />
     <Compile Include="Model\PersonalData.cs" />
     <Compile Include="Model\Reference.cs" />
     <Compile Include="Model\User.cs" />
@@ -165,7 +168,11 @@
     </Compile>
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\FieldValidator.cs" />
+    <Compile Include="Services\FileManagerService.cs" />
+    <Compile Include="Services\NavegationService.cs" />
     <Compile Include="Services\SessionService.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\CreditDetailsViewModel.cs" />
     <Compile Include="ViewModel\FinancialDataViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
@@ -173,6 +180,9 @@
     <Compile Include="ViewModel\ReferencesViewModel.cs" />
     <Compile Include="View\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\CreditDetails.xaml.cs">
+      <DependentUpon>CreditDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Pages\FinancialData.xaml.cs">
       <DependentUpon>FinancialData.xaml</DependentUpon>
@@ -199,6 +209,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\Pages\CreditDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\Pages\FinancialData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

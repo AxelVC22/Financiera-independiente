@@ -25,6 +25,7 @@ namespace Independiente.DataAccess
         public string Street { get; set; }
         public string State { get; set; }
         public string Neighborhood { get; set; }
+        public string City { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Client> Client { get; set; }

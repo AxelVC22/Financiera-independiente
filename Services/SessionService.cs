@@ -26,12 +26,14 @@ namespace Independiente.Services
             {
                 auth = false;
                 infoMessage = emailError;
+                return (auth, infoMessage);
             }
 
             if (!FieldValidator.IsValidPassword(password, out string passwordError))
             {
                 auth = false;
                 infoMessage = passwordError;
+                return (auth, infoMessage);
             }
 
             //String hashedPassword = EncryptPassword(Password);
@@ -57,6 +59,11 @@ namespace Independiente.Services
                 }
             }
             return(auth, infoMessage);
+        }
+
+        public void LogOut()
+        {
+            CurrentUser = null;
         }
 
         private string EncryptPassword(string password)

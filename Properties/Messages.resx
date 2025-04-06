@@ -120,10 +120,37 @@
   <data name="CredentialsNotFoundMessage" xml:space="preserve">
     <value>Las credenciales ingresadas no son válidas. Verifique su nombre de usuario y contraseña e inténtelo de nuevo</value>
   </data>
+  <data name="InvalidCityMessage" xml:space="preserve">
+    <value>La ciudad es inválida. Solo se permiten letras, espacios y guiones.</value>
+  </data>
+  <data name="InvalidCURPMessage" xml:space="preserve">
+    <value>El CURP es inválido. Debe seguir el siguiente formato: 4 letras + 6 dígitos + H/M + 2 letras + 5 alfanuméricos.</value>
+  </data>
   <data name="InvalidEmailMessage" xml:space="preserve">
     <value>Por favor, ingresa un correo electrónico válido con el formato usuario@dominio.com. Asegúrate de que no contenga espacios, no supere los 50 caracteres y tenga un símbolo '@' y un dominio válido.</value>
   </data>
+  <data name="InvalidNameMessage" xml:space="preserve">
+    <value>El nombre solo debe contener letras (A-Z, áéíóú, ñ, ü) y espacios/apóstrofes. Además debe tener una longitud mínima de 2 caracteres y máximo 50.</value>
+  </data>
+  <data name="InvalidNeighborhoodMessage" xml:space="preserve">
+    <value>La colonia es inválida. Solo se permiten letras, números, espacios, -, . y ,</value>
+  </data>
   <data name="InvalidPasswordMessage" xml:space="preserve">
     <value>La contraseña ingresada no cumple con los criterios de seguridad. Asegúrese de contenga entre 8 y 32 caracteres, una letra mayúscula, un número y un carácter especial (!, @, $, %, *)”</value>
+  </data>
+  <data name="InvalidPhoneNumberMessage" xml:space="preserve">
+    <value>El teléfono es inválido. Debe tener el siguiente formato: 10 dígitos (opcionalmente con código de país +52 o lada entre paréntesis) y con guiones, espacios o paréntesis opcionales.</value>
+  </data>
+  <data name="InvalidRFCMessage" xml:space="preserve">
+    <value>El RFC es inválido. Debe seguir el siguiente formato: 4 letras + 6 dígitos + 3 alfanuméricos.</value>
+  </data>
+  <data name="InvalidStreetMessage" xml:space="preserve">
+    <value>La calle es inválida. Solo se permiten letras, números, espacios, #, -, ., y ,</value>
+  </data>
+  <data name="InvalidSurnameMessage" xml:space="preserve">
+    <value>Los apellidos solo deben contener letras (A-Z, áéíóú, ñ, ü) y espacios/apóstrofes. Además deben tener una longitud mínima de 2 caracteres y máximo 50.</value>
+  </data>
+  <data name="LogOutMessage" xml:space="preserve">
+    <value>¿Está seguro de que desea cerrar sesión?</value>
   </data>
 </root>

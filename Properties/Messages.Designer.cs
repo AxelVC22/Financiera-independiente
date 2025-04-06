@@ -70,6 +70,24 @@ namespace Independiente.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a La ciudad es inválida. Solo se permiten letras, espacios y guiones..
+        /// </summary>
+        public static string InvalidCityMessage {
+            get {
+                return ResourceManager.GetString("InvalidCityMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El CURP es inválido. Debe seguir el siguiente formato: 4 letras + 6 dígitos + H/M + 2 letras + 5 alfanuméricos..
+        /// </summary>
+        public static string InvalidCURPMessage {
+            get {
+                return ResourceManager.GetString("InvalidCURPMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Por favor, ingresa un correo electrónico válido con el formato usuario@dominio.com. Asegúrate de que no contenga espacios, no supere los 50 caracteres y tenga un símbolo &apos;@&apos; y un dominio válido..
         /// </summary>
         public static string InvalidEmailMessage {
@@ -79,11 +97,74 @@ namespace Independiente.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El nombre solo debe contener letras (A-Z, áéíóú, ñ, ü) y espacios/apóstrofes. Además debe tener una longitud mínima de 2 caracteres y máximo 50..
+        /// </summary>
+        public static string InvalidNameMessage {
+            get {
+                return ResourceManager.GetString("InvalidNameMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La colonia es inválida. Solo se permiten letras, números, espacios, -, . y ,.
+        /// </summary>
+        public static string InvalidNeighborhoodMessage {
+            get {
+                return ResourceManager.GetString("InvalidNeighborhoodMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a La contraseña ingresada no cumple con los criterios de seguridad. Asegúrese de contenga entre 8 y 32 caracteres, una letra mayúscula, un número y un carácter especial (!, @, $, %, *)”.
         /// </summary>
         public static string InvalidPasswordMessage {
             get {
                 return ResourceManager.GetString("InvalidPasswordMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El teléfono es inválido. Debe tener el siguiente formato: 10 dígitos (opcionalmente con código de país +52 o lada entre paréntesis) y con guiones, espacios o paréntesis opcionales..
+        /// </summary>
+        public static string InvalidPhoneNumberMessage {
+            get {
+                return ResourceManager.GetString("InvalidPhoneNumberMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El RFC es inválido. Debe seguir el siguiente formato: 4 letras + 6 dígitos + 3 alfanuméricos..
+        /// </summary>
+        public static string InvalidRFCMessage {
+            get {
+                return ResourceManager.GetString("InvalidRFCMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La calle es inválida. Solo se permiten letras, números, espacios, #, -, ., y ,.
+        /// </summary>
+        public static string InvalidStreetMessage {
+            get {
+                return ResourceManager.GetString("InvalidStreetMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Los apellidos solo deben contener letras (A-Z, áéíóú, ñ, ü) y espacios/apóstrofes. Además deben tener una longitud mínima de 2 caracteres y máximo 50..
+        /// </summary>
+        public static string InvalidSurnameMessage {
+            get {
+                return ResourceManager.GetString("InvalidSurnameMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ¿Está seguro de que desea cerrar sesión?.
+        /// </summary>
+        public static string LogOutMessage {
+            get {
+                return ResourceManager.GetString("LogOutMessage", resourceCulture);
             }
         }
     }

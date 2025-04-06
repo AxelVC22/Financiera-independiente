@@ -1,5 +1,6 @@
 ﻿using Independiente.Commands;
 using Independiente.Model;
+using Independiente.Properties;
 using Independiente.Services;
 using Independiente.View;
 using System;
@@ -64,8 +65,9 @@ namespace Independiente.ViewModel
 
         private void Logout(object obj)
         {
-            if (_dialogService.Confirm("¿Estás seguro de eliminar el cliente?"))
+            if (_dialogService.Confirm(Messages.LogOutMessage))
             {
+                App.SessionService.LogOut();
                 RequestClose?.Invoke(this, EventArgs.Empty);
             }
            

@@ -10,7 +10,8 @@
         mc:Ignorable="d"
         Title="Login"
         Height="400"
-        Width="300">
+        Width="300"
+        WindowStartupLocation="CenterScreen">
 
 
     <Window.DataContext>

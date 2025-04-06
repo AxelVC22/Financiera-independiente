@@ -1,4 +1,5 @@
-﻿using Independiente.Services;
+﻿using Independiente.Model;
+using Independiente.Services;
 using Independiente.View.Pages;
 using Independiente.ViewModel;
 using System;
@@ -41,7 +42,7 @@ namespace Independiente
                             dialogService, NavigationService, param.Mode, param.RegistrationType
                         );
 
-                        return new PersonalData(viewModel);
+                        return new View.Pages.PersonalData(viewModel);
                     }
                     else if (viewModelType == typeof(FinancialDataViewModel))
                     {
@@ -71,15 +72,16 @@ namespace Independiente
                             dialogService, NavigationService, param.Mode
                         );
 
-                        return new CreditDetails(viewModel);
+                        return new View.Pages.CreditDetails(viewModel);
                     }
 
                     throw new ArgumentException("ViewModel desconocido");
                 });
 
-            NavigationService.NavigateTo<PersonalDataViewModel>(new PersonalDataParams(PageMode.Update, RegistrationType.Client));
+            NavigationService.NavigateTo<PersonalDataViewModel>(new PersonalDataParams(PageMode.Registration, RegistrationType.Client));
 
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(dialogService);
+            mainWindowViewModel.RequestClose += (e, sender) => this.Close();
             this.DataContext = mainWindowViewModel;
         }
 

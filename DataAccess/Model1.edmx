@@ -21,6 +21,7 @@
           <Property Name="Street" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="State" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Neighborhood" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'Independiente.dbo.AmortizationSchedule' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -733,6 +734,7 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <Property Name="Neighborhood" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Client" Relationship="Self.Client_AddressData" FromRole="AddressData" ToRole="Client" />
           <NavigationProperty Name="Employee" Relationship="Self.Employee_AddressData" FromRole="AddressData" ToRole="Employee" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Bank">
           <Key>
@@ -1390,6 +1392,7 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <EntitySetMapping Name="AddressData">
             <EntityTypeMapping TypeName="IndependienteModel.AddressData">
               <MappingFragment StoreEntitySet="AddressData">
+                <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="AddressDataId" ColumnName="AddressDataId" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="State" ColumnName="State" />
