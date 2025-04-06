@@ -29,40 +29,16 @@ namespace Independiente.ViewModel
 
         private ICatalogService _catalogService { get; set; }
 
+
+        public Account ChargeAccount { get; set; }
+
+
+        public Account DepositAccount { get; set; }
         public FinancialDataViewModel()
         {
 
         }
-
-        private Account _chargeAccount;
-
-        public Account ChargeAccount
-        {
-            get => _chargeAccount;
-            set
-            {
-                if (_chargeAccount != value)
-                {
-                    _chargeAccount = value;
-                    OnPropertyChanged(nameof(Account));
-                }
-            }
-        }
-
-        private Account _depositAccount;
-
-        public Account DepositAccount
-        {
-            get => _depositAccount;
-            set
-            {
-                if (_depositAccount != value)
-                {
-                    _depositAccount = value;
-                    OnPropertyChanged(nameof(Account));  
-                }
-            }
-        }
+       
 
         private void GoBack(object obj)
         {

@@ -151,6 +151,9 @@
     <Compile Include="Model\Bank.cs" />
     <Compile Include="Model\Client.cs" />
     <Compile Include="Model\CreditApplication.cs" />
+    <Compile Include="Model\CreditPolicy.cs" />
+    <Compile Include="Model\Employee.cs" />
+    <Compile Include="Model\IPerson.cs" />
     <Compile Include="Model\PersonalData.cs" />
     <Compile Include="Model\PromotionalOffer.cs" />
     <Compile Include="Model\Reference.cs" />
@@ -177,6 +180,8 @@
     <Compile Include="Services\SessionService.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\CreditDetailsViewModel.cs" />
+    <Compile Include="ViewModel\CreditPoliciesManagementViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeAndClientConsultationViewModel.cs" />
     <Compile Include="ViewModel\FinancialDataViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
@@ -187,6 +192,12 @@
     </Compile>
     <Compile Include="View\Pages\CreditDetails.xaml.cs">
       <DependentUpon>CreditDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\CreditPoliciesManagement.xaml.cs">
+      <DependentUpon>CreditPoliciesManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\EmployeeAndClientConsultation.xaml.cs">
+      <DependentUpon>EmployeeAndClientConsultation.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Pages\FinancialData.xaml.cs">
       <DependentUpon>FinancialData.xaml</DependentUpon>
@@ -216,6 +227,14 @@
     <Page Include="View\Pages\CreditDetails.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Pages\CreditPoliciesManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Pages\EmployeeAndClientConsultation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Pages\FinancialData.xaml">
       <SubType>Designer</SubType>

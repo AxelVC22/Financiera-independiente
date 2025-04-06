@@ -18,7 +18,7 @@ namespace Independiente.ViewModel
 {
     public class PersonalDataViewModel : ModificableViewModel
     {
-        public PersonalData PersonalData { get; set; }
+        public IPerson Person { get; set; }
 
         public AddressData AddressData { get; set; }
         private RegistrationType _registrationType { get; set; }
@@ -48,7 +48,6 @@ namespace Independiente.ViewModel
             CancelCommand = new RelayCommand(Cancel, CanNext);
             SaveCommand = new RelayCommand(Save, CanNext);
             GoBackCommand = new RelayCommand(GoBack, CanNext);
-            PersonalData = new PersonalData();
             AddressData = new AddressData();
             LoadStates();
             _dialogService = dialogService;
@@ -57,6 +56,7 @@ namespace Independiente.ViewModel
             _registrationType = type;
             _pageMode = mode;
             _clientManagementService = clientManagementService;
+            Person = person;
         }
 
         private void GoBack(object obj)
@@ -111,7 +111,7 @@ namespace Independiente.ViewModel
 
             if (validation)
             {
-                _navigationService.NavigateTo<FinancialDataViewModel>(new PersonalDataParams(_pageMode));
+                _navigationService.NavigateTo<FinancialDataViewModel>(new PersonDataParams(_pageMode));
             }
             else
             {
@@ -126,7 +126,7 @@ namespace Independiente.ViewModel
 
         private void Save(object obj)
         {
-            Console.WriteLine(PersonalData.ToString());
+            Console.WriteLine(Person.PersonalData.ToString());
             Console.WriteLine(AddressData.ToString());
 
             SwitchMode(PageMode.View);
