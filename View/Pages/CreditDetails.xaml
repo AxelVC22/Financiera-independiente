@@ -129,7 +129,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox x:Name="LoanAmountTextBox"
+                        <TextBox Text="{Binding CreditApplication.LoanAmount, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -143,14 +143,14 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <ComboBox Style="{StaticResource ComboBoxWithPlaceholderStyle}"
+                        <ComboBox 
                                   Tag="{x:Static p:Resources.PromotionPlaceHolderGlobal}"
                                   MinWidth="150"
                                   Width="300"
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Center"
-                                
-                                  >
+                            ItemsSource="{Binding PromotionOffersList}"
+                                  SelectedItem="{Binding CreditApplication.PromotionalOffer, Mode=TwoWay}">
                         </ComboBox>
 
 
@@ -159,14 +159,15 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <ComboBox Style="{StaticResource ComboBoxWithPlaceholderStyle}"
+                        <ComboBox 
                                   Tag="{x:Static p:Resources.PaymentFrecuencyPlaceHolderGlobal}"
                                   MinWidth="150"
                                   Width="300"
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Center"
-                                  
-                                  >
+                                  ItemsSource="{Binding PaymentFrecuenciesList}"
+                                  SelectedItem="{Binding CreditApplication.PromotionalOffer.PaymenteFrecuency, Mode=TwoWay}">
+                            
                         </ComboBox>
 
                         <Label Content="{x:Static p:Resources.LoanTermLabelGlobal}"
@@ -174,7 +175,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox x:Name="LoanTermTextBox"
+                        <TextBox Text="{Binding CreditApplication.PromotionalOffer.LoanTerm, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -188,7 +189,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox x:Name="InteresRateTextBox"
+                        <TextBox Text="{Binding CreditApplication.PromotionalOffer.InteresRate, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -243,7 +244,7 @@
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
                         <Canvas Height="25">
-                            <TextBox x:Name="ProofOfAddressTextBox"
+                            <TextBox Text="{Binding ProofOfAddressFileName, Mode=OneWay}"
                                      Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                      TextWrapping="Wrap"
                                      MinWidth="150"
@@ -257,7 +258,8 @@
                                     Tag="{DynamicResource UploadIcon}"
                                     Foreground="{StaticResource IconBlackColor}"
                                     Canvas.Left="276"
-                                    Canvas.Top="4" />
+                                    Canvas.Top="4"
+                                    Command="{Binding SelectProofOfAddressCommand}" />
 
 
                         </Canvas>
@@ -268,7 +270,7 @@
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
                         <Canvas Height="25">
-                            <TextBox x:Name="AccountStatementCoverPageTextBox"
+                            <TextBox Text="{Binding AccountStatementCoverPageFileName, Mode=OneWay}"
                                      Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                      TextWrapping="Wrap"
                                      MinWidth="150"
@@ -282,7 +284,8 @@
                                     Tag="{DynamicResource UploadIcon}"
                                     Foreground="{StaticResource IconBlackColor}"
                                     Canvas.Left="276"
-                                    Canvas.Top="4" />
+                                    Canvas.Top="4"
+                                    Command="{Binding SelectAccountStatementCoverPageCommand}" />
 
 
 
@@ -294,7 +297,7 @@
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
                         <Canvas Height="25">
-                            <TextBox x:Name="CreditApplicationTextBox"
+                            <TextBox Text="{Binding CreditApplicationFileName, Mode=OneWay}"
                                      Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                      TextWrapping="Wrap"
                                      MinWidth="150"
@@ -308,7 +311,8 @@
                                     Tag="{DynamicResource UploadIcon}"
                                     Foreground="{StaticResource IconBlackColor}"
                                     Canvas.Left="276"
-                                    Canvas.Top="4" />
+                                    Canvas.Top="4"
+                                    Command="{Binding SelectCreditApplicationCommand}"/>
                         </Canvas>
 
                         <Button Grid.Column="1"
@@ -319,7 +323,8 @@
                                 HorizontalAlignment="Left"
                                 Margin="0,30,0,0"
                                 Width="135"
-                                Height="30" />
+                                Height="30"
+                                Command="{Binding GenerateCreditApplication}" />
                     </StackPanel>
                 </Grid>
 

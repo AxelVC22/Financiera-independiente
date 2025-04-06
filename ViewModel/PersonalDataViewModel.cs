@@ -23,11 +23,11 @@ namespace Independiente.ViewModel
         private RegistrationType _registrationType { get; set; }
         private PageMode _pageMode { get; set; }
 
-        private List<string> _statesList;
+        public List<string> _statesList;
 
         private string _selectedState;
 
-        public event EventHandler RequestClose;
+        public List<string> StatesList { get; set; }
 
         private IDialogService _dialogService { get; set; }
 
@@ -46,6 +46,7 @@ namespace Independiente.ViewModel
             SaveCommand = new RelayCommand(Save, CanNext);
             GoBackCommand = new RelayCommand(GoBack, CanNext);
             PersonalData = new PersonalData();
+            AddressData = new AddressData();
             LoadStates();
             _dialogService = dialogService;
             _navigationService = navigationService;
@@ -61,6 +62,7 @@ namespace Independiente.ViewModel
 
         private void LoadStates()
         {
+            StatesList = new List<string>();
             var resourceManager = new ResourceManager("Independiente.Properties.States", typeof(PersonalDataViewModel).Assembly);
 
             var resourceSet = resourceManager.GetResourceSet(System.Globalization.CultureInfo.CurrentCulture, true, true);
@@ -100,6 +102,8 @@ namespace Independiente.ViewModel
 
         private void Save(object obj)
         {
+            Console.WriteLine(PersonalData.ToString());
+            Console.WriteLine(AddressData.ToString());
 
             SwitchMode(PageMode.View);
         }
@@ -113,30 +117,6 @@ namespace Independiente.ViewModel
         private bool CanNext(object obj)
         {
             return true;
-        }
-
-        public List<string> StatesList
-        {
-            get => _statesList;
-            set
-            {
-                _statesList = value;
-                OnPropertyChanged(nameof(StatesList));
-            }
-        }
-
-
-        public string SelectedState
-        {
-            get => _selectedState;
-            set
-            {
-                if (_selectedState != value)
-                {
-                    _selectedState = value;
-                    OnPropertyChanged(nameof(SelectedState));
-                }
-            }
-        }
+        }      
     }
 }

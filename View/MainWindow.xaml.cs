@@ -75,6 +75,7 @@ namespace Independiente
                         return new View.Pages.CreditDetails(viewModel);
                     }
 
+
                     throw new ArgumentException("ViewModel desconocido");
                 });
 

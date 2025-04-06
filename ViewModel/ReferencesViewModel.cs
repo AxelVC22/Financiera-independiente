@@ -22,8 +22,9 @@ namespace Independiente.ViewModel
         public WorkCenter WorkCenter { get; set; }
 
 
-        private List<string> _statesList;
         private string _selectedState;
+
+        public List<string> RelationshipsList { get; set; }
 
         private IDialogService _dialogService {  get; set; }
         private INavigationService _navigationService { get; set; }
@@ -45,11 +46,29 @@ namespace Independiente.ViewModel
             FirstReference = new Reference();
 
             SecondReference = new Reference();
+
+            WorkCenter = new WorkCenter();
+            LoadRelationships();
             _navigationService = navigationService;
             _dialogService = dialogService;
             SwitchMode(mode);
             _pageMode = mode;
         }
+
+        private void LoadRelationships()
+        {
+            RelationshipsList = new List<string>();
+            var resourceManager = new ResourceManager("Independiente.Properties.Relationships", typeof(ReferencesViewModel).Assembly);
+
+            var resourceSet = resourceManager.GetResourceSet(System.Globalization.CultureInfo.CurrentCulture, true, true);
+
+            var states = resourceSet.Cast<DictionaryEntry>()
+                                    .Where(entry => entry.Value is string)
+                                    .Select(entry => entry.Value.ToString())
+                                    .ToList();
+            RelationshipsList = states;
+        }
+
         private void GoBack(object obj)
         {
             _navigationService.GoBack();
@@ -59,6 +78,7 @@ namespace Independiente.ViewModel
         {
 
             _navigationService.NavigateTo<CreditDetailsViewModel>(new PersonalDataParams(_pageMode));
+
 
         }
 
@@ -70,7 +90,11 @@ namespace Independiente.ViewModel
 
         private void Save(object obj)
         {
+            Console.WriteLine(FirstReference.ToString());
 
+            Console.WriteLine(SecondReference.ToString());
+
+            Console.WriteLine(WorkCenter.ToString());
             SwitchMode(PageMode.View);
         }
 
@@ -85,15 +109,7 @@ namespace Independiente.ViewModel
             return true;
         }
      
-        public List<string> StatesList
-        {
-            get => _statesList;
-            set
-            {
-                _statesList = value;
-                OnPropertyChanged(nameof(StatesList));
-            }
-        }
+       
 
     }
 }

@@ -153,6 +153,7 @@
     <Compile Include="Model\CreditApplication.cs" />
     <Compile Include="Model\CreditDetails.cs" />
     <Compile Include="Model\PersonalData.cs" />
+    <Compile Include="Model\PromotionalOffer.cs" />
     <Compile Include="Model\Reference.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\WorkCenter.cs" />

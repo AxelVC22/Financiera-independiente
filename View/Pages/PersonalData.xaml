@@ -128,7 +128,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding PersonalData.Name}"
+                        <TextBox Text="{Binding PersonalData.Name, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -142,7 +142,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding PersonalData.LastName}"
+                        <TextBox Text="{Binding PersonalData.LastName, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -156,7 +156,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding PersonalData.Surname}"
+                        <TextBox Text="{Binding PersonalData.Surname, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -172,7 +172,7 @@
                                FontWeight="Bold" />
                         <Canvas Height="25">
                           
-                            <DatePicker SelectedDate="{Binding PersonalData.BirthDate}" Width="300"/>
+                            <DatePicker SelectedDate="{Binding PersonalData.BirthDate, Mode=TwoWay}" Width="300" SelectedDateFormat="Short"/>
 
 
                         </Canvas>
@@ -182,7 +182,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding PersonalData.RFC}"
+                        <TextBox Text="{Binding PersonalData.RFC, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -196,7 +196,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding PersonalData.CURP}"
+                        <TextBox Text="{Binding PersonalData.CURP, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -223,7 +223,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding PersonalData.PhoneNumber}"
+                        <TextBox Text="{Binding PersonalData.PhoneNumber, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -238,7 +238,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding PersonalData.AlternativePhoneNumber}"
+                        <TextBox Text="{Binding PersonalData.AlternativePhoneNumber, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -252,7 +252,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding PersonalData.Email}"
+                        <TextBox Text="{Binding PersonalData.Email, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -278,7 +278,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding AddressData.Street}"
+                        <TextBox Text="{Binding AddressData.Street, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -327,7 +327,7 @@
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Center"
                                   ItemsSource="{Binding StatesList}"
-                                  SelectedItem="{Binding SelectedState, Mode=TwoWay}">
+                                  SelectedItem="{Binding AddressData.State, Mode=TwoWay}">
                         </ComboBox>
 
 

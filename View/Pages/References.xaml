@@ -127,7 +127,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox x:Name="ReferenceContactOneNameTextBox"
+                        <TextBox Text="{Binding FirstReference.Name, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -141,7 +141,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox x:Name="ReferenceContactOneFullLastNameTextBox"
+                        <TextBox Text="{Binding FirstReference.FullLastName, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -155,13 +155,14 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <ComboBox Style="{StaticResource ComboBoxWithPlaceholderStyle}"
+                        <ComboBox 
                                   Tag="{x:Static p:Resources.RelationshipPlaceHolderGlobal}"
                                   MinWidth="150"
                                   Width="300"
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Center"
-                                  ItemsSource="{Binding StatesList}">
+                                  ItemsSource="{Binding RelationshipsList}"
+                                  SelectedItem="{Binding FirstReference.Relationship, Mode=TwoWay}">
                         </ComboBox>
 
 
@@ -171,7 +172,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox x:Name="ReferenceContactOnePhoneNumberTextBox"
+                        <TextBox Text="{Binding FirstReference.PhoneNumber, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -184,7 +185,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox x:Name="ReferenceContactOneEmailAddressTextBox"
+                        <TextBox Text="{Binding FirstReference.Email, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -206,7 +207,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox x:Name="ReferenceContactTwoNameTextBox"
+                        <TextBox Text="{Binding SecondReference.Name, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -220,7 +221,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox x:Name="ReferenceContactTwoFullLastNameTextBox"
+                        <TextBox Text="{Binding SecondReference.FullLastName, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -234,13 +235,14 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <ComboBox Style="{StaticResource ComboBoxWithPlaceholderStyle}"
+                        <ComboBox 
                                   Tag="{x:Static p:Resources.RelationshipPlaceHolderGlobal}"
                                   MinWidth="150"
                                   Width="300"
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Center"
-                                  ItemsSource="{Binding StatesList}">
+                                  ItemsSource="{Binding RelationshipsList}"
+                                  SelectedItem="{Binding SecondReference.Relationship, Mode=TwoWay}">
                         </ComboBox>
 
 
@@ -250,7 +252,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox x:Name="ReferenceContactTwoPhoneNumberTextBox"
+                        <TextBox Text="{Binding SecondReference.PhoneNumber, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -263,7 +265,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox x:Name="ReferenceContactTwoEmailAddressTextBox"
+                        <TextBox Text="{Binding SecondReference.Email, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -289,7 +291,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox x:Name="WorkCenterNameTextBox"
+                        <TextBox Text="{Binding WorkCenter.Name, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -304,7 +306,7 @@
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
 
-                        <TextBox x:Name="WorkCenterRoleTextBox"
+                        <TextBox Text="{Binding WorkCenter.Role, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -319,30 +321,16 @@
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
 
-                        <Canvas Height="25">
-                            <TextBox x:Name="HiringDateTextBox"
-                                     Style="{StaticResource TextBoxWithPlaceholderStyle}"
-                                     TextWrapping="Wrap"
-                                     MinWidth="150"
-                                     Width="300"
-                                     HorizontalAlignment="Left"
-                                     VerticalAlignment="Center"
-                                     Tag="{x:Static p:Resources.DatePlaceHolderGlobal}" />
-                            <DatePicker HorizontalAlignment="Left"
-                                        VerticalAlignment="Top"
-                                        Width="30"
-                                        Canvas.Left="262"
-                                        Canvas.Top="1"
-                                        BorderThickness="0"
-                                        IsTodayHighlighted="True" />
-                        </Canvas>
+                        <DatePicker  HorizontalAlignment="Left" SelectedDate="{Binding WorkCenter.HiringDate, Mode=TwoWay}"
+                                    Width="300"
+                                    SelectedDateFormat="Short" />
 
                         <Label Content="{x:Static p:Resources.StreetLabelGlobal}"
                                Foreground="Black"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox x:Name="MontlyIncomeTextBox"
+                        <TextBox Text="{Binding WorkCenter.Street, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"

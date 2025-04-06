@@ -17,15 +17,8 @@ namespace Independiente.ViewModel
     public class FinancialDataViewModel : ModificableViewModel
     {
         public ObservableCollection<Bank> BanksList { get; set; }
-        private Bank _selectedBankCharge;
-
-        private Bank _selectedBankDeposit;
-
+       
         private PageMode _pageMode;
-
-
-        public event EventHandler RequestClose;
-        public bool IsNextSuccessful;
 
         private INavigationService _navigationService { get; set; }
         private IDialogService _dialogService { get; set; }
@@ -60,7 +53,7 @@ namespace Independiente.ViewModel
                 if (_depositAccount != value)
                 {
                     _depositAccount = value;
-                    OnPropertyChanged(nameof(Account));  // Notificar a la vista cuando cambia PersonalData
+                    OnPropertyChanged(nameof(Account));  
                 }
             }
         }
@@ -103,6 +96,8 @@ namespace Independiente.ViewModel
 
         private void Save(object obj)
         {
+            Console.WriteLine(ChargeAccount.ToString());
+            Console.WriteLine(DepositAccount.ToString());
             SwitchMode(PageMode.View);
         }
 
@@ -119,24 +114,6 @@ namespace Independiente.ViewModel
             return true;
         }
 
-        public Bank SelectedBankCharge
-        {
-            get => _selectedBankCharge;
-            set
-            {
-                _selectedBankCharge = value;
-                OnPropertyChanged(nameof(SelectedBankCharge));
-            }
-        }
-
-        public Bank SelectedBankDeposit
-        {
-            get => _selectedBankDeposit;
-            set
-            {
-                _selectedBankDeposit = value;
-                OnPropertyChanged(nameof(SelectedBankDeposit));
-            }
-        }
+        
     }
 }
