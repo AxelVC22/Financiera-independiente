@@ -23,10 +23,6 @@ namespace Independiente.ViewModel
         private RegistrationType _registrationType { get; set; }
         private PageMode _pageMode { get; set; }
 
-        public List<string> _statesList;
-
-        private string _selectedState;
-
         public List<string> StatesList { get; set; }
 
         private IDialogService _dialogService { get; set; }
@@ -52,7 +48,7 @@ namespace Independiente.ViewModel
             SwitchMode(mode);
             _registrationType = type;
             _pageMode = mode;
-            Person = person;
+            Person = new Client { PersonalData = new PersonalData { } };
         }
 
         private void GoBack(object obj)
@@ -76,6 +72,7 @@ namespace Independiente.ViewModel
 
         private void Next(object obj)
         {
+            Console.WriteLine(Person.ToString());
             switch (_registrationType)
             {
                 case RegistrationType.Client:

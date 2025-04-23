@@ -31,5 +31,23 @@ namespace Independiente.View.Pages
             this.DataContext = _creditDetailsViewModel;
             
         }
+
+        private void ValidateDecimal(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !decimal.TryParse(e.Text, out _);
+        }
+
+        private void ValidatePasting(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(string)))
+            {
+                var text = (string)e.DataObject.GetData(typeof(string));
+                if (!decimal.TryParse(text, out _))
+                {
+                    e.CancelCommand();
+                }
+            }
+        }
+
     }
 }

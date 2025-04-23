@@ -28,7 +28,7 @@
     </Page.Resources>
 
 
-    <Grid Background="#F0F2F5">
+    <Grid Background="{StaticResource BackGroundWhiteColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="32" />
             <RowDefinition />
@@ -42,7 +42,8 @@
                 Style="{DynamicResource IconButtonStyle}"
                 Tag="{DynamicResource BackIcon}"
                 Foreground="{StaticResource IconBlackColor}"
-                Margin="7,7,7,7" />
+                Margin="7,7,7,7"
+                Command="{Binding GoBackCommand}" />
 
 
         <ScrollViewer Grid.Column="1"
@@ -54,7 +55,7 @@
                 <Border Background="{StaticResource BackGroundBlackColor}"
                         Height="40"
                         Margin="4"
-                        CornerRadius="6"
+                        CornerRadius="12"
                         Padding="5"
                         HorizontalAlignment="Stretch">
                     <Grid Width="310"
@@ -117,9 +118,10 @@
                                 VerticalAlignment="Stretch">
                         <Label Content="{x:Static p:Resources.ReferenceContactLabelGlobal}"
                                Foreground="Black"
-                               HorizontalAlignment="Center"
+                               HorizontalAlignment="Left"
                                VerticalAlignment="Top"
-                               FontWeight="Black" />
+                               FontWeight="Black"
+                               Margin="0,10,0,10" />
 
 
                         <Label Content="{x:Static p:Resources.NameLabelGlobal}"
@@ -155,8 +157,8 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <ComboBox 
-                                  Tag="{x:Static p:Resources.RelationshipPlaceHolderGlobal}"
+                        <ComboBox Tag="{x:Static p:Resources.RelationshipPlaceHolderGlobal}"
+                                  Style="{StaticResource CustomComboBoxStyle}"
                                   MinWidth="150"
                                   Width="300"
                                   HorizontalAlignment="Left"
@@ -197,9 +199,10 @@
 
                         <Label Content="{x:Static p:Resources.ReferenceContactLabelGlobal}"
                                Foreground="Black"
-                               HorizontalAlignment="Center"
+                               HorizontalAlignment="Left"
                                VerticalAlignment="Top"
-                               FontWeight="Black" />
+                               FontWeight="Black"
+                               Margin="0,10,0,10" />
 
 
                         <Label Content="{x:Static p:Resources.NameLabelGlobal}"
@@ -235,8 +238,8 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <ComboBox 
-                                  Tag="{x:Static p:Resources.RelationshipPlaceHolderGlobal}"
+                        <ComboBox Tag="{x:Static p:Resources.RelationshipPlaceHolderGlobal}"
+                                  Style="{StaticResource CustomComboBoxStyle}"
                                   MinWidth="150"
                                   Width="300"
                                   HorizontalAlignment="Left"
@@ -281,10 +284,10 @@
                                  VerticalAlignment="Stretch">
                         <Label Content="{x:Static p:Resources.WorkCenterLabelGlobal}"
                                Foreground="Black"
-                               HorizontalAlignment="Center"
+                               HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Black"
-                               Margin="10,10,10,20" />
+                               Margin="0,10,0,10" />
 
                         <Label Content="{x:Static p:Resources.NameLabelGlobal}"
                                Foreground="Black"
@@ -321,9 +324,21 @@
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
 
-                        <DatePicker  HorizontalAlignment="Left" SelectedDate="{Binding WorkCenter.HiringDate, Mode=TwoWay}"
-                                    Width="300"
-                                    SelectedDateFormat="Short" />
+                        <Border CornerRadius="2"
+                                BorderThickness="1"
+                                BorderBrush="Gray"
+                                Background="White"
+                                HorizontalAlignment="Left"
+                                Width="300"
+                                >
+                            <DatePicker SelectedDate="{Binding WorkCenter.HiringDate, Mode=TwoWay}"
+                                        SelectedDateFormat="Short"
+                                        FontSize="10"
+                                        VerticalAlignment="Center"
+                                        BorderThickness="0"
+                                        Style="{StaticResource CustomDatePickerStyle}">
+                            </DatePicker>
+                        </Border>
 
                         <Label Content="{x:Static p:Resources.StreetLabelGlobal}"
                                Foreground="Black"
@@ -337,7 +352,7 @@
                                  Width="300"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
-                                 Tag="{x:Static p:Resources.MoneyPlaceHolderGlobal}" />
+                                 Tag="{x:Static p:Resources.StreetPlaceHolderGlobal}" />
 
                     </StackPanel>
 

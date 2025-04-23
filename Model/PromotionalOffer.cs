@@ -8,18 +8,31 @@ using System.Threading.Tasks;
 
 namespace Independiente.Model
 {
+    public enum PromotionalOfferState
+    {
+        Active,
+        Inactive
+    }
+
+  
+
     public class PromotionalOffer :INotifyPropertyChanged
     {
         private int _promotionalOfferId;
 
-        private decimal _interesRate;
+        private decimal? _interesRate;
 
-        private int _loanTerm;
+        private int? _loanTerm;
 
         private string _paymenteFrecuency;
 
-        private decimal _iva;
+        private decimal? _iva;
 
+        private PromotionalOfferState _status;
+
+        private string _description;
+
+        private bool _isEditable;
         public override string ToString()
         {
             return $" PromotionalOfferId: {PromotionalOfferId}, InteresRate: {InteresRate}, LoanTerm: {LoanTerm}, PaymentFrecuency: {PaymenteFrecuency}, IVA: {IVA}";
@@ -38,7 +51,7 @@ namespace Independiente.Model
             }
         }
 
-        public decimal InteresRate
+        public decimal? InteresRate
         {
             get => _interesRate;
             set
@@ -51,7 +64,7 @@ namespace Independiente.Model
             }
         }
 
-        public int LoanTerm
+        public int? LoanTerm
         {
             get => _loanTerm;
             set
@@ -77,7 +90,7 @@ namespace Independiente.Model
             }
         }
 
-        public decimal IVA
+        public decimal? IVA
         {
             get => _iva;
             set
@@ -86,6 +99,45 @@ namespace Independiente.Model
                 {
                     _iva = value;
                     OnPropertyChanged(nameof(IVA));
+                }
+            }
+        }
+
+        public PromotionalOfferState Status
+        {
+            get => _status;
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    OnPropertyChanged(nameof(Status));
+                }
+            }
+        }
+
+        public string Description
+        {
+            get => _description;
+            set
+            {
+                if (_description != value)
+                {
+                    _description = value;
+                    OnPropertyChanged(nameof(Description));
+                }
+            }
+        }
+
+        public bool IsEditable
+        {
+            get => _isEditable;
+            set
+            {
+                if (_isEditable != value)
+                {
+                    _isEditable = value;
+                    OnPropertyChanged(nameof(IsEditable));
                 }
             }
         }
