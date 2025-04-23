@@ -30,8 +30,17 @@ namespace Independiente.ViewModel
 
         public EmployeeAndClientConsultationViewModel() { }
 
-        public EmployeeAndClientConsultationViewModel(IDialogService dialogService, INavigationService navigationService)
+        public EmployeeAndClientConsultationViewModel(IDialogService dialogService, INavigationService navigationService, RegistrationType registrationType)
         {
+            if (registrationType == RegistrationType.Employee)
+            {
+                //TODO aqui va la logica de consulta de empleados
+            } 
+            else
+            {
+                PeopleList = new ObservableCollection<IPerson>()
+            }
+
             PeopleList = new ObservableCollection<IPerson>
                 {
                     new Client { PersonalData = new PersonalData { Name = "Ivan", RFC="ROFI"} },

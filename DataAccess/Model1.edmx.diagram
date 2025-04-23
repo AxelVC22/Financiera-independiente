@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="718d8ee9779144a78e1f49c47eed5686" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="IndependienteModel.Account" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IndependienteModel.AddressData" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IndependienteModel.Bank" Width="1.5" PointX="1.5" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="IndependienteModel.Client" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="IndependienteModel.Credit" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IndependienteModel.CreditApplication" Width="1.5" PointX="8.5" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="IndependienteModel.CreditPolicy" Width="1.5" PointX="10.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IndependienteModel.Employee" Width="1.5" PointX="6" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="IndependienteModel.File" Width="1.5" PointX="5.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IndependienteModel.Log" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IndependienteModel.PersonalData" Width="1.5" PointX="0.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="IndependienteModel.PromotionalOffer" Width="1.5" PointX="6.25" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="IndependienteModel.Reference" Width="1.5" PointX="0.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="IndependienteModel.Report" Width="1.5" PointX="10.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="IndependienteModel.User" Width="1.5" PointX="3.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IndependienteModel.WorkCenter" Width="1.5" PointX="0.75" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IndependienteModel.AmortizationSchedule" Width="1.5" PointX="13" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IndependienteModel.Report_CreditPolicy" Width="1.5" PointX="13" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="IndependienteModel.ClientView" Width="1.5" PointX="7.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IndependienteModel.EmployeeView" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="IndependienteModel.Account_Bank" ManuallyRouted="false" />
+        <AssociationConnector Association="IndependienteModel.Client_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="IndependienteModel.Client_AddressData" ManuallyRouted="false" />
+        <AssociationConnector Association="IndependienteModel.Employee_AddressData" ManuallyRouted="false" />
+        <AssociationConnector Association="IndependienteModel.Client_PersonalData" ManuallyRouted="false" />
+        <AssociationConnector Association="IndependienteModel.Client_WorkCenter" ManuallyRouted="false" />
+        <AssociationConnector Association="IndependienteModel.CreditApplication_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="IndependienteModel.File_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="IndependienteModel.FK_Client_FirstReference" ManuallyRouted="false" />
+        <AssociationConnector Association="IndependienteModel.FK_Client_SecondReference" ManuallyRouted="false" />
+        <AssociationConnector Association="IndependienteModel.AmortizationSchudele_Credit" ManuallyRouted="false" />
+        <AssociationConnector Association="IndependienteModel.Credit_CreditApplication" ManuallyRouted="false" />
+        <AssociationConnector Association="IndependienteModel.CreditApplication_File" ManuallyRouted="false" />
+        <AssociationConnector Association="IndependienteModel.CreditApplication_PromotionalOffer" ManuallyRouted="false" />
+        <AssociationConnector Association="IndependienteModel.Report_CreditApplication" ManuallyRouted="false" />
+        <AssociationConnector Association="IndependienteModel.Report_CreditPolicy_CreditPolicy" ManuallyRouted="false" />
+        <AssociationConnector Association="IndependienteModel.Employee_PersonalData" ManuallyRouted="false" />
+        <AssociationConnector Association="IndependienteModel.Employee_User" ManuallyRouted="false" />
+        <AssociationConnector Association="IndependienteModel.Report_CreditPolicy_Report" ManuallyRouted="false" />
+        <AssociationConnector Association="IndependienteModel.FK_Employee" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

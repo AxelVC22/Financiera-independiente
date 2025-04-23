@@ -79,6 +79,16 @@ namespace Independiente.Services
 
     }
 
+    public class ConsultationParams
+    {
+        public RegistrationType RegistrationType { get; set;}
+
+        public ConsultationParams(RegistrationType registrationType)
+        {
+            RegistrationType = registrationType;
+        }
+    }
+
 
 
 }

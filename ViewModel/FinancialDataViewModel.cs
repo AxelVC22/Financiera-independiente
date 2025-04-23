@@ -1,6 +1,8 @@
 ﻿using Independiente.Commands;
 using Independiente.Model;
+using Independiente.Properties;
 using Independiente.Services;
+using Independiente.View.Pages;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +12,7 @@ using System.Linq;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Independiente.ViewModel
@@ -23,11 +26,17 @@ namespace Independiente.ViewModel
         private INavigationService _navigationService { get; set; }
         private IDialogService _dialogService { get; set; }
 
+        private IClientManagementService _clientManagementService { get; set; }
+
+        private ICatalogService _catalogService { get; set; }
+
 
         public Account ChargeAccount { get; set; }
 
 
         public Account DepositAccount { get; set; }
+
+        public Client Client { get; set; }
         public FinancialDataViewModel()
         {
 
@@ -39,14 +48,8 @@ namespace Independiente.ViewModel
             _navigationService.GoBack();
         }
 
-        public FinancialDataViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode)
+        public FinancialDataViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode, IClientManagementService clientManagementService, ICatalogService catalogManagerService)
         {
-            BanksList = new ObservableCollection<Bank>
-                {
-                    new Bank { BankId = 1, Name = "Banco A" },
-                    new Bank { BankId = 2, Name = "Banco B" },
-                    new Bank { BankId = 3, Name = "Banco C" },
-                };
             NextCommand = new RelayCommand(Next, CanNext);
             EditCommand = new RelayCommand(Edit, CanNext);
             CancelCommand = new RelayCommand(Cancel, CanNext);
@@ -58,11 +61,44 @@ namespace Independiente.ViewModel
             _pageMode = mode;
             ChargeAccount = new Account();
             DepositAccount = new Account();
+            _clientManagementService = clientManagementService;
+            _catalogService = catalogManagerService;
+            BanksList = new ObservableCollection<Bank>(_catalogService.GetBanks());
         }
         private void Next(object obj)
         {
-            _navigationService.NavigateTo<ReferencesViewModel>(new PersonDataParams(_pageMode));
+            string message = string.Empty;
+            bool validation = false;
 
+            try
+            {
+                if (FieldValidator.IsValidCLABE(ChargeAccount.CLABE) && FieldValidator.IsValidCLABE(DepositAccount.CLABE))
+                {
+                    if (ChargeAccount.Bank == null || DepositAccount.Bank == null)
+                    {
+                        message = Messages.NoBankSelectedMessage;
+                    }
+                    else
+                    {
+                        validation = true;
+                    }
+                }
+            }
+            catch (ArgumentException exception)
+            {
+                message = exception.Message;
+            }
+
+            MessageBox.Show(Client.PersonalData.Name);
+
+            if (validation)
+            {
+                _navigationService.NavigateTo<ReferencesViewModel>(new PersonDataParams(_pageMode));
+            } 
+            else
+            {
+                _dialogService.Dismiss(message);
+            }
         }
 
         private void Cancel(object obj)
