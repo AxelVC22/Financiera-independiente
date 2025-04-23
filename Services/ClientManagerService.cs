@@ -11,16 +11,18 @@ namespace Independiente.Services
 {
     public interface IClientManagementService
     {
+        Client[] GetAllClientsBy
         bool ValidatePersonalData(Model.PersonalData personalData);
 
         bool ValidateAddressData(Model.AddressData addressData);
+
+        bool ValidateReference(Model.Reference reference);
 
         bool IsRFCRegistered(string RFC, out string message);
 
         bool IsValidAge(DateTime birthDate, out string message);
 
         bool IsPhoneNumberRepeated(string phoneNumber, string alternativePhoneNumber, out string message);
-
     }
 
     public class ClientManagerService : IClientManagementService
@@ -59,6 +61,15 @@ namespace Independiente.Services
                     FieldValidator.IsValidNeighborhood(addressData.NeighborHood) &&
                     FieldValidator.IsValidCity(addressData.City);
         }
+
+        public bool ValidateReference(Model.Reference reference)
+        {
+            return FieldValidator.IsValidName(reference.Name) &&
+                FieldValidator.IsValidSurname(reference.FullLastName) &&
+                FieldValidator.IsValidEmail(reference.Email) &&
+                FieldValidator.IsValidPhoneNumber(reference.PhoneNumber);
+        }
+
         public bool IsValidAge(DateTime birthDate, out string message)
         {
             DateTime today = DateTime.Today;

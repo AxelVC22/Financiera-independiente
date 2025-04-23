@@ -27,7 +27,10 @@ namespace Independiente.ViewModel
         public List<string> RelationshipsList { get; set; }
 
         private IDialogService _dialogService {  get; set; }
+
         private INavigationService _navigationService { get; set; }
+
+        private IClientManagementService _clientManagementService { get; set; }
 
         private PageMode _pageMode { get; set; }
 
@@ -35,7 +38,7 @@ namespace Independiente.ViewModel
         {
 
         }
-        public ReferencesViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode)
+        public ReferencesViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode, IClientManagementService ClientManagementService)
         {
             NextCommand = new RelayCommand(Next, CanNext);
             EditCommand = new RelayCommand(Edit, CanNext);
@@ -53,6 +56,7 @@ namespace Independiente.ViewModel
             _dialogService = dialogService;
             SwitchMode(mode);
             _pageMode = mode;
+            _clientManagementService = ClientManagementService;
         }
 
         private void LoadRelationships()
@@ -76,9 +80,21 @@ namespace Independiente.ViewModel
 
         private void Next(object obj)
         {
+            string message = string.Empty;
+            bool validation = false;
+            try
+            {
+                if (_clientManagementService.ValidateReference(FirstReference) &&
+                        _clientManagementService.ValidateReference(SecondReference))
+                {
 
+                }
+            }
+            catch (ArgumentException exception)
+            {
+
+            }
             _navigationService.NavigateTo<CreditDetailsViewModel>(new PersonDataParams(_pageMode));
-
 
         }
 

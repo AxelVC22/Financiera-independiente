@@ -44,6 +44,7 @@
         <AssociationConnector Association="IndependienteModel.Employee_PersonalData" ManuallyRouted="false" />
         <AssociationConnector Association="IndependienteModel.Employee_User" ManuallyRouted="false" />
         <AssociationConnector Association="IndependienteModel.Report_CreditPolicy_Report" ManuallyRouted="false" />
+        <AssociationConnector Association="IndependienteModel.FK_Employee" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

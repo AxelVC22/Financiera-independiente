@@ -28,6 +28,7 @@ namespace Independiente.DataAccess
         public int AddressDataId { get; set; }
         public Nullable<int> FirstReference { get; set; }
         public Nullable<int> SecondReference { get; set; }
+        public int EmployeeId { get; set; }
     
         public virtual Account Account { get; set; }
         public virtual AddressData AddressData { get; set; }
@@ -39,5 +40,6 @@ namespace Independiente.DataAccess
         public virtual ICollection<File> File { get; set; }
         public virtual Reference Reference { get; set; }
         public virtual Reference Reference1 { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

@@ -25,13 +25,16 @@ namespace Independiente
     {
         public INavigationService NavigationService { get; private set; }
         public IClientManagementService ClientManagementService { get; private set; }
+        public ICatalogService CatalogService { get; private set; }
+        public Client Client { get; private set; }
         public MainWindow()
         {
             InitializeComponent();
 
             IDialogService dialogService = new DialogService();
-            IClientManagementService ClientManagementService = new ClientManagerService();
-            ICatalogService CatalogManagerService = new CatalogManagerService();
+            ClientManagementService = new ClientManagerService();
+            CatalogService = new CatalogManagerService();
+            Client = new Client();
 
             NavigationService = new FrameNavigationService(
                 PageFrame,
@@ -39,20 +42,20 @@ namespace Independiente
                 {
                     if (viewModelType == typeof(PersonalDataViewModel))
                     {
-                        var param = parameter as PersonDataParams ?? new PersonDataParams(PageMode.Registration, RegistrationType.Client, new Client());
+                        var param = parameter as PersonDataParams ?? new PersonDataParams(PageMode.Registration, RegistrationType.Client, Client);
 
                         var viewModel = new PersonalDataViewModel(
-                            dialogService, NavigationService, param.Mode, param.RegistrationType, ClientManagementService
+                            dialogService, NavigationService, param.Mode, param.RegistrationType, param.Person, ClientManagementService
                         );
 
                         return new View.Pages.PersonalData(viewModel);
                     }
                     else if (viewModelType == typeof(FinancialDataViewModel))
                     {
-                        var param = parameter as PersonDataParams ?? new PersonDataParams(PageMode.Registration, RegistrationType.Client, new Client());
+                        var param = parameter as PersonDataParams ?? new PersonDataParams(PageMode.Registration, RegistrationType.Client, Client);
 
                         var viewModel = new FinancialDataViewModel(
-                            dialogService, NavigationService, param.Mode, ClientManagementService, CatalogManagerService
+                            dialogService, NavigationService, param.Mode, ClientManagementService, CatalogService
                         );
 
                         return new FinancialData(viewModel);
@@ -62,7 +65,7 @@ namespace Independiente
                         var param = parameter as PersonDataParams ?? new PersonDataParams(PageMode.Registration, RegistrationType.Client, new Client());
 
                         var viewModel = new ReferencesViewModel(
-                            dialogService, NavigationService, param.Mode
+                            dialogService, NavigationService, param.Mode, ClientManagementService
                         );
 
                         return new References(viewModel);
@@ -75,13 +78,14 @@ namespace Independiente
                             dialogService, NavigationService, param.Mode
                         );
 
-                        return new View.Pages.CreditDetails(viewModel);
+                        return new CreditDetails(viewModel);
                     }
                     else if (viewModelType == typeof(EmployeeAndClientConsultationViewModel))
                     {
+                        var param = parameter as ConsultationParams ?? new ConsultationParams(RegistrationType.Employee);
 
                         var viewModel = new EmployeeAndClientConsultationViewModel(
-                            dialogService, NavigationService
+                            dialogService, NavigationService, param.RegistrationType
                         );
 
                         return new EmployeeAndClientConsultation(viewModel);
@@ -94,7 +98,6 @@ namespace Independiente
             NavigationService.NavigateTo<EmployeeAndClientConsultationViewModel>();
 
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(dialogService);
-            mainWindowViewModel.RequestClose += (e, sender) => this.Close();
             this.DataContext = mainWindowViewModel;
         }
 

@@ -14,6 +14,12 @@ namespace Independiente.DataAccess
     
     public partial class Employee
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Employee()
+        {
+            this.Client = new HashSet<Client>();
+        }
+    
         public int EmployeeId { get; set; }
         public string NSS { get; set; }
         public string Department { get; set; }
@@ -26,5 +32,7 @@ namespace Independiente.DataAccess
         public virtual AddressData AddressData { get; set; }
         public virtual PersonalData PersonalData { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Client> Client { get; set; }
     }
 }

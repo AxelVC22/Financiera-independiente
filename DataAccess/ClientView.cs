@@ -48,5 +48,6 @@ namespace Independiente.DataAccess
         public int PersonalDataId { get; set; }
         public int WorkCenterId { get; set; }
         public int AccountId { get; set; }
+        public int EmployeeId { get; set; }
     }
 }

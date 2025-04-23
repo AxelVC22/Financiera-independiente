@@ -12,6 +12,11 @@ namespace Independiente.Model
     {
 
         private PersonalData _personalData;
+
+        public Client() 
+        {
+            _personalData = new PersonalData();
+        }
         public PersonalData PersonalData
         {
             get => _personalData;

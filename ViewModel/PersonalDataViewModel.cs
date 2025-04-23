@@ -41,7 +41,7 @@ namespace Independiente.ViewModel
 
         }
 
-        public PersonalDataViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode, RegistrationType type, IClientManagementService clientManagementService)
+        public PersonalDataViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode, RegistrationType type, IPerson person, IClientManagementService clientManagementService )
         {
             NextCommand = new RelayCommand(Next, CanNext);
             EditCommand = new RelayCommand(Edit, CanNext);
@@ -89,11 +89,11 @@ namespace Independiente.ViewModel
                     try
                     {
                         if (_clientManagementService.ValidateAddressData(AddressData) &&
-                            _clientManagementService.ValidatePersonalData(PersonalData))
+                            _clientManagementService.ValidatePersonalData(Person.PersonalData))
                         {
-                            if (!_clientManagementService.IsRFCRegistered(PersonalData.RFC, out message) &&
-                                !_clientManagementService.IsPhoneNumberRepeated(PersonalData.PhoneNumber, PersonalData.AlternativePhoneNumber, out message) &&
-                                _clientManagementService.IsValidAge(PersonalData.BirthDate.Value, out message))
+                            if (!_clientManagementService.IsRFCRegistered(Person.PersonalData.RFC, out message) &&
+                                !_clientManagementService.IsPhoneNumberRepeated(Person.PersonalData.PhoneNumber, Person.PersonalData.AlternativePhoneNumber, out message) &&
+                                _clientManagementService.IsValidAge(Person.PersonalData.BirthDate.Value, out message))
                             {
                                 validation = true;
                             }
@@ -108,10 +108,11 @@ namespace Independiente.ViewModel
                     break;
             }
 
+            Console.WriteLine(Person.PersonalData.Name);
 
             if (validation)
             {
-                _navigationService.NavigateTo<FinancialDataViewModel>(new PersonDataParams(_pageMode));
+                _navigationService.NavigateTo<FinancialDataViewModel>(new PersonDataParams(_pageMode, Person));
             }
             else
             {

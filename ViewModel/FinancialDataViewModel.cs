@@ -12,6 +12,7 @@ using System.Linq;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Independiente.ViewModel
@@ -34,6 +35,8 @@ namespace Independiente.ViewModel
 
 
         public Account DepositAccount { get; set; }
+
+        public Client Client { get; set; }
         public FinancialDataViewModel()
         {
 
@@ -86,11 +89,11 @@ namespace Independiente.ViewModel
                 message = exception.Message;
             }
 
-            Console.WriteLine();
+            MessageBox.Show(Client.PersonalData.Name);
 
             if (validation)
             {
-                _navigationService.NavigateTo<ReferencesViewModel>(new PersonalDataParams(_pageMode));
+                _navigationService.NavigateTo<ReferencesViewModel>(new PersonDataParams(_pageMode));
             } 
             else
             {
