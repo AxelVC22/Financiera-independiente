@@ -16,23 +16,18 @@ using System.Windows.Shapes;
 
 namespace Independiente.View.Pages
 {
-  
-    public partial class CreditPoliciesManagement : Page
+   
+    public partial class Catalogs : Page
     {
+        private CatalogsViewModel _catalogsViewModel;
 
-        private CreditPoliciesManagementViewModel _creditPoliciesManagement;
-
-        public CreditPoliciesManagement() { }
-        public CreditPoliciesManagement(CreditPoliciesManagementViewModel creditPoliciesManagement)
+        public Catalogs(CatalogsViewModel catalogsViewModel)
         {
             InitializeComponent();
 
-            _creditPoliciesManagement = creditPoliciesManagement;
+            _catalogsViewModel = catalogsViewModel;
+            this.DataContext = _catalogsViewModel;
 
-            this. DataContext = _creditPoliciesManagement;
         }
-
-     
-
     }
 }

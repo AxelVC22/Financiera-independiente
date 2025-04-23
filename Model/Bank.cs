@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Independiente.Model
 {
-    public class Bank : INotifyPropertyChanged
+    public class Bank : INotifyPropertyChanged, ICatalog
     {
+        private bool _isEditable;
         private int _bankId { get; set; }
 
         private string _name;
@@ -37,6 +38,19 @@ namespace Independiente.Model
                 {
                     _bankId = value;
                     OnPropertyChanged(nameof(BankId));
+                }
+            }
+        }
+
+        public bool IsEditable
+        {
+            get => _isEditable;
+            set
+            {
+                if (_isEditable != value)
+                {
+                    _isEditable = value;
+                    OnPropertyChanged(nameof(IsEditable));
                 }
             }
         }

@@ -28,7 +28,7 @@
     </Page.Resources>
 
 
-    <Grid Background="#F0F2F5">
+    <Grid Background="{StaticResource BackGroundWhiteColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="32" />
             <RowDefinition />
@@ -43,7 +43,7 @@
                 Tag="{DynamicResource BackIcon}"
                 Foreground="{StaticResource IconBlackColor}"
                 Margin="7,7,7,7"
-                Command="{Binding GoBackCommand}"/>
+                Command="{Binding GoBackCommand}" />
 
 
         <ScrollViewer Grid.Column="1"
@@ -55,7 +55,7 @@
                 <Border Background="{StaticResource BackGroundBlackColor}"
                         Height="40"
                         Margin="4"
-                        CornerRadius="6"
+                        CornerRadius="12"
                         Padding="5"
                         HorizontalAlignment="Stretch">
                     <Grid Width="310"
@@ -115,12 +115,13 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0"
-                                VerticalAlignment="Stretch">
+                                VerticalAlignment="Stretch" >
                         <Label Content="{x:Static p:Resources.PersonalDataLabelGlobal}"
                                Foreground="Black"
-                               HorizontalAlignment="Center"
+                               HorizontalAlignment="Left"
                                VerticalAlignment="Top"
-                               FontWeight="Black" />
+                               FontWeight="Black"
+                               Margin="0,10,0,10" />
 
 
                         <Label Content="{x:Static p:Resources.NameLabelGlobal}"
@@ -171,8 +172,21 @@
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
                         <Canvas Height="25">
-                          
-                            <DatePicker SelectedDate="{Binding Person.PersonalData.BirthDate, Mode=TwoWay}" Width="300" SelectedDateFormat="Short"/>
+
+                            <Border CornerRadius="2"
+                                    BorderThickness="1"
+                                    BorderBrush="Gray"
+                                    Background="White">
+                                <DatePicker SelectedDate="{Binding Person.PersonalData.BirthDate, Mode=TwoWay}"
+                                            Width="300"
+                                            SelectedDateFormat="Short"
+                                            FontSize="10"
+                                            VerticalAlignment="Center"
+                                            BorderThickness="0"
+                                            Style="{StaticResource CustomDatePickerStyle}">
+                                </DatePicker>
+                            </Border>
+
 
 
                         </Canvas>
@@ -204,7 +218,7 @@
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
                                  Tag="{x:Static p:Resources.CURPPlaceHolderGlobal}"
-                                 CharacterCasing="Upper"/>
+                                 CharacterCasing="Upper" />
 
 
                     </StackPanel>
@@ -213,10 +227,10 @@
                                  VerticalAlignment="Stretch">
                         <Label Content="{x:Static p:Resources.ContactDataLabelGlobal}"
                                Foreground="Black"
-                               HorizontalAlignment="Center"
+                               HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Black"
-                               Margin="10,10,10,20" />
+                               Margin="0,10,0,10" />
 
                         <Label Content="{x:Static p:Resources.PhoneNumberLabelGlobal}"
                                Foreground="Black"
@@ -268,10 +282,10 @@
 
                         <Label Content="{x:Static p:Resources.AddressLabelGlobal}"
                                Foreground="Black"
-                               HorizontalAlignment="Center"
+                               HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Black"
-                               Margin="10,20,10,20" />
+                               Margin="0,10,0,10" />
 
                         <Label Content="{x:Static p:Resources.StreetLabelGlobal}"
                                Foreground="Black"
@@ -322,6 +336,7 @@
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
                         <ComboBox Tag="{x:Static p:Resources.StatePlaceHolderGlobal}"
+                                  Style="{StaticResource CustomComboBoxStyle}"
                                   MinWidth="150"
                                   Width="300"
                                   HorizontalAlignment="Left"
