@@ -72,7 +72,6 @@ namespace Independiente.ViewModel
 
         private void Next(object obj)
         {
-            Console.WriteLine(Person.ToString());
             switch (_registrationType)
             {
                 case RegistrationType.Client:

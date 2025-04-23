@@ -72,6 +72,7 @@ namespace Independiente.ViewModel
             OrderByNameCommand = new RelayCommand(OrderByName, CanDoIt);
             StatesList = Enum.GetValues(typeof(CreditPolicyState)).Cast<CreditPolicyState>().ToList();
             _selectedCreditPolicy = new CreditPolicy();
+            PaginationIndex = 1;
 
         }
 
@@ -100,7 +101,7 @@ namespace Independiente.ViewModel
 
         private void Register(object obj)
         {
-            CreditPolicy newCreditPolicy = new CreditPolicy { IsEditable = true , RegistrationDate = DateTime.Today};
+            CreditPolicy newCreditPolicy = new CreditPolicy { IsEditable = true, RegistrationDate = DateTime.Today };
             CreditPoliciesList.Add(newCreditPolicy);
         }
 
@@ -144,7 +145,7 @@ namespace Independiente.ViewModel
         }, CanDoIt);
 
 
-      
+
 
         private void OrderByProperty(Func<CreditPolicy, object> keySelector)
         {
@@ -183,7 +184,7 @@ namespace Independiente.ViewModel
             set
             {
                 if (_paginationIndex != value)
-                { 
+                {
                     _paginationIndex = value;
                     OnPropertyChanged(nameof(PaginationIndex));
                 }

@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace Independiente.View.Pages
 {
-    /// <summary>
-    /// Lógica de interacción para CreditApplicationValidation.xaml
-    /// </summary>
+    
     public partial class CreditApplicationValidation : Page
     {
         public CreditApplicationValidation()
