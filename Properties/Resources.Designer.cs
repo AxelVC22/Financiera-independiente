@@ -178,6 +178,15 @@ namespace Independiente.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Confirmar contraseña.
+        /// </summary>
+        public static string ConfirmationPasswordLabelLocal {
+            get {
+                return ResourceManager.GetString("ConfirmationPasswordLabelLocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Datos de contacto.
         /// </summary>
         public static string ContactDataLabelGlobal {
@@ -232,6 +241,15 @@ namespace Independiente.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Descripción.
+        /// </summary>
+        public static string DescriptionLabelGlobal {
+            get {
+                return ResourceManager.GetString("DescriptionLabelGlobal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Documentación.
         /// </summary>
         public static string DocumentationLabelGlobal {
@@ -264,6 +282,15 @@ namespace Independiente.Properties {
         public static string EmailAddressPlaceHolderGlobal {
             get {
                 return ResourceManager.GetString("EmailAddressPlaceHolderGlobal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fecha de fin.
+        /// </summary>
+        public static string EndDateLabelGlobal {
+            get {
+                return ResourceManager.GetString("EndDateLabelGlobal", resourceCulture);
             }
         }
         
@@ -475,6 +502,24 @@ namespace Independiente.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Numero de Seguro Social.
+        /// </summary>
+        public static string NSSLabelGlobal {
+            get {
+                return ResourceManager.GetString("NSSLabelGlobal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a 11111.
+        /// </summary>
+        public static string NSSPlaceHoldeGlobal {
+            get {
+                return ResourceManager.GetString("NSSPlaceHoldeGlobal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Contraseña.
         /// </summary>
         public static string PasswordLabelGlobal {
@@ -592,6 +637,15 @@ namespace Independiente.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Fecha de registro.
+        /// </summary>
+        public static string RegistrationDateLabelGlobal {
+            get {
+                return ResourceManager.GetString("RegistrationDateLabelGlobal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Parentesco.
         /// </summary>
         public static string RelationshipLabelGlobal {
@@ -669,6 +723,15 @@ namespace Independiente.Properties {
         public static string StatePlaceHolderGlobal {
             get {
                 return ResourceManager.GetString("StatePlaceHolderGlobal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Estado.
+        /// </summary>
+        public static string StatusLabelGlobal {
+            get {
+                return ResourceManager.GetString("StatusLabelGlobal", resourceCulture);
             }
         }
         

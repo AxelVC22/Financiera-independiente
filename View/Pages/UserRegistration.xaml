@@ -1,4 +1,4 @@
-﻿<Page x:Class="Independiente.View.Pages.FinancialData"
+﻿<Page x:Class="Independiente.View.Pages.UserRegistration"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -13,7 +13,7 @@
       Title="FinancialData">
 
     <Page.DataContext>
-        <vm:FinancialDataViewModel />
+        <vm:UserRegistrationViewModel />
     </Page.DataContext>
 
     <Page.Resources>
@@ -27,7 +27,7 @@
     </Page.Resources>
 
 
-    <Grid Background="#fafafa">
+    <Grid Background="#F0F2F5">
         <Grid.RowDefinitions>
             <RowDefinition Height="32" />
             <RowDefinition />
@@ -54,7 +54,7 @@
                 <Border Background="{StaticResource BackGroundBlackColor}"
                         Height="40"
                         Margin="4"
-                        CornerRadius="12"
+                        CornerRadius="6"
                         Padding="5"
                         HorizontalAlignment="Stretch">
                     <Grid Width="310"
@@ -82,7 +82,7 @@
                                 Panel.ZIndex="2" />
                     </Grid>
                 </Border>
-                
+
                 <Grid HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
                       Margin="10">
@@ -120,84 +120,144 @@
                                  VerticalAlignment="Stretch">
                         <Label Content="{x:Static p:Resources.BankDepositAccountLabelGlobal}"
                                Foreground="Black"
-                               HorizontalAlignment="Left"
+                               HorizontalAlignment="Center"
                                VerticalAlignment="Top"
                                FontWeight="Black"
-                               Margin="0,10,0,10" />
+                               Margin="10,10,10,20" />
 
-                        <Label Content="{x:Static p:Resources.InterBankCLABELabelGlobal}"
+                        <Label Content="{x:Static p:Resources.NSSLabelGlobal}"
                                Foreground="Black"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding DepositAccount.CLABE, Mode=TwoWay}"
+                        <TextBox Text="{Binding Employee.NSS, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
                                  Width="300"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
-                                 Tag="{x:Static p:Resources.InterBankCLABEPlaceHolderGlobal}" />
+                                 Tag="{x:Static p:Resources.NSSPlaceHoldeGlobal}" />
 
-                        <Label Content="{x:Static p:Resources.BankLabelGlobal}"
+                        <Label Content="{x:Static p:Resources.WorkCenterRoleLabelGlobal}"
                                Foreground="Black"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
 
-                        <ComboBox 
-                                  Tag="{x:Static p:Resources.BankPlaceHolderGlobal}"
-                                  Style="{StaticResource CustomComboBoxStyle}"
+                        <ComboBox Tag="{x:Static p:Resources.WorkCenterRolePlaceHolderGlobal}"
                                   MinWidth="150"
                                   Width="300"
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Center"
-                                  ItemsSource="{Binding BanksList}"
-                                  SelectedItem="{Binding DepositAccount.Bank, Mode=TwoWay}">
+                                  ItemsSource="{Binding RolesList}"
+                                  SelectedItem="{Binding Employee.Role, Mode=TwoWay}">
                         </ComboBox>
 
+                        <Grid Grid.Column="1"
+                              HorizontalAlignment="Left"
+                              Height="55"
+                              Grid.Row="1"
+                              VerticalAlignment="Top"
+                              Width="300">
+
+                            <Label Content="{x:Static p:Resources.PasswordLabelGlobal}"
+                                   FontWeight="Bold"
+                                   FontSize="11"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Width="170" />
+                            <PasswordBox x:Name="PasswordPasswordBox"
+                                         Width="300"
+                                         Style="{StaticResource PasswordBoxWithPlaceholderStyle}"
+                                         Margin="0,27,0,0"
+                                         VerticalAlignment="Top"
+                                         HorizontalAlignment="Left"
+                                         Tag="{x:Static p:Resources.PasswordPlaceHolderGlobal}"
+                                         Visibility="{Binding IsPasswordVisible, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}" />
+                            <TextBox Style="{StaticResource TextBoxWithPlaceholderStyle}"
+                                     Margin="0,27,0,0"
+                                     TextWrapping="Wrap"
+                                     Width="300"
+                                     VerticalAlignment="Top"
+                                     HorizontalAlignment="Left"
+                                     Tag="{x:Static p:Resources.PasswordPlaceHolderGlobal}"
+                                     Visibility="{Binding IsPasswordVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+                                     Text="{Binding Password, Mode=TwoWay}" />
+                            <Button Width="18"
+                                    Height="18"
+                                    Style="{DynamicResource IconButtonStyle}"
+                                    Tag="{DynamicResource ShowIcon}"
+                                    Foreground="{StaticResource IconBlackColor}"
+                                    Margin="272,31,10,6"
+                                    Command="{Binding ShowPasswordCommand}"
+                                    Visibility="{Binding IsPasswordVisible, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}" />
+                            <Button Width="18"
+                                    Height="18"
+                                    Style="{DynamicResource IconButtonStyle}"
+                                    Tag="{DynamicResource HideIcon}"
+                                    Foreground="{StaticResource IconBlackColor}"
+                                    Margin="272,31,10,6"
+                                    Command="{Binding HidePasswordCommand}"
+                                    Visibility="{Binding IsPasswordVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+                        </Grid>
+
+
+                        <Grid Grid.Column="1"
+                              HorizontalAlignment="Left"
+                              Height="55"
+                              Grid.Row="1"
+                              VerticalAlignment="Top"
+                              Width="300">
+
+                            <Label Content="{x:Static p:Resources.ConfirmationPasswordLabelLocal}"
+                                   FontWeight="Bold"
+                                   FontSize="11"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Width="170" />
+                            <PasswordBox  x:Name="ConfirmationPasswordPasswordBox"
+                                Width="300"
+                                         Style="{StaticResource PasswordBoxWithPlaceholderStyle}"
+                                         Margin="0,27,0,0"
+                                         VerticalAlignment="Top"
+                                         HorizontalAlignment="Left"
+                                         Tag="{x:Static p:Resources.PasswordPlaceHolderGlobal}"
+                                         Visibility="{Binding IsConfirmationPasswordVisible, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}" />
+                            <TextBox Style="{StaticResource TextBoxWithPlaceholderStyle}"
+                                     Margin="0,27,0,0"
+                                     TextWrapping="Wrap"
+                                     Width="300"
+                                     VerticalAlignment="Top"
+                                     HorizontalAlignment="Left"
+                                     Tag="{x:Static p:Resources.PasswordPlaceHolderGlobal}"
+                                     Visibility="{Binding IsConfirmationPasswordVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+                                     Text="{Binding ConfirmationPassword, Mode=TwoWay}" />
+                            <Button Width="18"
+                                    Height="18"
+                                    Style="{DynamicResource IconButtonStyle}"
+                                    Tag="{DynamicResource ShowIcon}"
+                                    Foreground="{StaticResource IconBlackColor}"
+                                    Margin="272,31,10,6"
+                                    Command="{Binding ShowConfirmationPasswordCommand}"
+                                    Visibility="{Binding IsConfirmationPasswordVisible, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}" />
+                            <Button Width="18"
+                                    Height="18"
+                                    Style="{DynamicResource IconButtonStyle}"
+                                    Tag="{DynamicResource HideIcon}"
+                                    Foreground="{StaticResource IconBlackColor}"
+                                    Margin="272,31,10,6"
+                                    Command="{Binding HideConfirmationPasswordCommand}"
+                                    Visibility="{Binding IsConfirmationPasswordVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+                                    Cursor="" />
+
+                        </Grid>
 
 
 
 
 
-
-                        <Label Content="{x:Static p:Resources.BankChargeAccountLabelGlobal}"
-                               Foreground="Black"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               FontWeight="Black"
-                               Margin="0,10,0,10" />
-
-                        <Label Content="{x:Static p:Resources.InterBankCLABELabelGlobal}"
-                               Foreground="Black"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               FontWeight="Bold" />
-                        <TextBox Text="{Binding ChargeAccount.CLABE, Mode=TwoWay}"
-                                 Style="{StaticResource TextBoxWithPlaceholderStyle}"
-                                 TextWrapping="Wrap"
-                                 MinWidth="150"
-                                 Width="300"
-                                 HorizontalAlignment="Left"
-                                 VerticalAlignment="Center"
-                                 Tag="{x:Static p:Resources.InterBankCLABEPlaceHolderGlobal}" />
-                        <Label Content="{x:Static p:Resources.BankLabelGlobal}"
-                               Foreground="Black"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               FontWeight="Bold" />
-                        <ComboBox 
-                                  ItemsSource="{Binding BanksList}"
-                                  SelectedItem="{Binding ChargeAccount.Bank, Mode=TwoWay}"
-                                  Tag="{x:Static p:Resources.BankPlaceHolderGlobal}"
-                                  Style="{StaticResource CustomComboBoxStyle}"
-                                  MinWidth="150"
-                                  Width="300"
-                                  HorizontalAlignment="Left"
-                                  VerticalAlignment="Center"
-                                  >
-                        </ComboBox>
 
 
                     </StackPanel>

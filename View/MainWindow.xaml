@@ -8,10 +8,10 @@
         xmlns:vm="clr-namespace:Independiente.ViewModel"
         xmlns:conv="clr-namespace:Independiente.Converters"
         mc:Ignorable="d"
-        Title="Main"
         Height="450"
         Width="800"
-        WindowState="Maximized">
+        WindowState="Maximized"
+        Icon="ViewResources/Logo.png">
 
 
     <Window.DataContext>
@@ -39,7 +39,9 @@
 
         <Border CornerRadius="0, 4, 4, 0"
                 ClipToBounds="True"
-                Background="{StaticResource BackGroundBlackColor}">
+                Background="{StaticResource BackGroundBlackColor}"
+                BorderBrush="Black"
+                BorderThickness="1">
 
             <Grid>
                 <DockPanel Width="36"
@@ -48,7 +50,8 @@
                            VerticalAlignment="Top">
                     <Button Style="{DynamicResource MenuBarIconStyle}"
                             Command="{Binding ShowAndHideMenuCommand}"
-                            Width="32" />
+                            Width="32"
+                            Height="32"/>
                 </DockPanel>
 
                 <Grid x:Name="MenuGrid"
@@ -127,7 +130,7 @@
                                Height="50"
                                Width="200">
                         <Button x:Name="LogOutButton"
-                                Height="30"
+                                Height="40"
                                 Style="{StaticResource LogOutButtonStyle}"
                                 Command="{Binding LogoutCommand}" />
                     </DockPanel>
@@ -138,8 +141,9 @@
         </Border>
         <Grid Grid.Column="1">
 
-            <Frame x:Name="PageFrame" 
-                   NavigationUIVisibility="Hidden" />
+            <Frame x:Name="PageFrame"
+                   NavigationUIVisibility="Hidden"
+                   />
         </Grid>
     </Grid>
 </Window>

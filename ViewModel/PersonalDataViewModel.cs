@@ -24,10 +24,6 @@ namespace Independiente.ViewModel
         private RegistrationType _registrationType { get; set; }
         private PageMode _pageMode { get; set; }
 
-        public List<string> _statesList;
-
-        private string _selectedState;
-
         public List<string> StatesList { get; set; }
 
         private IDialogService _dialogService { get; set; }

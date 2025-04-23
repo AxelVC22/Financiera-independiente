@@ -342,4 +342,25 @@
   <data name="AddButtonGlobal" xml:space="preserve">
     <value>Agregar</value>
   </data>
+  <data name="NSSLabelGlobal" xml:space="preserve">
+    <value>Numero de Seguro Social</value>
+  </data>
+  <data name="NSSPlaceHoldeGlobal" xml:space="preserve">
+    <value>11111</value>
+  </data>
+  <data name="ConfirmationPasswordLabelLocal" xml:space="preserve">
+    <value>Confirmar contraseña</value>
+  </data>
+  <data name="DescriptionLabelGlobal" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="RegistrationDateLabelGlobal" xml:space="preserve">
+    <value>Fecha de registro</value>
+  </data>
+  <data name="EndDateLabelGlobal" xml:space="preserve">
+    <value>Fecha de fin</value>
+  </data>
+  <data name="StatusLabelGlobal" xml:space="preserve">
+    <value>Estado</value>
+  </data>
 </root>

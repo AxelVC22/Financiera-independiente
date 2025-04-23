@@ -90,12 +90,47 @@ namespace Independiente
 
                         return new EmployeeAndClientConsultation(viewModel);
                     }
+                    else if (viewModelType == typeof(UserRegistrationViewModel))
+                    {
+                        var param = parameter as PersonDataParams ?? new PersonDataParams(PageMode.Update, new Employee());
 
+                        var viewModel = new UserRegistrationViewModel(
+                            dialogService, NavigationService, param.Mode, param.Person
+                        );
 
+                        return new UserRegistration(viewModel);
+                    }
+                    else if (viewModelType == typeof(CatalogsViewModel))
+                    {
+
+                        var viewModel = new CatalogsViewModel(
+                            dialogService, NavigationService
+                        );
+
+                        return new Catalogs(viewModel);
+                    }
+                    else if (viewModelType == typeof(CreditPoliciesManagementViewModel))
+                    {
+
+                        var viewModel = new CreditPoliciesManagementViewModel(
+                            dialogService, NavigationService
+                        );
+
+                        return new CreditPoliciesManagement(viewModel);
+                    }
+                    else if (viewModelType == typeof(PromotionalOffersManagementViewModel))
+                    {
+
+                        var viewModel = new PromotionalOffersManagementViewModel(
+                            dialogService, NavigationService
+                        );
+
+                        return new PromotionalOffersManagement(viewModel);
+                    }
                     throw new ArgumentException("ViewModel desconocido");
                 });
 
-            NavigationService.NavigateTo<EmployeeAndClientConsultationViewModel>();
+            NavigationService.NavigateTo<CreditPoliciesManagementViewModel>();
 
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(dialogService);
             this.DataContext = mainWindowViewModel;

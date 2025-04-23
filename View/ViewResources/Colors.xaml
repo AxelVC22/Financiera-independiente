@@ -4,15 +4,17 @@
 
     <SolidColorBrush  x:Key="IconWhiteColor">#e8e8e8</SolidColorBrush>
     <SolidColorBrush  x:Key="IconRedColor">#cb4335</SolidColorBrush>
+    <SolidColorBrush  x:Key="IconBlueColor">#3498db</SolidColorBrush>
     <SolidColorBrush  x:Key="IconBlackColor">#363636</SolidColorBrush>
     <SolidColorBrush  x:Key="IconGreyColor">#707070</SolidColorBrush>
 
-    <SolidColorBrush x:Key="BackGroundBlackColor">#363636</SolidColorBrush>
+    <SolidColorBrush x:Key="BackGroundBlackColor">#274481</SolidColorBrush>
+    <SolidColorBrush x:Key="BackGroundWhiteColor">#fafafa</SolidColorBrush>
 
     <Color x:Key="IconMouseOverColor">#80D7D7D7</Color>
     <Color x:Key="IconPressedColor">#a5a5a5</Color>
 
-    <SolidColorBrush  x:Key="BackGroundDarkColor">#363636</SolidColorBrush>
+    <SolidColorBrush  x:Key="BackGroundDarkColor">#1f2932</SolidColorBrush>
 
     <SolidColorBrush  x:Key="TitleWhiteColor">#ebe5e5</SolidColorBrush>
 
@@ -25,14 +27,19 @@
     <Color x:Key="MenuBarButtonMouseIsOverColor">#616a6b</Color>
     <Color x:Key="MenuBarButtonIsPressedColor">#424949</Color>
 
-    <Color x:Key="DangerButtonStandarColor">#cb4335</Color>
-    <Color x:Key="DangerButtonMouseIsOverColor">#e74c3c</Color>
-    <Color x:Key="DangerButtonIsPressedColor">#b03a2e</Color>
+    <SolidColorBrush x:Key="DangerButtonStandarColor">#cb4335</SolidColorBrush>
+    <SolidColorBrush x:Key="DangerButtonMouseIsOverColor">#e74c3c</SolidColorBrush>
+    <SolidColorBrush x:Key="DangerButtonIsPressedColor">#b03a2e</SolidColorBrush>
 
     <Color x:Key="SecondaryButtonStandarColor">#F0F2F5</Color>
     <Color x:Key="SecondaryButtonMouseIsOverColor">#e5e5e5</Color>
     <Color x:Key="SecondaryButtonIsPressedColor">#d9d9d9</Color>
     <SolidColorBrush x:Key="SecondaryButtonStandarBorderColor">#3498db</SolidColorBrush>
+
+    <SolidColorBrush x:Key="HeaderButtonStandarColor">#f7f7f7</SolidColorBrush>
+    <SolidColorBrush x:Key="HeaderButtonMouseIsOverColor">#ededed</SolidColorBrush>
+    <SolidColorBrush x:Key="HeaderButtonIsPressedColor">#c8c8c8</SolidColorBrush>
+
 
 
     <Color x:Key="DismissButtonStandarColor">#c0c0c0</Color>

@@ -13,7 +13,9 @@ namespace Independiente.Model
 
         private PersonalData _personalData;
 
+        private string _nss;
 
+        private string _role;
         public PersonalData PersonalData
         {
             get => _personalData;
@@ -27,12 +29,45 @@ namespace Independiente.Model
             }
         }
 
-       
+        public string NSS
+        {
+            get => _nss;
+            set
+            {
+                if (_nss != value)
+                {
+                    _nss = value;
+                    OnPropertyChanged(nameof(NSS));
+                }
+            }
+        }
+
+        public string Role
+        {
+            get => _role;
+            set
+            {
+                if (_role != value)
+                {
+                    _role = value;
+                    OnPropertyChanged(nameof(Role));
+                }
+            }
+        }
+
+
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public override string ToString()
+        {
+            return $"NSS: {NSS}";
         }
 
     }

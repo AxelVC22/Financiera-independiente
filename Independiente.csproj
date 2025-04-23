@@ -153,6 +153,7 @@
     <Compile Include="Model\CreditApplication.cs" />
     <Compile Include="Model\CreditPolicy.cs" />
     <Compile Include="Model\Employee.cs" />
+    <Compile Include="Model\ICatalog.cs" />
     <Compile Include="Model\IPerson.cs" />
     <Compile Include="Model\PersonalData.cs" />
     <Compile Include="Model\PromotionalOffer.cs" />
@@ -179,6 +180,7 @@
     <Compile Include="Services\NavegationService.cs" />
     <Compile Include="Services\SessionService.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\CatalogsViewModel.cs" />
     <Compile Include="ViewModel\CreditDetailsViewModel.cs" />
     <Compile Include="ViewModel\CreditPoliciesManagementViewModel.cs" />
     <Compile Include="ViewModel\EmployeeAndClientConsultationViewModel.cs" />
@@ -186,9 +188,17 @@
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PersonalDataViewModel.cs" />
+    <Compile Include="ViewModel\PromotionalOffersManagementViewModel.cs" />
     <Compile Include="ViewModel\ReferencesViewModel.cs" />
+    <Compile Include="ViewModel\UserRegistrationViewModel.cs" />
     <Compile Include="View\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\Catalogs.xaml.cs">
+      <DependentUpon>Catalogs.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\CreditApplicationValidation.xaml.cs">
+      <DependentUpon>CreditApplicationValidation.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Pages\CreditDetails.xaml.cs">
       <DependentUpon>CreditDetails.xaml</DependentUpon>
@@ -205,8 +215,14 @@
     <Compile Include="View\Pages\PersonalData.xaml.cs">
       <DependentUpon>PersonalData.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Pages\PromotionalOffersManagement.xaml.cs">
+      <DependentUpon>PromotionalOffersManagement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Pages\References.xaml.cs">
       <DependentUpon>References.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\UserRegistration.xaml.cs">
+      <DependentUpon>UserRegistration.xaml</DependentUpon>
     </Compile>
     <Page Include="View\Login.xaml">
       <SubType>Designer</SubType>
@@ -224,6 +240,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\Pages\Catalogs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Pages\CreditApplicationValidation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Pages\CreditDetails.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -244,7 +268,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Pages\PromotionalOffersManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Pages\References.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Pages\UserRegistration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -320,6 +352,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\ViewResources\Logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

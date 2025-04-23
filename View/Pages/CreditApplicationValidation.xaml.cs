@@ -1,5 +1,4 @@
-﻿using Independiente.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,23 +15,14 @@ using System.Windows.Shapes;
 
 namespace Independiente.View.Pages
 {
-  
-    public partial class CreditPoliciesManagement : Page
+    /// <summary>
+    /// Lógica de interacción para CreditApplicationValidation.xaml
+    /// </summary>
+    public partial class CreditApplicationValidation : Page
     {
-
-        private CreditPoliciesManagementViewModel _creditPoliciesManagement;
-
-        public CreditPoliciesManagement() { }
-        public CreditPoliciesManagement(CreditPoliciesManagementViewModel creditPoliciesManagement)
+        public CreditApplicationValidation()
         {
             InitializeComponent();
-
-            _creditPoliciesManagement = creditPoliciesManagement;
-
-            this. DataContext = _creditPoliciesManagement;
         }
-
-     
-
     }
 }

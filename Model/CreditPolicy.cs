@@ -1,12 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Independiente.Model
 {
-    public class CreditPolicy
+
+    public enum CreditPolicyState
+    {
+        Active,
+        Inactive,
+    }
+
+    public class CreditPolicy : INotifyPropertyChanged
 
     {
         private int _creditPolicyId;
@@ -17,10 +25,108 @@ namespace Independiente.Model
 
         private DateTime _registrationDate;
 
-        private DateTime _endTime;
+        private DateTime _endDate;
 
+        private CreditPolicyState _status;
 
+        private bool _isEditable;
 
+        public event PropertyChangedEventHandler PropertyChanged;
 
+        public int CredditPolicyId
+        {
+            get => _creditPolicyId;
+            set
+            {
+                if (_creditPolicyId != value)
+                {
+                    _creditPolicyId = value;
+                    OnPropertyChanged(nameof(CredditPolicyId));
+                }
+            }
+        }
+
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    OnPropertyChanged(nameof(Name));
+                }
+            }
+        }
+
+        public string Description
+        {
+            get => _description;
+            set
+            {
+                if (_description != value)
+                {
+                    _description = value;
+                    OnPropertyChanged(nameof(Description));
+                }
+            }
+        }
+
+        public DateTime RegistrationDate
+        {
+            get => _registrationDate;
+            set
+            {
+                if (_registrationDate != value)
+                {
+                    _registrationDate = value;
+                    OnPropertyChanged(nameof(RegistrationDate));
+                }
+            }
+        }
+
+        public DateTime EndDate
+        {
+            get => _endDate;
+            set
+            {
+                if (_endDate != value)
+                {
+                    _endDate = value;
+                    OnPropertyChanged(nameof(EndDate));
+                }
+            }
+        }
+
+        public CreditPolicyState Status
+        {
+            get => _status;
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    OnPropertyChanged(nameof(Status));
+                }
+            }
+        }
+
+        public bool IsEditable
+        {
+            get => _isEditable;
+            set
+            {
+                if (_isEditable != value)
+                {
+                    _isEditable = value;
+                    OnPropertyChanged(nameof(IsEditable));
+                }
+            }
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

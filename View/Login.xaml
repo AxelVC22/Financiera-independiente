@@ -8,10 +8,11 @@
         xmlns:p="clr-namespace:Independiente.Properties"
         xmlns:conv="clr-namespace:Independiente.Converters"
         mc:Ignorable="d"
-        Title="Login"
         Height="400"
         Width="300"
         WindowStartupLocation="CenterScreen">
+        Icon="ViewResources/Logo.png"
+        ResizeMode="NoResize">
 
 
     <Window.DataContext>

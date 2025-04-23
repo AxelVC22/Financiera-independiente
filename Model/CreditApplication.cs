@@ -17,7 +17,7 @@ namespace Independiente.Model
     {
         private int _creditApplicationId;
 
-        private decimal _loanAmount;
+        private decimal? _loanAmount;
 
         private DateTime _loanApplicationDate;
 
@@ -28,6 +28,11 @@ namespace Independiente.Model
         private PromotionalOffer _promotionalOffer;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public CreditApplication()
+        {
+            _promotionalOffer = new PromotionalOffer();
+        }
 
         public override string ToString()
         {
@@ -99,16 +104,20 @@ namespace Independiente.Model
             }
         }
 
-        public decimal LoanAmount
+        public decimal? LoanAmount
         {
             get => _loanAmount;
             set
             {
-                if (_loanAmount != value)
+                if (value is decimal)
                 {
-                    _loanAmount = value;
-                    OnPropertyChanged(nameof(LoanAmount));
+                    if (_loanAmount != value)
+                    {
+                        _loanAmount = value;
+                        OnPropertyChanged(nameof(LoanAmount));
+                    }
                 }
+               
             }
         }
 

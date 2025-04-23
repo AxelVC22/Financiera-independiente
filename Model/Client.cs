@@ -39,5 +39,9 @@ namespace Independiente.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public override string ToString()
+        {
+            return $"Personal data: {PersonalData.ToString()}";
+        }
     }
 }
