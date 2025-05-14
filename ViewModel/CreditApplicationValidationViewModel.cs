@@ -1,0 +1,254 @@
+﻿using Independiente.DataAccess;
+using Independiente.Services;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+using System;
+using System.IO;
+using System.ComponentModel;
+using System.Windows.Documents;
+using Independiente.Services.Mappers;
+using System.Management.Instrumentation;
+using System.Windows;
+using System.Collections.ObjectModel;
+using Independiente.Model;
+using Independiente.DataAccess.Repositories;
+using System.Windows.Input;
+using Independiente.Commands;
+using CreditPolicy = Independiente.Model.CreditPolicy;
+using Report = Independiente.Model.Report;
+using Independiente.View;
+
+
+namespace Independiente.ViewModel
+{
+    public class CreditApplicationValidationViewModel : BaseViewModel
+    {
+
+        private IDialogService _dialogService;
+
+        private INavigationService _navigationService;
+
+        private ICreditApplicationService _creditApplicationService;
+
+        public ICommand CheckCommand { get; set; }
+
+        public ICommand SubmitCommand { get; set; }
+
+        private int _creditPoliciesTotal;
+
+        private int _creditPoliciesPassed;
+
+        public ObservableCollection<Model.CreditPolicy> CreditPoliciesList { get; set; } = new ObservableCollection<Model.CreditPolicy>();
+
+        private Independiente.Model.CreditApplication _creditApplication;
+
+        public Independiente.Model.CreditApplication CreditApplication { get; set; }
+
+        public Report Report { get; set; } = new Report();
+
+        private byte[] _pdfBytes;
+        public byte[] PdfBytes
+        {
+            get => _pdfBytes;
+            set
+            {
+                _pdfBytes = value;
+                OnPropertyChanged(nameof(PdfBytes));
+            }
+        }
+
+        public Dictionary<string, FileType> DocumentFilterOptions { get; } = new Dictionary<string, FileType>
+        {
+            {"Solicitud", FileType.CA },
+            { "INE",  FileType.INE},
+            {"Comprobante de domicilio", FileType.POA }
+
+        };
+
+        private KeyValuePair<string, FileType> _selectedDocumentFilter;
+
+
+        public CreditApplicationValidationViewModel(IDialogService dialogService, INavigationService navigationService, ICreditApplicationService creditApplicationService, Independiente.Model.CreditApplication creditApplication)
+        {
+            _dialogService = dialogService;
+            _navigationService = navigationService;
+            _creditApplicationService = creditApplicationService;
+            CreditApplication = creditApplication;
+            _creditApplication = CreditApplication;
+            GoBackCommand = new RelayCommand(GoBack, CanDoIt);
+            CheckCommand = new RelayCommand(Check, CanDoIt);
+            SelectedDocumentFilter = DocumentFilterOptions.First();
+            SubmitCommand = new RelayCommand(Submit, CanDoIt);
+            Report.CreditApplication = creditApplication;
+            LoadCreditPolicies();
+        }
+
+        private void Submit (object obj)
+        {
+            int result = 0;
+
+            if (_dialogService.Confirm("Enviar dictamen con estado: " + CreditApplication.Status + "?"))
+            {
+                if (Report.CreditApplication.Status == CreditApplicationStates.Rejected)
+                {
+                    foreach (CreditPolicy c in CreditPoliciesList)
+                    {
+                        if (!c.IsPassed)
+                        {
+                            Report.CreditPolicies.Add(c);
+                        }
+                    }
+                }
+                
+                Report.ReviewingDate = DateTime.Now;   
+
+                result = _creditApplicationService.SubmitDecision(Report);
+            }
+
+            if (result > 1)
+            {
+                _dialogService.Dismiss("dictamen enviado", MessageBoxImage.Exclamation);
+            }
+            
+        }
+
+
+        private void SearchDocument(KeyValuePair<string, FileType> selectedDocumentFilter)
+        {
+            try
+            {
+                if (selectedDocumentFilter.Value == FileType.CA)
+                {
+                    if (CreditApplication.File == null)
+                    {
+                        var file = _creditApplicationService.GetDocument(CreditApplication.Client.ClientId, selectedDocumentFilter.Value.ToString());
+                        PdfBytes = file.FileContent;
+                        CreditApplication.File = file;
+                    }
+                    else
+                    {
+                        PdfBytes = CreditApplication.File.FileContent;
+                    }
+                }
+                else
+                {
+                    var document = CreditApplication.Documents.FirstOrDefault(doc => doc.FileType == selectedDocumentFilter.Value);
+
+                    if (document != null)
+                    {
+                        PdfBytes = document.FileContent;
+                    }
+                    else
+                    {
+                        var file = _creditApplicationService.GetDocument(CreditApplication.Client.ClientId, selectedDocumentFilter.Value.ToString());
+                        PdfBytes = file.FileContent;
+                        CreditApplication.Documents.Add(file);
+                    }
+                }
+            } 
+            catch (KeyNotFoundException e)
+            {
+                PdfBytes = null;
+                _dialogService.Dismiss(e.Message, MessageBoxImage.Information);
+            }
+        }
+        private void Check(object obj)
+        {
+            if (obj is CreditPolicy c)
+            {
+                if (c.IsPassed)
+                {
+                    CreditPoliciesPassed = CreditPoliciesPassed + 1;
+                }
+                else
+                {
+                    CreditPoliciesPassed -= 1;
+                }
+
+                if (CreditPoliciesPassed == CreditPoliciesTotal)
+                {
+                    CreditApplication.Status = CreditApplicationStates.Accepted;
+                }
+                else
+                {
+                    CreditApplication.Status = CreditApplicationStates.Rejected;
+                }
+            }
+        }
+
+        private bool CanDoIt(object obj)
+        {
+            return true;
+        }
+
+        private void GoBack(object obj)
+        {
+
+            if (_dialogService.Confirm("Estas seguro de salir sin guardar"))
+            {
+                CreditApplication = _creditApplication;
+                _navigationService.GoBack();
+            }
+        }
+
+        private void LoadCreditPolicies()
+        {
+            var creditPolicies = _creditApplicationService.GetCreditPolicies(new CreditPolicyQuery { Status = CreditPolicyStates.Active.ToString() });
+
+            foreach (Model.CreditPolicy c in creditPolicies)
+            {
+                CreditPoliciesList.Add(c);
+            }
+
+            CreditPoliciesTotal = creditPolicies.Count();
+        }
+
+
+        public CreditApplicationValidationViewModel()
+        {
+
+        }
+
+        public int CreditPoliciesTotal
+        {
+            get => _creditPoliciesTotal;
+            set
+            {
+                _creditPoliciesTotal = value;
+                OnPropertyChanged(nameof(CreditPoliciesTotal));
+            }
+        }
+
+        public int CreditPoliciesPassed
+        {
+            get => _creditPoliciesPassed;
+            set
+            {
+                _creditPoliciesPassed = value;
+                OnPropertyChanged(nameof(CreditPoliciesPassed));
+            }
+        }
+
+        public KeyValuePair<string, FileType> SelectedDocumentFilter
+        {
+            get => _selectedDocumentFilter;
+            set
+            {
+                if (_selectedDocumentFilter.Equals(value))
+                {
+                    return;
+                }
+                _selectedDocumentFilter = value;
+                OnPropertyChanged(nameof(SelectedDocumentFilter));
+                SearchDocument(_selectedDocumentFilter);
+            }
+        }
+
+
+    }
+}

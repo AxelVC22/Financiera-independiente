@@ -18,6 +18,8 @@ namespace Independiente.Model
 
         private string _neighboorhood;
 
+        private string _city;
+
 
         public int AddressDataId
         {
@@ -67,6 +69,19 @@ namespace Independiente.Model
                 {
                     _neighboorhood = value;
                     OnPropertyChanged(nameof(NeighborHood));
+                }
+            }
+        }
+
+        public string City
+        {
+            get => _city;
+            set
+            {
+                if (_city != value)
+                {
+                    _city = value;
+                    OnPropertyChanged(nameof(City));
                 }
             }
         }

@@ -664,6 +664,15 @@ namespace Independiente.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Resultados.
+        /// </summary>
+        public static string ResultsLabelGlobal {
+            get {
+                return ResourceManager.GetString("ResultsLabelGlobal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a RFC.
         /// </summary>
         public static string RFCLabelGlobal {

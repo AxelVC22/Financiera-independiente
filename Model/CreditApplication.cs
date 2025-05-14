@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 public enum CreditApplicationStates
 {
     Pending,
+    Accepted,
+    Rejected
 }
 
 namespace Independiente.Model
@@ -29,6 +31,9 @@ namespace Independiente.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public File File { get; set; }
+
+        public List<File> Documents { get; set; }
         public CreditApplication()
         {
             _promotionalOffer = new PromotionalOffer();

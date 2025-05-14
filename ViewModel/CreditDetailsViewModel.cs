@@ -199,7 +199,6 @@ namespace Independiente.ViewModel
             if (string.IsNullOrEmpty(filePath))
             {
                 IDialogService dialogService = new DialogService();
-                dialogService.Dismiss("gg");
             }
             return filePath;
 

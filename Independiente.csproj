@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -35,8 +35,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfiumViewer, Version=2.13.0.0, Culture=neutral, PublicKeyToken=91e4789cfb0609e0, processorArchitecture=MSIL">
+      <HintPath>packages\PdfiumViewer.2.13.0.0\lib\net20\PdfiumViewer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -49,6 +63,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -56,9 +71,101 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Converters\BoolToFontWeightConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter .cs" />
     <Compile Include="Converters\DateTimeToStringConverter .cs" />
     <Compile Include="Converters\EmptyStringToVisibilityConverter.cs" />
+    <Compile Include="Converters\NullToBooleanConverter.cs" />
+    <Compile Include="DataAccess\Account.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\AddressData.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\AmortizationSchedule.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Bank.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Client.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\ClientView.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Credit.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\CreditApplication.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\CreditApplicationListView.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\CreditPolicy.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Employee.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\EmployeeView.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\File.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Log.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\PersonalData.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\PromotionalOffer.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Reference.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Report.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Repositories\CatalogsRepository.cs" />
+    <Compile Include="DataAccess\Repositories\ClientRepository.cs" />
+    <Compile Include="DataAccess\Repositories\CreditApplicationRepository.cs" />
+    <Compile Include="DataAccess\Repositories\CreditPolicyRepository.cs" />
+    <Compile Include="DataAccess\Repositories\EmployeeRepository.cs" />
+    <Compile Include="DataAccess\Repositories\PromotionalOfferRepository.cs" />
+    <Compile Include="DataAccess\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\sp_helpdiagrams_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\sysdiagrams.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\User.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\WorkCenter.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Account.cs" />
     <Compile Include="Model\AddressData.cs" />
     <Compile Include="Model\Bank.cs" />
@@ -66,13 +173,16 @@
     <Compile Include="Model\CreditApplication.cs" />
     <Compile Include="Model\CreditPolicy.cs" />
     <Compile Include="Model\Employee.cs" />
+    <Compile Include="Model\File.cs" />
     <Compile Include="Model\ICatalog.cs" />
     <Compile Include="Model\IPerson.cs" />
     <Compile Include="Model\PersonalData.cs" />
     <Compile Include="Model\PromotionalOffer.cs" />
     <Compile Include="Model\Reference.cs" />
+    <Compile Include="Model\Report.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\WorkCenter.cs" />
+    <Compile Include="Properties\Messages.Designer.cs" />
     <Compile Include="Properties\PaymentFrecuencies.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -88,27 +198,44 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>States.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\CreditApplicationService.cs" />
     <Compile Include="Services\DialogService.cs" />
+    <Compile Include="Services\FieldValidator.cs" />
     <Compile Include="Services\FileManagerService.cs" />
+    <Compile Include="Services\Mappers\ClientMapper.cs" />
+    <Compile Include="Services\Mappers\CreditApplicationMapper.cs" />
+    <Compile Include="Services\Mappers\CreditPolicyMapper.cs" />
+    <Compile Include="Services\Mappers\FileMapper.cs" />
+    <Compile Include="Services\Mappers\PromotionalOfferMapper.cs" />
+    <Compile Include="Services\Mappers\ReportMapper.cs" />
     <Compile Include="Services\NavegationService.cs" />
     <Compile Include="Services\SessionService.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\CatalogsViewModel.cs" />
+    <Compile Include="ViewModel\CreditApplicationsViewModel.cs" />
+    <Compile Include="ViewModel\CreditApplicationValidationViewModel.cs" />
     <Compile Include="ViewModel\CreditDetailsViewModel.cs" />
     <Compile Include="ViewModel\CreditPoliciesManagementViewModel.cs" />
     <Compile Include="ViewModel\EmployeeAndClientConsultationViewModel.cs" />
     <Compile Include="ViewModel\FinancialDataViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\PaginationViewModel.cs" />
     <Compile Include="ViewModel\PersonalDataViewModel.cs" />
     <Compile Include="ViewModel\PromotionalOffersManagementViewModel.cs" />
     <Compile Include="ViewModel\ReferencesViewModel.cs" />
     <Compile Include="ViewModel\UserRegistrationViewModel.cs" />
+    <Compile Include="View\Controllers\PdfViewerControl .xaml.cs">
+      <DependentUpon>PdfViewerControl .xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Pages\Catalogs.xaml.cs">
       <DependentUpon>Catalogs.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\CreditApplications.xaml.cs">
+      <DependentUpon>CreditApplications.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Pages\CreditApplicationValidation.xaml.cs">
       <DependentUpon>CreditApplicationValidation.xaml</DependentUpon>
@@ -137,6 +264,10 @@
     <Compile Include="View\Pages\UserRegistration.xaml.cs">
       <DependentUpon>UserRegistration.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\Controllers\PdfViewerControl .xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -156,6 +287,10 @@
     <Page Include="View\Pages\Catalogs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Pages\CreditApplications.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Pages\CreditApplicationValidation.xaml">
       <SubType>Designer</SubType>
@@ -220,6 +355,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Properties\Messages.resx" />
     <EmbeddedResource Include="Properties\PaymentFrecuencies.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>PaymentFrecuencies.Designer.cs</LastGenOutput>
@@ -236,6 +372,14 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>States.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="DataAccess\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataAccess\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -244,11 +388,24 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataAccess\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="View\ViewResources\Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataAccess\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="DataAccess\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

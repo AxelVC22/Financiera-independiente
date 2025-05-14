@@ -374,7 +374,15 @@
            TargetType="Button"
            BasedOn="{StaticResource ButtonStyle}">
         <Setter Property="Foreground"
-                Value="{StaticResource SecondaryButtonStandarBorderColor}" />
+                Value="{StaticResource IconBlackColor}" />
+        <Setter Property="FontSize"
+                Value="10" />
+        <Setter Property="Width"
+                Value="20" />
+        <Setter Property="Height"
+                Value="20" />
+
+
         <Setter Property="Background">
             <Setter.Value>
                 <SolidColorBrush Color="Transparent" />
@@ -386,8 +394,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}"
-                            CornerRadius="6"
-                            BorderBrush="{StaticResource SecondaryButtonStandarBorderColor}"
+                            CornerRadius="2"
+                            BorderBrush="Black"
                             BorderThickness="1">
                         <ContentPresenter HorizontalAlignment="Center"
                                           VerticalAlignment="Center" />

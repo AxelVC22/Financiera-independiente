@@ -22,8 +22,7 @@
                 <ResourceDictionary Source="pack://application:,,,/View/ViewResources/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-            <conv:DateTimeToStringConverter  x:Key="DateTimeToStringConverter " />
-
+           
         </ResourceDictionary>
     </Page.Resources>
 

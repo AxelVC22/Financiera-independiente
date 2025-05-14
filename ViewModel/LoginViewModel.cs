@@ -53,7 +53,6 @@ namespace Independiente.ViewModel
             else
             {
                 IDialogService dialogService = new DialogService();
-                dialogService.Dismiss("gg");
                 IsLoginSuccessful = false;
             }
 

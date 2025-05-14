@@ -10,8 +10,11 @@ namespace Independiente.Model
 {
     public class Client : INotifyPropertyChanged, IPerson
     {
+        public int ClientId {  get; set; }
 
         private PersonalData _personalData;
+
+        private AddressData _addressData;
         public PersonalData PersonalData
         {
             get => _personalData;
@@ -25,7 +28,20 @@ namespace Independiente.Model
             }
         }
 
-       
+        public AddressData AddressData
+        {
+            get => _addressData;
+            set
+            {
+                if (_addressData != value)
+                {
+                    _addressData = value;
+                    OnPropertyChanged(nameof(PersonalData));
+                }
+            }
+        }
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
