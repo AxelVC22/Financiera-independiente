@@ -97,6 +97,7 @@ namespace Independiente.Services
 
         public static bool IsValidNeighborhood(string neighborhood)
         {
+
             if (string.IsNullOrEmpty(neighborhood) || !Regex.IsMatch(neighborhood, NeighborhoodRegex))
             {
                 throw new ArgumentException(Messages.InvalidNeighborhoodMessage);
@@ -107,6 +108,7 @@ namespace Independiente.Services
         public static bool IsValidCity(string city)
         {
             if (string.IsNullOrEmpty(city) || !Regex.IsMatch(city, CityRegex))
+
             {
                 throw new ArgumentException(Messages.InvalidCityMessage);
             }
@@ -124,3 +126,4 @@ namespace Independiente.Services
 
     }
 }
+

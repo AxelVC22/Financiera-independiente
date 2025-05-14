@@ -1,11 +1,15 @@
 ﻿using Independiente.Commands;
+using Independiente.DataAccess;
+using Independiente.Properties;
 using Independiente.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Independiente.ViewModel
@@ -38,25 +42,21 @@ namespace Independiente.ViewModel
 
         private void Login(object obj)
         {
-            if (EmailAddress == "admin" && Password == "123")
+            var (success, message) = App.SessionService.AuthEmployee(EmailAddress, Password);
+
+            if (success)
             {
                 IsLoginSuccessful = true;
-
-                App.SessionService.CurrentUser = new Model.User
-                {
-                    Name = EmailAddress,
-                    Role = Password
-                };
-
                 RequestClose?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 IDialogService dialogService = new DialogService();
+
                 IsLoginSuccessful = false;
             }
-
         }
+
         public bool IsPasswordVisible
         {
             get => _isPasswordVisible;

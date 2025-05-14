@@ -10,7 +10,7 @@ namespace Independiente.Model
 {
     public class AddressData : INotifyPropertyChanged
     {
-        private int _addressDateId;
+        private int _addressDateId = 0;
 
         private string _street;
 
@@ -19,7 +19,6 @@ namespace Independiente.Model
         private string _neighboorhood;
 
         private string _city;
-
 
         public int AddressDataId
         {
@@ -95,7 +94,7 @@ namespace Independiente.Model
 
         public override string ToString()
         {
-            return $"Id: {AddressDataId}, Street: {Street}, State: {State}, Neighborhood: {NeighborHood}";
+            return $"Id: {AddressDataId}, Street: {Street}, State: {State}, Neighborhood: {NeighborHood}, City: {City}";
         }
     }
 }

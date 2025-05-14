@@ -9,20 +9,23 @@ namespace Independiente.Services
 {
     public interface IDialogService
     {
-        bool Confirm(string mensaje);
+        bool Confirm(string message);
 
         void Dismiss(string mensaje, MessageBoxImage image);
+
     }
 
     public class DialogService : IDialogService
     {
-        public bool Confirm(string mensaje)
+        public bool Confirm(string message)
         {
-            return MessageBox.Show(mensaje, "", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+            return MessageBox.Show(message, "", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
         }
+        
         public void Dismiss(string mensaje, MessageBoxImage image)
         {
             MessageBox.Show(mensaje, "", MessageBoxButton.OK, image);
+
         }
     }
 

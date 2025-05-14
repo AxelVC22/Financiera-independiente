@@ -10,7 +10,7 @@ namespace Independiente.Model
     public class PersonalData : INotifyPropertyChanged
     {
 
-        private int _personalDataId;
+        private int _personalDataId = 0;
 
         private string _name;
 
@@ -106,7 +106,7 @@ namespace Independiente.Model
                 if (_rfc != value)
                 {
                     _rfc = value;
-                    OnPropertyChanged(nameof(BirthDate));
+                    OnPropertyChanged(nameof(RFC));
                 }
             }
         }
