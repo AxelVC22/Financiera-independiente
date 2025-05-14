@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -95,7 +96,8 @@ namespace Independiente.Services
         }
 
         public static bool IsValidNeighborhood(string neighborhood)
-        { 
+        {
+
             if (string.IsNullOrEmpty(neighborhood) || !Regex.IsMatch(neighborhood, NeighborhoodRegex))
             {
                 throw new ArgumentException(Messages.InvalidNeighborhoodMessage);
@@ -105,7 +107,8 @@ namespace Independiente.Services
 
         public static bool IsValidCity(string city)
         {
-            if(string.IsNullOrEmpty(city) || !Regex.IsMatch(city, CityRegex))
+            if (string.IsNullOrEmpty(city) || !Regex.IsMatch(city, CityRegex))
+
             {
                 throw new ArgumentException(Messages.InvalidCityMessage);
             }
@@ -123,3 +126,4 @@ namespace Independiente.Services
 
     }
 }
+

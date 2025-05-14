@@ -132,6 +132,7 @@
                                       BorderThickness="0"
                                       HorizontalAlignment="Stretch"
                                       MaxWidth="990"
+                                      Height="440"
                                       MinHeight="400"
                                       MaxHeight="450"
                                       Background="Transparent">
@@ -236,7 +237,7 @@
                             </ListView>
                         </Border>
 
-                        <Border Width="120"
+                        <Border Width="90"
                                 Height="30"
                                 Background="Transparent"
                                 CornerRadius="8"
@@ -246,7 +247,7 @@
                                 HorizontalAlignment="Right"
                                 BorderBrush="Black"
                                 BorderThickness="1">
-                            <Grid Margin="15,0,15,0">
+                            <Grid Margin="5,0,5,0">
                                 <Button Style="{DynamicResource PaginationButtonStyle}"
                                         Height="24"
                                         Width="24"

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Independiente.Model
 {
 
-    public enum CreditPolicyState
+    public enum CreditPolicyStates
     {
         Active,
         Inactive,
@@ -27,11 +27,13 @@ namespace Independiente.Model
 
         private DateTime _endDate;
 
-        private CreditPolicyState _status;
+        private CreditPolicyStates _status;
 
         private bool _isEditable;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private bool _isPassed;
 
         public int CredditPolicyId
         {
@@ -98,7 +100,7 @@ namespace Independiente.Model
             }
         }
 
-        public CreditPolicyState Status
+        public CreditPolicyStates Status
         {
             get => _status;
             set
@@ -124,6 +126,18 @@ namespace Independiente.Model
             }
         }
 
+        public bool IsPassed
+        {
+            get => _isPassed;
+            set
+            {
+                if (_isPassed != value)
+                {
+                    _isPassed = value;
+                    OnPropertyChanged(nameof(IsPassed));
+                }
+            }
+        }
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

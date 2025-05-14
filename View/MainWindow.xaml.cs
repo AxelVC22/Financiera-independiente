@@ -1,5 +1,7 @@
-﻿using Independiente.Model;
+﻿using Independiente.DataAccess.Repositories;
+using Independiente.Model;
 using Independiente.Services;
+using Independiente.View;
 using Independiente.View.Pages;
 using Independiente.ViewModel;
 using System;
@@ -23,7 +25,14 @@ namespace Independiente
 
     public partial class MainWindow : Window
     {
-        public INavigationService NavigationService { get; private set; }
+
+        public ICreditApplicationService CreditApplicationService {  get; set; }
+        public INavigationService NavigationService { get;  set; }
+
+        public ICreditApplicationRepository CreditApplicationRepository { get; set; }
+
+        public ICreditPolicyRepository CreditPolicyRepository { get; set; }
+
         public IClientManagementService ClientManagementService { get; private set; }
         public ICatalogService CatalogService { get; private set; }
         public Client Client { get; private set; }
@@ -35,6 +44,10 @@ namespace Independiente
             ClientManagementService = new ClientManagerService();
             CatalogService = new CatalogManagerService();
             Client = new Client();
+
+            CreditPolicyRepository = new CreditPolicyRepository();
+            CreditApplicationRepository = new CreditApplicationRepository();
+            CreditApplicationService = new CreditApplicationService(CreditApplicationRepository, CreditPolicyRepository);
 
             NavigationService = new FrameNavigationService(
                 PageFrame,
@@ -127,10 +140,30 @@ namespace Independiente
 
                         return new PromotionalOffersManagement(viewModel);
                     }
+                    else if (viewModelType == typeof(CreditApplicationsViewModel))
+                    {
+
+                        var viewModel = new CreditApplicationsViewModel(
+                            dialogService, NavigationService, CreditApplicationService
+                        );
+
+                        return new CreditApplications(viewModel);
+                    }
+                    else if (viewModelType == typeof(CreditApplicationValidationViewModel))
+                    {
+
+                        var param = parameter as CreditApplication ?? new CreditApplication();
+
+                        var viewModel = new CreditApplicationValidationViewModel(
+                            dialogService, NavigationService, CreditApplicationService, param
+                        );
+
+                        return new CreditApplicationValidation(viewModel);
+                    }
                     throw new ArgumentException("ViewModel desconocido");
                 });
 
-            NavigationService.NavigateTo<CreditPoliciesManagementViewModel>();
+            NavigationService.NavigateTo<CreditApplicationsViewModel>();
 
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(dialogService);
             this.DataContext = mainWindowViewModel;

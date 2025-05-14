@@ -76,6 +76,7 @@ namespace Independiente.ViewModel
 
         private void Next(object obj)
         {
+
             string message = string.Empty;
             bool validation = false;
 
@@ -112,7 +113,8 @@ namespace Independiente.ViewModel
             }
             else
             {
-                _dialogService.Dismiss(message);
+                IDialogService dialogService = new DialogService();
+
             }
         }
 

@@ -12,7 +12,7 @@
       d:DesignWidth="1400">
 
     <Page.DataContext>
-        <vm:CatalogsViewModel />
+        <vm:CreditApplicationValidationViewModel />
     </Page.DataContext>
 
     <Page.Resources>
@@ -20,8 +20,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/View/ViewResources/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-            <conv:DateTimeToStringConverter  x:Key="DateTimeToStringConverter " />
 
         </ResourceDictionary>
     </Page.Resources>
@@ -61,7 +59,10 @@
                      BorderThickness="1"
                      Width="100">
                 <Grid Background="Transparent"
-                      Margin="0,0,554,0" />
+                      Margin="0,0,554,0">
+                    <Label Content="{Binding PdfBytes}"/>
+
+                </Grid>
             </TabItem>
 
             <TabItem Header="TabItem">
@@ -70,6 +71,7 @@
             </TabItem>
 
         </TabControl>
+
 
 
         <Border Grid.Column="1"

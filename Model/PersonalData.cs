@@ -30,6 +30,8 @@ namespace Independiente.Model
 
         private string _email;
 
+        public string FullName => $"{Name} {LastName} {Surname}";
+
         public int PersonalDataId
         {
             get => _personalDataId;

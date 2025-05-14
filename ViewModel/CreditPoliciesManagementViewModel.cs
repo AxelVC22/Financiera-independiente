@@ -29,7 +29,7 @@ namespace Independiente.ViewModel
 
         private bool _isOrderedAscendent = false;
 
-        public List<CreditPolicyState> StatesList { get; set; }
+        public List<CreditPolicyStates> StatesList { get; set; }
 
         public ObservableCollection<CreditPolicy> CreditPoliciesList { get; set; }
 
@@ -43,24 +43,6 @@ namespace Independiente.ViewModel
         {
             CreditPoliciesList = new ObservableCollection<CreditPolicy>
             {
-                new CreditPolicy { Name = "duan Pérez", Description = "cliente frecuente", RegistrationDate=DateTime.MinValue, EndDate=DateTime.MinValue, Status=CreditPolicyState.Inactive, IsEditable=false},
-                new CreditPolicy { Name = "Alan Pérez", Description = "Cliente", RegistrationDate=DateTime.Today, EndDate=DateTime.Today, Status=CreditPolicyState.Active, IsEditable=false},
-                new CreditPolicy { Name = "Pedro Pérez", Description = "Cliente", RegistrationDate=DateTime.Today, EndDate=DateTime.Today, Status=CreditPolicyState.Active, IsEditable=false},
-                 new CreditPolicy { Name = "Juan Pérez", Description = "aliente frecuente", RegistrationDate=DateTime.Today, EndDate=DateTime.Today, Status=CreditPolicyState.Active, IsEditable=false},
-                new CreditPolicy { Name = "Alan Pérez", Description = "zliente", RegistrationDate=DateTime.Today, EndDate=DateTime.Today, Status=CreditPolicyState.Active, IsEditable=false},
-                new CreditPolicy { Name = "Pedro Pérez", Description = "Cliente", RegistrationDate=DateTime.Today, EndDate=DateTime.Today, Status=CreditPolicyState.Active, IsEditable=false},
-                 new CreditPolicy { Name = "zuan Pérez", Description = "Cliente frecuente", RegistrationDate=DateTime.Today, EndDate=DateTime.MaxValue, Status=CreditPolicyState.Active, IsEditable=false},
-                new CreditPolicy { Name = "Alan Pérez", Description = "Cliente", RegistrationDate=DateTime.Today, EndDate=DateTime.Today, Status=CreditPolicyState.Active, IsEditable=false},
-                new CreditPolicy { Name = "Pedro Pérez", Description = "bliente", RegistrationDate=DateTime.Today, EndDate=DateTime.Today, Status=CreditPolicyState.Active, IsEditable=false},
-                 new CreditPolicy { Name = "Juan Pérez", Description = "aliente frecuente", RegistrationDate=DateTime.Today, EndDate=DateTime.Today, Status=CreditPolicyState.Active, IsEditable=false},
-                new CreditPolicy { Name = "Alan Pérez", Description = "Cliente", RegistrationDate=DateTime.Today, EndDate=DateTime.Today, Status=CreditPolicyState.Active, IsEditable=false},
-                new CreditPolicy { Name = "edro Pérez", Description = "Cliente", RegistrationDate=DateTime.MaxValue, EndDate=DateTime.Today, Status=CreditPolicyState.Active, IsEditable=false},
-                 new CreditPolicy { Name = "Juan Pérez", Description = "sliente frecuente", RegistrationDate=DateTime.Today, EndDate=DateTime.Today, Status=CreditPolicyState.Active, IsEditable=false},
-                new CreditPolicy { Name = "Alan Pérez", Description = "aliente", RegistrationDate=DateTime.Today, EndDate=DateTime.Today, Status=CreditPolicyState.Active, IsEditable=false},
-                new CreditPolicy { Name = "Pedro Pérez", Description = "Cliente", RegistrationDate=DateTime.Today, EndDate=DateTime.Today, Status=CreditPolicyState.Active, IsEditable=false},
-                 new CreditPolicy { Name = "Juan Pérez", Description = "Cliente frecuente", RegistrationDate=DateTime.Today, EndDate=DateTime.Today, Status=CreditPolicyState.Active, IsEditable=false},
-                new CreditPolicy { Name = "rlan Pérez", Description = "Cliente", RegistrationDate=DateTime.Today, EndDate=DateTime.Today, Status=CreditPolicyState.Active, IsEditable=false},
-                new CreditPolicy { Name = "aedro Pérez", Description = "Cliente", RegistrationDate=DateTime.Today, EndDate=DateTime.Today, Status=CreditPolicyState.Active, IsEditable=false},
 
             };
             _dialogService = dialogService;
@@ -70,8 +52,9 @@ namespace Independiente.ViewModel
             SaveCommand = new RelayCommand(Save, CanDoIt);
             RegisterCommand = new RelayCommand(Register, CanDoIt);
             OrderByNameCommand = new RelayCommand(OrderByName, CanDoIt);
-            StatesList = Enum.GetValues(typeof(CreditPolicyState)).Cast<CreditPolicyState>().ToList();
+            StatesList = Enum.GetValues(typeof(CreditPolicyStates)).Cast<CreditPolicyStates>().ToList();
             _selectedCreditPolicy = new CreditPolicy();
+            PaginationIndex = 1;
 
         }
 
@@ -100,7 +83,7 @@ namespace Independiente.ViewModel
 
         private void Register(object obj)
         {
-            CreditPolicy newCreditPolicy = new CreditPolicy { IsEditable = true , RegistrationDate = DateTime.Today};
+            CreditPolicy newCreditPolicy = new CreditPolicy { IsEditable = true, RegistrationDate = DateTime.Today };
             CreditPoliciesList.Add(newCreditPolicy);
         }
 
@@ -144,7 +127,7 @@ namespace Independiente.ViewModel
         }, CanDoIt);
 
 
-      
+
 
         private void OrderByProperty(Func<CreditPolicy, object> keySelector)
         {
@@ -183,7 +166,7 @@ namespace Independiente.ViewModel
             set
             {
                 if (_paginationIndex != value)
-                { 
+                {
                     _paginationIndex = value;
                     OnPropertyChanged(nameof(PaginationIndex));
                 }

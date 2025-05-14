@@ -11,7 +11,8 @@ namespace Independiente.Services
     {
         bool Confirm(string message);
 
-        void Dismiss(string message);
+        void Dismiss(string mensaje, MessageBoxImage image);
+
     }
 
     public class DialogService : IDialogService
@@ -20,9 +21,11 @@ namespace Independiente.Services
         {
             return MessageBox.Show(message, "", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
         }
-        public void Dismiss(string message)
+        
+        public void Dismiss(string mensaje, MessageBoxImage image)
         {
-            MessageBox.Show(message, "", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(mensaje, "", MessageBoxButton.OK, image);
+
         }
     }
 

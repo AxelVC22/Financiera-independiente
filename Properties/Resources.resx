@@ -363,4 +363,7 @@
   <data name="StatusLabelGlobal" xml:space="preserve">
     <value>Estado</value>
   </data>
+  <data name="ResultsLabelGlobal" xml:space="preserve">
+    <value>Resultados</value>
+  </data>
 </root>

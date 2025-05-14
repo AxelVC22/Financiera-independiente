@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Independiente.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +16,17 @@ using System.Windows.Shapes;
 
 namespace Independiente.View.Pages
 {
-    /// <summary>
-    /// Lógica de interacción para CreditApplicationValidation.xaml
-    /// </summary>
+    
     public partial class CreditApplicationValidation : Page
     {
-        public CreditApplicationValidation()
+
+        private CreditApplicationValidationViewModel _creditApplicationValidationViewModel;
+        public CreditApplicationValidation(CreditApplicationValidationViewModel creditApplicationValidationViewModel)
         {
             InitializeComponent();
+
+            _creditApplicationValidationViewModel = creditApplicationValidationViewModel;
+            this.DataContext = _creditApplicationValidationViewModel;
         }
     }
 }
