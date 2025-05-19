@@ -11,7 +11,7 @@ namespace Independiente.Services
 {
     public interface IClientManagementService
     {
-        Client[] GetAllClientsBy
+       // Client[] GetAllClientsBy
         bool ValidatePersonalData(Model.PersonalData personalData);
 
         bool ValidateAddressData(Model.AddressData addressData);

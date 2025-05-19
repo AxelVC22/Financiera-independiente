@@ -22,15 +22,17 @@ namespace Independiente.DataAccess
         }
     
         public int ClientId { get; set; }
-        public int AccountId { get; set; }
+        public int DepositAccountId { get; set; }
         public int WorkCenterId { get; set; }
         public int PersonalDataId { get; set; }
         public int AddressDataId { get; set; }
         public Nullable<int> FirstReference { get; set; }
         public Nullable<int> SecondReference { get; set; }
         public int EmployeeId { get; set; }
+        public int PaymentAccountId { get; set; }
     
         public virtual Account Account { get; set; }
+        public virtual Account Account1 { get; set; }
         public virtual AddressData AddressData { get; set; }
         public virtual PersonalData PersonalData { get; set; }
         public virtual WorkCenter WorkCenter { get; set; }

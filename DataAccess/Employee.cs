@@ -30,9 +30,9 @@ namespace Independiente.DataAccess
         public int UserId { get; set; }
     
         public virtual AddressData AddressData { get; set; }
-        public virtual PersonalData PersonalData { get; set; }
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Client> Client { get; set; }
+        public virtual PersonalData PersonalData { get; set; }
+        public virtual User User { get; set; }
     }
 }

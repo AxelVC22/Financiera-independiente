@@ -38,7 +38,7 @@ namespace Independiente.ViewModel
             } 
             else
             {
-                PeopleList = new ObservableCollection<IPerson>()
+               // PeopleList = new ObservableCollection<IPerson>()
             }
 
             PeopleList = new ObservableCollection<IPerson>

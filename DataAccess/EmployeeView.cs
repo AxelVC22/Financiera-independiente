@@ -16,6 +16,7 @@ namespace Independiente.DataAccess
     {
         public string Role { get; set; }
         public string Password { get; set; }
+        public int UserId { get; set; }
         public int AddressDataId { get; set; }
         public int PersonalDataId { get; set; }
         public string Status { get; set; }
@@ -33,6 +34,5 @@ namespace Independiente.DataAccess
         public string Street { get; set; }
         public string State { get; set; }
         public string Neighborhood { get; set; }
-        public int UserId { get; set; }
     }
 }

@@ -14,17 +14,8 @@ namespace Independiente.DataAccess
     
     public partial class Bank
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Bank()
-        {
-            this.Account = new HashSet<Account>();
-        }
-    
         public int BankId { get; set; }
         public string Name { get; set; }
         public string Status { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Account> Account { get; set; }
     }
 }

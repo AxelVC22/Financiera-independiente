@@ -18,14 +18,16 @@ namespace Independiente.DataAccess
         public Account()
         {
             this.Client = new HashSet<Client>();
+            this.Client1 = new HashSet<Client>();
         }
     
         public int AccountId { get; set; }
         public string CLABE { get; set; }
         public int BankId { get; set; }
     
-        public virtual Bank Bank { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Client> Client { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Client> Client1 { get; set; }
     }
 }

@@ -14,8 +14,6 @@ namespace Independiente.DataAccess
     
     public partial class ClientView
     {
-        public string CLABE { get; set; }
-        public int BankId { get; set; }
         public string Street { get; set; }
         public string State { get; set; }
         public string Neighborhood { get; set; }
@@ -47,7 +45,12 @@ namespace Independiente.DataAccess
         public int AddressDataId { get; set; }
         public int PersonalDataId { get; set; }
         public int WorkCenterId { get; set; }
-        public int AccountId { get; set; }
         public int EmployeeId { get; set; }
+        public int DepositAccountId { get; set; }
+        public int PaymentAccountId { get; set; }
+        public string DepositCLABE { get; set; }
+        public int DepositBank { get; set; }
+        public string PaymentCLABE { get; set; }
+        public int PaymentBank { get; set; }
     }
 }

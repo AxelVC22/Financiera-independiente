@@ -17,7 +17,7 @@ namespace Independiente.DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CreditPolicy()
         {
-            this.Report_CreditPolicy = new HashSet<Report_CreditPolicy>();
+            this.Report = new HashSet<Report>();
         }
     
         public int CreditPolicyId { get; set; }
@@ -28,6 +28,6 @@ namespace Independiente.DataAccess
         public string Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Report_CreditPolicy> Report_CreditPolicy { get; set; }
+        public virtual ICollection<Report> Report { get; set; }
     }
 }

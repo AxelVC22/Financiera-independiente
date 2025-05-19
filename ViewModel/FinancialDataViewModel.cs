@@ -97,7 +97,7 @@ namespace Independiente.ViewModel
             } 
             else
             {
-                _dialogService.Dismiss(message);
+              //  _dialogService.Dismiss(message);
             }
         }
 

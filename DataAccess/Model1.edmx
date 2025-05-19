@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="IndependienteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="IndependienteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="AccountId" />
@@ -56,13 +56,14 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.AmortizationSchedule' no t
             <PropertyRef Name="ClientId" />
           </Key>
           <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="DepositAccountId" Type="int" Nullable="false" />
           <Property Name="WorkCenterId" Type="int" Nullable="false" />
           <Property Name="PersonalDataId" Type="int" Nullable="false" />
           <Property Name="AddressDataId" Type="int" Nullable="false" />
           <Property Name="FirstReference" Type="int" />
           <Property Name="SecondReference" Type="int" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="PaymentAccountId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Credit">
           <Key>
@@ -142,7 +143,7 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.AmortizationSchedule' no t
           <Key>
             <PropertyRef Name="PromotionalOfferId" />
           </Key>
-          <Property Name="PromotionalOfferId" Type="int" Nullable="false" />
+          <Property Name="PromotionalOfferId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="InterestRate" Type="decimal" Precision="4" Scale="4" Nullable="false" />
           <Property Name="LoanTerm" Type="int" Nullable="false" />
           <Property Name="PaymentFrecuency" Type="varchar" MaxLength="15" Nullable="false" />
@@ -168,8 +169,6 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.AmortizationSchedule' no t
           <Property Name="ReviewingDate" Type="date" Nullable="false" />
           <Property Name="CreditApplicationId" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Independiente.dbo.Report_CreditPolicy' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Report_CreditPolicy">
           <Key>
             <PropertyRef Name="ReportId" />
@@ -177,6 +176,16 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.Report_CreditPolicy' no ti
           </Key>
           <Property Name="ReportId" Type="int" Nullable="false" />
           <Property Name="CreditPolicyId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -200,8 +209,6 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.Report_CreditPolicy' no ti
 advertencia 6002: La tabla o vista 'Independiente.dbo.ClientView' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="ClientView">
           <Key>
-            <PropertyRef Name="CLABE" />
-            <PropertyRef Name="BankId" />
             <PropertyRef Name="Street" />
             <PropertyRef Name="State" />
             <PropertyRef Name="Neighborhood" />
@@ -229,11 +236,14 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.ClientView' no tiene defin
             <PropertyRef Name="AddressDataId" />
             <PropertyRef Name="PersonalDataId" />
             <PropertyRef Name="WorkCenterId" />
-            <PropertyRef Name="AccountId" />
             <PropertyRef Name="EmployeeId" />
+            <PropertyRef Name="DepositAccountId" />
+            <PropertyRef Name="PaymentAccountId" />
+            <PropertyRef Name="DepositCLABE" />
+            <PropertyRef Name="DepositBank" />
+            <PropertyRef Name="PaymentCLABE" />
+            <PropertyRef Name="PaymentBank" />
           </Key>
-          <Property Name="CLABE" Type="nvarchar" MaxLength="18" Nullable="false" />
-          <Property Name="BankId" Type="int" Nullable="false" />
           <Property Name="Street" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="State" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Neighborhood" Type="varchar" MaxLength="50" Nullable="false" />
@@ -265,8 +275,39 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.ClientView' no tiene defin
           <Property Name="AddressDataId" Type="int" Nullable="false" />
           <Property Name="PersonalDataId" Type="int" Nullable="false" />
           <Property Name="WorkCenterId" Type="int" Nullable="false" />
-          <Property Name="AccountId" Type="int" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="DepositAccountId" Type="int" Nullable="false" />
+          <Property Name="PaymentAccountId" Type="int" Nullable="false" />
+          <Property Name="DepositCLABE" Type="nvarchar" MaxLength="18" Nullable="false" />
+          <Property Name="DepositBank" Type="int" Nullable="false" />
+          <Property Name="PaymentCLABE" Type="nvarchar" MaxLength="18" Nullable="false" />
+          <Property Name="PaymentBank" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Independiente.dbo.CreditApplicationListView' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="CreditApplicationListView">
+          <Key>
+            <PropertyRef Name="CreditApplicationId" />
+            <PropertyRef Name="LoanAmount" />
+            <PropertyRef Name="LoanApplicationDate" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="ClientId" />
+            <PropertyRef Name="FileId" />
+            <PropertyRef Name="PromotionalOfferId" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="RFC" />
+          </Key>
+          <Property Name="CreditApplicationId" Type="int" Nullable="false" />
+          <Property Name="LoanAmount" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="LoanApplicationDate" Type="date" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="FileId" Type="int" Nullable="false" />
+          <Property Name="PromotionalOfferId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="45" />
+          <Property Name="Lastname" Type="varchar" MaxLength="45" />
+          <Property Name="RFC" Type="nvarchar" MaxLength="13" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -312,18 +353,6 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <Property Name="State" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Neighborhood" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="Account_Bank">
-          <End Role="Bank" Type="Self.Bank" Multiplicity="1" />
-          <End Role="Account" Type="Self.Account" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Bank">
-              <PropertyRef Name="BankId" />
-            </Principal>
-            <Dependent Role="Account">
-              <PropertyRef Name="BankId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="AmortizationSchudele_Credit">
           <End Role="Credit" Type="Self.Credit" Multiplicity="1" />
           <End Role="AmortizationSchedule" Type="Self.AmortizationSchedule" Multiplicity="*" />
@@ -333,18 +362,6 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
             </Principal>
             <Dependent Role="AmortizationSchedule">
               <PropertyRef Name="CreditId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Client_Account">
-          <End Role="Account" Type="Self.Account" Multiplicity="1" />
-          <End Role="Client" Type="Self.Client" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="AccountId" />
-            </Principal>
-            <Dependent Role="Client">
-              <PropertyRef Name="AccountId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -477,6 +494,30 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
             </Principal>
             <Dependent Role="File">
               <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Account_DepositAccountId">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="DepositAccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Account_PaymentAccountId">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="PaymentAccountId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -536,7 +577,7 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
               <PropertyRef Name="CreditPolicyId" />
             </Principal>
             <Dependent Role="Report_CreditPolicy">
-              <PropertyRef Name="ReportId" />
+              <PropertyRef Name="CreditPolicyId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -552,6 +593,37 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="IndependienteModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AddressData" EntityType="Self.AddressData" Schema="dbo" store:Type="Tables" />
@@ -567,6 +639,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <EntitySet Name="PromotionalOffer" EntityType="Self.PromotionalOffer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reference" EntityType="Self.Reference" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Report" EntityType="Self.Report" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Report_CreditPolicy" EntityType="Self.Report_CreditPolicy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkCenter" EntityType="Self.WorkCenter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AmortizationSchedule" EntityType="Self.AmortizationSchedule" store:Type="Tables" store:Schema="dbo">
@@ -580,16 +654,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
     [AmortizationSchedule].[CreditId] AS [CreditId]
     FROM [dbo].[AmortizationSchedule] AS [AmortizationSchedule]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="Report_CreditPolicy" EntityType="Self.Report_CreditPolicy" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Report_CreditPolicy].[ReportId] AS [ReportId], 
-    [Report_CreditPolicy].[CreditPolicyId] AS [CreditPolicyId]
-    FROM [dbo].[Report_CreditPolicy] AS [Report_CreditPolicy]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="ClientView" EntityType="Self.ClientView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [ClientView].[CLABE] AS [CLABE], 
-    [ClientView].[BankId] AS [BankId], 
     [ClientView].[Street] AS [Street], 
     [ClientView].[State] AS [State], 
     [ClientView].[Neighborhood] AS [Neighborhood], 
@@ -621,9 +687,29 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
     [ClientView].[AddressDataId] AS [AddressDataId], 
     [ClientView].[PersonalDataId] AS [PersonalDataId], 
     [ClientView].[WorkCenterId] AS [WorkCenterId], 
-    [ClientView].[AccountId] AS [AccountId], 
-    [ClientView].[EmployeeId] AS [EmployeeId]
+    [ClientView].[EmployeeId] AS [EmployeeId], 
+    [ClientView].[DepositAccountId] AS [DepositAccountId], 
+    [ClientView].[PaymentAccountId] AS [PaymentAccountId], 
+    [ClientView].[DepositCLABE] AS [DepositCLABE], 
+    [ClientView].[DepositBank] AS [DepositBank], 
+    [ClientView].[PaymentCLABE] AS [PaymentCLABE], 
+    [ClientView].[PaymentBank] AS [PaymentBank]
     FROM [dbo].[ClientView] AS [ClientView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="CreditApplicationListView" EntityType="Self.CreditApplicationListView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CreditApplicationListView].[CreditApplicationId] AS [CreditApplicationId], 
+    [CreditApplicationListView].[LoanAmount] AS [LoanAmount], 
+    [CreditApplicationListView].[LoanApplicationDate] AS [LoanApplicationDate], 
+    [CreditApplicationListView].[Status] AS [Status], 
+    [CreditApplicationListView].[ClientId] AS [ClientId], 
+    [CreditApplicationListView].[FileId] AS [FileId], 
+    [CreditApplicationListView].[PromotionalOfferId] AS [PromotionalOfferId], 
+    [CreditApplicationListView].[Name] AS [Name], 
+    [CreditApplicationListView].[Surname] AS [Surname], 
+    [CreditApplicationListView].[Lastname] AS [Lastname], 
+    [CreditApplicationListView].[RFC] AS [RFC]
+    FROM [dbo].[CreditApplicationListView] AS [CreditApplicationListView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="EmployeeView" EntityType="Self.EmployeeView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -649,17 +735,9 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
     [EmployeeView].[Neighborhood] AS [Neighborhood]
     FROM [dbo].[EmployeeView] AS [EmployeeView]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="Account_Bank" Association="Self.Account_Bank">
-            <End Role="Bank" EntitySet="Bank" />
-            <End Role="Account" EntitySet="Account" />
-          </AssociationSet>
           <AssociationSet Name="AmortizationSchudele_Credit" Association="Self.AmortizationSchudele_Credit">
             <End Role="Credit" EntitySet="Credit" />
             <End Role="AmortizationSchedule" EntitySet="AmortizationSchedule" />
-          </AssociationSet>
-          <AssociationSet Name="Client_Account" Association="Self.Client_Account">
-            <End Role="Account" EntitySet="Account" />
-            <End Role="Client" EntitySet="Client" />
           </AssociationSet>
           <AssociationSet Name="Client_AddressData" Association="Self.Client_AddressData">
             <End Role="AddressData" EntitySet="AddressData" />
@@ -705,6 +783,14 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
             <End Role="Client" EntitySet="Client" />
             <End Role="File" EntitySet="File" />
           </AssociationSet>
+          <AssociationSet Name="FK_Account_DepositAccountId" Association="Self.FK_Account_DepositAccountId">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Account_PaymentAccountId" Association="Self.FK_Account_PaymentAccountId">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
           <AssociationSet Name="FK_Client_FirstReference" Association="Self.FK_Client_FirstReference">
             <End Role="Reference" EntitySet="Reference" />
             <End Role="Client" EntitySet="Client" />
@@ -730,7 +816,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
             <End Role="Report_CreditPolicy" EntitySet="Report_CreditPolicy" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="IndependienteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -741,8 +828,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <Property Name="AccountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CLABE" Type="String" MaxLength="18" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BankId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Bank" Relationship="Self.Account_Bank" FromRole="Account" ToRole="Bank" />
-          <NavigationProperty Name="Client" Relationship="Self.Client_Account" FromRole="Account" ToRole="Client" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Account_DepositAccountId" FromRole="Account" ToRole="Client" />
+          <NavigationProperty Name="Client1" Relationship="Self.FK_Account_PaymentAccountId" FromRole="Account" ToRole="Client" />
         </EntityType>
         <EntityType Name="AddressData">
           <Key>
@@ -752,9 +839,9 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="State" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Neighborhood" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Client" Relationship="Self.Client_AddressData" FromRole="AddressData" ToRole="Client" />
           <NavigationProperty Name="Employee" Relationship="Self.Employee_AddressData" FromRole="AddressData" ToRole="Employee" />
-          <Property Name="City" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Bank">
           <Key>
@@ -763,20 +850,22 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <Property Name="BankId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Account" Relationship="Self.Account_Bank" FromRole="Bank" ToRole="Account" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ClientId" />
           </Key>
           <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="DepositAccountId" Type="Int32" Nullable="false" />
           <Property Name="WorkCenterId" Type="Int32" Nullable="false" />
           <Property Name="PersonalDataId" Type="Int32" Nullable="false" />
           <Property Name="AddressDataId" Type="Int32" Nullable="false" />
           <Property Name="FirstReference" Type="Int32" />
           <Property Name="SecondReference" Type="Int32" />
-          <NavigationProperty Name="Account" Relationship="Self.Client_Account" FromRole="Client" ToRole="Account" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="PaymentAccountId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Account_DepositAccountId" FromRole="Client" ToRole="Account" />
+          <NavigationProperty Name="Account1" Relationship="Self.FK_Account_PaymentAccountId" FromRole="Client" ToRole="Account" />
           <NavigationProperty Name="AddressData" Relationship="Self.Client_AddressData" FromRole="Client" ToRole="AddressData" />
           <NavigationProperty Name="PersonalData" Relationship="Self.Client_PersonalData" FromRole="Client" ToRole="PersonalData" />
           <NavigationProperty Name="WorkCenter" Relationship="Self.Client_WorkCenter" FromRole="Client" ToRole="WorkCenter" />
@@ -784,8 +873,7 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <NavigationProperty Name="File" Relationship="Self.File_Client" FromRole="Client" ToRole="File" />
           <NavigationProperty Name="Reference" Relationship="Self.FK_Client_FirstReference" FromRole="Client" ToRole="Reference" />
           <NavigationProperty Name="Reference1" Relationship="Self.FK_Client_SecondReference" FromRole="Client" ToRole="Reference" />
-          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="IndependienteModel.FK_Employee" FromRole="Client" ToRole="Employee" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee" FromRole="Client" ToRole="Employee" />
         </EntityType>
         <EntityType Name="Credit">
           <Key>
@@ -825,7 +913,7 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <Property Name="RegistrationDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Report_CreditPolicy" Relationship="Self.Report_CreditPolicy_CreditPolicy" FromRole="CreditPolicy" ToRole="Report_CreditPolicy" />
+          <NavigationProperty Name="Report" Relationship="Self.Report_CreditPolicy" FromRole="CreditPolicy" ToRole="Report" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -840,9 +928,9 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <Property Name="AddressDataId" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AddressData" Relationship="Self.Employee_AddressData" FromRole="Employee" ToRole="AddressData" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Employee" FromRole="Employee" ToRole="Client" />
           <NavigationProperty Name="PersonalData" Relationship="Self.Employee_PersonalData" FromRole="Employee" ToRole="PersonalData" />
           <NavigationProperty Name="User" Relationship="Self.Employee_User" FromRole="Employee" ToRole="User" />
-          <NavigationProperty Name="Client" Relationship="IndependienteModel.FK_Employee" FromRole="Employee" ToRole="Client" />
         </EntityType>
         <EntityType Name="File">
           <Key>
@@ -881,7 +969,7 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <Key>
             <PropertyRef Name="PromotionalOfferId" />
           </Key>
-          <Property Name="PromotionalOfferId" Type="Int32" Nullable="false" />
+          <Property Name="PromotionalOfferId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="InterestRate" Type="Decimal" Precision="4" Scale="4" Nullable="false" />
           <Property Name="LoanTerm" Type="Int32" Nullable="false" />
           <Property Name="PaymentFrecuency" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
@@ -910,7 +998,17 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <Property Name="ReviewingDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CreditApplicationId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CreditApplication" Relationship="Self.Report_CreditApplication" FromRole="Report" ToRole="CreditApplication" />
-          <NavigationProperty Name="Report_CreditPolicy" Relationship="Self.Report_CreditPolicy_Report" FromRole="Report" ToRole="Report_CreditPolicy" />
+          <NavigationProperty Name="CreditPolicy" Relationship="Self.Report_CreditPolicy" FromRole="Report" ToRole="CreditPolicy" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -951,20 +1049,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <Property Name="CreditId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Credit" Relationship="Self.AmortizationSchudele_Credit" FromRole="AmortizationSchedule" ToRole="Credit" />
         </EntityType>
-        <EntityType Name="Report_CreditPolicy">
-          <Key>
-            <PropertyRef Name="ReportId" />
-            <PropertyRef Name="CreditPolicyId" />
-          </Key>
-          <Property Name="ReportId" Type="Int32" Nullable="false" />
-          <Property Name="CreditPolicyId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CreditPolicy" Relationship="Self.Report_CreditPolicy_CreditPolicy" FromRole="Report_CreditPolicy" ToRole="CreditPolicy" />
-          <NavigationProperty Name="Report" Relationship="Self.Report_CreditPolicy_Report" FromRole="Report_CreditPolicy" ToRole="Report" />
-        </EntityType>
         <EntityType Name="ClientView">
           <Key>
-            <PropertyRef Name="CLABE" />
-            <PropertyRef Name="BankId" />
             <PropertyRef Name="Street" />
             <PropertyRef Name="State" />
             <PropertyRef Name="Neighborhood" />
@@ -992,11 +1078,14 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
             <PropertyRef Name="AddressDataId" />
             <PropertyRef Name="PersonalDataId" />
             <PropertyRef Name="WorkCenterId" />
-            <PropertyRef Name="AccountId" />
             <PropertyRef Name="EmployeeId" />
+            <PropertyRef Name="DepositAccountId" />
+            <PropertyRef Name="PaymentAccountId" />
+            <PropertyRef Name="DepositCLABE" />
+            <PropertyRef Name="DepositBank" />
+            <PropertyRef Name="PaymentCLABE" />
+            <PropertyRef Name="PaymentBank" />
           </Key>
-          <Property Name="CLABE" Type="String" MaxLength="18" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="BankId" Type="Int32" Nullable="false" />
           <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="State" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Neighborhood" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -1028,13 +1117,43 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <Property Name="AddressDataId" Type="Int32" Nullable="false" />
           <Property Name="PersonalDataId" Type="Int32" Nullable="false" />
           <Property Name="WorkCenterId" Type="Int32" Nullable="false" />
-          <Property Name="AccountId" Type="Int32" Nullable="false" />
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="DepositAccountId" Type="Int32" Nullable="false" />
+          <Property Name="PaymentAccountId" Type="Int32" Nullable="false" />
+          <Property Name="DepositCLABE" Type="String" MaxLength="18" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DepositBank" Type="Int32" Nullable="false" />
+          <Property Name="PaymentCLABE" Type="String" MaxLength="18" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PaymentBank" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CreditApplicationListView">
+          <Key>
+            <PropertyRef Name="CreditApplicationId" />
+            <PropertyRef Name="LoanAmount" />
+            <PropertyRef Name="LoanApplicationDate" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="ClientId" />
+            <PropertyRef Name="FileId" />
+            <PropertyRef Name="PromotionalOfferId" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="RFC" />
+          </Key>
+          <Property Name="CreditApplicationId" Type="Int32" Nullable="false" />
+          <Property Name="LoanAmount" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="LoanApplicationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Status" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="FileId" Type="Int32" Nullable="false" />
+          <Property Name="PromotionalOfferId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Lastname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="RFC" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeeView">
           <Key>
             <PropertyRef Name="Role" />
             <PropertyRef Name="Password" />
+            <PropertyRef Name="UserId" />
             <PropertyRef Name="AddressDataId" />
             <PropertyRef Name="PersonalDataId" />
             <PropertyRef Name="Status" />
@@ -1050,10 +1169,10 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
             <PropertyRef Name="Street" />
             <PropertyRef Name="State" />
             <PropertyRef Name="Neighborhood" />
-            <PropertyRef Name="UserId" />
           </Key>
           <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="AddressDataId" Type="Int32" Nullable="false" />
           <Property Name="PersonalDataId" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
@@ -1071,21 +1190,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="State" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Neighborhood" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
         </EntityType>
-        <Association Name="Account_Bank">
-          <End Role="Bank" Type="Self.Bank" Multiplicity="1" />
-          <End Role="Account" Type="Self.Account" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Bank">
-              <PropertyRef Name="BankId" />
-            </Principal>
-            <Dependent Role="Account">
-              <PropertyRef Name="BankId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Client_Account">
+        <Association Name="FK_Account_DepositAccountId">
           <End Role="Account" Type="Self.Account" Multiplicity="1" />
           <End Role="Client" Type="Self.Client" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1093,7 +1199,19 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
               <PropertyRef Name="AccountId" />
             </Principal>
             <Dependent Role="Client">
+              <PropertyRef Name="DepositAccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Account_PaymentAccountId">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
               <PropertyRef Name="AccountId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="PaymentAccountId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1193,6 +1311,18 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="AmortizationSchudele_Credit">
           <End Role="Credit" Type="Self.Credit" Multiplicity="1" />
           <End Role="AmortizationSchedule" Type="Self.AmortizationSchedule" Multiplicity="*" />
@@ -1253,18 +1383,6 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Report_CreditPolicy_CreditPolicy">
-          <End Role="CreditPolicy" Type="Self.CreditPolicy" Multiplicity="1" />
-          <End Role="Report_CreditPolicy" Type="Self.Report_CreditPolicy" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CreditPolicy">
-              <PropertyRef Name="CreditPolicyId" />
-            </Principal>
-            <Dependent Role="Report_CreditPolicy">
-              <PropertyRef Name="ReportId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="Employee_PersonalData">
           <End Role="PersonalData" Type="Self.PersonalData" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
@@ -1289,17 +1407,9 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Report_CreditPolicy_Report">
-          <End Role="Report" Type="Self.Report" Multiplicity="1" />
-          <End Role="Report_CreditPolicy" Type="Self.Report_CreditPolicy" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Report">
-              <PropertyRef Name="ReportId" />
-            </Principal>
-            <Dependent Role="Report_CreditPolicy">
-              <PropertyRef Name="ReportId" />
-            </Dependent>
-          </ReferentialConstraint>
+        <Association Name="Report_CreditPolicy">
+          <End Role="CreditPolicy" Type="Self.CreditPolicy" Multiplicity="*" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
         </Association>
         <EntityContainer Name="IndependienteEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Account" EntityType="Self.Account" />
@@ -1316,17 +1426,18 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <EntitySet Name="PromotionalOffer" EntityType="Self.PromotionalOffer" />
           <EntitySet Name="Reference" EntityType="Self.Reference" />
           <EntitySet Name="Report" EntityType="Self.Report" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="User" EntityType="Self.User" />
           <EntitySet Name="WorkCenter" EntityType="Self.WorkCenter" />
           <EntitySet Name="AmortizationSchedule" EntityType="Self.AmortizationSchedule" />
-          <EntitySet Name="Report_CreditPolicy" EntityType="Self.Report_CreditPolicy" />
           <EntitySet Name="ClientView" EntityType="Self.ClientView" />
+          <EntitySet Name="CreditApplicationListView" EntityType="Self.CreditApplicationListView" />
           <EntitySet Name="EmployeeView" EntityType="Self.EmployeeView" />
-          <AssociationSet Name="Account_Bank" Association="Self.Account_Bank">
-            <End Role="Bank" EntitySet="Bank" />
+          <AssociationSet Name="FK_Account_DepositAccountId" Association="Self.FK_Account_DepositAccountId">
             <End Role="Account" EntitySet="Account" />
+            <End Role="Client" EntitySet="Client" />
           </AssociationSet>
-          <AssociationSet Name="Client_Account" Association="Self.Client_Account">
+          <AssociationSet Name="FK_Account_PaymentAccountId" Association="Self.FK_Account_PaymentAccountId">
             <End Role="Account" EntitySet="Account" />
             <End Role="Client" EntitySet="Client" />
           </AssociationSet>
@@ -1362,6 +1473,10 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
             <End Role="Reference" EntitySet="Reference" />
             <End Role="Client" EntitySet="Client" />
           </AssociationSet>
+          <AssociationSet Name="FK_Employee" Association="Self.FK_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
           <AssociationSet Name="AmortizationSchudele_Credit" Association="Self.AmortizationSchudele_Credit">
             <End Role="Credit" EntitySet="Credit" />
             <End Role="AmortizationSchedule" EntitySet="AmortizationSchedule" />
@@ -1382,10 +1497,6 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
             <End Role="CreditApplication" EntitySet="CreditApplication" />
             <End Role="Report" EntitySet="Report" />
           </AssociationSet>
-          <AssociationSet Name="Report_CreditPolicy_CreditPolicy" Association="Self.Report_CreditPolicy_CreditPolicy">
-            <End Role="CreditPolicy" EntitySet="CreditPolicy" />
-            <End Role="Report_CreditPolicy" EntitySet="Report_CreditPolicy" />
-          </AssociationSet>
           <AssociationSet Name="Employee_PersonalData" Association="Self.Employee_PersonalData">
             <End Role="PersonalData" EntitySet="PersonalData" />
             <End Role="Employee" EntitySet="Employee" />
@@ -1394,27 +1505,52 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
             <End Role="User" EntitySet="User" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
-          <AssociationSet Name="Report_CreditPolicy_Report" Association="Self.Report_CreditPolicy_Report">
+          <AssociationSet Name="Report_CreditPolicy" Association="Self.Report_CreditPolicy">
+            <End Role="CreditPolicy" EntitySet="CreditPolicy" />
             <End Role="Report" EntitySet="Report" />
-            <End Role="Report_CreditPolicy" EntitySet="Report_CreditPolicy" />
           </AssociationSet>
-          <AssociationSet Name="FK_Employee" Association="IndependienteModel.FK_Employee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="Client" EntitySet="Client" />
-          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(IndependienteModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(IndependienteModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
-        <Association Name="FK_Employee">
-          <End Type="IndependienteModel.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="IndependienteModel.Client" Role="Client" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeId" />
-            </Principal>
-            <Dependent Role="Client">
-              <PropertyRef Name="EmployeeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1433,11 +1569,11 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <EntitySetMapping Name="AddressData">
             <EntityTypeMapping TypeName="IndependienteModel.AddressData">
               <MappingFragment StoreEntitySet="AddressData">
-                <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="AddressDataId" ColumnName="AddressDataId" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Neighborhood" ColumnName="Neighborhood" />
+                <ScalarProperty Name="City" ColumnName="City" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1453,14 +1589,15 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <EntitySetMapping Name="Client">
             <EntityTypeMapping TypeName="IndependienteModel.Client">
               <MappingFragment StoreEntitySet="Client">
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="ClientId" ColumnName="ClientId" />
-                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="DepositAccountId" ColumnName="DepositAccountId" />
                 <ScalarProperty Name="WorkCenterId" ColumnName="WorkCenterId" />
                 <ScalarProperty Name="PersonalDataId" ColumnName="PersonalDataId" />
                 <ScalarProperty Name="AddressDataId" ColumnName="AddressDataId" />
                 <ScalarProperty Name="FirstReference" ColumnName="FirstReference" />
                 <ScalarProperty Name="SecondReference" ColumnName="SecondReference" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="PaymentAccountId" ColumnName="PaymentAccountId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1578,6 +1715,17 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="IndependienteModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="IndependienteModel.User">
               <MappingFragment StoreEntitySet="User">
@@ -1611,20 +1759,9 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Report_CreditPolicy">
-            <EntityTypeMapping TypeName="IndependienteModel.Report_CreditPolicy">
-              <MappingFragment StoreEntitySet="Report_CreditPolicy">
-                <ScalarProperty Name="ReportId" ColumnName="ReportId" />
-                <ScalarProperty Name="CreditPolicyId" ColumnName="CreditPolicyId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ClientView">
             <EntityTypeMapping TypeName="IndependienteModel.ClientView">
               <MappingFragment StoreEntitySet="ClientView">
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="CLABE" ColumnName="CLABE" />
-                <ScalarProperty Name="BankId" ColumnName="BankId" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Neighborhood" ColumnName="Neighborhood" />
@@ -1656,16 +1793,39 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
                 <ScalarProperty Name="AddressDataId" ColumnName="AddressDataId" />
                 <ScalarProperty Name="PersonalDataId" ColumnName="PersonalDataId" />
                 <ScalarProperty Name="WorkCenterId" ColumnName="WorkCenterId" />
-                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="DepositAccountId" ColumnName="DepositAccountId" />
+                <ScalarProperty Name="PaymentAccountId" ColumnName="PaymentAccountId" />
+                <ScalarProperty Name="DepositCLABE" ColumnName="DepositCLABE" />
+                <ScalarProperty Name="DepositBank" ColumnName="DepositBank" />
+                <ScalarProperty Name="PaymentCLABE" ColumnName="PaymentCLABE" />
+                <ScalarProperty Name="PaymentBank" ColumnName="PaymentBank" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CreditApplicationListView">
+            <EntityTypeMapping TypeName="IndependienteModel.CreditApplicationListView">
+              <MappingFragment StoreEntitySet="CreditApplicationListView">
+                <ScalarProperty Name="CreditApplicationId" ColumnName="CreditApplicationId" />
+                <ScalarProperty Name="LoanAmount" ColumnName="LoanAmount" />
+                <ScalarProperty Name="LoanApplicationDate" ColumnName="LoanApplicationDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="FileId" ColumnName="FileId" />
+                <ScalarProperty Name="PromotionalOfferId" ColumnName="PromotionalOfferId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmployeeView">
             <EntityTypeMapping TypeName="IndependienteModel.EmployeeView">
               <MappingFragment StoreEntitySet="EmployeeView">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="AddressDataId" ColumnName="AddressDataId" />
                 <ScalarProperty Name="PersonalDataId" ColumnName="PersonalDataId" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
@@ -1686,6 +1846,38 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="Report_CreditPolicy" TypeName="IndependienteModel.Report_CreditPolicy" StoreEntitySet="Report_CreditPolicy">
+            <EndProperty Name="CreditPolicy">
+              <ScalarProperty Name="CreditPolicyId" ColumnName="CreditPolicyId" />
+            </EndProperty>
+            <EndProperty Name="Report">
+              <ScalarProperty Name="ReportId" ColumnName="ReportId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="IndependienteModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="IndependienteModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="IndependienteModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="IndependienteModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IndependienteModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="IndependienteModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IndependienteModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="IndependienteModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="IndependienteModel.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

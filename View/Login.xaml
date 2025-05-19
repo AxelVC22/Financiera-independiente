@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         Height="400"
         Width="300"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
         Icon="ViewResources/Logo.png"
         ResizeMode="NoResize">
 
