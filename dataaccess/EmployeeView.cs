@@ -23,7 +23,7 @@ namespace Independiente.DataAccess
         public System.DateTime HireDate { get; set; }
         public string Department { get; set; }
         public string NSS { get; set; }
-        public string EmployeeName { get; set; }
+        public string Name { get; set; }
         public string Lastname { get; set; }
         public System.DateTime BirthDate { get; set; }
         public string Surname { get; set; }
@@ -34,6 +34,5 @@ namespace Independiente.DataAccess
         public string Street { get; set; }
         public string State { get; set; }
         public string Neighborhood { get; set; }
-        public int EmployeeId { get; set; }
     }
 }

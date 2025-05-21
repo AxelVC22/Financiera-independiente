@@ -14,9 +14,19 @@ namespace Independiente.DataAccess
     
     public partial class Credit
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Credit()
+        {
+            this.AmortizationSchedule = new HashSet<AmortizationSchedule>();
+        }
+    
         public int CreditId { get; set; }
         public System.DateTime AcceptanceDate { get; set; }
         public string Status { get; set; }
         public int CreditApplicationId { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AmortizationSchedule> AmortizationSchedule { get; set; }
+        public virtual CreditApplication CreditApplication { get; set; }
     }
 }

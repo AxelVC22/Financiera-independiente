@@ -22,6 +22,6 @@ namespace Independiente.DataAccess
         public string Status { get; set; }
         public int CreditId { get; set; }
     
-        public virtual CreditApplication CreditApplication { get; set; }
+        public virtual Credit Credit { get; set; }
     }
 }
