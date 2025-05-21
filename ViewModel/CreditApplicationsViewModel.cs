@@ -39,7 +39,6 @@ namespace Independiente.ViewModel
 
         public ICommand CheckCommand { get; set; }
 
-        public ICommand GoBackCommand { get; set; }
 
         private ICreditApplicationService _service;
 

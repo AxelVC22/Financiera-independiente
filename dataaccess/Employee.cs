@@ -18,6 +18,7 @@ namespace Independiente.DataAccess
         public Employee()
         {
             this.Client = new HashSet<Client>();
+            this.Payment = new HashSet<Payment>();
         }
     
         public int EmployeeId { get; set; }
@@ -34,5 +35,7 @@ namespace Independiente.DataAccess
         public virtual ICollection<Client> Client { get; set; }
         public virtual PersonalData PersonalData { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Payment> Payment { get; set; }
     }
 }

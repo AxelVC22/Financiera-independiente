@@ -42,19 +42,19 @@ namespace Independiente.ViewModel
 
         private void Login(object obj)
         {
-            var (success, message) = App.SessionService.AuthEmployee(EmailAddress, Password);
+            //var (success, message) = App.SessionService.AuthEmployee(EmailAddress, Password);
 
-            if (success)
-            {
+            //if (success)
+            //{
                 IsLoginSuccessful = true;
                 RequestClose?.Invoke(this, EventArgs.Empty);
-            }
-            else
-            {
-                IDialogService dialogService = new DialogService();
+            //}
+            //else
+            //{
+            //    IDialogService dialogService = new DialogService();
 
-                IsLoginSuccessful = false;
-            }
+            //    IsLoginSuccessful = false;
+            //}
         }
 
         public bool IsPasswordVisible

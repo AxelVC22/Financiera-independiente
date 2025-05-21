@@ -36,7 +36,7 @@ namespace Independiente.Services
                             CurrentUser = new Model.User
                             {
                                 Id = searchedEmployee.UserId,
-                                Name = searchedEmployee.Name,
+                                Name = searchedEmployee.EmployeeName,
                                 Role = searchedEmployee.Role,
                             };
                             auth = true;

@@ -163,7 +163,7 @@ namespace Independiente
                     throw new ArgumentException("ViewModel desconocido");
                 });
 
-            NavigationService.NavigateTo<CreditApplicationsViewModel>();
+            NavigationService.NavigateTo<CreditPoliciesManagementViewModel>();
 
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(dialogService);
             this.DataContext = mainWindowViewModel;

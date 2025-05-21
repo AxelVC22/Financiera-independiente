@@ -12,11 +12,19 @@ namespace Independiente.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Credit
+    public partial class ChargeView
     {
-        public int CreditId { get; set; }
-        public System.DateTime AcceptanceDate { get; set; }
+        public string CLABE { get; set; }
+        public string ClientName { get; set; }
+        public string Lastname { get; set; }
+        public string Surname { get; set; }
+        public string BankName { get; set; }
+        public int PaymentNumber { get; set; }
+        public System.DateTime PaymentDate { get; set; }
+        public decimal FixedPayment { get; set; }
+        public decimal Interest { get; set; }
+        public decimal OutstandingBalance { get; set; }
         public string Status { get; set; }
-        public int CreditApplicationId { get; set; }
+        public int CreditId { get; set; }
     }
 }

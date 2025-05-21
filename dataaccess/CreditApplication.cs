@@ -17,7 +17,7 @@ namespace Independiente.DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CreditApplication()
         {
-            this.Credit = new HashSet<Credit>();
+            this.AmortizationSchedule = new HashSet<AmortizationSchedule>();
             this.Report = new HashSet<Report>();
         }
     
@@ -31,7 +31,7 @@ namespace Independiente.DataAccess
     
         public virtual Client Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Credit> Credit { get; set; }
+        public virtual ICollection<AmortizationSchedule> AmortizationSchedule { get; set; }
         public virtual File File { get; set; }
         public virtual PromotionalOffer PromotionalOffer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
