@@ -10,13 +10,13 @@
 namespace Independiente.DataAccess
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Credit
+    public partial class sp_helpdiagrams_Result
     {
-        public int CreditId { get; set; }
-        public System.DateTime AcceptanceDate { get; set; }
-        public string Status { get; set; }
-        public int CreditApplicationId { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

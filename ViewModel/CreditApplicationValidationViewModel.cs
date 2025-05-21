@@ -39,6 +39,8 @@ namespace Independiente.ViewModel
 
         public ICommand SubmitCommand { get; set; }
 
+        public ICommand AmortizationCommmand { get; set; }
+
         private int _creditPoliciesTotal;
 
         private int _creditPoliciesPassed;
@@ -50,6 +52,12 @@ namespace Independiente.ViewModel
         public Independiente.Model.CreditApplication CreditApplication { get; set; }
 
         public Report Report { get; set; } = new Report();
+
+        public bool IsEditable { get; set; } = false;
+
+        public bool IsAccepted { get; set; } = false;
+
+        public bool IsRejected { get; set; } = false;
 
         private byte[] _pdfBytes;
         public byte[] PdfBytes
@@ -84,11 +92,24 @@ namespace Independiente.ViewModel
             CheckCommand = new RelayCommand(Check, CanDoIt);
             SelectedDocumentFilter = DocumentFilterOptions.First();
             SubmitCommand = new RelayCommand(Submit, CanDoIt);
+            AmortizationCommmand = new RelayCommand(GoToAmortization, CanDoIt);
             Report.CreditApplication = creditApplication;
-            LoadCreditPolicies();
+            IsEditable = (creditApplication.Status == CreditApplicationStates.Pending) ? true : false;
+            IsAccepted = (creditApplication.Status == CreditApplicationStates.Accepted) ? true : false;
+            IsRejected = (creditApplication.Status == CreditApplicationStates.Rejected) ? true : false;
+
+            if (!IsEditable)
+            {
+                LoadReport();
+            }
+
+            if (IsEditable)
+            {
+                LoadCreditPolicies();
+            }
         }
 
-        private void Submit (object obj)
+        private void Submit(object obj)
         {
             int result = 0;
 
@@ -104,17 +125,24 @@ namespace Independiente.ViewModel
                         }
                     }
                 }
-                
-                Report.ReviewingDate = DateTime.Now;   
+
+                Report.ReviewingDate = DateTime.Now;
 
                 result = _creditApplicationService.SubmitDecision(Report);
             }
 
             if (result > 1)
             {
-                _dialogService.Dismiss("dictamen enviado", MessageBoxImage.Exclamation);
+                _dialogService.Dismiss("El dictamen ha sido enviado correctamente", MessageBoxImage.Exclamation);
             }
-            
+
+        }
+
+        private void GoToAmortization(object obj)
+        {
+
+            _navigationService.NavigateTo<AmortizationScheduleViewModel>(CreditApplication);
+
         }
 
 
@@ -124,7 +152,7 @@ namespace Independiente.ViewModel
             {
                 if (selectedDocumentFilter.Value == FileType.CA)
                 {
-                    if (CreditApplication.File == null)
+                    if (CreditApplication.File.FileContent == null)
                     {
                         var file = _creditApplicationService.GetDocument(CreditApplication.Client.ClientId, selectedDocumentFilter.Value.ToString());
                         PdfBytes = file.FileContent;
@@ -150,7 +178,7 @@ namespace Independiente.ViewModel
                         CreditApplication.Documents.Add(file);
                     }
                 }
-            } 
+            }
             catch (KeyNotFoundException e)
             {
                 PdfBytes = null;
@@ -189,7 +217,7 @@ namespace Independiente.ViewModel
         private void GoBack(object obj)
         {
 
-            if (_dialogService.Confirm("Estas seguro de salir sin guardar"))
+            if (CreditApplication.Status != CreditApplicationStates.Pending || _dialogService.Confirm("¿Estas seguro de querer salir sin guardar?"))
             {
                 CreditApplication = _creditApplication;
                 _navigationService.GoBack();
@@ -206,6 +234,33 @@ namespace Independiente.ViewModel
             }
 
             CreditPoliciesTotal = creditPolicies.Count();
+        }
+
+        private void LoadReport()
+        {
+            Independiente.Model.Report report = null;
+            try
+            {
+                report = _creditApplicationService.GetReport(CreditApplication.CreditApplicationId);
+
+            }
+            catch (ArgumentException e)
+            {
+                _dialogService.Dismiss(e.Message, MessageBoxImage.Error);
+            }
+
+
+            if (report != null)
+            {
+                Report = report;
+
+                if (CreditApplication.Status == CreditApplicationStates.Rejected)
+                {
+                    CreditPoliciesList = new ObservableCollection<Model.CreditPolicy>(report.CreditPolicies);
+                    CreditPoliciesTotal = report.CreditPolicies.Count();
+                    CreditPoliciesPassed = report.CreditPolicies.Count(c => c.IsPassed);
+                }
+            }
         }
 
 

@@ -10,14 +10,10 @@
 namespace Independiente.DataAccess
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Report_CreditPolicy
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public int ReportId { get; set; }
-        public int CreditPolicyId { get; set; }
-    
-        public virtual CreditPolicy CreditPolicy { get; set; }
-        public virtual Report Report { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

@@ -31,9 +31,9 @@ namespace Independiente.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public File File { get; set; }
+        public File File { get; set; } = new File();
 
-        public List<File> Documents { get; set; }
+        public List<File> Documents { get; set; } = new List<File>();
         public CreditApplication()
         {
             _promotionalOffer = new PromotionalOffer();
@@ -122,7 +122,7 @@ namespace Independiente.Model
                         OnPropertyChanged(nameof(LoanAmount));
                     }
                 }
-               
+
             }
         }
 
@@ -131,7 +131,7 @@ namespace Independiente.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-       
+
 
     }
 

@@ -118,6 +118,8 @@ namespace Independiente.DataAccess.Repositories
 
         int SubmitDecision(Report report);
         File GetDocument(int clientId, string type);
+
+        Report GetReport(int creditApplicationId);
     }
 
 
@@ -212,7 +214,7 @@ namespace Independiente.DataAccess.Repositories
 
                                 transaction.Commit();
                             }
-                           
+
                         }
                         catch (Exception)
                         {
@@ -300,7 +302,7 @@ namespace Independiente.DataAccess.Repositories
             return creditApplication;
         }
 
-       
+
 
         public File GetDocument(int clientId, string type)
         {
@@ -342,6 +344,11 @@ namespace Independiente.DataAccess.Repositories
 
                     if (creditApplication != null)
                     {
+                        if (creditApplication.Status != CreditApplicationStates.Pending.ToString())
+                        {
+                            throw new ArgumentException("El estado de la solicitud no es válido para enviar el dictamen.");
+                        }
+
                         creditApplication.Status = report.CreditApplication.Status;
 
                         report.CreditApplication = null;
@@ -379,6 +386,48 @@ namespace Independiente.DataAccess.Repositories
 
             return result;
         }
+
+        public Report GetReport(int creditApplicationId)
+        {
+            Report result = new Report { };
+
+            using (var context = new IndependienteEntities())
+
+            {
+                try
+                {
+                    var report = context.Report.FirstOrDefault(r => r.CreditApplicationId == creditApplicationId);
+
+                    if (report == null)
+                    {
+                        throw new ArgumentException("No se encontró ningún reporte para esa solicitud.");
+                    }
+
+                    var creditApplication = report.CreditApplication;
+
+
+                    if (creditApplication != null)
+                    {
+
+                        var creditPolicies = report.CreditPolicy;
+
+                        report.CreditApplication = null;
+                        result = report;
+                    }
+                }
+                catch (DbUpdateException ex)
+                {
+                }
+                catch (EntityException ex)
+                {
+                }
+            }
+
+            return result;
+        }
+
+
+
 
     }
 }

@@ -26,6 +26,8 @@ namespace Independiente.Services
 
         List<Independiente.Model.CreditPolicy> GetCreditPolicies(CreditPolicyQuery query);
 
+        Independiente.Model.Report GetReport(int creditApplicationId);
+
         int SubmitDecision(Model.Report report);
     }
     public class CreditApplicationService : ICreditApplicationService
@@ -168,6 +170,23 @@ namespace Independiente.Services
             if (report != null)
             {
                 result = _creditApplicationRepository.SubmitDecision(ReportMapper.ToDataModel(report));
+            }
+
+            return result;
+        }
+
+        public Model.Report GetReport(int creditApplicationId)
+        {
+            Independiente.Model.Report result = new Independiente.Model.Report();
+
+            if (creditApplicationId > 0)
+            {
+                var report = _creditApplicationRepository.GetReport(creditApplicationId);
+
+                if (report != null)
+                {
+                    result = ReportMapper.ToViewModel(report);
+                }
             }
 
             return result;
