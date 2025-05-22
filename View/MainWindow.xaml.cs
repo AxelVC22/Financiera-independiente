@@ -49,7 +49,11 @@ namespace Independiente
 
         public IClientManagementService ClientManagementService { get; private set; }
         public ICatalogService CatalogService { get; private set; }
+
         public Model.Client Client { get; private set; }
+
+        public ICreditPolicyService CreditPolicyService { get; private set; }
+        public Client Client { get; private set; }
         public MainWindow()
         {
             InitializeComponent();
@@ -65,8 +69,12 @@ namespace Independiente
             AmortizationScheduleRepository = new AmortizationScheduleRepository();
             CreditApplicationRepository = new CreditApplicationRepository();
             CreditApplicationService = new CreditApplicationService(CreditApplicationRepository, CreditPolicyRepository);
+<<<<<<< HEAD
             AmortizationScheduleService = new AmortizationScheduleService(AmortizationScheduleRepository);
             PaymentService = new PaymentService(PaymentRepository);
+=======
+            CreditPolicyService = new CreditPolicyService(CreditPolicyRepository);
+>>>>>>> 16251c2 (Refactor: eliminación de carpeta duplicada y nuevos servicios)
 
             NavigationService = new FrameNavigationService(
                 PageFrame,
@@ -145,7 +153,7 @@ namespace Independiente
                     {
 
                         var viewModel = new CreditPoliciesManagementViewModel(
-                            dialogService, NavigationService
+                            dialogService, NavigationService, CreditPolicyService
                         );
 
                         return new CreditPoliciesManagement(viewModel);

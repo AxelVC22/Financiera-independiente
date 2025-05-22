@@ -59,7 +59,7 @@ namespace Independiente.ViewModel
         
 
         private KeyValuePair<string, CreditApplicationStates?> _selectedStateFilter;
-
+        
         public CreditApplicationsViewModel() { }
 
         public CreditApplicationsViewModel(IDialogService dialogService, INavigationService navigationService, ICreditApplicationService creditApplicationService)

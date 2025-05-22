@@ -32,7 +32,9 @@ namespace Independiente.View.Pages
             this. DataContext = _creditPoliciesManagement;
         }
 
-     
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
 
+        }
     }
 }
