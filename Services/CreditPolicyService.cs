@@ -16,7 +16,7 @@ namespace Independiente.Services
 
         List<Independiente.Model.CreditPolicy> GetCreditPolicies(CreditPolicyQuery query);
 
-        Independiente.Model.CreditPolicy GetCreditPolicy(int CreditPolicyId);
+        Independiente.Model.CreditPolicy GetCreditPolicy(int creditPolicyId);
 
         int AddCreditPolicy(Independiente.Model.CreditPolicy creditPolicy);
 

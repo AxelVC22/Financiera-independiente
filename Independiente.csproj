@@ -223,6 +223,7 @@
     <Compile Include="Services\Mappers\ReportMapper.cs" />
     <Compile Include="Services\NavegationService.cs" />
     <Compile Include="Services\PaymentService.cs" />
+    <Compile Include="Services\PromotionalOfferService.cs" />
     <Compile Include="Services\SessionService.cs" />
     <Compile Include="ViewModel\AmortizationScheduleViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />

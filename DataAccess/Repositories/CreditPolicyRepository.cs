@@ -157,7 +157,6 @@ namespace Independiente.DataAccess.Repositories
             }
 
             return creditPolicies;
-
         }
 
         public CreditPolicy GetCreditPolicy(int creditPolicyId)
