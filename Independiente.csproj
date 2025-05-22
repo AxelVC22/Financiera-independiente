@@ -159,23 +159,14 @@
     <Compile Include="DataAccess\Report.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccess\Repositories\AmortizationScheduleRepository.cs" />
-    <Compile Include="DataAccess\Repositories\CatalogsRepository.cs" />
+    <Compile Include="DataAccess\Repositories\AmortizationScheduleRepository.cs" />    
+    <Compile Include="DataAccess\Repositories\CatalogRepository.cs" />
     <Compile Include="DataAccess\Repositories\ClientRepository.cs" />
     <Compile Include="DataAccess\Repositories\CreditApplicationRepository.cs" />
     <Compile Include="DataAccess\Repositories\CreditPolicyRepository.cs" />
     <Compile Include="DataAccess\Repositories\EmployeeRepository.cs" />
     <Compile Include="DataAccess\Repositories\PaymentRepository.cs" />
     <Compile Include="DataAccess\Repositories\PromotionalOfferRepository.cs" />
-    <Compile Include="DataAccess\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataAccess\sp_helpdiagrams_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataAccess\sysdiagrams.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataAccess\User.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -216,13 +207,16 @@
     <Compile Include="Services\CatalogService.cs" />
     <Compile Include="Services\ClientManagerService.cs" />
     <Compile Include="Services\CreditApplicationService.cs" />
+    <Compile Include="Services\CreditPolicyService.cs" />
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\FieldValidator.cs" />
     <Compile Include="Services\FileManagerService.cs" />
     <Compile Include="Services\Mappers\AmortizationScheduleMapper.cs" />
+    <Compile Include="Services\Mappers\CatalogMapper.cs" />
     <Compile Include="Services\Mappers\ClientMapper.cs" />
     <Compile Include="Services\Mappers\CreditApplicationMapper.cs" />
     <Compile Include="Services\Mappers\CreditPolicyMapper.cs" />
+    <Compile Include="Services\Mappers\EmployeeMapper.cs" />
     <Compile Include="Services\Mappers\FileMapper.cs" />
     <Compile Include="Services\Mappers\PromotionalOfferMapper.cs" />
     <Compile Include="Services\Mappers\ReportMapper.cs" />
