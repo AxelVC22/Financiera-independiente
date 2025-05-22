@@ -159,7 +159,7 @@
     <Compile Include="DataAccess\Report.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAccess\Repositories\AmortizationScheduleRepository.cs" />    
+    <Compile Include="DataAccess\Repositories\AmortizationScheduleRepository.cs" />
     <Compile Include="DataAccess\Repositories\CatalogRepository.cs" />
     <Compile Include="DataAccess\Repositories\ClientRepository.cs" />
     <Compile Include="DataAccess\Repositories\CreditApplicationRepository.cs" />
@@ -209,6 +209,7 @@
     <Compile Include="Services\CreditApplicationService.cs" />
     <Compile Include="Services\CreditPolicyService.cs" />
     <Compile Include="Services\DialogService.cs" />
+    <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\FieldValidator.cs" />
     <Compile Include="Services\FileManagerService.cs" />
     <Compile Include="Services\Mappers\AmortizationScheduleMapper.cs" />
