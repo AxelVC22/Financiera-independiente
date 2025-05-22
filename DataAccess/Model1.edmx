@@ -297,110 +297,6 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.ClientView' no tiene defin
             <PropertyRef Name="DepositBank" />
             <PropertyRef Name="PaymentCLABE" />
             <PropertyRef Name="PaymentBank" />
-          </Key>
-          <Property Name="Street" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="State" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="Neighborhood" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ClientId" Type="int" Nullable="false" />
-          <Property Name="ClientName" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="ClientLastname" Type="varchar" MaxLength="45" />
-          <Property Name="ClientSurname" Type="varchar" MaxLength="45" />
-          <Property Name="BirthDate" Type="date" Nullable="false" />
-          <Property Name="RFC" Type="nvarchar" MaxLength="13" Nullable="false" />
-          <Property Name="CURP" Type="nvarchar" MaxLength="18" Nullable="false" />
-          <Property Name="ClientPhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="ClientEmail" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="FirstReferenceName" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="FirstReferenceLastname" Type="varchar" MaxLength="90" Nullable="false" />
-          <Property Name="FirstReferencePhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="FirstReferenceRelationship" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="FirstReferenceEmail" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="SecondReferenceName" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="SecondReferenceLastname" Type="varchar" MaxLength="90" Nullable="false" />
-          <Property Name="SecondReferencePhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="SecondReferenceRelationship" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="SecondReferenceEmail" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="WorkCenterName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="HiringDate" Type="date" Nullable="false" />
-          <Property Name="MontlyIncome" Type="decimal" Precision="9" Scale="2" Nullable="false" />
-          <Property Name="SecondReference" Type="int" />
-          <Property Name="FirstReference" Type="int" />
-          <Property Name="AddressDataId" Type="int" Nullable="false" />
-          <Property Name="PersonalDataId" Type="int" Nullable="false" />
-          <Property Name="WorkCenterId" Type="int" Nullable="false" />
-          <Property Name="EmployeeId" Type="int" Nullable="false" />
-          <Property Name="DepositAccountId" Type="int" Nullable="false" />
-          <Property Name="PaymentAccountId" Type="int" Nullable="false" />
-          <Property Name="DepositCLABE" Type="nvarchar" MaxLength="18" Nullable="false" />
-          <Property Name="DepositBank" Type="int" Nullable="false" />
-          <Property Name="PaymentCLABE" Type="nvarchar" MaxLength="18" Nullable="false" />
-          <Property Name="PaymentBank" Type="int" Nullable="false" />
-        </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Independiente.dbo.CreditApplicationListView' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
-        <EntityType Name="CreditApplicationListView">
-          <Key>
-            <PropertyRef Name="CreditApplicationId" />
-            <PropertyRef Name="LoanAmount" />
-            <PropertyRef Name="LoanApplicationDate" />
-            <PropertyRef Name="Status" />
-            <PropertyRef Name="ClientId" />
-            <PropertyRef Name="FileId" />
-            <PropertyRef Name="PromotionalOfferId" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="RFC" />
-          </Key>
-          <Property Name="CreditApplicationId" Type="int" Nullable="false" />
-          <Property Name="LoanAmount" Type="decimal" Precision="9" Scale="2" Nullable="false" />
-          <Property Name="LoanApplicationDate" Type="date" Nullable="false" />
-          <Property Name="Status" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="ClientId" Type="int" Nullable="false" />
-          <Property Name="FileId" Type="int" Nullable="false" />
-          <Property Name="PromotionalOfferId" Type="int" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="Surname" Type="varchar" MaxLength="45" />
-          <Property Name="Lastname" Type="varchar" MaxLength="45" />
-          <Property Name="RFC" Type="nvarchar" MaxLength="13" Nullable="false" />
-        </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
-        <EntityType Name="EmployeeView">
-          <Key>
-            <PropertyRef Name="Street" />
-            <PropertyRef Name="State" />
-            <PropertyRef Name="Neighborhood" />
-            <PropertyRef Name="ClientId" />
-            <PropertyRef Name="ClientName" />
-            <PropertyRef Name="BirthDate" />
-            <PropertyRef Name="RFC" />
-            <PropertyRef Name="CURP" />
-            <PropertyRef Name="ClientPhoneNumber" />
-            <PropertyRef Name="ClientEmail" />
-            <PropertyRef Name="FirstReferenceName" />
-            <PropertyRef Name="FirstReferenceLastname" />
-            <PropertyRef Name="FirstReferencePhoneNumber" />
-            <PropertyRef Name="FirstReferenceRelationship" />
-            <PropertyRef Name="FirstReferenceEmail" />
-            <PropertyRef Name="SecondReferenceName" />
-            <PropertyRef Name="SecondReferenceLastname" />
-            <PropertyRef Name="SecondReferencePhoneNumber" />
-            <PropertyRef Name="SecondReferenceRelationship" />
-            <PropertyRef Name="SecondReferenceEmail" />
-            <PropertyRef Name="WorkCenterName" />
-            <PropertyRef Name="Role" />
-            <PropertyRef Name="HiringDate" />
-            <PropertyRef Name="MontlyIncome" />
-            <PropertyRef Name="AddressDataId" />
-            <PropertyRef Name="PersonalDataId" />
-            <PropertyRef Name="WorkCenterId" />
-            <PropertyRef Name="EmployeeId" />
-            <PropertyRef Name="DepositAccountId" />
-            <PropertyRef Name="PaymentAccountId" />
-            <PropertyRef Name="DepositCLABE" />
-            <PropertyRef Name="DepositBank" />
-            <PropertyRef Name="PaymentCLABE" />
-            <PropertyRef Name="PaymentBank" />
             <PropertyRef Name="City" />
           </Key>
           <Property Name="Street" Type="varchar" MaxLength="50" Nullable="false" />
@@ -442,6 +338,78 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <Property Name="PaymentCLABE" Type="nvarchar" MaxLength="18" Nullable="false" />
           <Property Name="PaymentBank" Type="int" Nullable="false" />
           <Property Name="City" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Independiente.dbo.CreditApplicationListView' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="CreditApplicationListView">
+          <Key>
+            <PropertyRef Name="CreditApplicationId" />
+            <PropertyRef Name="LoanAmount" />
+            <PropertyRef Name="LoanApplicationDate" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="ClientId" />
+            <PropertyRef Name="FileId" />
+            <PropertyRef Name="PromotionalOfferId" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="RFC" />
+          </Key>
+          <Property Name="CreditApplicationId" Type="int" Nullable="false" />
+          <Property Name="LoanAmount" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="LoanApplicationDate" Type="date" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="FileId" Type="int" Nullable="false" />
+          <Property Name="PromotionalOfferId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="45" />
+          <Property Name="Lastname" Type="varchar" MaxLength="45" />
+          <Property Name="RFC" Type="nvarchar" MaxLength="13" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="EmployeeView">
+          <Key>
+            <PropertyRef Name="Role" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="AddressDataId" />
+            <PropertyRef Name="PersonalDataId" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="HireDate" />
+            <PropertyRef Name="Department" />
+            <PropertyRef Name="NSS" />
+            <PropertyRef Name="EmployeeName" />
+            <PropertyRef Name="BirthDate" />
+            <PropertyRef Name="RFC" />
+            <PropertyRef Name="CURP" />
+            <PropertyRef Name="PhoneNumber" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Street" />
+            <PropertyRef Name="State" />
+            <PropertyRef Name="Neighborhood" />
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="AddressDataId" Type="int" Nullable="false" />
+          <Property Name="PersonalDataId" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="HireDate" Type="date" Nullable="false" />
+          <Property Name="Department" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="NSS" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="EmployeeName" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Lastname" Type="varchar" MaxLength="45" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="45" />
+          <Property Name="RFC" Type="nvarchar" MaxLength="13" Nullable="false" />
+          <Property Name="CURP" Type="nvarchar" MaxLength="18" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Street" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="State" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Neighborhood" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -856,7 +824,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
     [ClientView].[DepositCLABE] AS [DepositCLABE], 
     [ClientView].[DepositBank] AS [DepositBank], 
     [ClientView].[PaymentCLABE] AS [PaymentCLABE], 
-    [ClientView].[PaymentBank] AS [PaymentBank]
+    [ClientView].[PaymentBank] AS [PaymentBank], 
+    [ClientView].[City] AS [City]
     FROM [dbo].[ClientView] AS [ClientView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="CreditApplicationListView" EntityType="Self.CreditApplicationListView" store:Type="Views" store:Schema="dbo">
@@ -876,45 +845,27 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           </EntitySet>
           <EntitySet Name="EmployeeView" EntityType="Self.EmployeeView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
+    [EmployeeView].[Role] AS [Role], 
+    [EmployeeView].[Password] AS [Password], 
+    [EmployeeView].[UserId] AS [UserId], 
+    [EmployeeView].[AddressDataId] AS [AddressDataId], 
+    [EmployeeView].[PersonalDataId] AS [PersonalDataId], 
+    [EmployeeView].[Status] AS [Status], 
+    [EmployeeView].[HireDate] AS [HireDate], 
+    [EmployeeView].[Department] AS [Department], 
+    [EmployeeView].[NSS] AS [NSS], 
+    [EmployeeView].[EmployeeName] AS [EmployeeName], 
+    [EmployeeView].[Lastname] AS [Lastname], 
+    [EmployeeView].[BirthDate] AS [BirthDate], 
+    [EmployeeView].[Surname] AS [Surname], 
+    [EmployeeView].[RFC] AS [RFC], 
+    [EmployeeView].[CURP] AS [CURP], 
+    [EmployeeView].[PhoneNumber] AS [PhoneNumber], 
+    [EmployeeView].[Email] AS [Email], 
     [EmployeeView].[Street] AS [Street], 
     [EmployeeView].[State] AS [State], 
     [EmployeeView].[Neighborhood] AS [Neighborhood], 
-    [EmployeeView].[ClientId] AS [ClientId], 
-    [EmployeeView].[ClientName] AS [ClientName], 
-    [EmployeeView].[ClientLastname] AS [ClientLastname], 
-    [EmployeeView].[ClientSurname] AS [ClientSurname], 
-    [EmployeeView].[BirthDate] AS [BirthDate], 
-    [EmployeeView].[RFC] AS [RFC], 
-    [EmployeeView].[CURP] AS [CURP], 
-    [EmployeeView].[ClientPhoneNumber] AS [ClientPhoneNumber], 
-    [EmployeeView].[ClientEmail] AS [ClientEmail], 
-    [EmployeeView].[FirstReferenceName] AS [FirstReferenceName], 
-    [EmployeeView].[FirstReferenceLastname] AS [FirstReferenceLastname], 
-    [EmployeeView].[FirstReferencePhoneNumber] AS [FirstReferencePhoneNumber], 
-    [EmployeeView].[FirstReferenceRelationship] AS [FirstReferenceRelationship], 
-    [EmployeeView].[FirstReferenceEmail] AS [FirstReferenceEmail], 
-    [EmployeeView].[SecondReferenceName] AS [SecondReferenceName], 
-    [EmployeeView].[SecondReferenceLastname] AS [SecondReferenceLastname], 
-    [EmployeeView].[SecondReferencePhoneNumber] AS [SecondReferencePhoneNumber], 
-    [EmployeeView].[SecondReferenceRelationship] AS [SecondReferenceRelationship], 
-    [EmployeeView].[SecondReferenceEmail] AS [SecondReferenceEmail], 
-    [EmployeeView].[WorkCenterName] AS [WorkCenterName], 
-    [EmployeeView].[Role] AS [Role], 
-    [EmployeeView].[HiringDate] AS [HiringDate], 
-    [EmployeeView].[MontlyIncome] AS [MontlyIncome], 
-    [EmployeeView].[SecondReference] AS [SecondReference], 
-    [EmployeeView].[FirstReference] AS [FirstReference], 
-    [EmployeeView].[AddressDataId] AS [AddressDataId], 
-    [EmployeeView].[PersonalDataId] AS [PersonalDataId], 
-    [EmployeeView].[WorkCenterId] AS [WorkCenterId], 
-    [EmployeeView].[EmployeeId] AS [EmployeeId], 
-    [EmployeeView].[DepositAccountId] AS [DepositAccountId], 
-    [EmployeeView].[PaymentAccountId] AS [PaymentAccountId], 
-    [EmployeeView].[DepositCLABE] AS [DepositCLABE], 
-    [EmployeeView].[DepositBank] AS [DepositBank], 
-    [EmployeeView].[PaymentCLABE] AS [PaymentCLABE], 
-    [EmployeeView].[PaymentBank] AS [PaymentBank], 
-    [EmployeeView].[City] AS [City]
+    [EmployeeView].[EmployeeId] AS [EmployeeId]
     FROM [dbo].[EmployeeView] AS [EmployeeView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="PaymentView" EntityType="Self.PaymentView" store:Type="Views" store:Schema="dbo">
@@ -1341,106 +1292,6 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
             <PropertyRef Name="DepositBank" />
             <PropertyRef Name="PaymentCLABE" />
             <PropertyRef Name="PaymentBank" />
-          </Key>
-          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="State" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Neighborhood" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ClientId" Type="Int32" Nullable="false" />
-          <Property Name="ClientName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ClientLastname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="ClientSurname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="RFC" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CURP" Type="String" MaxLength="18" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ClientPhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ClientEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FirstReferenceName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FirstReferenceLastname" Type="String" MaxLength="90" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FirstReferencePhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FirstReferenceRelationship" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FirstReferenceEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SecondReferenceName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SecondReferenceLastname" Type="String" MaxLength="90" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SecondReferencePhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SecondReferenceRelationship" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SecondReferenceEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="WorkCenterName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="HiringDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="MontlyIncome" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
-          <Property Name="SecondReference" Type="Int32" />
-          <Property Name="FirstReference" Type="Int32" />
-          <Property Name="AddressDataId" Type="Int32" Nullable="false" />
-          <Property Name="PersonalDataId" Type="Int32" Nullable="false" />
-          <Property Name="WorkCenterId" Type="Int32" Nullable="false" />
-          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
-          <Property Name="DepositAccountId" Type="Int32" Nullable="false" />
-          <Property Name="PaymentAccountId" Type="Int32" Nullable="false" />
-          <Property Name="DepositCLABE" Type="String" MaxLength="18" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DepositBank" Type="Int32" Nullable="false" />
-          <Property Name="PaymentCLABE" Type="String" MaxLength="18" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PaymentBank" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="CreditApplicationListView">
-          <Key>
-            <PropertyRef Name="CreditApplicationId" />
-            <PropertyRef Name="LoanAmount" />
-            <PropertyRef Name="LoanApplicationDate" />
-            <PropertyRef Name="Status" />
-            <PropertyRef Name="ClientId" />
-            <PropertyRef Name="FileId" />
-            <PropertyRef Name="PromotionalOfferId" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="RFC" />
-          </Key>
-          <Property Name="CreditApplicationId" Type="Int32" Nullable="false" />
-          <Property Name="LoanAmount" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
-          <Property Name="LoanApplicationDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Status" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ClientId" Type="Int32" Nullable="false" />
-          <Property Name="FileId" Type="Int32" Nullable="false" />
-          <Property Name="PromotionalOfferId" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Surname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="Lastname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="RFC" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="EmployeeView">
-          <Key>
-            <PropertyRef Name="Street" />
-            <PropertyRef Name="State" />
-            <PropertyRef Name="Neighborhood" />
-            <PropertyRef Name="ClientId" />
-            <PropertyRef Name="ClientName" />
-            <PropertyRef Name="BirthDate" />
-            <PropertyRef Name="RFC" />
-            <PropertyRef Name="CURP" />
-            <PropertyRef Name="ClientPhoneNumber" />
-            <PropertyRef Name="ClientEmail" />
-            <PropertyRef Name="FirstReferenceName" />
-            <PropertyRef Name="FirstReferenceLastname" />
-            <PropertyRef Name="FirstReferencePhoneNumber" />
-            <PropertyRef Name="FirstReferenceRelationship" />
-            <PropertyRef Name="FirstReferenceEmail" />
-            <PropertyRef Name="SecondReferenceName" />
-            <PropertyRef Name="SecondReferenceLastname" />
-            <PropertyRef Name="SecondReferencePhoneNumber" />
-            <PropertyRef Name="SecondReferenceRelationship" />
-            <PropertyRef Name="SecondReferenceEmail" />
-            <PropertyRef Name="WorkCenterName" />
-            <PropertyRef Name="Role" />
-            <PropertyRef Name="HiringDate" />
-            <PropertyRef Name="MontlyIncome" />
-            <PropertyRef Name="AddressDataId" />
-            <PropertyRef Name="PersonalDataId" />
-            <PropertyRef Name="WorkCenterId" />
-            <PropertyRef Name="EmployeeId" />
-            <PropertyRef Name="DepositAccountId" />
-            <PropertyRef Name="PaymentAccountId" />
-            <PropertyRef Name="DepositCLABE" />
-            <PropertyRef Name="DepositBank" />
-            <PropertyRef Name="PaymentCLABE" />
-            <PropertyRef Name="PaymentBank" />
             <PropertyRef Name="City" />
           </Key>
           <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -1482,6 +1333,74 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <Property Name="PaymentCLABE" Type="String" MaxLength="18" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PaymentBank" Type="Int32" Nullable="false" />
           <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CreditApplicationListView">
+          <Key>
+            <PropertyRef Name="CreditApplicationId" />
+            <PropertyRef Name="LoanAmount" />
+            <PropertyRef Name="LoanApplicationDate" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="ClientId" />
+            <PropertyRef Name="FileId" />
+            <PropertyRef Name="PromotionalOfferId" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="RFC" />
+          </Key>
+          <Property Name="CreditApplicationId" Type="Int32" Nullable="false" />
+          <Property Name="LoanAmount" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="LoanApplicationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Status" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="FileId" Type="Int32" Nullable="false" />
+          <Property Name="PromotionalOfferId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Lastname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="RFC" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeeView">
+          <Key>
+            <PropertyRef Name="Role" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="AddressDataId" />
+            <PropertyRef Name="PersonalDataId" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="HireDate" />
+            <PropertyRef Name="Department" />
+            <PropertyRef Name="NSS" />
+            <PropertyRef Name="EmployeeName" />
+            <PropertyRef Name="BirthDate" />
+            <PropertyRef Name="RFC" />
+            <PropertyRef Name="CURP" />
+            <PropertyRef Name="PhoneNumber" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Street" />
+            <PropertyRef Name="State" />
+            <PropertyRef Name="Neighborhood" />
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="AddressDataId" Type="Int32" Nullable="false" />
+          <Property Name="PersonalDataId" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Department" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NSS" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmployeeName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Lastname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Surname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="RFC" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CURP" Type="String" MaxLength="18" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Neighborhood" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="PaymentView">
           <Key>
@@ -2174,6 +2093,7 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
                 <ScalarProperty Name="DepositBank" ColumnName="DepositBank" />
                 <ScalarProperty Name="PaymentCLABE" ColumnName="PaymentCLABE" />
                 <ScalarProperty Name="PaymentBank" ColumnName="PaymentBank" />
+                <ScalarProperty Name="City" ColumnName="City" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2197,45 +2117,27 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <EntitySetMapping Name="EmployeeView">
             <EntityTypeMapping TypeName="IndependienteModel.EmployeeView">
               <MappingFragment StoreEntitySet="EmployeeView">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="AddressDataId" ColumnName="AddressDataId" />
+                <ScalarProperty Name="PersonalDataId" ColumnName="PersonalDataId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="NSS" ColumnName="NSS" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Neighborhood" ColumnName="Neighborhood" />
-                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
-                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
-                <ScalarProperty Name="ClientLastname" ColumnName="ClientLastname" />
-                <ScalarProperty Name="ClientSurname" ColumnName="ClientSurname" />
-                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
-                <ScalarProperty Name="RFC" ColumnName="RFC" />
-                <ScalarProperty Name="CURP" ColumnName="CURP" />
-                <ScalarProperty Name="ClientPhoneNumber" ColumnName="ClientPhoneNumber" />
-                <ScalarProperty Name="ClientEmail" ColumnName="ClientEmail" />
-                <ScalarProperty Name="FirstReferenceName" ColumnName="FirstReferenceName" />
-                <ScalarProperty Name="FirstReferenceLastname" ColumnName="FirstReferenceLastname" />
-                <ScalarProperty Name="FirstReferencePhoneNumber" ColumnName="FirstReferencePhoneNumber" />
-                <ScalarProperty Name="FirstReferenceRelationship" ColumnName="FirstReferenceRelationship" />
-                <ScalarProperty Name="FirstReferenceEmail" ColumnName="FirstReferenceEmail" />
-                <ScalarProperty Name="SecondReferenceName" ColumnName="SecondReferenceName" />
-                <ScalarProperty Name="SecondReferenceLastname" ColumnName="SecondReferenceLastname" />
-                <ScalarProperty Name="SecondReferencePhoneNumber" ColumnName="SecondReferencePhoneNumber" />
-                <ScalarProperty Name="SecondReferenceRelationship" ColumnName="SecondReferenceRelationship" />
-                <ScalarProperty Name="SecondReferenceEmail" ColumnName="SecondReferenceEmail" />
-                <ScalarProperty Name="WorkCenterName" ColumnName="WorkCenterName" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
-                <ScalarProperty Name="HiringDate" ColumnName="HiringDate" />
-                <ScalarProperty Name="MontlyIncome" ColumnName="MontlyIncome" />
-                <ScalarProperty Name="SecondReference" ColumnName="SecondReference" />
-                <ScalarProperty Name="FirstReference" ColumnName="FirstReference" />
-                <ScalarProperty Name="AddressDataId" ColumnName="AddressDataId" />
-                <ScalarProperty Name="PersonalDataId" ColumnName="PersonalDataId" />
-                <ScalarProperty Name="WorkCenterId" ColumnName="WorkCenterId" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="DepositAccountId" ColumnName="DepositAccountId" />
-                <ScalarProperty Name="PaymentAccountId" ColumnName="PaymentAccountId" />
-                <ScalarProperty Name="DepositCLABE" ColumnName="DepositCLABE" />
-                <ScalarProperty Name="DepositBank" ColumnName="DepositBank" />
-                <ScalarProperty Name="PaymentCLABE" ColumnName="PaymentCLABE" />
-                <ScalarProperty Name="PaymentBank" ColumnName="PaymentBank" />
-                <ScalarProperty Name="City" ColumnName="City" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
