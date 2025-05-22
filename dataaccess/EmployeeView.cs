@@ -14,25 +14,44 @@ namespace Independiente.DataAccess
     
     public partial class EmployeeView
     {
-        public string Role { get; set; }
-        public string Password { get; set; }
-        public int UserId { get; set; }
-        public int AddressDataId { get; set; }
-        public int PersonalDataId { get; set; }
-        public string Status { get; set; }
-        public System.DateTime HireDate { get; set; }
-        public string Department { get; set; }
-        public string NSS { get; set; }
-        public string Name { get; set; }
-        public string Lastname { get; set; }
-        public System.DateTime BirthDate { get; set; }
-        public string Surname { get; set; }
-        public string RFC { get; set; }
-        public string CURP { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
         public string Street { get; set; }
         public string State { get; set; }
         public string Neighborhood { get; set; }
+        public int ClientId { get; set; }
+        public string ClientName { get; set; }
+        public string ClientLastname { get; set; }
+        public string ClientSurname { get; set; }
+        public System.DateTime BirthDate { get; set; }
+        public string RFC { get; set; }
+        public string CURP { get; set; }
+        public string ClientPhoneNumber { get; set; }
+        public string ClientEmail { get; set; }
+        public string FirstReferenceName { get; set; }
+        public string FirstReferenceLastname { get; set; }
+        public string FirstReferencePhoneNumber { get; set; }
+        public string FirstReferenceRelationship { get; set; }
+        public string FirstReferenceEmail { get; set; }
+        public string SecondReferenceName { get; set; }
+        public string SecondReferenceLastname { get; set; }
+        public string SecondReferencePhoneNumber { get; set; }
+        public string SecondReferenceRelationship { get; set; }
+        public string SecondReferenceEmail { get; set; }
+        public string WorkCenterName { get; set; }
+        public string Role { get; set; }
+        public System.DateTime HiringDate { get; set; }
+        public decimal MontlyIncome { get; set; }
+        public Nullable<int> SecondReference { get; set; }
+        public Nullable<int> FirstReference { get; set; }
+        public int AddressDataId { get; set; }
+        public int PersonalDataId { get; set; }
+        public int WorkCenterId { get; set; }
+        public int EmployeeId { get; set; }
+        public int DepositAccountId { get; set; }
+        public int PaymentAccountId { get; set; }
+        public string DepositCLABE { get; set; }
+        public int DepositBank { get; set; }
+        public string PaymentCLABE { get; set; }
+        public int PaymentBank { get; set; }
+        public string City { get; set; }
     }
 }

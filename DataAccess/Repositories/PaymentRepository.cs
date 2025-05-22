@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,7 +18,9 @@ namespace Independiente.DataAccess.Repositories
 
         public int PageSize { get; set; }
 
-        private int _bankId;
+        private string _bankName;
+
+        private string _status;
 
 
         private DateTime? _fromDate;
@@ -26,22 +29,22 @@ namespace Independiente.DataAccess.Repositories
 
         public Expression<Func<PaymentView, bool>> BuildExpression()
         {
-            return c =>
-                (BankId == 0 || c.BankId == BankId) &&
+            return c => (string.IsNullOrEmpty(Status) || (c.Status == Status)) &&
+                (BankName == BankName || c.BankName == BankName) &&
                 (!FromDate.HasValue || c.RegistrationDate >= FromDate) &&
                 (!ToDate.HasValue || c.RegistrationDate <= ToDate);
 
         }
 
-        public int BankId
+        public string BankName
         {
-            get => _bankId;
+            get => _bankName;
             set
             {
-                if (_bankId != value)
+                if (_bankName != value)
                 {
-                    _bankId = value;
-                    OnPropertyChanged(nameof(BankId));
+                    _bankName = value;
+                    OnPropertyChanged(nameof(_bankName));
                 }
             }
         }
@@ -69,6 +72,19 @@ namespace Independiente.DataAccess.Repositories
                 {
                     _toDate = value;
                     OnPropertyChanged(nameof(ToDate));
+                }
+            }
+        }
+
+        public string Status
+        {
+            get => _status;
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    OnPropertyChanged(nameof(Status));
                 }
             }
         }

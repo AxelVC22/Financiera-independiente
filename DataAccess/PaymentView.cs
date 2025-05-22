@@ -26,5 +26,7 @@ namespace Independiente.DataAccess
         public int BankId { get; set; }
         public int TotalCredits { get; set; }
         public int ActualCredits { get; set; }
+        public string Status { get; set; }
+        public Nullable<System.DateTime> UploadDate { get; set; }
     }
 }

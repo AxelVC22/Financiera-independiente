@@ -2,20 +2,25 @@
 using Independiente.Model;
 using Independiente.Properties;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Independiente.Services
 {
-    public class SessionService
+    public sealed class SessionService
     {
-        public Model.User CurrentUser { get; set; }
+        private static readonly Lazy<SessionService> _instance = new Lazy<SessionService>(() => new SessionService());
 
+        public static SessionService Instance => _instance.Value;
+
+        public Model.User CurrentUser { get; private set; }
+
+        public SessionService()
+        {
+            CurrentUser = null;
+        }
 
         public (bool success, string message) AuthEmployee(string email, string password)
         {
@@ -26,16 +31,17 @@ namespace Independiente.Services
             {
                 if (FieldValidator.IsValidEmail(email) && FieldValidator.IsValidPassword(password))
                 {
-                    //String hashedPassword = EncryptPassword(Password);
-
                     using (var context = new IndependienteEntities())
                     {
-                        var searchedEmployee = context.EmployeeView.FirstOrDefault(employee => employee.Email == email && employee.Password == password);
+                        var searchedEmployee = context.EmployeeView.FirstOrDefault(
+                            employee => employee.Email == email && employee.Password == password);
+
                         if (searchedEmployee != null)
                         {
                             CurrentUser = new Model.User
                             {
                                 Id = searchedEmployee.UserId,
+                                EmployeeId = searchedEmployee.EmployeeId,
                                 Name = searchedEmployee.EmployeeName,
                                 Role = searchedEmployee.Role,
                             };
@@ -48,13 +54,13 @@ namespace Independiente.Services
                         }
                     }
                 }
-            } 
+            }
             catch (ArgumentException exception)
             {
                 infoMessage = exception.Message;
-            }          
+            }
 
-            return(auth, infoMessage);
+            return (auth, infoMessage);
         }
 
         public void LogOut()
@@ -64,18 +70,17 @@ namespace Independiente.Services
 
         private string EncryptPassword(string password)
         {
-            SHA256 sha256 = SHA256Managed.Create();
-            ASCIIEncoding encoding = new ASCIIEncoding();
-            byte[] stream = null;
-            StringBuilder stringBuilder = new StringBuilder();
-
-            stream = sha256.ComputeHash(encoding.GetBytes(password));
-            for (int i = 0; i < stream.Length; i++)
+            using (SHA256 sha256 = SHA256.Create())
             {
-                stringBuilder.AppendFormat("{0:x2}", stream[i]);
+                byte[] stream = sha256.ComputeHash(Encoding.ASCII.GetBytes(password));
+                StringBuilder stringBuilder = new StringBuilder();
+
+                for (int i = 0; i < stream.Length; i++)
+                {
+                    stringBuilder.AppendFormat("{0:x2}", stream[i]);
+                }
+                return stringBuilder.ToString();
             }
-            return stringBuilder.ToString();
         }
     }
-
 }

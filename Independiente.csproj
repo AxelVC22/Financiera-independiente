@@ -193,6 +193,7 @@
     <Compile Include="Model\File.cs" />
     <Compile Include="Model\ICatalog.cs" />
     <Compile Include="Model\IPerson.cs" />
+    <Compile Include="Model\Payment.cs" />
     <Compile Include="Model\PersonalData.cs" />
     <Compile Include="Model\PromotionalOffer.cs" />
     <Compile Include="Model\Reference.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="Services\Mappers\CreditApplicationMapper.cs" />
     <Compile Include="Services\Mappers\CreditPolicyMapper.cs" />
     <Compile Include="Services\Mappers\FileMapper.cs" />
+    <Compile Include="Services\Mappers\PaymentMapper.cs" />
     <Compile Include="Services\Mappers\PromotionalOfferMapper.cs" />
     <Compile Include="Services\Mappers\ReportMapper.cs" />
     <Compile Include="Services\NavegationService.cs" />

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Independiente.Services.Mappers;
 
 namespace Independiente.Services
 {
@@ -12,7 +13,7 @@ namespace Independiente.Services
     public interface IPaymentService
     {
         int CountPayments(PaymentQuery query);
-        List<PaymentView> GetPayments(PaymentQuery query);
+        List<Model.Payment> GetPayments(PaymentQuery query);
     }
     public class PaymentService : IPaymentService
     {
@@ -21,6 +22,19 @@ namespace Independiente.Services
         public PaymentService(IPaymentRepository paymentRepository)
         {
             _paymentRepository = paymentRepository;
+        }
+
+        private bool ValidateQuery(PaymentQuery query)
+        {
+
+            if ((query.ToDate != null && query.FromDate != null) && (query.FromDate > query.ToDate))
+            {
+                throw new ArgumentException("Rango de fecha invalido");
+            }
+
+           
+
+            return true;
         }
 
         public int CountPayments(PaymentQuery query)
@@ -33,15 +47,23 @@ namespace Independiente.Services
             return result;
         }
 
-        public List<PaymentView> GetPayments(PaymentQuery query)
+        public List<Model.Payment> GetPayments(PaymentQuery query)
         {
             List<PaymentView> result = new List<PaymentView>();
 
-            if (query != null)
+            List<Model.Payment> payments = new List<Model.Payment>();
+
+            if (ValidateQuery(query))
             {
+
                 result = _paymentRepository.GetPayments(query);
+
+                foreach (var p in result)
+                {
+                    payments.Add(PaymentMapper.ToViewModel(p));
+                }
             }
-            return result;
+            return payments;
         }
     }
 }

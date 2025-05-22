@@ -23,6 +23,7 @@ namespace Independiente.DataAccess
         public int TotalCredits { get; set; }
         public int ActualCredits { get; set; }
         public string Status { get; set; }
+        public Nullable<System.DateTime> UploadDate { get; set; }
     
         public virtual Bank Bank { get; set; }
         public virtual Employee Employee { get; set; }
