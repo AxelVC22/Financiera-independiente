@@ -1,5 +1,6 @@
 ﻿using Independiente.Model;
 using Independiente.View;
+using Independiente.View.Pages;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -116,7 +117,7 @@ namespace Independiente.DataAccess.Repositories
 
         CreditApplication GetCreditApplication(int creditApplicationId);
 
-        int SubmitDecision(Report report);
+        int SubmitDecision(Report report, List<AmortizationSchedule> amortizationSchedules);
         File GetDocument(int clientId, string type);
 
         Report GetReport(int creditApplicationId);
@@ -331,7 +332,7 @@ namespace Independiente.DataAccess.Repositories
             return documentationFile;
         }
 
-        public int SubmitDecision(Report report)
+        public int SubmitDecision(Report report, List<AmortizationSchedule> amortizationSchedules)
         {
             int result = 0;
 
@@ -366,9 +367,14 @@ namespace Independiente.DataAccess.Repositories
 
                             report.CreditPolicy = attachedPolicies;
                         }
-                        else
+                        else if (Equals(creditApplication.Status, CreditApplicationStates.Accepted.ToString()))
                         {
-                            report.CreditPolicy = null;
+
+                            foreach (var schedule in amortizationSchedules)
+                            {
+                                context.AmortizationSchedule.Add(schedule);
+                            }
+
                         }
 
                         context.Report.Add(report);
