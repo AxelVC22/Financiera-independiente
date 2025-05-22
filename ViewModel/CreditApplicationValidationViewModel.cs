@@ -133,7 +133,7 @@ namespace Independiente.ViewModel
 
             if (result > 1)
             {
-                _dialogService.Dismiss("El dictamen ha sido enviado correctamente", MessageBoxImage.Exclamation);
+                _dialogService.Dismiss("El dictamen ha sido enviado correctamente", MessageBoxImage.Information);
             }
 
         }
