@@ -29,6 +29,7 @@ namespace Independiente.DataAccess
     
         public virtual DbSet<Account> Account { get; set; }
         public virtual DbSet<AddressData> AddressData { get; set; }
+        public virtual DbSet<AmortizationSchedule> AmortizationSchedule { get; set; }
         public virtual DbSet<Bank> Bank { get; set; }
         public virtual DbSet<Client> Client { get; set; }
         public virtual DbSet<Credit> Credit { get; set; }
@@ -44,7 +45,6 @@ namespace Independiente.DataAccess
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<WorkCenter> WorkCenter { get; set; }
-        public virtual DbSet<AmortizationSchedule> AmortizationSchedule { get; set; }
         public virtual DbSet<Payment> Payment { get; set; }
         public virtual DbSet<ChargeView> ChargeView { get; set; }
         public virtual DbSet<ClientView> ClientView { get; set; }

@@ -21,7 +21,7 @@ namespace Independiente.Services.Mappers
                     FixedPayment = source.FixedPayment,
                     Interest = source.Interest,
                     OutstandingBalance = source.OutstandingBalance,
-                    Status = source.Status,
+                    Status = source.Status == null? "Pending" : source.Status,
                     CreditId = source.CreditApplication.CreditApplicationId
                 };
             }

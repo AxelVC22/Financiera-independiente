@@ -32,6 +32,8 @@ namespace Independiente
 
         public ICreditApplicationService CreditApplicationService {  get; set; }
 
+        public IFilePickerService FilePickerService { get; set; }
+
         public IPaymentService PaymentService { get; set; }
 
         public IAmortizationScheduleService AmortizationScheduleService { get; set; }
@@ -55,6 +57,7 @@ namespace Independiente
             IDialogService dialogService = new DialogService();
             ClientManagementService = new ClientManagerService();
             CatalogService = new CatalogManagerService();
+            FilePickerService = new FilePickerService();
             Client = new Model.Client();
 
             CreditPolicyRepository = new CreditPolicyRepository();
@@ -187,14 +190,14 @@ namespace Independiente
                     else if (viewModelType == typeof(PaymentsViewModel))
                     {
                         var viewModel = new PaymentsViewModel(
-                            dialogService, NavigationService, PaymentService
+                            dialogService, NavigationService, PaymentService, CatalogService, FilePickerService
                         );
                         return new Payments(viewModel);
                     }
                     throw new ArgumentException("ViewModel desconocido");
                 });
 
-            NavigationService.NavigateTo<PaymentsViewModel>();
+            NavigationService.NavigateTo<CreditApplicationsViewModel>();
 
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(dialogService);
             this.DataContext = mainWindowViewModel;

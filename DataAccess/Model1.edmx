@@ -23,17 +23,8 @@
           <Property Name="Neighborhood" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="City" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Independiente.dbo.AmortizationSchedule' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="AmortizationSchedule">
           <Key>
-            <PropertyRef Name="PaymentNumber" />
-            <PropertyRef Name="PaymentDate" />
-            <PropertyRef Name="FixedPayment" />
-            <PropertyRef Name="Interest" />
-            <PropertyRef Name="OutstandingBalance" />
-            <PropertyRef Name="Status" />
-            <PropertyRef Name="CreditId" />
             <PropertyRef Name="AmortizationScheduleId" />
           </Key>
           <Property Name="PaymentNumber" Type="int" Nullable="false" />
@@ -174,6 +165,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.Payment' no tiene definida
           <Property Name="LoanTerm" Type="int" Nullable="false" />
           <Property Name="PaymentFrecuency" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="IVA" Type="decimal" Precision="4" Scale="4" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Status" Type="varchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="Reference">
           <Key>
@@ -727,6 +720,7 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
         <EntityContainer Name="IndependienteModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AddressData" EntityType="Self.AddressData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AmortizationSchedule" EntityType="Self.AmortizationSchedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bank" EntityType="Self.Bank" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Credit" EntityType="Self.Credit" Schema="dbo" store:Type="Tables" />
@@ -743,18 +737,6 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkCenter" EntityType="Self.WorkCenter" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AmortizationSchedule" EntityType="Self.AmortizationSchedule" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [AmortizationSchedule].[PaymentNumber] AS [PaymentNumber], 
-    [AmortizationSchedule].[PaymentDate] AS [PaymentDate], 
-    [AmortizationSchedule].[FixedPayment] AS [FixedPayment], 
-    [AmortizationSchedule].[Interest] AS [Interest], 
-    [AmortizationSchedule].[OutstandingBalance] AS [OutstandingBalance], 
-    [AmortizationSchedule].[Status] AS [Status], 
-    [AmortizationSchedule].[CreditId] AS [CreditId], 
-    [AmortizationSchedule].[AmortizationScheduleId] AS [AmortizationScheduleId]
-    FROM [dbo].[AmortizationSchedule] AS [AmortizationSchedule]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="Payment" EntityType="Self.Payment" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Payment].[PaymentId] AS [PaymentId], 
@@ -998,6 +980,20 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <NavigationProperty Name="Client" Relationship="Self.Client_AddressData" FromRole="AddressData" ToRole="Client" />
           <NavigationProperty Name="Employee" Relationship="Self.Employee_AddressData" FromRole="AddressData" ToRole="Employee" />
         </EntityType>
+        <EntityType Name="AmortizationSchedule">
+          <Key>
+            <PropertyRef Name="AmortizationScheduleId" />
+          </Key>
+          <Property Name="PaymentNumber" Type="Int32" Nullable="false" />
+          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FixedPayment" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Interest" Type="Decimal" Precision="4" Scale="4" Nullable="false" />
+          <Property Name="OutstandingBalance" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreditId" Type="Int32" Nullable="false" />
+          <Property Name="AmortizationScheduleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CreditApplication" Relationship="Self.AmortizationSchedule_CreditApplication" FromRole="AmortizationSchedule" ToRole="CreditApplication" />
+        </EntityType>
         <EntityType Name="Bank">
           <Key>
             <PropertyRef Name="BankId" />
@@ -1051,8 +1047,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <Property Name="ClientId" Type="Int32" Nullable="false" />
           <Property Name="FileId" Type="Int32" Nullable="false" />
           <Property Name="PromotionalOfferId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.CreditApplication_Client" FromRole="CreditApplication" ToRole="Client" />
           <NavigationProperty Name="AmortizationSchedule" Relationship="Self.AmortizationSchedule_CreditApplication" FromRole="CreditApplication" ToRole="AmortizationSchedule" />
+          <NavigationProperty Name="Client" Relationship="Self.CreditApplication_Client" FromRole="CreditApplication" ToRole="Client" />
           <NavigationProperty Name="File" Relationship="Self.CreditApplication_File" FromRole="CreditApplication" ToRole="File" />
           <NavigationProperty Name="PromotionalOffer" Relationship="Self.CreditApplication_PromotionalOffer" FromRole="CreditApplication" ToRole="PromotionalOffer" />
           <NavigationProperty Name="Report" Relationship="Self.Report_CreditApplication" FromRole="CreditApplication" ToRole="Report" />
@@ -1129,6 +1125,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <Property Name="LoanTerm" Type="Int32" Nullable="false" />
           <Property Name="PaymentFrecuency" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IVA" Type="Decimal" Precision="4" Scale="4" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CreditApplication" Relationship="Self.CreditApplication_PromotionalOffer" FromRole="PromotionalOffer" ToRole="CreditApplication" />
         </EntityType>
         <EntityType Name="Reference">
@@ -1184,27 +1182,6 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <Property Name="HiringDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="MontlyIncome" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
           <NavigationProperty Name="Client" Relationship="Self.Client_WorkCenter" FromRole="WorkCenter" ToRole="Client" />
-        </EntityType>
-        <EntityType Name="AmortizationSchedule">
-          <Key>
-            <PropertyRef Name="PaymentNumber" />
-            <PropertyRef Name="PaymentDate" />
-            <PropertyRef Name="FixedPayment" />
-            <PropertyRef Name="Interest" />
-            <PropertyRef Name="OutstandingBalance" />
-            <PropertyRef Name="Status" />
-            <PropertyRef Name="CreditId" />
-            <PropertyRef Name="AmortizationScheduleId" />
-          </Key>
-          <Property Name="PaymentNumber" Type="Int32" Nullable="false" />
-          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="FixedPayment" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="Interest" Type="Decimal" Precision="4" Scale="4" Nullable="false" />
-          <Property Name="OutstandingBalance" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CreditId" Type="Int32" Nullable="false" />
-          <Property Name="AmortizationScheduleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="CreditApplication" Relationship="Self.AmortizationSchedule_CreditApplication" FromRole="AmortizationSchedule" ToRole="CreditApplication" />
         </EntityType>
         <EntityType Name="Payment">
           <Key>
@@ -1478,6 +1455,18 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="AmortizationSchedule_CreditApplication">
+          <End Role="CreditApplication" Type="Self.CreditApplication" Multiplicity="1" />
+          <End Role="AmortizationSchedule" Type="Self.AmortizationSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CreditApplication">
+              <PropertyRef Name="CreditApplicationId" />
+            </Principal>
+            <Dependent Role="AmortizationSchedule">
+              <PropertyRef Name="CreditId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="Payment_Bank">
           <End Role="Bank" Type="Self.Bank" Multiplicity="1" />
           <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
@@ -1574,18 +1563,6 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="AmortizationSchedule_CreditApplication">
-          <End Role="CreditApplication" Type="Self.CreditApplication" Multiplicity="1" />
-          <End Role="AmortizationSchedule" Type="Self.AmortizationSchedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CreditApplication">
-              <PropertyRef Name="CreditApplicationId" />
-            </Principal>
-            <Dependent Role="AmortizationSchedule">
-              <PropertyRef Name="CreditId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="CreditApplication_File">
           <End Role="File" Type="Self.File" Multiplicity="1" />
           <End Role="CreditApplication" Type="Self.CreditApplication" Multiplicity="*" />
@@ -1665,6 +1642,7 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
         <EntityContainer Name="IndependienteEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Account" EntityType="Self.Account" />
           <EntitySet Name="AddressData" EntityType="Self.AddressData" />
+          <EntitySet Name="AmortizationSchedule" EntityType="Self.AmortizationSchedule" />
           <EntitySet Name="Bank" EntityType="Self.Bank" />
           <EntitySet Name="Client" EntityType="Self.Client" />
           <EntitySet Name="Credit" EntityType="Self.Credit" />
@@ -1680,7 +1658,6 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="User" EntityType="Self.User" />
           <EntitySet Name="WorkCenter" EntityType="Self.WorkCenter" />
-          <EntitySet Name="AmortizationSchedule" EntityType="Self.AmortizationSchedule" />
           <EntitySet Name="Payment" EntityType="Self.Payment" />
           <EntitySet Name="ChargeView" EntityType="Self.ChargeView" />
           <EntitySet Name="ClientView" EntityType="Self.ClientView" />
@@ -1702,6 +1679,10 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <AssociationSet Name="Employee_AddressData" Association="Self.Employee_AddressData">
             <End Role="AddressData" EntitySet="AddressData" />
             <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="AmortizationSchedule_CreditApplication" Association="Self.AmortizationSchedule_CreditApplication">
+            <End Role="CreditApplication" EntitySet="CreditApplication" />
+            <End Role="AmortizationSchedule" EntitySet="AmortizationSchedule" />
           </AssociationSet>
           <AssociationSet Name="Payment_Bank" Association="Self.Payment_Bank">
             <End Role="Bank" EntitySet="Bank" />
@@ -1734,10 +1715,6 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <AssociationSet Name="FK_Employee" Association="Self.FK_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Client" EntitySet="Client" />
-          </AssociationSet>
-          <AssociationSet Name="AmortizationSchedule_CreditApplication" Association="Self.AmortizationSchedule_CreditApplication">
-            <End Role="CreditApplication" EntitySet="CreditApplication" />
-            <End Role="AmortizationSchedule" EntitySet="AmortizationSchedule" />
           </AssociationSet>
           <AssociationSet Name="CreditApplication_File" Association="Self.CreditApplication_File">
             <End Role="File" EntitySet="File" />
@@ -1832,6 +1809,20 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Neighborhood" ColumnName="Neighborhood" />
                 <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AmortizationSchedule">
+            <EntityTypeMapping TypeName="IndependienteModel.AmortizationSchedule">
+              <MappingFragment StoreEntitySet="AmortizationSchedule">
+                <ScalarProperty Name="PaymentNumber" ColumnName="PaymentNumber" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="FixedPayment" ColumnName="FixedPayment" />
+                <ScalarProperty Name="Interest" ColumnName="Interest" />
+                <ScalarProperty Name="OutstandingBalance" ColumnName="OutstandingBalance" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreditId" ColumnName="CreditId" />
+                <ScalarProperty Name="AmortizationScheduleId" ColumnName="AmortizationScheduleId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1948,6 +1939,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
                 <ScalarProperty Name="LoanTerm" ColumnName="LoanTerm" />
                 <ScalarProperty Name="PaymentFrecuency" ColumnName="PaymentFrecuency" />
                 <ScalarProperty Name="IVA" ColumnName="IVA" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2001,20 +1994,6 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
                 <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="HiringDate" ColumnName="HiringDate" />
                 <ScalarProperty Name="MontlyIncome" ColumnName="MontlyIncome" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AmortizationSchedule">
-            <EntityTypeMapping TypeName="IndependienteModel.AmortizationSchedule">
-              <MappingFragment StoreEntitySet="AmortizationSchedule">
-                <ScalarProperty Name="PaymentNumber" ColumnName="PaymentNumber" />
-                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
-                <ScalarProperty Name="FixedPayment" ColumnName="FixedPayment" />
-                <ScalarProperty Name="Interest" ColumnName="Interest" />
-                <ScalarProperty Name="OutstandingBalance" ColumnName="OutstandingBalance" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CreditId" ColumnName="CreditId" />
-                <ScalarProperty Name="AmortizationScheduleId" ColumnName="AmortizationScheduleId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

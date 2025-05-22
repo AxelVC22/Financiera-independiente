@@ -16,9 +16,18 @@ namespace Independiente.ViewModel
     {
         public PaginationViewModelBase Pagination { get; }
 
+        public ObservableCollection<Bank> BanksList { get; set; }
+
+        private Bank _selectedBank;
+
+        private Bank _selectedBankForLayout;
+
+
         public ObservableCollection<Payment> PaymentsList { get; set; } = new ObservableCollection<Payment>();
 
         public IDialogService _dialogService;
+
+        public ICatalogService _catalogService;
 
         public INavigationService _navigationService;
         public ICommand GoToPageCommand { get; set; }
@@ -31,9 +40,15 @@ namespace Independiente.ViewModel
 
         public ICommand CheckCommand { get; set; }
 
+        public ICommand GenerateCommand { get; set; }
+
         private IPaymentService _paymentService;
 
+        private IFilePickerService _filePickerService;
+
         public PaymentQuery Query { get; set; } = new PaymentQuery();
+
+        public ChargeQuery ChargeQuery { get; set; } = new ChargeQuery();
 
         private bool _isOrderedAscendent = false;
 
@@ -52,15 +67,19 @@ namespace Independiente.ViewModel
 
         }
 
-        public PaymentsViewModel(IDialogService dialogService, INavigationService navigationService, IPaymentService paymentService)
+        public PaymentsViewModel(IDialogService dialogService, INavigationService navigationService, IPaymentService paymentService, ICatalogService catalogService, IFilePickerService filePickerService)
         {
             _dialogService = dialogService;
             _navigationService = navigationService;
             _paymentService = paymentService;
+            _catalogService = catalogService;
+            _filePickerService = filePickerService;
 
             GoToPageCommand = new RelayCommand(ChangePage, CanDoIt);
 
             GoBackCommand = new RelayCommand(GoBack, CanDoIt);
+
+            GenerateCommand = new RelayCommand(Generate, CanDoIt);
 
             Pagination = new PaginationViewModelBase(_paymentService.CountPayments(Query));
 
@@ -71,6 +90,8 @@ namespace Independiente.ViewModel
             RestoreCommand = new RelayCommand(Restore, CanDoIt);
 
             SelectedStateFilter = StateFilterOptions.First();
+
+            BanksList = new ObservableCollection<Bank>(_catalogService.GetBanks());
 
 
             Search(null);
@@ -86,6 +107,19 @@ namespace Independiente.ViewModel
         private void GoBack(object obj)
         {
             _navigationService.GoBack();
+        }
+
+
+        private void Generate(object obj)
+        {
+
+            string ruta = _filePickerService.SelectPath();
+
+            if (!string.IsNullOrEmpty(ruta))
+            {
+                _paymentService.GenerateLayout(ruta, ChargeQuery);
+            }
+            
         }
 
         private void Restore(object obj)
@@ -222,5 +256,34 @@ namespace Independiente.ViewModel
                 OnPropertyChanged(nameof(SelectedStateFilter));
             }
         }
+
+        public Bank SelectedBank
+        {
+            get => _selectedBank;
+            set
+            {
+                if (_selectedBank != value)
+                {
+                    _selectedBank = value;
+                    Query.BankName = _selectedBank?.Name;
+                    OnPropertyChanged(nameof(SelectedBank));
+                }
+            }
+        }
+
+        public Bank SelectedBankForLayout
+        {
+            get => _selectedBankForLayout;
+            set
+            {
+                if (_selectedBankForLayout != value)
+                {
+                    _selectedBankForLayout = value;
+                    ChargeQuery.BankName = _selectedBankForLayout?.Name;
+                    OnPropertyChanged(nameof(SelectedBankForLayout));
+                }
+            }
+        }
+
     }
 }

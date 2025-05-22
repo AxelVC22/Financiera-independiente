@@ -65,7 +65,7 @@
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Left">
 
-                       
+
 
                         <Button Style="{DynamicResource IconButtonStyle}"
                                 Tag="{DynamicResource SearchIcon}"
@@ -74,8 +74,8 @@
                                 Width="18"
                                 VerticalAlignment="Center"
                                 Margin="10, 0, 0,0"
-                                Command="{Binding SearchCommand}" 
-                                Background="{StaticResource BackGroundWhiteColor}"/>
+                                Command="{Binding SearchCommand}"
+                                Background="{StaticResource BackGroundWhiteColor}" />
 
                         <ComboBox x:Name="StatusComboBox"
                                   Width="100"
@@ -89,6 +89,19 @@
                                   ItemsSource="{Binding StateFilterOptions}"
                                   SelectedItem="{Binding SelectedStateFilter, Mode=TwoWay}"
                                   DisplayMemberPath="Key" />
+
+                        <ComboBox x:Name="BankComoBox"
+                                  Width="100"
+                                  Style="{StaticResource CustomComboBoxStyle}"
+                                  HorizontalAlignment="Left"
+                                  FontSize="10"
+                                  FontWeight="Bold"
+                                  Foreground="Black"
+                                  Margin="10,0,0,0"
+                                  Height="24"
+                                  ItemsSource="{Binding BanksList}"
+                                  SelectedItem="{Binding SelectedBank, Mode=TwoWay}"
+                                  />
 
                         <Border CornerRadius="2"
                                 BorderThickness="1"
@@ -123,9 +136,9 @@
                                             Style="{StaticResource CustomDatePickerStyle}"
                                             SelectedDate="{Binding Query.ToDate, Mode=TwoWay}">
                                 </DatePicker>
-                                
+
                             </StackPanel>
-                            
+
                         </Border>
 
                         <Button Style="{DynamicResource IconButtonStyle}"
@@ -366,7 +379,7 @@
                                                             VerticalAlignment="Center"
                                                             Command="{Binding ElementName=PaymentsPage , Path=DataContext.CheckCommand}"
                                                             CommandParameter="{Binding}"
-                                                          IsEnabled="{Binding IsUploadEnabled}" />
+                                                            IsEnabled="{Binding IsUploadEnabled}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
@@ -470,15 +483,117 @@
                                     CommandParameter="{Binding Pagination.TotalPages}"
                                     IsEnabled="{Binding Pagination.CanGoLast}"
                                     Style="{StaticResource PaginationButtonStyle}" />
+
+
                         </StackPanel>
 
 
 
 
+
+
                     </Grid>
+
+                    <Border Background="Transparent"
+                            Height="90"
+                            Width="320"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Margin="0,460,10,0"
+                            CornerRadius="4"
+                            BorderBrush="Gray"
+                            BorderThickness="1">
+
+                        <Grid>
+                            <TextBlock Margin="8">
+                                <Run Text="Layout de cobro" FontWeight="Bold"/>
+                            </TextBlock>
+
+                            <Border CornerRadius="2"
+                                    BorderThickness="1"
+                                    BorderBrush="Black"
+                                    Background="White"
+                                    Width="280"
+                                    Height="24"
+                                    Margin="10,27"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top">
+
+
+                                <StackPanel Orientation="Horizontal">
+                                    <DatePicker Width="130"
+                                                SelectedDateFormat="Short"
+                                                FontSize="10"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Left"
+                                                BorderThickness="0"
+                                                Style="{StaticResource CustomDatePickerStyle}"
+                                                SelectedDate="{Binding ChargeQuery.FromDate, Mode=TwoWay}">
+                                    </DatePicker>
+                                    <TextBlock FontFamily="Bold"
+                                               VerticalAlignment="Center"
+                                               Margin="10,0,0,0">:
+                                    </TextBlock>
+                                    <DatePicker Width="130"
+                                                SelectedDateFormat="Short"
+                                                FontSize="10"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Right"
+                                                BorderThickness="0"
+                                                Margin="0,0,0,0"
+                                                Style="{StaticResource CustomDatePickerStyle}"
+                                                SelectedDate="{Binding ChargeQuery.ToDate, Mode=TwoWay}">
+                                    </DatePicker>
+
+                                </StackPanel>
+
+
+
+
+                            </Border>
+
+                            <StackPanel Orientation="Horizontal"
+                                        Background="Transparent"
+                                        Height="50"
+                                        Margin="10,-5"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Bottom">
+
+                                <ComboBox x:Name="BankComboBox"
+                                          Width="100"
+                                          
+                                          Style="{StaticResource CustomComboBoxStyle}"
+                                          HorizontalAlignment="Left"
+                                          FontSize="10"
+                                          FontWeight="Bold"
+                                          Foreground="Black"
+                                          Height="24"
+                                          ItemsSource="{Binding BanksList}"
+                                          SelectedItem="{Binding SelectedBankForLayout, Mode=TwoWay}" />
+
+                                <Button  Height="24"
+                                         Width="170"
+                                         Style="{StaticResource MainButtonStyle}"
+                                         Margin="10"
+                                         Content="Generar layout" 
+                                         Command="{Binding GenerateCommand}"/>
+
+
+                            </StackPanel>
+
+                        </Grid>
+
+
+
+                    </Border>
+
+
                 </Grid>
 
+
+
             </StackPanel>
+
         </ScrollViewer>
 
 

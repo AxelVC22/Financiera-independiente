@@ -85,7 +85,7 @@
                             <Run Text="$"
                                  FontWeight="Bold" />
                             <Run Text="{Binding CreditApplication.LoanAmount}" />
-                            <Run Text="      Periocidad: "
+                            <Run Text="      Periodicidad: "
                                  FontWeight="Bold" />
                             <Run Text="{Binding CreditApplication.PromotionalOffer.PaymenteFrecuency}" />
                             <LineBreak />
@@ -178,21 +178,7 @@
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
 
-                                <GridViewColumn Width="190">
-                                    <GridViewColumn.Header>
-                                        <Grid HorizontalAlignment="Stretch">
-                                            <Label Content="Interes" />
-                                        </Grid>
-
-                                    </GridViewColumn.Header>
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Interest}"
-                                                       HorizontalAlignment="Center" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-
+                              
 
                                 <GridViewColumn Width="150">
                                     <GridViewColumn.Header>
