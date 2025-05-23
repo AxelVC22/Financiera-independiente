@@ -91,7 +91,7 @@ namespace Independiente.ViewModel
 
             SelectedStateFilter = StateFilterOptions.First();
 
-            BanksList = new ObservableCollection<Bank>(_catalogService.GetBanks());
+           // BanksList = new ObservableCollection<Bank>(_catalogService.GetBanks());
 
 
             Search(null);

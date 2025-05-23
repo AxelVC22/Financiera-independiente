@@ -92,9 +92,8 @@ namespace Independiente.DataAccess.Repositories
                     total = context.PromotionalOffer.Count(predicate);
                 }
             }
-            catch (DbEntityValidationException ex)
+            catch (DbUpdateException ex)
             {
-
             }
             catch (EntityException ex)
             {

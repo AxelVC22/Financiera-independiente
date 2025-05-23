@@ -15,6 +15,31 @@ namespace Independiente.DataAccess.Repositories
 
     public class CreditPolicyQuery : INotifyPropertyChanged, IQueryObject<CreditPolicy>
     {
+        private string _name;
+
+        private string _status;
+
+        private bool? _validity;
+
+        public int PageSize { get; set; } = 10;
+
+        public int PageCount { get; set; } = 1;
+
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    OnPropertyChanged(nameof(Name));
+                }
+            }
+        }
+
+
+        public DateTime RegistrationDate { get; set; } = DateTime.Now;
         public int PageNumber { get; set; }
 
         public string Status
@@ -61,10 +86,7 @@ namespace Independiente.DataAccess.Repositories
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }        
 
-        public Expression<Func<CreditApplicationListView, bool>> BuildExpression()
-        {
-            throw new NotImplementedException();
-    }
+      
     }
 
     public interface ICreditPolicyRepository
@@ -118,12 +140,9 @@ namespace Independiente.DataAccess.Repositories
             {
                 using (var context = new IndependienteEntities())
                 {
-                    var creditPolicyForSearch = context.CreditPolicy
-                        .Where(predicate)
-                        .OrderBy(x => x.RegistrationDate)
-                        .Skip((query.PageNumber - 1) * query.PageSize)
-                        .Take(query.PageSize)
-                        .ToList();
+                    // cambio
+                    var creditPolicyForSearch = context.CreditPolicy.Where(c => c.Status == query.Status)
+                       .ToList();
 
                     if (creditPolicyForSearch != null)
                     {
