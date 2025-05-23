@@ -22,6 +22,8 @@
                 <ResourceDictionary Source="pack://application:,,,/View/ViewResources/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <conv:BoolToFontWeightConverter x:Key="BoolToFontWeightConverter" />
+            <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
         </ResourceDictionary>
     </Page.Resources>
 
@@ -63,15 +65,7 @@
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Left">
 
-                        <TextBox Style="{StaticResource TextBoxWithPlaceholderStyle}"
-                                 Margin="10,0,0,0"
-                                 TextWrapping="Wrap"
-                                 MinWidth="150"
-                                 Width="300"
-                                 VerticalAlignment="Center"
-                                 Tag="{x:Static p:Resources.SearchClientByRFCPlaceHolderGlobal}"
-                                 CharacterCasing="Upper"
-                                 Text="{Binding Query.RFC, Mode=TwoWay}" />
+
 
                         <Button Style="{DynamicResource IconButtonStyle}"
                                 Tag="{DynamicResource SearchIcon}"
@@ -79,8 +73,9 @@
                                 Height="18"
                                 Width="18"
                                 VerticalAlignment="Center"
-                                Margin="-30, 0, 0,0"
-                                Command="{Binding SearchCommand}" />
+                                Margin="10, 0, 0,0"
+                                Command="{Binding SearchCommand}"
+                                Background="{StaticResource BackGroundWhiteColor}" />
 
                         <ComboBox x:Name="StatusComboBox"
                                   Width="100"
@@ -94,6 +89,19 @@
                                   ItemsSource="{Binding StateFilterOptions}"
                                   SelectedItem="{Binding SelectedStateFilter, Mode=TwoWay}"
                                   DisplayMemberPath="Key" />
+
+                        <ComboBox x:Name="BankComoBox"
+                                  Width="100"
+                                  Style="{StaticResource CustomComboBoxStyle}"
+                                  HorizontalAlignment="Left"
+                                  FontSize="10"
+                                  FontWeight="Bold"
+                                  Foreground="Black"
+                                  Margin="10,0,0,0"
+                                  Height="24"
+                                  ItemsSource="{Binding BanksList}"
+                                  SelectedItem="{Binding SelectedBank, Mode=TwoWay}"
+                                  />
 
                         <Border CornerRadius="2"
                                 BorderThickness="1"
@@ -128,7 +136,9 @@
                                             Style="{StaticResource CustomDatePickerStyle}"
                                             SelectedDate="{Binding Query.ToDate, Mode=TwoWay}">
                                 </DatePicker>
+
                             </StackPanel>
+
                         </Border>
 
                         <Button Style="{DynamicResource IconButtonStyle}"
@@ -173,9 +183,8 @@
 
                             <ListView Grid.Column="0"
                                       Grid.Row="0"
-                                      ItemsSource="{Binding CreditApplicationsList}"
+                                      ItemsSource="{Binding PaymentsList}"
                                       ItemContainerStyle="{StaticResource CustomListViewItemStyle}"
-                                      SelectedItem="{Binding SelectedCreditApplication}"
                                       IsManipulationEnabled="True"
                                       BorderThickness="0"
                                       MaxWidth="1300"
@@ -191,79 +200,152 @@
 
                                 <ListView.View>
                                     <GridView>
-                                        <GridViewColumn Width="300">
+                                        <GridViewColumn Width="160">
                                             <GridViewColumn.Header>
                                                 <Grid HorizontalAlignment="Stretch">
-                                                    <Button Content="{x:Static p:Resources.NameLabelGlobal}"
+                                                    <Button Content="Nombre de empleado"
                                                             Style="{StaticResource HeaderButtonStyle}"
                                                             Command="{Binding OrderByCommand}"
-                                                            CommandParameter="FullName" />
+                                                            CommandParameter="Name" />
                                                 </Grid>
 
                                             </GridViewColumn.Header>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding Client.PersonalData.FullName}" />
+                                                    <TextBlock>
+                                                        <Run Text="{Binding Employee.PersonalData.Name}" />
+                                                        <Run Text="{Binding Employee.PersonalData.LastName}" />
+                                                        <Run Text="{Binding Employee.PersonalData.Surname}" />
+                                                    </TextBlock>
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
 
 
-                                        <GridViewColumn Width="250">
+                                        <GridViewColumn Width="130">
                                             <GridViewColumn.Header>
                                                 <Grid HorizontalAlignment="Stretch">
-                                                    <Button Content="{x:Static p:Resources.RFCLabelGlobal}"
+                                                    <Button Content="Monto total"
                                                             Style="{StaticResource HeaderButtonStyle}"
                                                             Command="{Binding OrderByCommand}"
-                                                            CommandParameter="RFC" />
+                                                            CommandParameter="TotalAmount" />
                                                 </Grid>
 
                                             </GridViewColumn.Header>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding Client.PersonalData.RFC}" />
+                                                    <TextBlock Text="{Binding TotalAmount}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
 
-                                        <GridViewColumn Width="190">
+                                        <GridViewColumn Width="130">
                                             <GridViewColumn.Header>
                                                 <Grid HorizontalAlignment="Stretch">
-                                                    <Button Content="{x:Static p:Resources.LoanAmountLabelGlobal}"
+                                                    <Button Content="Monto registrado"
                                                             Style="{StaticResource HeaderButtonStyle}"
                                                             Command="{Binding OrderByCommand}"
-                                                            CommandParameter="LoanAmount" />
+                                                            CommandParameter="ActualAmount" />
                                                 </Grid>
 
                                             </GridViewColumn.Header>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding LoanAmount}" />
+                                                    <TextBlock Text="{Binding ActualAmount}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
-
-                                        <GridViewColumn Width="190">
-                                            <GridViewColumn.Header>
-                                                <Grid HorizontalAlignment="Stretch">
-                                                    <Button Content="{x:Static p:Resources.LoanAmountLabelGlobal}"
-                                                            Style="{StaticResource HeaderButtonStyle}"
-                                                            Command="{Binding OrderByCommand}"
-                                                            CommandParameter="LoanAmountDate" />
-                                                </Grid>
-
-                                            </GridViewColumn.Header>
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding LoanApplicationDate}" />
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
-
 
                                         <GridViewColumn Width="150">
                                             <GridViewColumn.Header>
                                                 <Grid HorizontalAlignment="Stretch">
+                                                    <Button Content="Fecha generación"
+                                                            Style="{StaticResource HeaderButtonStyle}"
+                                                            Command="{Binding OrderByCommand}"
+                                                            CommandParameter="RegistrationDate" />
+                                                </Grid>
+
+                                            </GridViewColumn.Header>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding RegistrationDate}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
+                                        <GridViewColumn Width="150">
+                                            <GridViewColumn.Header>
+                                                <Grid HorizontalAlignment="Stretch">
+                                                    <Button Content="Fecha de subida"
+                                                            Style="{StaticResource HeaderButtonStyle}"
+                                                            Command="{Binding OrderByCommand}"
+                                                            CommandParameter="UploadDate" />
+                                                </Grid>
+
+                                            </GridViewColumn.Header>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding UploadDate}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
+                                        <GridViewColumn Width="100">
+                                            <GridViewColumn.Header>
+                                                <Grid HorizontalAlignment="Stretch">
+                                                    <Button Content="{x:Static p:Resources.BankLabelGlobal}"
+                                                            Style="{StaticResource HeaderButtonStyle}"
+                                                            Command="{Binding OrderByCommand}"
+                                                            CommandParameter="Bank" />
+                                                </Grid>
+
+                                            </GridViewColumn.Header>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Bank.Name}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
+                                        <GridViewColumn Width="140">
+                                            <GridViewColumn.Header>
+                                                <Grid HorizontalAlignment="Stretch">
+                                                    <Button Content="Total de créditos"
+                                                            Style="{StaticResource HeaderButtonStyle}"
+                                                            Command="{Binding OrderByCommand}"
+                                                            CommandParameter="TotalCredits" />
+                                                </Grid>
+
+                                            </GridViewColumn.Header>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding TotalCredits}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
+                                        <GridViewColumn Width="150">
+                                            <GridViewColumn.Header>
+                                                <Grid HorizontalAlignment="Stretch">
+                                                    <Button Content="Créditos pagados"
+                                                            Style="{StaticResource HeaderButtonStyle}"
+                                                            Command="{Binding OrderByCommand}"
+                                                            CommandParameter="ActualCredits" />
+                                                </Grid>
+
+                                            </GridViewColumn.Header>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding ActualCredits}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
+
+                                        <GridViewColumn Width="120">
+                                            <GridViewColumn.Header>
+                                                <Grid HorizontalAlignment="Stretch"
+                                                      Cursor="">
                                                     <Button Content="{x:Static p:Resources.StateLabelGlobal}"
                                                             Style="{StaticResource HeaderButtonStyle}"
                                                             Command="{Binding OrderByCommand}"
@@ -278,7 +360,7 @@
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
 
-                                        <GridViewColumn Width="150">
+                                        <GridViewColumn Width="50">
                                             <GridViewColumn.Header>
                                                 <Grid HorizontalAlignment="Stretch">
                                                     <Label>...</Label>
@@ -289,18 +371,19 @@
                                                 <DataTemplate>
                                                     <Button Width="32"
                                                             Height="16"
-                                                            ToolTip="Ver"
                                                             Style="{StaticResource IconButtonStyle}"
-                                                            Tag="{DynamicResource RuleIcon}"
+                                                            Tag="{DynamicResource UploadIcon}"
                                                             Foreground="{StaticResource IconBlackColor}"
                                                             Margin="4"
                                                             HorizontalAlignment="Center"
                                                             VerticalAlignment="Center"
-                                                            Command="{Binding ElementName=CreditApplicationsPage , Path=DataContext.CheckCommand}"
-                                                            CommandParameter="{Binding}" />
+                                                            Command="{Binding ElementName=PaymentsPage , Path=DataContext.CheckCommand}"
+                                                            CommandParameter="{Binding}"
+                                                            IsEnabled="{Binding IsUploadEnabled}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
+
 
                                     </GridView>
                                 </ListView.View>
@@ -374,7 +457,7 @@
                                                                     Style="{StaticResource PaginationButtonStyle}"
                                                                     Margin="2"
                                                                     FontWeight="{Binding IsCurrent, Converter={StaticResource BoolToFontWeightConverter}}"
-                                                                    Command="{Binding ElementName=CreditApplicationsPage , Path=DataContext.GoToPageCommand}"
+                                                                    Command="{Binding ElementName=PaymentsPage , Path=DataContext.GoToPageCommand}"
                                                                     CommandParameter="{Binding}" />
 
 
@@ -400,15 +483,117 @@
                                     CommandParameter="{Binding Pagination.TotalPages}"
                                     IsEnabled="{Binding Pagination.CanGoLast}"
                                     Style="{StaticResource PaginationButtonStyle}" />
+
+
                         </StackPanel>
 
 
 
 
+
+
                     </Grid>
+
+                    <Border Background="Transparent"
+                            Height="90"
+                            Width="320"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Margin="0,460,10,0"
+                            CornerRadius="4"
+                            BorderBrush="Gray"
+                            BorderThickness="1">
+
+                        <Grid>
+                            <TextBlock Margin="8">
+                                <Run Text="Layout de cobro" FontWeight="Bold"/>
+                            </TextBlock>
+
+                            <Border CornerRadius="2"
+                                    BorderThickness="1"
+                                    BorderBrush="Black"
+                                    Background="White"
+                                    Width="280"
+                                    Height="24"
+                                    Margin="10,27"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top">
+
+
+                                <StackPanel Orientation="Horizontal">
+                                    <DatePicker Width="130"
+                                                SelectedDateFormat="Short"
+                                                FontSize="10"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Left"
+                                                BorderThickness="0"
+                                                Style="{StaticResource CustomDatePickerStyle}"
+                                                SelectedDate="{Binding ChargeQuery.FromDate, Mode=TwoWay}">
+                                    </DatePicker>
+                                    <TextBlock FontFamily="Bold"
+                                               VerticalAlignment="Center"
+                                               Margin="10,0,0,0">:
+                                    </TextBlock>
+                                    <DatePicker Width="130"
+                                                SelectedDateFormat="Short"
+                                                FontSize="10"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Right"
+                                                BorderThickness="0"
+                                                Margin="0,0,0,0"
+                                                Style="{StaticResource CustomDatePickerStyle}"
+                                                SelectedDate="{Binding ChargeQuery.ToDate, Mode=TwoWay}">
+                                    </DatePicker>
+
+                                </StackPanel>
+
+
+
+
+                            </Border>
+
+                            <StackPanel Orientation="Horizontal"
+                                        Background="Transparent"
+                                        Height="50"
+                                        Margin="10,-5"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Bottom">
+
+                                <ComboBox x:Name="BankComboBox"
+                                          Width="100"
+                                          
+                                          Style="{StaticResource CustomComboBoxStyle}"
+                                          HorizontalAlignment="Left"
+                                          FontSize="10"
+                                          FontWeight="Bold"
+                                          Foreground="Black"
+                                          Height="24"
+                                          ItemsSource="{Binding BanksList}"
+                                          SelectedItem="{Binding SelectedBankForLayout, Mode=TwoWay}" />
+
+                                <Button  Height="24"
+                                         Width="170"
+                                         Style="{StaticResource MainButtonStyle}"
+                                         Margin="10"
+                                         Content="Generar layout" 
+                                         Command="{Binding GenerateCommand}"/>
+
+
+                            </StackPanel>
+
+                        </Grid>
+
+
+
+                    </Border>
+
+
                 </Grid>
 
+
+
             </StackPanel>
+
         </ScrollViewer>
 
 

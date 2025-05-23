@@ -133,7 +133,7 @@ namespace Independiente.ViewModel
 
             if (result > 1)
             {
-                _dialogService.Dismiss("El dictamen ha sido enviado correctamente", MessageBoxImage.Exclamation);
+                _dialogService.Dismiss("El dictamen ha sido enviado correctamente", MessageBoxImage.Information);
             }
 
         }
@@ -217,16 +217,24 @@ namespace Independiente.ViewModel
         private void GoBack(object obj)
         {
 
-            if (CreditApplication.Status != CreditApplicationStates.Pending || _dialogService.Confirm("¿Estas seguro de querer salir sin guardar?"))
+            if (CreditApplication.Status == CreditApplicationStates.Pending)
             {
-                CreditApplication = _creditApplication;
+                if (_dialogService.Confirm("¿Estás seguro de querer salir sin guardar?"))
+                {
+                    CreditApplication = _creditApplication;
+                    _navigationService.GoBack();
+                }
+            }
+            else
+            {
                 _navigationService.GoBack();
             }
+
         }
 
         private void LoadCreditPolicies()
         {
-            var creditPolicies = _creditApplicationService.GetCreditPolicies(new CreditPolicyQuery { Status = CreditPolicyStates.Active.ToString() });
+            var creditPolicies = _creditApplicationService.GetCreditPolicies(new CreditPolicyQuery { Status = CreditPolicyStates.Active.ToString(), Validity = true });
 
             foreach (Model.CreditPolicy c in creditPolicies)
             {

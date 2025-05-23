@@ -12,17 +12,18 @@ namespace Independiente.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class AmortizationSchedule
+    public partial class CreditApplicationListView
     {
-        public int PaymentNumber { get; set; }
-        public System.DateTime PaymentDate { get; set; }
-        public decimal FixedPayment { get; set; }
-        public decimal Interest { get; set; }
-        public decimal OutstandingBalance { get; set; }
+        public int CreditApplicationId { get; set; }
+        public decimal LoanAmount { get; set; }
+        public System.DateTime LoanApplicationDate { get; set; }
         public string Status { get; set; }
-        public int CreditId { get; set; }
-        public int AmortizationScheduleId { get; set; }
-    
-        public virtual CreditApplication CreditApplication { get; set; }
+        public int ClientId { get; set; }
+        public int FileId { get; set; }
+        public int PromotionalOfferId { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Lastname { get; set; }
+        public string RFC { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,8 @@ namespace Independiente.Services
     public interface IFilePickerService
     {
         string PickFile();
+
+        string SelectPath();
     }
 
     public class FilePickerService : IFilePickerService
@@ -22,6 +25,25 @@ namespace Independiente.Services
             }
             return null; 
         }
+
+
+        public string SelectPath()
+        {
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                dialog.Description = "Selecciona la carpeta donde se guardará el layout de cobro";
+
+                System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+
+                if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.SelectedPath))
+                {
+                    return dialog.SelectedPath;
+                }
+
+                return null;
+            }
+        }
+
     }
 
 }

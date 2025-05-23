@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -93,9 +92,8 @@ namespace Independiente.DataAccess.Repositories
                     total = context.PromotionalOffer.Count(predicate);
                 }
             }
-            catch (DbEntityValidationException ex)
+            catch (DbUpdateException ex)
             {
-
             }
             catch (EntityException ex)
             {
