@@ -51,7 +51,6 @@ namespace Independiente
         public ICatalogService CatalogService { get; private set; }
         public IPromotionalOfferService PromotionalOfferService { get; set; }
         public IPromotionalOfferRepository PromotionalOfferRepository { get; set; }
-        public Client Client { get; private set; }
 
         public Model.Client Client { get; private set; }
 
