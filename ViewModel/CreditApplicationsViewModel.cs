@@ -39,7 +39,6 @@ namespace Independiente.ViewModel
 
         public ICommand CheckCommand { get; set; }
 
-        public ICommand GoBackCommand { get; set; }
 
         private ICreditApplicationService _service;
 
@@ -60,7 +59,7 @@ namespace Independiente.ViewModel
         
 
         private KeyValuePair<string, CreditApplicationStates?> _selectedStateFilter;
-
+        
         public CreditApplicationsViewModel() { }
 
         public CreditApplicationsViewModel(IDialogService dialogService, INavigationService navigationService, ICreditApplicationService creditApplicationService)

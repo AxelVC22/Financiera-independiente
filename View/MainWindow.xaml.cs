@@ -1,4 +1,5 @@
-﻿using Independiente.DataAccess.Repositories;
+﻿using Independiente.DataAccess;
+using Independiente.DataAccess.Repositories;
 using Independiente.Model;
 using Independiente.Services;
 using Independiente.View;
@@ -19,6 +20,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Client = Independiente.Model.Client;
+using CreditApplication = Independiente.Model.CreditApplication;
+using Employee = Independiente.Model.Employee;
 
 namespace Independiente
 {
@@ -27,9 +31,19 @@ namespace Independiente
     {
 
         public ICreditApplicationService CreditApplicationService {  get; set; }
+
+        public IFilePickerService FilePickerService { get; set; }
+
+        public IPaymentService PaymentService { get; set; }
+
+        public IAmortizationScheduleService AmortizationScheduleService { get; set; }
         public INavigationService NavigationService { get;  set; }
 
         public ICreditApplicationRepository CreditApplicationRepository { get; set; }
+
+        public IAmortizationScheduleRepository AmortizationScheduleRepository { get; set; }
+
+        public IPaymentRepository PaymentRepository { get; set; }
 
         public ICreditPolicyRepository CreditPolicyRepository { get; set; }
         public ICreditApplicationGeneratorService CreditApplicationGeneratorService { get; set; }
@@ -38,21 +52,32 @@ namespace Independiente
         public IPromotionalOfferService PromotionalOfferService { get; set; }
         public IPromotionalOfferRepository PromotionalOfferRepository { get; set; }
         public Client Client { get; private set; }
+
+        public Model.Client Client { get; private set; }
+
+        public ICreditPolicyService CreditPolicyService { get; private set; }
+
+        public ICatalogRepository CatalogRepository { get; set; }
         public MainWindow()
         {
             InitializeComponent();
 
+            CatalogRepository catalogRepository = new CatalogRepository();
+
             IDialogService dialogService = new DialogService();
             ClientManagementService = new ClientManagerService();
-            CatalogService = new CatalogManagerService();
-            CreditApplicationGeneratorService = new CreditApplicationGeneratorService();
-            Client = new Client();
+            CatalogService = new CatalogService(catalogRepository);
+            FilePickerService = new FilePickerService();
+            Client = new Model.Client();
 
             CreditPolicyRepository = new CreditPolicyRepository();
+            PaymentRepository = new PaymentRepository();
+            AmortizationScheduleRepository = new AmortizationScheduleRepository();
             CreditApplicationRepository = new CreditApplicationRepository();
             CreditApplicationService = new CreditApplicationService(CreditApplicationRepository, CreditPolicyRepository);
-            PromotionalOfferRepository = new PromotionalOfferRepository();
-            PromotionalOfferService = new PromotionalOfferService(PromotionalOfferRepository);
+            AmortizationScheduleService = new AmortizationScheduleService(AmortizationScheduleRepository);
+            PaymentService = new PaymentService(PaymentRepository);
+            CreditPolicyService = new CreditPolicyService(CreditPolicyRepository);
 
             NavigationService = new FrameNavigationService(
                 PageFrame,
@@ -131,7 +156,7 @@ namespace Independiente
                     {
 
                         var viewModel = new CreditPoliciesManagementViewModel(
-                            dialogService, NavigationService
+                            dialogService, NavigationService, CreditPolicyService
                         );
 
                         return new CreditPoliciesManagement(viewModel);
@@ -164,6 +189,21 @@ namespace Independiente
                         );
 
                         return new CreditApplicationValidation(viewModel);
+                    }
+                    else if (viewModelType == typeof(AmortizationScheduleViewModel))
+                    {
+                        var param = parameter as CreditApplication ?? new CreditApplication();
+                        var viewModel = new AmortizationScheduleViewModel(
+                            NavigationService, dialogService, AmortizationScheduleService, param
+                        );
+                        return new Independiente.View.Pages.AmortizationSchedule(viewModel);
+                    }
+                    else if (viewModelType == typeof(PaymentsViewModel))
+                    {
+                        var viewModel = new PaymentsViewModel(
+                            dialogService, NavigationService, PaymentService, CatalogService, FilePickerService
+                        );
+                        return new Payments(viewModel);
                     }
                     throw new ArgumentException("ViewModel desconocido");
                 });

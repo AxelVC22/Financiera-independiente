@@ -7,12 +7,19 @@ using System.Threading.Tasks;
 
 namespace Independiente.Model
 {
+    public enum BankStates
+    {
+        Active,
+        Inactive,
+    }
     public class Bank : INotifyPropertyChanged, ICatalog
     {
         private bool _isEditable;
         private int _bankId { get; set; }
 
         private string _name;
+
+        private BankStates _status;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -38,6 +45,19 @@ namespace Independiente.Model
                 {
                     _bankId = value;
                     OnPropertyChanged(nameof(BankId));
+                }
+            }
+        }
+
+        public BankStates Status
+        {
+            get => _status;
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    OnPropertyChanged(nameof(Status));
                 }
             }
         }

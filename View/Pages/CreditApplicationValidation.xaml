@@ -7,9 +7,11 @@
       xmlns:p="clr-namespace:Independiente.Properties"
       xmlns:vm="clr-namespace:Independiente.ViewModel"
       xmlns:conv="clr-namespace:Independiente.Converters"
+      xmlns:ctrls="clr-namespace:Independiente.View.Controllers"
       mc:Ignorable="d"
       d:DesignHeight="900"
-      d:DesignWidth="1400">
+      d:DesignWidth="1400"
+      x:Name="CreditApplicationValidationPage">
 
     <Page.DataContext>
         <vm:CreditApplicationValidationViewModel />
@@ -20,7 +22,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/View/ViewResources/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
+            <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         </ResourceDictionary>
     </Page.Resources>
 
@@ -44,41 +46,210 @@
                 Margin="7,7,7,7"
                 Command="{Binding GoBackCommand}" />
 
+        <ScrollViewer Grid.Column="2"
+                      Grid.Row="1"
+                      Margin="0,0,10,20"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Auto">
+            <Grid Grid.Row="1"
+                  Grid.Column="1"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"
+                                      MinWidth="700" />
+                    <ColumnDefinition Width="*"
+                                      MinWidth="300" />
+                </Grid.ColumnDefinitions>
 
+                <Grid Grid.Column="1"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      Margin="10"
+                      Width="700">
 
-        <TabControl Grid.Column="1"
-                    Style="{DynamicResource TabControlStyle}"
-                    Grid.Row="1"
-                  
-                    BorderThickness="2"
-                    Width="900"
-                    HorizontalAlignment="Left"
-                    >
-            <TabItem Header="TabItem"
-                    
-                     BorderThickness="1"
-                     Width="100">
-                <Grid Background="Transparent"
-                      Margin="0,0,554,0">
-                    <Label Content="{Binding PdfBytes}"/>
+                    <ComboBox Style="{StaticResource CustomComboBoxStyle}"
+                              FontSize="10"
+                              FontWeight="Bold"
+                              Foreground="Black"
+                              Height="24"
+                              Width="200"
+                              ItemsSource="{Binding DocumentFilterOptions}"
+                              SelectedItem="{Binding SelectedDocumentFilter, Mode=TwoWay}"
+                              DisplayMemberPath="Key"
+                              VerticalAlignment="Top"
+                              HorizontalAlignment="Left" />
 
+                    <ctrls:PdfViewerControl PdfBytes="{Binding PdfBytes}"
+                                            Margin="0,25,0,0" />
                 </Grid>
-            </TabItem>
 
-            <TabItem Header="TabItem">
-                <Grid Background="Transparent"
-                      Margin="0,0,538,0" />
-            </TabItem>
+                <Border BorderBrush="Gray"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Height="Auto"
+                        Margin="10">
 
-        </TabControl>
+                    <StackPanel Grid.Column="0"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Margin="10">
+
+                        <StackPanel Orientation="Horizontal">
+                            <Border Margin="4"
+                                    BorderBrush="Gray"
+                                    BorderThickness="1"
+                                    Height="24"
+                                    Width="200"
+                                    CornerRadius="4"
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Left">
+                                <TextBlock Margin="2">
+                          <Run Text="{Binding CreditApplication.Client.PersonalData.Name}" />
+                          <Run Text="{Binding CreditApplication.Client.PersonalData.LastName}" />
+                          <Run Text="{Binding CreditApplication.Client.PersonalData.Surname}" />
+
+                                </TextBlock>
+
+                            </Border>
+
+                            <Border Margin="4"
+                                    BorderBrush="Gray"
+                                    BorderThickness="1"
+                                    Height="24"
+                                    Width="100"
+                                    CornerRadius="4"
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Left">
+                                <TextBlock Margin="2">
+                            <Run Text="{Binding CreditApplication.Status}"
+                                    FontWeight="Bold" />
+                                </TextBlock>
+                            </Border>
 
 
 
-        <Border Grid.Column="1"
-                Margin="1016,28,42,28"
-                Grid.Row="1"
-                Background="Black"
-                CornerRadius="4" />
+                        </StackPanel>
+
+                        <TextBlock>
+                             <Run Text="Politicas de credito"
+                                  FontWeight="Bold" />
+                        </TextBlock>
+
+                        <TextBlock  Visibility="{Binding IsRejected, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <Run Text="(No aprobadas)"
+                                 Foreground="Gray" />
+                        </TextBlock>
+
+                        <TextBlock Margin="50,10,0,0"
+                                   Visibility="{Binding IsAccepted, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <Run Text="Todas las políticas de crédito han sido aprobadas"
+                                 Foreground="Gray" />
+                        </TextBlock>
+
+                        <TextBlock Margin="0"
+                                   Visibility="{Binding IsEditable, Converter={StaticResource BoolToVisibilityConverter}}">
+                   
+                                <Run Text="{Binding CreditPoliciesPassed}"
+                                     Foreground="Gray" />
+                                <Run Text="De "
+                                     Foreground="Gray" />
+                                <Run Text="{Binding CreditPoliciesTotal}"
+                                     Foreground="Gray" />
+
+                        </TextBlock>
+
+                        <ListView ItemsSource="{Binding CreditPoliciesList}"
+                                  ItemContainerStyle="{StaticResource CustomListViewItemOnlyStyle}"
+                                  BorderThickness="0"
+                                  Background="Transparent"
+                                  Margin="0"
+                                  Height="400"
+                                  Padding="5">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <StackPanel Orientation="Vertical"
+                                                    Width="Auto">
+                                            <TextBlock Text="{Binding Name}"
+                                                       FontWeight="Bold"
+                                                       FontSize="12" />
+                                            <TextBlock Text="{Binding Description}"
+                                                       FontSize="11"
+                                                       Foreground="Gray" />
+
+                                        </StackPanel>
+                                        <CheckBox VerticalAlignment="Center"
+                                                  HorizontalAlignment="Right"
+                                                  Margin="8"
+                                                  IsChecked="{Binding IsPassed, Mode=TwoWay}"
+                                                  Command="{Binding ElementName=CreditApplicationValidationPage , Path=DataContext.CheckCommand}"
+                                                  CommandParameter="{Binding}"
+                                                  IsEnabled="{Binding DataContext.IsEditable, 
+                         RelativeSource={RelativeSource AncestorType=ListView}}" />
+                                    </Grid>
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                        <TextBlock Margin="0,10,0,0">
+                    <Run Text="Observaciones"
+                            FontWeight="Bold" />
+                        </TextBlock>
+
+                        <TextBox Margin="10"
+                                 Style="{StaticResource TextBoxWithPlaceholderStyle}"
+                                 HorizontalAlignment="Stretch"
+                                 Height="120"
+                                 Text="{Binding Report.Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 IsEnabled="{Binding IsEditable}">
+                        </TextBox>
+
+                        <TextBlock Margin="10,0,0,0"
+                                   HorizontalAlignment="Right"
+                                   Visibility="{Binding IsEditable, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <Run Text="{Binding Report.MaxCharacters}"
+                                 Foreground="Gray" />
+                             <Run Text="/"
+                                  Foreground="Gray" />
+                             <Run Text="{Binding Report.CurrentCharacters, Mode=TwoWay}"
+                                  Foreground="Gray" />
+
+                        </TextBlock>
+
+                        <Button Height="25"
+                                Width="150"
+                                HorizontalAlignment="Right"
+                                Margin="0,10"
+                                Style="{StaticResource MainButtonStyle}"
+                                Content="Enviar revisión"
+                                Command="{Binding SubmitCommand}"
+                                Visibility="{Binding IsEditable, Converter={StaticResource BoolToVisibilityConverter}}">
+
+                        </Button>
+
+                        <Button Height="25"
+                                Width="170"
+                                HorizontalAlignment="Right"
+                                Margin="0,10"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                Content="Ver tabla de amortización"
+                                Visibility="{Binding IsAccepted, Converter={StaticResource BoolToVisibilityConverter}}"
+                                Command="{Binding AmortizationCommmand}" />
+                    </StackPanel>
+                </Border>
+
+            </Grid>
+
+        </ScrollViewer>
+
+
+
+
+
+
+
 
 
     </Grid>

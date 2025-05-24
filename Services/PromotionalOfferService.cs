@@ -23,9 +23,12 @@ namespace Independiente.Services
         int UpdatePromotionalOffer(Independiente.Model.PromotionalOffer promotionalOffer);
 
         int DeletePromotionalOffer(Independiente.Model.PromotionalOffer promotionalOffer);
+<<<<<<< HEAD
 
         //provisional
         List<Independiente.Model.PromotionalOffer> GetAllPromotionalOffers();
+=======
+>>>>>>> da904a03e98f4fbd7b009aef6f210e1f431b1da5
     }
 
     internal class PromotionalOfferService : IPromotionalOfferService
@@ -47,12 +50,20 @@ namespace Independiente.Services
             List<Independiente.DataAccess.PromotionalOffer> promotionalOffersList = new List<Independiente.DataAccess.PromotionalOffer>();
 
             List<Independiente.Model.PromotionalOffer> promotionalOffers1 = new List<Model.PromotionalOffer>();
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> da904a03e98f4fbd7b009aef6f210e1f431b1da5
             promotionalOffersList = _promotionalOfferRepository.GetPromotionalOffers(query);
             foreach (var c in promotionalOffersList)
             {
                 promotionalOffers1.Add(PromotionalOfferMapper.ToViewModel(c));
+<<<<<<< HEAD
             }
+=======
+            }           
+>>>>>>> da904a03e98f4fbd7b009aef6f210e1f431b1da5
             return promotionalOffers1;
         }
 
@@ -101,6 +112,7 @@ namespace Independiente.Services
             }
             return result;
         }
+<<<<<<< HEAD
 
         //provisional
         public List<Independiente.Model.PromotionalOffer> GetAllPromotionalOffers()
@@ -121,3 +133,7 @@ namespace Independiente.Services
         }
     }
 }
+=======
+    }
+}
+>>>>>>> da904a03e98f4fbd7b009aef6f210e1f431b1da5

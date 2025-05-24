@@ -36,21 +36,22 @@ namespace Independiente.Services.Mappers
             return report;
         }
 
-        public static Model.Client ToViewModel(this DataAccess.Client source)
+        public static Model.Report ToViewModel(this DataAccess.Report source)
         {
-            Model.Client client = new Model.Client();
+            Model.Report report = new Model.Report();
 
             if (source != null)
             {
-                return new Model.Client
+                return new Model.Report
                 {
-                    ClientId = source.ClientId,
-                    PersonalData = PersonalDataMapper.ToViewModel(source.PersonalData),
-                    AddressData = AddressDataMapper.ToViewModel(source.AddressData),
+                    CreditApplication = CreditApplicationMapper.ToViewModel(source.CreditApplication),
+                    ReviewingDate = source.ReviewingDate,
+                    Notes = source.Notes,
+                    CreditPolicies = source.CreditPolicy.Select(c => CreditPolicyMapper.ToViewModel(c)).ToList()
                 };
             }
 
-            return client;
+            return report;
         }
     }
 }

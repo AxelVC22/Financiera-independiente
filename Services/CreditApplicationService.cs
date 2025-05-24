@@ -26,6 +26,8 @@ namespace Independiente.Services
 
         List<Independiente.Model.CreditPolicy> GetCreditPolicies(CreditPolicyQuery query);
 
+        Independiente.Model.Report GetReport(int creditApplicationId);
+
         int SubmitDecision(Model.Report report);
 
         List<Model.AmortizationSchedule> GetAmortizationSchedule(Model.CreditApplication creditApplication);
@@ -49,7 +51,7 @@ namespace Independiente.Services
 
             if ((query.ToDate != null && query.FromDate != null) && (query.FromDate > query.ToDate))
             {
-                throw new ArgumentException("Rango de fecha invalido");
+                throw new ArgumentException("El rango de fecha es inválido");
             }
 
             if (!string.IsNullOrEmpty(query.RFC))
@@ -160,16 +162,30 @@ namespace Independiente.Services
 
             return creditPoliciesList;
 
-
         }
 
         public int SubmitDecision(Model.Report report)
         {
             int result = 0;
 
+            List<DataAccess.AmortizationSchedule> amortizationScheduleList = new List<DataAccess.AmortizationSchedule>();
+
+
             if (report != null)
             {
-                result = _creditApplicationRepository.SubmitDecision(ReportMapper.ToDataModel(report));
+
+                if (report.CreditApplication.Status == CreditApplicationStates.Accepted)
+                {
+                    var amortizationSchedule = GetAmortizationSchedule(report.CreditApplication);
+
+
+                    foreach (var a in amortizationSchedule)
+                    {
+                        amortizationScheduleList.Add(AmortizationScheduleMapper.ToDataModel(a));
+                    }
+                }
+
+                result = _creditApplicationRepository.SubmitDecision(ReportMapper.ToDataModel(report), amortizationScheduleList);
             }
 
             return result;

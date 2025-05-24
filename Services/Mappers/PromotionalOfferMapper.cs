@@ -23,8 +23,7 @@ namespace Independiente.Services.Mappers
                     PaymentFrecuency = source.PaymenteFrecuency,
                     IVA = source.IVA
                 };
-            }
-           
+            }           
             return promotionalOffer;
         }
                     
@@ -43,8 +42,7 @@ namespace Independiente.Services.Mappers
                     IVA = source.IVA,
                     Description = source.Name
                 };
-            }
-           
+            }           
             return promotionalOffer;
         }
     }
