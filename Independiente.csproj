@@ -114,6 +114,7 @@
     <Compile Include="DataAccess\CreditPolicy.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\DbExceptionHandler.cs" />
     <Compile Include="DataAccess\Employee.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

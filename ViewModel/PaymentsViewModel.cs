@@ -50,6 +50,8 @@ namespace Independiente.ViewModel
 
         public ChargeQuery ChargeQuery { get; set; } = new ChargeQuery();
 
+        public CatalogQuery CatalogQuery { get; set; } = new CatalogQuery();
+
         private bool _isOrderedAscendent = false;
 
         public Dictionary<string, PaymentStatus?> StateFilterOptions { get; } = new Dictionary<string, PaymentStatus?>
@@ -91,11 +93,10 @@ namespace Independiente.ViewModel
 
             SelectedStateFilter = StateFilterOptions.First();
 
-           // BanksList = new ObservableCollection<Bank>(_catalogService.GetBanks());
+            BanksList = new ObservableCollection<Bank>(_catalogService.GetBanks(new CatalogQuery ()));
 
 
             Search(null);
-
 
         }
 

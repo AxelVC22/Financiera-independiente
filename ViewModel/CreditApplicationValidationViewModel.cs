@@ -22,6 +22,8 @@ using Independiente.Commands;
 using CreditPolicy = Independiente.Model.CreditPolicy;
 using Report = Independiente.Model.Report;
 using Independiente.View;
+using Independiente.Properties;
+using System.Resources;
 
 
 namespace Independiente.ViewModel
@@ -72,10 +74,10 @@ namespace Independiente.ViewModel
 
         public Dictionary<string, FileType> DocumentFilterOptions { get; } = new Dictionary<string, FileType>
         {
-            {"Solicitud", FileType.CA },
-            { "INE",  FileType.INE},
-            {"Comprobante de domicilio", FileType.POA }
-
+            {Resources.CreditApplicationLabelGlobal, FileType.CA },
+            {Resources.INELabelGlobal,  FileType.INE},
+            {Resources.ProofOfAddressLabelGlobal, FileType.POA }
+            
         };
 
         private KeyValuePair<string, FileType> _selectedDocumentFilter;
@@ -98,22 +100,38 @@ namespace Independiente.ViewModel
             IsAccepted = (creditApplication.Status == CreditApplicationStates.Accepted) ? true : false;
             IsRejected = (creditApplication.Status == CreditApplicationStates.Rejected) ? true : false;
 
-            if (!IsEditable)
+            try
             {
-                LoadReport();
-            }
+                if (!IsEditable)
+                {
+                    LoadReport();
+                }
+                else
+                {
+                    LoadCreditPolicies();
+                }
+            } 
+            catch (InvalidOperationException ex)
+            {
 
-            if (IsEditable)
-            {
-                LoadCreditPolicies();
             }
         }
 
         private void Submit(object obj)
         {
-            int result = 0;
+            string message = null;
 
-            if (_dialogService.Confirm("Enviar dictamen con estado: " + CreditApplication.Status + "?"))
+            if (CreditApplication.Status == CreditApplicationStates.Accepted)
+            {
+                message = Messages.ResourceManager.GetString("AcceptApplicationConfirmationMessage");
+            }
+            else if (CreditApplication.Status == CreditApplicationStates.Rejected)
+            {
+                message = Messages.ResourceManager.GetString("RejectApplicationConfirmationMessage");
+            }
+
+
+            if (CreditApplication.Status != CreditApplicationStates.Pending && _dialogService.Confirm(message))
             {
                 if (Report.CreditApplication.Status == CreditApplicationStates.Rejected)
                 {
@@ -128,21 +146,17 @@ namespace Independiente.ViewModel
 
                 Report.ReviewingDate = DateTime.Now;
 
-                result = _creditApplicationService.SubmitDecision(Report);
+                if (_creditApplicationService.SubmitDecision(Report) > 1)
+                {
+                    _dialogService.Dismiss(Messages.ResourceManager.GetString("SentReportMessage"), MessageBoxImage.Information);
+                    _navigationService.GoBack();
+                }
             }
-
-            if (result > 1)
-            {
-                _dialogService.Dismiss("El dictamen ha sido enviado correctamente", MessageBoxImage.Information);
-            }
-
         }
 
         private void GoToAmortization(object obj)
         {
-
             _navigationService.NavigateTo<AmortizationScheduleViewModel>(CreditApplication);
-
         }
 
 
@@ -234,7 +248,7 @@ namespace Independiente.ViewModel
 
         private void LoadCreditPolicies()
         {
-            var creditPolicies = _creditApplicationService.GetCreditPolicies(new CreditPolicyQuery { Status = CreditPolicyStates.Active.ToString(), Validity = true });
+            var creditPolicies = _creditApplicationService.GetCreditPolicies(new CreditPolicyQuery { Status = CreditPolicyStates.Active.ToString()});
 
             foreach (Model.CreditPolicy c in creditPolicies)
             {
@@ -250,7 +264,6 @@ namespace Independiente.ViewModel
             try
             {
                 report = _creditApplicationService.GetReport(CreditApplication.CreditApplicationId);
-
             }
             catch (ArgumentException e)
             {

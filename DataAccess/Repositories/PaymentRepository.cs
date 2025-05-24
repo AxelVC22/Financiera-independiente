@@ -115,12 +115,11 @@ namespace Independiente.DataAccess.Repositories
 
         public Expression<Func<ChargeView, bool>> BuildExpression()
         {
-            //return c => 
-            //    ( c.BankName == BankName) &&
-            //    ( c.PaymentDate >= FromDate) &&
-            //    ( c.PaymentDate <= ToDate) &&
-            //    (c.Status == PaymentStatus.Pending.ToString());
-            return c => c.CLABE == c.CLABE;
+            return c =>
+                (string.IsNullOrEmpty(BankName) || c.BankName == BankName) &&
+                (!FromDate.HasValue || c.PaymentDate >= FromDate) &&
+                (!ToDate.HasValue || c.PaymentDate <= ToDate) &&
+                (Status == null || c.Status == PaymentStatus.Pending.ToString());
         }
 
         public string BankName
