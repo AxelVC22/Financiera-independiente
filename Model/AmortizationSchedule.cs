@@ -16,8 +16,4 @@ namespace Independiente.Model
         public string Status { get; set; }
         public CreditApplication CreditApplication { get; set; }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> da904a03e98f4fbd7b009aef6f210e1f431b1da5
