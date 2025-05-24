@@ -71,8 +71,6 @@ namespace Independiente.DataAccess.Repositories
 
         List<Bank> GetBanks(CatalogQuery query);
 
-        List<Bank> GetBanks();
-
         Bank GetBank(int bankId);
 
         int AddBank(Bank bank);
@@ -119,12 +117,18 @@ namespace Independiente.DataAccess.Repositories
             {
                 using (var context = new IndependienteEntities())
                 {
-                    var bankForSearch = context.Bank
+                    IQueryable<Bank> bankQuery = context.Bank
                         .Where(predicate)
-                        .OrderBy(x => x.Name)
-                        .Skip((query.PageNumber - 1) * query.PageSize)
-                        .Take(query.PageSize)
-                        .ToList();
+                        .OrderBy(x => x.Name);
+
+                    if (query.PageNumber > 0 && query.PageSize > 0)
+                    {
+                        bankQuery = bankQuery
+                            .Skip((query.PageNumber - 1) * query.PageSize)
+                            .Take(query.PageSize);
+                    }
+
+                    var bankForSearch = bankQuery.ToList();
 
                     if (bankForSearch != null)
                     {
@@ -141,30 +145,6 @@ namespace Independiente.DataAccess.Repositories
 
             return banks;
         }
-
-        public List<Bank> GetBanks()
-        {
-            List<Bank> banks = new List<Bank>();
-
-            try
-            {
-                using (var context = new IndependienteEntities())
-                {
-                    banks = context.Bank
-                        .OrderBy(b => b.Name)
-                        .ToList();
-                }
-            }
-            catch (DbUpdateException ex)
-            {                
-            }
-            catch (EntityException ex)
-            {                
-            }
-
-            return banks;
-        }
-
 
         public Bank GetBank(int bankId)
         {
