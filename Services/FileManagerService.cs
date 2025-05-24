@@ -10,12 +10,8 @@ namespace Independiente.Services
     public interface IFilePickerService
     {
         string PickFile();
-<<<<<<< HEAD
         string SaveFile(string defaultFileName);
-=======
-
         string SelectPath();
->>>>>>> da904a03e98f4fbd7b009aef6f210e1f431b1da5
     }
 
     public class FilePickerService : IFilePickerService
@@ -30,7 +26,6 @@ namespace Independiente.Services
             return null; 
         }
 
-<<<<<<< HEAD
         public string SaveFile(string defaultFileName)
         {
             var saveFileDialog = new Microsoft.Win32.SaveFileDialog
@@ -46,7 +41,6 @@ namespace Independiente.Services
             }
             return null;
         }
-=======
 
         public string SelectPath()
         {
@@ -65,7 +59,6 @@ namespace Independiente.Services
             }
         }
 
->>>>>>> da904a03e98f4fbd7b009aef6f210e1f431b1da5
     }
 
 }
