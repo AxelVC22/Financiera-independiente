@@ -21,6 +21,8 @@ namespace Independiente.DataAccess.Repositories
         public int PageSize { get; set; }
 
         private string _name;
+
+        private string _status;
         
         public string Name
         {
@@ -35,10 +37,24 @@ namespace Independiente.DataAccess.Repositories
             }
         }
 
+        public string Status
+        {
+            get => _status;
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    OnPropertyChanged(nameof(Status));
+                }
+            }
+        }
+
         public Expression<Func<Bank, bool>> BuildExpression()
         {
             return c =>
-                string.IsNullOrEmpty(Name) || c.Name.Contains(Name);
+                string.IsNullOrEmpty(Name) || c.Name.Contains(Name) &&
+                (string.IsNullOrEmpty(Status) || c.Status == Status);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -101,12 +117,18 @@ namespace Independiente.DataAccess.Repositories
             {
                 using (var context = new IndependienteEntities())
                 {
-                    var bankForSearch = context.Bank
+                    IQueryable<Bank> bankQuery = context.Bank
                         .Where(predicate)
-                        .OrderBy(x => x.Name)
-                        .Skip((query.PageNumber - 1) * query.PageSize)
-                        .Take(query.PageSize)
-                        .ToList();
+                        .OrderBy(x => x.Name);
+
+                    if (query.PageNumber > 0 && query.PageSize > 0)
+                    {
+                        bankQuery = bankQuery
+                            .Skip((query.PageNumber - 1) * query.PageSize)
+                            .Take(query.PageSize);
+                    }
+
+                    var bankForSearch = bankQuery.ToList();
 
                     if (bankForSearch != null)
                     {
