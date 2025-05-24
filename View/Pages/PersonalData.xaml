@@ -292,7 +292,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding AddressData.Street, Mode=TwoWay}"
+                        <TextBox Text="{Binding Person.AddressData.Street, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -307,7 +307,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding AddressData.NeighborHood}"
+                        <TextBox Text="{Binding Person.AddressData.NeighborHood, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -322,7 +322,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding AddressData.City}"
+                        <TextBox Text="{Binding Person.AddressData.City, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -342,7 +342,7 @@
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Center"
                                   ItemsSource="{Binding StatesList}"
-                                  SelectedItem="{Binding AddressData.State, Mode=TwoWay}">
+                                  SelectedItem="{Binding Person.AddressData.State, Mode=TwoWay}">
                         </ComboBox>
 
 

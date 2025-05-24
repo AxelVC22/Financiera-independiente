@@ -11,7 +11,7 @@ namespace Independiente.Model
     {
         private int _accountId;
         private string _clabe;
-        private Bank _bank;
+        private int _bank;
 
         public int AccountId
         {
@@ -21,7 +21,7 @@ namespace Independiente.Model
                 if (_accountId != value)
                 {
                     _accountId = value;
-                    OnPropertyChanged(nameof(AccountId)); 
+                    OnPropertyChanged(nameof(AccountId));
                 }
             }
         }
@@ -34,12 +34,12 @@ namespace Independiente.Model
                 if (_clabe != value)
                 {
                     _clabe = value;
-                    OnPropertyChanged(nameof(CLABE));  
+                    OnPropertyChanged(nameof(CLABE));
                 }
             }
         }
 
-        public Bank Bank
+        public int Bank
         {
             get => _bank;
             set
@@ -47,7 +47,7 @@ namespace Independiente.Model
                 if (_bank != value)
                 {
                     _bank = value;
-                    OnPropertyChanged(nameof(Bank));  
+                    OnPropertyChanged(nameof(Bank));
                 }
             }
         }
@@ -61,7 +61,7 @@ namespace Independiente.Model
 
         public override string ToString()
         {
-            return $"AccountId: {AccountId}, CLABE: {CLABE}, Bank: {Bank?.Name}";
+            return $"AccountId: {AccountId}, CLABE: {CLABE}";
         }
     }
 }

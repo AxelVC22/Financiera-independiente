@@ -152,7 +152,8 @@
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Center"
                                   ItemsSource="{Binding PromotionOffersList}"
-                                  SelectedItem="{Binding CreditApplication.PromotionalOffer, Mode=TwoWay}">
+                                  SelectedItem="{Binding CreditApplication.PromotionalOffer, Mode=TwoWay}"
+                                  DisplayMemberPath="Description">
                         </ComboBox>
 
 
@@ -161,16 +162,15 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <ComboBox Tag="{x:Static p:Resources.PaymentFrecuencyPlaceHolderGlobal}"
-                                  Style="{StaticResource CustomComboBoxStyle}"
+                        <TextBox Tag="{x:Static p:Resources.PaymentFrecuencyPlaceHolderGlobal}"
+                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                   MinWidth="150"
                                   Width="300"
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Center"
-                                  ItemsSource="{Binding PaymentFrecuenciesList}"
-                                  SelectedItem="{Binding CreditApplication.PromotionalOffer.PaymenteFrecuency, Mode=TwoWay}">
+                                  Text="{Binding CreditApplication.PromotionalOffer.PaymenteFrecuency, Mode=TwoWay}">
 
-                        </ComboBox>
+                        </TextBox>
 
                         <Label Content="{x:Static p:Resources.LoanTermLabelGlobal}"
                                Foreground="Black"
@@ -330,7 +330,7 @@
                                 Margin="0,30,0,0"
                                 Width="135"
                                 Height="30"
-                                Command="{Binding GenerateCreditApplication}" />
+                                Command="{Binding GenerateCreditApplicationCommand}" />
                     </StackPanel>
                 </Grid>
 
@@ -346,7 +346,7 @@
                 Height="30"
                 Visibility="{Binding IsReadOnlyMode, Converter={StaticResource BoolToVisibilityConverter}}">
 
-            <Button Content="{x:Static p:Resources.NextButtonGlobal}"
+            <Button Content="{x:Static p:Resources.SaveButtonGlobal}"
                     Style="{DynamicResource MainButtonStyle}"
                     Width="135"
                     Height="30"

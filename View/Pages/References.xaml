@@ -340,19 +340,19 @@
                             </DatePicker>
                         </Border>
 
-                        <Label Content="{x:Static p:Resources.StreetLabelGlobal}"
+                        <Label Content="{x:Static p:Resources.MontlyIncomeLabelGlobal}"
                                Foreground="Black"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding WorkCenter.Street, Mode=TwoWay}"
+                        <TextBox Text="{Binding WorkCenter.MontlyIncome, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
                                  Width="300"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
-                                 Tag="{x:Static p:Resources.StreetPlaceHolderGlobal}" />
+                                 Tag="{x:Static p:Resources.MontlyIncomeLabelGlobal}" />
 
                     </StackPanel>
 

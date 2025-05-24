@@ -15,3 +15,4 @@ namespace Independiente.Model
         public string Password { get; set; }
     }
 }
+

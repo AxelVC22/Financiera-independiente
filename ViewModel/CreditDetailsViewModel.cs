@@ -23,12 +23,16 @@ namespace Independiente.ViewModel
 
         public ObservableCollection<PromotionalOffer> PromotionOffersList { get; set; }
 
-        public List<string> PaymentFrecuenciesList { get; set; }
+        //public List<string> PaymentFrecuenciesList { get; set; }
 
 
         private IDialogService _dialogService;
         private INavigationService _navigationService;
         private readonly IFilePickerService _filePickerService;
+        private ICreditApplicationService _creditApplicationService;
+        private IPromotionalOfferService _promotionalOfferService;
+        private ICreditApplicationGeneratorService _creditApplicationGeneratorService;
+        private IClientManagementService _clientManagementService;
 
         public ICommand SelectINECommand { get; set; }
 
@@ -38,7 +42,7 @@ namespace Independiente.ViewModel
 
         public ICommand SelectCreditApplicationCommand { get; set; }
 
-        public ICommand GenerateCreditApplication { get; set; }
+        public ICommand GenerateCreditApplicationCommand { get; set; }
 
         private string _inePath;
 
@@ -47,6 +51,8 @@ namespace Independiente.ViewModel
         private string _accountStatementCoverPagePath;
 
         private string _creditApplicationPath;
+        private PromotionalOffer _selectedPromotion;
+        private Client _client;
 
         private PageMode _pageMode { get; set; }
 
@@ -56,15 +62,14 @@ namespace Independiente.ViewModel
 
         }
 
-        public CreditDetailsViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode)
+        public CreditDetailsViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode, Client client, ICreditApplicationService creditApplicationService, 
+            IPromotionalOfferService promotionalOfferService, ICreditApplicationGeneratorService creditApplicationGeneratorService, IClientManagementService clientManagementService)
         {
-            PromotionOffersList = new ObservableCollection<PromotionalOffer>
-                {
-                    new PromotionalOffer { InteresRate = 1m, LoanTerm=2 },
-                    new PromotionalOffer { InteresRate = 3m, LoanTerm=4 },
-                    new PromotionalOffer { InteresRate = 5m, LoanTerm=5 },
-                };
-            CreditApplication = new CreditApplication();
+            _promotionalOfferService = promotionalOfferService;
+            List<PromotionalOffer> promotionOffersList = _promotionalOfferService.GetAllPromotionalOffers();
+            PromotionOffersList = new ObservableCollection<PromotionalOffer>(promotionOffersList);
+
+
             NextCommand = new RelayCommand(Next, CanNext);
             EditCommand = new RelayCommand(Edit, CanNext);
             CancelCommand = new RelayCommand(Cancel, CanNext);
@@ -74,28 +79,52 @@ namespace Independiente.ViewModel
             SelectProofOfAddressCommand = new RelayCommand(SelectProofOfAddress, CanNext);
             SelectAccountStatementCoverPageCommand = new RelayCommand(SelectAccountStatementCoverPage, CanNext);
             SelectCreditApplicationCommand = new RelayCommand(SelectCreditApplication, CanNext);
+            GenerateCreditApplicationCommand = new RelayCommand(GenerateCreditApplication, CanNext);
 
-
+            _clientManagementService = clientManagementService;
+            CreditApplication = new CreditApplication();
+            CreditApplication.LoanApplicationDate = DateTime.Now;
             _dialogService = dialogService;
             _navigationService = navigationService;
             _filePickerService = new FilePickerService();
+            _creditApplicationService = creditApplicationService;
+            _creditApplicationGeneratorService = creditApplicationGeneratorService;
+            _client = client;
             SwitchMode(mode);
-            LoadPaymentFrecuencies();
+            //LoadPaymentFrecuencies();
 
         }
 
-        private void LoadPaymentFrecuencies()
+        //private void LoadPaymentFrecuencies()
+        //{
+        //    PaymentFrecuenciesList = new List<string>();
+        //    var resourceManager = new ResourceManager("Independiente.Properties.PaymentFrecuencies", typeof(PersonalDataViewModel).Assembly);
+
+        //    var resourceSet = resourceManager.GetResourceSet(System.Globalization.CultureInfo.CurrentCulture, true, true);
+
+        //    var states = resourceSet.Cast<DictionaryEntry>()
+        //                            .Where(entry => entry.Value is string)
+        //                            .Select(entry => entry.Value.ToString())
+        //                            .ToList();
+        //    PaymentFrecuenciesList = states;
+        //}
+
+        public PromotionalOffer SelectedPromotion
         {
-            PaymentFrecuenciesList = new List<string>();
-            var resourceManager = new ResourceManager("Independiente.Properties.PaymentFrecuencies", typeof(PersonalDataViewModel).Assembly);
+            get => _selectedPromotion;
+            set
+            {
+                if (_selectedPromotion != value)
+                {
+                    _selectedPromotion = value;
+                    OnPropertyChanged(nameof(SelectedPromotion));
 
-            var resourceSet = resourceManager.GetResourceSet(System.Globalization.CultureInfo.CurrentCulture, true, true);
-
-            var states = resourceSet.Cast<DictionaryEntry>()
-                                    .Where(entry => entry.Value is string)
-                                    .Select(entry => entry.Value.ToString())
-                                    .ToList();
-            PaymentFrecuenciesList = states;
+                    if (_selectedPromotion != null)
+                    {
+                        CreditApplication.PromotionalOffer = _selectedPromotion;
+                    }
+                }
+            }
         }
 
         public string INEPath
@@ -190,7 +219,29 @@ namespace Independiente.ViewModel
 
         private void SelectCreditApplication(object obj)
         {
-            CreditApplicationPath = OpenFile();
+            if (_inePath == null || _proofOfAddressPath == null || _accountStatementCoverPagePath == null)
+            {
+                _dialogService.Dismiss(Properties.Messages.IncompleteDocumentationMessage, System.Windows.MessageBoxImage.Information);
+            }
+            else
+            {
+                CreditApplicationPath = OpenFile();
+            } 
+
+        }
+
+        private void GenerateCreditApplication(object obj)
+        {
+            if (_inePath == null || _proofOfAddressPath == null || _accountStatementCoverPagePath == null)
+            {
+                _dialogService.Dismiss(Properties.Messages.IncompleteDocumentationMessage, System.Windows.MessageBoxImage.Information);
+            }
+            else
+            {
+                CreditApplicationPath = SaveFolder();
+                List<Model.AmortizationSchedule> amortizationSchedules = _creditApplicationService.GetAmortizationSchedule(CreditApplication);
+                _creditApplicationGeneratorService.GenerateCompleteReport(CreditApplicationPath, _client, CreditApplication, amortizationSchedules);
+            }
         }
 
         private string OpenFile()
@@ -204,9 +255,41 @@ namespace Independiente.ViewModel
 
         }
 
+        private string SaveFolder()
+        {
+            string folderPath = _filePickerService.SaveFile($"SolicitudCredito_{_client.PersonalData.RFC}");
+            if (string.IsNullOrEmpty(folderPath))
+            {
+                IDialogService dialogService = new DialogService();
+            }
+            return folderPath;
+        }
+
         private void Next(object obj)
         {
-            _navigationService.NavigateTo<ReferencesViewModel>(new PersonDataParams(_pageMode));
+            if (INEPath != null 
+                && ProofOfAddressPath != null 
+                && AccountStatementCoverPagePath != null 
+                && CreditApplicationPath != null)
+            {
+                _client.Employee = App.SessionService.CurrentUser.EmployeeId;
+                if (_clientManagementService.AddClient(_client) > 0)
+                {
+                    CreditApplication.PromotionalOffer = SelectedPromotion;
+                    CreditApplication.Client = _client;
+                    CreditApplication.File = new Model.File
+                    {
+                        FileType = FileType.CA,
+                        FileContent = System.IO.File.ReadAllBytes(CreditApplicationPath),
+                        Client = _client
+                    };
+                    _navigationService.NavigateTo<EmployeeAndClientConsultationViewModel>();
+                }
+            }
+            else
+            {
+                _dialogService.Dismiss(Properties.Messages.IncompleteDocumentationMessage, System.Windows.MessageBoxImage.Information);
+            }
         }
 
         private void GoBack(object obj)

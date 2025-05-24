@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -28,7 +28,6 @@ namespace Independiente.Model
         private EmployeeStates _status;
 
         private PersonalData _personalData;
-
         private AddressData _addressData;
 
         private User _user;
@@ -44,7 +43,7 @@ namespace Independiente.Model
                     OnPropertyChanged(nameof(EmployeeId));
                 }
             }
-        }        
+        }
 
         public string NSS
         {

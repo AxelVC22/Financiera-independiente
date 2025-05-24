@@ -120,6 +120,9 @@
   <data name="CredentialsNotFoundMessage" xml:space="preserve">
     <value>Las credenciales ingresadas no son válidas. Verifique su nombre de usuario y contraseña e inténtelo de nuevo</value>
   </data>
+  <data name="IncompleteDocumentationMessage" xml:space="preserve">
+    <value>Debe subir el INE, Comprobante de domicilio y la caratula de estado de cuenta para generar  la solicitud de credito</value>
+  </data>
   <data name="InvalidCityMessage" xml:space="preserve">
     <value>La ciudad es inválida. Solo se permiten letras, espacios y guiones.</value>
   </data>

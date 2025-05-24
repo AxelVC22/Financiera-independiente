@@ -1,4 +1,4 @@
-﻿using Independiente.DataAccess;
+using Independiente.DataAccess;
 using Independiente.DataAccess.Repositories;
 using Independiente.Model;
 using Independiente.Services.Mappers;
@@ -23,6 +23,10 @@ namespace Independiente.Services
         int UpdatePromotionalOffer(Independiente.Model.PromotionalOffer promotionalOffer);
 
         int DeletePromotionalOffer(Independiente.Model.PromotionalOffer promotionalOffer);
+
+        //provisional
+        List<Independiente.Model.PromotionalOffer> GetAllPromotionalOffers();
+
     }
 
     internal class PromotionalOfferService : IPromotionalOfferService
@@ -44,12 +48,13 @@ namespace Independiente.Services
             List<Independiente.DataAccess.PromotionalOffer> promotionalOffersList = new List<Independiente.DataAccess.PromotionalOffer>();
 
             List<Independiente.Model.PromotionalOffer> promotionalOffers1 = new List<Model.PromotionalOffer>();
-            
+
             promotionalOffersList = _promotionalOfferRepository.GetPromotionalOffers(query);
             foreach (var c in promotionalOffersList)
             {
                 promotionalOffers1.Add(PromotionalOfferMapper.ToViewModel(c));
-            }           
+
+            }
             return promotionalOffers1;
         }
 
@@ -97,6 +102,24 @@ namespace Independiente.Services
                 result = _promotionalOfferRepository.DeletePromotionalOffer(PromotionalOfferMapper.ToDataModel(promotionalOffer));
             }
             return result;
+        }
+
+        //provisional
+        public List<Independiente.Model.PromotionalOffer> GetAllPromotionalOffers()
+        {
+            List<Independiente.Model.PromotionalOffer> promotionalOffers1 = new List<Independiente.Model.PromotionalOffer>();
+            using (var context = new IndependienteEntities())
+            {
+                List<DataAccess.PromotionalOffer> promotionalOffers = new List<DataAccess.PromotionalOffer>();
+                promotionalOffers = context.PromotionalOffer.ToList();
+
+                foreach (var c in promotionalOffers)
+                {
+                    promotionalOffers1.Add(PromotionalOfferMapper.ToViewModel(c));
+                }
+                
+            }
+            return promotionalOffers1;
         }
     }
 }

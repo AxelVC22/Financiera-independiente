@@ -48,13 +48,13 @@ namespace Independiente.ViewModel
             //{
                 IsLoginSuccessful = true;
                 RequestClose?.Invoke(this, EventArgs.Empty);
-            //}
-            //else
-            //{
-            //    IDialogService dialogService = new DialogService();
-
-            //    IsLoginSuccessful = false;
-            //}
+            }
+            else
+            {
+                IDialogService dialogService = new DialogService();
+                dialogService.Dismiss(message, MessageBoxImage.Information);
+                IsLoginSuccessful = false;
+            }
         }
 
         public bool IsPasswordVisible

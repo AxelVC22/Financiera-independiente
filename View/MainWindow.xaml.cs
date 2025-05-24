@@ -46,9 +46,11 @@ namespace Independiente
         public IPaymentRepository PaymentRepository { get; set; }
 
         public ICreditPolicyRepository CreditPolicyRepository { get; set; }
-
+        public ICreditApplicationGeneratorService CreditApplicationGeneratorService { get; set; }
         public IClientManagementService ClientManagementService { get; private set; }
         public ICatalogService CatalogService { get; private set; }
+        public IPromotionalOfferService PromotionalOfferService { get; set; }
+        public IPromotionalOfferRepository PromotionalOfferRepository { get; set; }
 
         public Model.Client Client { get; private set; }
 
@@ -92,40 +94,40 @@ namespace Independiente
                     }
                     else if (viewModelType == typeof(FinancialDataViewModel))
                     {
-                        var param = parameter as PersonDataParams ?? new PersonDataParams(PageMode.Registration, RegistrationType.Client, Client);
+                        var param = parameter as ClientDataParams ?? new ClientDataParams(PageMode.Registration, RegistrationType.Client, Client);
 
                         var viewModel = new FinancialDataViewModel(
-                            dialogService, NavigationService, param.Mode, ClientManagementService, CatalogService
+                            dialogService, NavigationService, param.Mode, ClientManagementService, CatalogService, param.Client
                         );
 
                         return new FinancialData(viewModel);
                     }
                     else if (viewModelType == typeof(ReferencesViewModel))
                     {
-                        var param = parameter as PersonDataParams ?? new PersonDataParams(PageMode.Registration, RegistrationType.Client, new Client());
+                        var param = parameter as ClientDataParams ?? new ClientDataParams(PageMode.Registration, RegistrationType.Client, Client);
 
                         var viewModel = new ReferencesViewModel(
-                            dialogService, NavigationService, param.Mode, ClientManagementService
+                            dialogService, NavigationService, param.Mode, ClientManagementService, param.Client
                         );
 
                         return new References(viewModel);
                     }
                     else if (viewModelType == typeof(CreditDetailsViewModel))
                     {
-                        var param = parameter as PersonDataParams ?? new PersonDataParams(PageMode.Registration, RegistrationType.Client, new Client());
+                        var param = parameter as ClientDataParams ?? new ClientDataParams(PageMode.Registration, RegistrationType.Client, Client);
 
                         var viewModel = new CreditDetailsViewModel(
-                            dialogService, NavigationService, param.Mode
+                            dialogService, NavigationService, param.Mode, param.Client, CreditApplicationService, PromotionalOfferService, CreditApplicationGeneratorService, ClientManagementService
                         );
 
                         return new CreditDetails(viewModel);
                     }
                     else if (viewModelType == typeof(EmployeeAndClientConsultationViewModel))
                     {
-                        var param = parameter as ConsultationParams ?? new ConsultationParams(RegistrationType.Employee);
+                        var param = parameter as ConsultationParams ?? new ConsultationParams(RegistrationType.Client);
 
                         var viewModel = new EmployeeAndClientConsultationViewModel(
-                            dialogService, NavigationService, param.RegistrationType
+                            dialogService, NavigationService, param.RegistrationType, ClientManagementService
                         );
 
                         return new EmployeeAndClientConsultation(viewModel);
@@ -205,7 +207,7 @@ namespace Independiente
                     throw new ArgumentException("ViewModel desconocido");
                 });
 
-            NavigationService.NavigateTo<PaymentsViewModel>();
+            NavigationService.NavigateTo<EmployeeAndClientConsultationViewModel>();
 
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(dialogService);
             this.DataContext = mainWindowViewModel;
