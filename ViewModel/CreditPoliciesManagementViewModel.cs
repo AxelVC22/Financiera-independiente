@@ -30,7 +30,8 @@ namespace Independiente.ViewModel
 
         public INavigationService _navigationService;
         public ICommand GoToPageCommand { get; set; }
-        public ICommand RegisterCommand { get; set; }                
+        public ICommand RegisterCommand { get; set; }
+        
         public ICommand SearchCommand { get; set; }
         public ICommand RestoreCommand { get; set; }
         public ICommand SeeDetailsCommand { get; set; }

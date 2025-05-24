@@ -21,6 +21,8 @@ namespace Independiente.DataAccess.Repositories
         public int PageSize { get; set; }
 
         private string _name;
+
+        private string _status;
         
         public string Name
         {
@@ -35,10 +37,24 @@ namespace Independiente.DataAccess.Repositories
             }
         }
 
+        public string Status
+        {
+            get => _status;
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    OnPropertyChanged(nameof(Status));
+                }
+            }
+        }
+
         public Expression<Func<Bank, bool>> BuildExpression()
         {
             return c =>
-                string.IsNullOrEmpty(Name) || c.Name.Contains(Name);
+                string.IsNullOrEmpty(Name) || c.Name.Contains(Name) &&
+                (string.IsNullOrEmpty(Status) || c.Status == Status);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -54,6 +70,8 @@ namespace Independiente.DataAccess.Repositories
         int CountBanks(CatalogQuery query);
 
         List<Bank> GetBanks(CatalogQuery query);
+
+        List<Bank> GetBanks();
 
         Bank GetBank(int bankId);
 
@@ -123,6 +141,30 @@ namespace Independiente.DataAccess.Repositories
 
             return banks;
         }
+
+        public List<Bank> GetBanks()
+        {
+            List<Bank> banks = new List<Bank>();
+
+            try
+            {
+                using (var context = new IndependienteEntities())
+                {
+                    banks = context.Bank
+                        .OrderBy(b => b.Name)
+                        .ToList();
+                }
+            }
+            catch (DbUpdateException ex)
+            {                
+            }
+            catch (EntityException ex)
+            {                
+            }
+
+            return banks;
+        }
+
 
         public Bank GetBank(int bankId)
         {
