@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -30,8 +30,6 @@ namespace Independiente.Model
         private PersonalData _personalData;
         private AddressData _addressData;
 
-        private AddressData _addressData;
-
         private User _user;
 
         public int EmployeeId
@@ -43,18 +41,6 @@ namespace Independiente.Model
                 {
                     _employeeId = value;
                     OnPropertyChanged(nameof(EmployeeId));
-                }
-            }
-        }
-        public AddressData AddressData
-            {
-            get => _addressData;
-            set
-            {
-                if (_addressData != value)
-                {
-                    _addressData = value;
-                    OnPropertyChanged(nameof(AddressData));
                 }
             }
         }
