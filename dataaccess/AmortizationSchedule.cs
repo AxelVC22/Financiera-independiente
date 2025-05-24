@@ -21,7 +21,8 @@ namespace Independiente.DataAccess
         public decimal OutstandingBalance { get; set; }
         public string Status { get; set; }
         public int CreditId { get; set; }
+        public int AmortizationScheduleId { get; set; }
     
-        public virtual Credit Credit { get; set; }
+        public virtual CreditApplication CreditApplication { get; set; }
     }
 }

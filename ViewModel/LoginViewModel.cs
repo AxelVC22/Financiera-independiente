@@ -52,7 +52,7 @@ namespace Independiente.ViewModel
             else
             {
                 IDialogService dialogService = new DialogService();
-
+                dialogService.Dismiss(message, MessageBoxImage.Information);
                 IsLoginSuccessful = false;
             }
         }

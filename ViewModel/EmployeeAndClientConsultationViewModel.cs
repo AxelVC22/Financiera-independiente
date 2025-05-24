@@ -16,37 +16,29 @@ namespace Independiente.ViewModel
     public class EmployeeAndClientConsultationViewModel : BaseViewModel
     {
         public ObservableCollection<IPerson> PeopleList { get; set; }
-
         public IPerson SelectedPerson {  get; set; }
-
-      
         private IDialogService _dialogService { get; set; }
         private INavigationService _navigationService { get; set; }
-
+        public IClientManagementService ClientManagementService { get; set; }
         public ICommand ShowSelectedCommand {  get; set; }
-
         public ICommand RegisterCommand { get; set; }
-
 
         public EmployeeAndClientConsultationViewModel() { }
 
-        public EmployeeAndClientConsultationViewModel(IDialogService dialogService, INavigationService navigationService, RegistrationType registrationType)
+        public EmployeeAndClientConsultationViewModel(IDialogService dialogService, INavigationService navigationService, RegistrationType registrationType, IClientManagementService clientManagementService)
         {
+            ClientManagementService = clientManagementService;
+
             if (registrationType == RegistrationType.Employee)
             {
                 //TODO aqui va la logica de consulta de empleados
             } 
             else
             {
-               // PeopleList = new ObservableCollection<IPerson>()
+                List<Model.Client> clients = ClientManagementService.GetAllClientsByEmployeeId(App.SessionService.CurrentUser.EmployeeId);
+                PeopleList = new ObservableCollection<IPerson>(clients);
             }
 
-            PeopleList = new ObservableCollection<IPerson>
-                {
-                    new Client { PersonalData = new PersonalData { Name = "Ivan", RFC="ROFI"} },
-                    new Client { PersonalData = new PersonalData { Name = "Pedro", RFC = "PRFO"} },
-                    
-                };
             ShowSelectedCommand = new RelayCommand (ShowSelected, CanDoIt);
 
             RegisterCommand = new RelayCommand(Register, CanDoIt);

@@ -12,19 +12,21 @@ namespace Independiente.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Bank
+    public partial class PaymentView
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Bank()
-        {
-            this.Payment = new HashSet<Payment>();
-        }
-    
+        public string BankName { get; set; }
+        public string EmployeeName { get; set; }
+        public string Lastname { get; set; }
+        public string Surname { get; set; }
+        public int PaymentId { get; set; }
+        public int EmployeeId { get; set; }
+        public decimal TotalAmount { get; set; }
+        public decimal ActualAmount { get; set; }
+        public System.DateTime RegistrationDate { get; set; }
         public int BankId { get; set; }
-        public string Name { get; set; }
+        public int TotalCredits { get; set; }
+        public int ActualCredits { get; set; }
         public string Status { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Payment> Payment { get; set; }
+        public Nullable<System.DateTime> UploadDate { get; set; }
     }
 }

@@ -80,16 +80,16 @@ namespace Independiente.ViewModel
             string message = string.Empty;
             bool validation = false;
 
+            //!_clientManagementService.IsPhoneNumberRepeated(Person.PersonalData.PhoneNumber, Person.PersonalData.AlternativePhoneNumber, out message)
             switch (_registrationType)
             {
                 case RegistrationType.Client:
                     try
                     {
-                        if (_clientManagementService.ValidateAddressData(AddressData) &&
+                        if (_clientManagementService.ValidateAddressData(Person.AddressData) &&
                             _clientManagementService.ValidatePersonalData(Person.PersonalData))
                         {
-                            if (!_clientManagementService.IsRFCRegistered(Person.PersonalData.RFC, out message) &&
-                                !_clientManagementService.IsPhoneNumberRepeated(Person.PersonalData.PhoneNumber, Person.PersonalData.AlternativePhoneNumber, out message) &&
+                            if (!_clientManagementService.IsRFCRegistered(Person.PersonalData.RFC, out message)  &&
                                 _clientManagementService.IsValidAge(Person.PersonalData.BirthDate.Value, out message))
                             {
                                 validation = true;
@@ -109,12 +109,14 @@ namespace Independiente.ViewModel
 
             if (validation)
             {
-                _navigationService.NavigateTo<FinancialDataViewModel>(new PersonDataParams(_pageMode, Person));
+                Client client = new Client();
+                client.PersonalData = Person.PersonalData;
+                client.AddressData = Person.AddressData;
+                _navigationService.NavigateTo<FinancialDataViewModel>(new ClientDataParams(_pageMode, client));
             }
             else
             {
-                IDialogService dialogService = new DialogService();
-
+                _dialogService.Dismiss(message, System.Windows.MessageBoxImage.Information);
             }
         }
 

@@ -26,7 +26,7 @@ namespace Independiente.ViewModel
 
         public List<string> RelationshipsList { get; set; }
 
-        private IDialogService _dialogService {  get; set; }
+        private IDialogService _dialogService { get; set; }
 
         private INavigationService _navigationService { get; set; }
 
@@ -34,11 +34,13 @@ namespace Independiente.ViewModel
 
         private PageMode _pageMode { get; set; }
 
-        public ReferencesViewModel ()
+        private Client Client { get; set; }
+
+        public ReferencesViewModel()
         {
 
         }
-        public ReferencesViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode, IClientManagementService ClientManagementService)
+        public ReferencesViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode, IClientManagementService ClientManagementService, Client client)
         {
             NextCommand = new RelayCommand(Next, CanNext);
             EditCommand = new RelayCommand(Edit, CanNext);
@@ -57,6 +59,7 @@ namespace Independiente.ViewModel
             SwitchMode(mode);
             _pageMode = mode;
             _clientManagementService = ClientManagementService;
+            Client = client;
         }
 
         private void LoadRelationships()
@@ -87,15 +90,30 @@ namespace Independiente.ViewModel
                 if (_clientManagementService.ValidateReference(FirstReference) &&
                         _clientManagementService.ValidateReference(SecondReference))
                 {
-
+                    validation = true;
+                }
+                else
+                {
+                    message = "Las referencias no son válidas";
+                    validation = false;
                 }
             }
             catch (ArgumentException exception)
             {
-
+                message = exception.Message;
             }
-            _navigationService.NavigateTo<CreditDetailsViewModel>(new PersonDataParams(_pageMode));
 
+            if (validation)
+            {
+                Client.FirstReference = FirstReference;
+                Client.SecondReference = SecondReference;
+                Client.WorkCenter = WorkCenter;
+                _navigationService.NavigateTo<CreditDetailsViewModel>(new ClientDataParams(_pageMode, Client));
+            }
+            else
+            {
+                _dialogService.Dismiss(message, System.Windows.MessageBoxImage.Information);
+            }
         }
 
         private void Cancel(object obj)
@@ -124,8 +142,8 @@ namespace Independiente.ViewModel
         {
             return true;
         }
-     
-       
+
+
 
     }
 }

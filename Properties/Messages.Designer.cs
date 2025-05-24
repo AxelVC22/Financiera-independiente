@@ -230,5 +230,13 @@ namespace Independiente.Properties {
                 return ResourceManager.GetString("UnderEighteenYearsMessage", resourceCulture);
             }
         }
+
+        public static string IncompleteDocumentationMessage
+        {
+            get
+            {
+                return ResourceManager.GetString("IncompleteDocumentationMessage", resourceCulture);
+            }
+        }
     }
 }

@@ -11,6 +11,8 @@ namespace Independiente.Model
 {
     public class Reference : INotifyPropertyChanged
     {
+        private int _referenceId = 0;
+
         private string _name;
 
         private string _fullLastName;
@@ -22,6 +24,19 @@ namespace Independiente.Model
         private string _email;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public int ReferenceId
+        {
+            get => _referenceId;
+            set
+            {
+                if (_referenceId != value)
+                {
+                    _referenceId = value;
+                    OnPropertyChanged(nameof(ReferenceId));
+                }
+            }
+        }
 
         public string Name
         {

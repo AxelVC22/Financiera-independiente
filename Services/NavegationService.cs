@@ -79,6 +79,29 @@ namespace Independiente.Services
 
     }
 
+    public class ClientDataParams
+    {
+        public PageMode Mode { get; set; }
+        public RegistrationType RegistrationType { get; set; }
+        public Client Client { get; set; }
+        public ClientDataParams(PageMode mode, RegistrationType registrationType, Client client)
+        {
+            Mode = mode;
+            RegistrationType = registrationType;
+            Client = client;
+        }
+        public ClientDataParams(PageMode mode)
+        {
+            Mode = mode;
+        }
+
+        public ClientDataParams(PageMode mode, Client client)
+        {
+            Mode = mode;
+            Client = client;
+        }
+    }
+
     public class ConsultationParams
     {
         public RegistrationType RegistrationType { get; set;}

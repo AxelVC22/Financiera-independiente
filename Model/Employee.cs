@@ -12,6 +12,7 @@ namespace Independiente.Model
     {
 
         private PersonalData _personalData;
+        private AddressData _addressData;
 
         private string _nss;
 
@@ -25,6 +26,18 @@ namespace Independiente.Model
                 {
                     _personalData = value;
                     OnPropertyChanged(nameof(PersonalData));
+                }
+            }
+        }
+        public AddressData AddressData
+            {
+            get => _addressData;
+            set
+            {
+                if (_addressData != value)
+                {
+                    _addressData = value;
+                    OnPropertyChanged(nameof(AddressData));
                 }
             }
         }

@@ -44,7 +44,7 @@ namespace Independiente.DataAccess.Repositories
                                 WorkCenter = client.WorkCenter,
                                 PersonalData = client.PersonalData,
                                 AddressData = client.AddressData,
-                                EmployeeId = client.Employee.EmployeeId,
+                                EmployeeId = client.EmployeeId,
                                 Reference = client.Reference,
                                 Reference1 = client.Reference1,
                                 Account1 = client.Account1
