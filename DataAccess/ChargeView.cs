@@ -12,8 +12,13 @@ namespace Independiente.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class AmortizationSchedule
+    public partial class ChargeView
     {
+        public string CLABE { get; set; }
+        public string ClientName { get; set; }
+        public string Lastname { get; set; }
+        public string Surname { get; set; }
+        public string BankName { get; set; }
         public int PaymentNumber { get; set; }
         public System.DateTime PaymentDate { get; set; }
         public decimal FixedPayment { get; set; }
@@ -21,8 +26,5 @@ namespace Independiente.DataAccess
         public decimal OutstandingBalance { get; set; }
         public string Status { get; set; }
         public int CreditId { get; set; }
-        public int AmortizationScheduleId { get; set; }
-    
-        public virtual CreditApplication CreditApplication { get; set; }
     }
 }

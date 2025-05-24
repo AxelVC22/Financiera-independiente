@@ -52,5 +52,6 @@ namespace Independiente.DataAccess
         public int DepositBank { get; set; }
         public string PaymentCLABE { get; set; }
         public int PaymentBank { get; set; }
+        public string City { get; set; }
     }
 }

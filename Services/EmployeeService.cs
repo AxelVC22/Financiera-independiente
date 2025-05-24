@@ -43,7 +43,7 @@ namespace Independiente.Services
             return true;
         }
 
-        public int CountEmployees(Employee query)
+        public int CountEmployees(EmployeeQuery query)
         {
             int total = 0;
             if (ValidateQuery(query))
@@ -55,7 +55,7 @@ namespace Independiente.Services
 
         public List<Independiente.Model.Employee> GetEmployees(EmployeeQuery query)
         {
-            List<Independiente.DataAccess.Employee> employeeList = new List<Independiente.DataAccess.Employee>();
+            List<Independiente.DataAccess.EmployeeView> employeeList = new List<Independiente.DataAccess.EmployeeView>();
 
             List<Independiente.Model.Employee> employees1 = new List<Model.Employee>();
 

@@ -32,6 +32,8 @@ namespace Independiente
 
         public ICreditApplicationService CreditApplicationService {  get; set; }
 
+        public IFilePickerService FilePickerService { get; set; }
+
         public IPaymentService PaymentService { get; set; }
 
         public IAmortizationScheduleService AmortizationScheduleService { get; set; }
@@ -51,14 +53,18 @@ namespace Independiente
         public Model.Client Client { get; private set; }
 
         public ICreditPolicyService CreditPolicyService { get; private set; }
-        public Client Client { get; private set; }
+
+        public ICatalogRepository CatalogRepository { get; set; }
         public MainWindow()
         {
             InitializeComponent();
 
+            CatalogRepository catalogRepository = new CatalogRepository();
+
             IDialogService dialogService = new DialogService();
             ClientManagementService = new ClientManagerService();
-            CatalogService = new CatalogManagerService();
+            CatalogService = new CatalogService(catalogRepository);
+            FilePickerService = new FilePickerService();
             Client = new Model.Client();
 
             CreditPolicyRepository = new CreditPolicyRepository();
@@ -66,12 +72,9 @@ namespace Independiente
             AmortizationScheduleRepository = new AmortizationScheduleRepository();
             CreditApplicationRepository = new CreditApplicationRepository();
             CreditApplicationService = new CreditApplicationService(CreditApplicationRepository, CreditPolicyRepository);
-<<<<<<< HEAD
             AmortizationScheduleService = new AmortizationScheduleService(AmortizationScheduleRepository);
             PaymentService = new PaymentService(PaymentRepository);
-=======
             CreditPolicyService = new CreditPolicyService(CreditPolicyRepository);
->>>>>>> 16251c2 (Refactor: eliminación de carpeta duplicada y nuevos servicios)
 
             NavigationService = new FrameNavigationService(
                 PageFrame,
@@ -195,7 +198,7 @@ namespace Independiente
                     else if (viewModelType == typeof(PaymentsViewModel))
                     {
                         var viewModel = new PaymentsViewModel(
-                            dialogService, NavigationService, PaymentService
+                            dialogService, NavigationService, PaymentService, CatalogService, FilePickerService
                         );
                         return new Payments(viewModel);
                     }

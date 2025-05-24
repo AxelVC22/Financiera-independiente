@@ -30,7 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -167,6 +167,15 @@
     <Compile Include="DataAccess\Repositories\EmployeeRepository.cs" />
     <Compile Include="DataAccess\Repositories\PaymentRepository.cs" />
     <Compile Include="DataAccess\Repositories\PromotionalOfferRepository.cs" />
+    <Compile Include="DataAccess\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\sp_helpdiagrams_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\sysdiagrams.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataAccess\User.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -184,6 +193,7 @@
     <Compile Include="Model\File.cs" />
     <Compile Include="Model\ICatalog.cs" />
     <Compile Include="Model\IPerson.cs" />
+    <Compile Include="Model\Payment.cs" />
     <Compile Include="Model\PersonalData.cs" />
     <Compile Include="Model\PromotionalOffer.cs" />
     <Compile Include="Model\Reference.cs" />
@@ -219,6 +229,7 @@
     <Compile Include="Services\Mappers\CreditPolicyMapper.cs" />
     <Compile Include="Services\Mappers\EmployeeMapper.cs" />
     <Compile Include="Services\Mappers\FileMapper.cs" />
+    <Compile Include="Services\Mappers\PaymentMapper.cs" />
     <Compile Include="Services\Mappers\PromotionalOfferMapper.cs" />
     <Compile Include="Services\Mappers\ReportMapper.cs" />
     <Compile Include="Services\NavegationService.cs" />
