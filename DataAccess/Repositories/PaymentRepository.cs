@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
@@ -207,13 +208,9 @@ namespace Independiente.DataAccess.Repositories
                     total = context.PaymentView.Count(predicate);
                 }
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception ex)
             {
-
-            }
-            catch (EntityException ex)
-            {
-
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return total;
@@ -229,23 +226,32 @@ namespace Independiente.DataAccess.Repositories
             {
                 using (var context = new IndependienteEntities())
                 {
-                    var paymentsForSearch = context.ChargeView
-                        .Where(predicate)
-                        
-                        .ToList();
+                    var chargesForSearch = context.ChargeView
+                     .Where(predicate)
+                     .ToList();
 
-                    if (paymentsForSearch != null)
+                    if (chargesForSearch.Any())
                     {
-                        charges = paymentsForSearch;
+                        foreach (var charge in chargesForSearch)
+                        {
+                            var chargeForUpdate = context.AmortizationSchedule.FirstOrDefault(c => c.CreditId == charge.CreditId && c.PaymentNumber == charge.PaymentNumber);
+                            if (chargeForUpdate != null)
+                            {
+                                chargeForUpdate.Status = PaymentStatus.InProgress.ToString();
+                                context.Entry(chargeForUpdate).State = EntityState.Modified;
+                            }
+                        }
+
+                        context.SaveChanges();
+
+                        charges = chargesForSearch;
                     }
+
                 }
             }
-            catch (DbUpdateException ex)
+            catch (Exception ex)
             {
-
-            }
-            catch (EntityException ex)
-            {
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return charges;
@@ -274,12 +280,9 @@ namespace Independiente.DataAccess.Repositories
                     }
                 }
             }
-            catch (DbUpdateException ex)
+            catch (Exception ex)
             {
-
-            }
-            catch (EntityException ex)
-            {
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return payments;
