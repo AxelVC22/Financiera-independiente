@@ -62,7 +62,7 @@ namespace Independiente.ViewModel
             DepositAccount = new Account();
             _clientManagementService = clientManagementService;
             _catalogService = catalogManagerService;
-            BanksList = new ObservableCollection<Bank>(_catalogService.GetBanks());
+            BanksList = new ObservableCollection<Bank>(_catalogService.GetBanks(new DataAccess.Repositories.CatalogQuery()));
             Client = client;
         }
         private void Next(object obj)

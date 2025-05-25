@@ -191,6 +191,23 @@ namespace Independiente.Services
             return result;
         }
 
+        public Model.Report GetReport(int creditApplicationId)
+        {
+            Independiente.Model.Report result = new Independiente.Model.Report();
+
+            if (creditApplicationId > 0)
+            {
+                var report = _creditApplicationRepository.GetReport(creditApplicationId);
+
+                if (report != null)
+                {
+                    result = ReportMapper.ToViewModel(report);
+                }
+            }
+
+            return result;
+        }
+
         public List<Model.AmortizationSchedule> GetAmortizationSchedule(Model.CreditApplication creditApplication)
         {
             var result = new List<Model.AmortizationSchedule>();
