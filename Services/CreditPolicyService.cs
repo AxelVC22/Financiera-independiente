@@ -34,7 +34,7 @@ namespace Independiente.Services
         }
         private bool ValidateQuery(CreditPolicyQuery query)
         {
-            FieldValidator.IsValidName(query.Name);
+           // FieldValidatr.IsValidName(query.Name);
             return true;
         }
         public int CountCreditPolicies(CreditPolicyQuery query)

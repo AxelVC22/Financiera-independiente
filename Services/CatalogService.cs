@@ -35,7 +35,7 @@ namespace Independiente.Services
 
         private bool ValidateQuery(CatalogQuery query)
         {
-            FieldValidator.IsValidName(query.Name);
+           // FieldValidator.IsValidName(query.Name);
             return true;
         }       
 

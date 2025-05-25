@@ -190,6 +190,8 @@ namespace Independiente.DataAccess.Repositories
         List<PaymentView> GetPayments(PaymentQuery query);
 
         List<ChargeView> GetCharges(ChargeQuery query);
+
+        int UploadCharges(List<ChargeView> charges, Payment payment);
     }
 
     public class PaymentRepository : IPaymentRepository
@@ -222,19 +224,29 @@ namespace Independiente.DataAccess.Repositories
 
             var predicate = query.BuildExpression();
 
-            try
+            using (var context = new IndependienteEntities())
+            using (var transaction = context.Database.BeginTransaction())
             {
-                using (var context = new IndependienteEntities())
+                try
                 {
+
                     var chargesForSearch = context.ChargeView
-                     .Where(predicate)
-                     .ToList();
+                        .Where(predicate)
+                        .ToList();
 
                     if (chargesForSearch.Any())
                     {
+                        decimal totalAmount = 0;
+
+                        var bank = context.Bank
+                            .FirstOrDefault(b => b.Name == query.BankName);
+
                         foreach (var charge in chargesForSearch)
                         {
-                            var chargeForUpdate = context.AmortizationSchedule.FirstOrDefault(c => c.CreditId == charge.CreditId && c.PaymentNumber == charge.PaymentNumber);
+                            totalAmount = totalAmount + charge.FixedPayment;
+                            var chargeForUpdate = context.AmortizationSchedule
+                                .FirstOrDefault(c => c.CreditId == charge.CreditId && c.PaymentNumber == charge.PaymentNumber);
+
                             if (chargeForUpdate != null)
                             {
                                 chargeForUpdate.Status = PaymentStatus.InProgress.ToString();
@@ -242,16 +254,31 @@ namespace Independiente.DataAccess.Repositories
                             }
                         }
 
+                        var payment = new Payment
+                        {
+                            TotalAmount = totalAmount,
+                            ActualAmount = 0,
+                            BankId = bank.BankId,
+                            EmployeeId = App.SessionService.CurrentUser.EmployeeId,
+                            RegistrationDate = DateTime.Now,
+                            TotalCredits = chargesForSearch.Count,
+                            ActualCredits = 0,
+                            Status = PaymentStatus.Pending.ToString(),
+
+                        };
+                        context.Payment.Add(payment);
+
                         context.SaveChanges();
+                        transaction.Commit();
 
                         charges = chargesForSearch;
                     }
-
                 }
-            }
-            catch (Exception ex)
-            {
-                throw DbExceptionHandler.Handle(ex);
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw DbExceptionHandler.Handle(ex);
+                }
             }
 
             return charges;
@@ -287,5 +314,83 @@ namespace Independiente.DataAccess.Repositories
 
             return payments;
         }
+
+        public int UploadCharges(List<ChargeView> charges, Payment payment)
+        {
+            int result = 0;
+
+            using (var context = new IndependienteEntities())
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    foreach (var c in charges)
+                    {
+                        var amortization = context.AmortizationSchedule
+                            .FirstOrDefault(a => a.PaymentDate == c.PaymentDate);
+
+                        if (amortization == null)
+                            continue;
+
+                        if (c.Status == PaymentStatus.Failed.ToString())
+                        {
+                            int nextPaymentNumber = amortization.PaymentNumber + 1;
+
+                            var nextCharge = context.AmortizationSchedule
+                                .FirstOrDefault(a => a.CreditId == c.CreditId && a.PaymentNumber == nextPaymentNumber);
+
+                            if (nextCharge != null)
+                            {
+                                nextCharge.FixedPayment += amortization.FixedPayment;
+                                nextCharge.OutstandingBalance += amortization.FixedPayment;
+                                context.Entry(nextCharge).State = EntityState.Modified;
+                            }
+                            else
+                            {
+                                var nextPaymentDate = c.PaymentDate.AddDays(15);
+
+                                var newAmortization = new AmortizationSchedule
+                                {
+                                    CreditId = amortization.CreditId,
+                                    FixedPayment = amortization.FixedPayment,
+                                    Interest = 0,
+                                    OutstandingBalance = amortization.FixedPayment,
+                                    PaymentNumber = nextPaymentNumber,
+                                    PaymentDate = nextPaymentDate,
+                                    Status = PaymentStatus.Pending.ToString()
+                                };
+
+                                context.AmortizationSchedule.Add(newAmortization);
+                            }
+                        }
+
+                        amortization.Status = c.Status;
+                        context.Entry(amortization).State = EntityState.Modified;
+                    }
+
+                    var paymentForUpdate = context.Payment.Find(payment.PaymentId);
+
+                    paymentForUpdate.Status = payment.Status;
+                    paymentForUpdate.UploadDate = payment.UploadDate;
+                    paymentForUpdate.ActualCredits = payment.ActualCredits;
+                    paymentForUpdate.ActualAmount = payment.ActualAmount;
+
+                    context.Entry(paymentForUpdate).State = EntityState.Modified;
+
+                    result = context.SaveChanges();
+                    transaction.Commit(); 
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw DbExceptionHandler.Handle(ex);
+                }
+            }
+
+            return result;
+
+        }
+
+
     }
 }

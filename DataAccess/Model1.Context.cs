@@ -38,6 +38,7 @@ namespace Independiente.DataAccess
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<File> File { get; set; }
         public virtual DbSet<Log> Log { get; set; }
+        public virtual DbSet<Payment> Payment { get; set; }
         public virtual DbSet<PersonalData> PersonalData { get; set; }
         public virtual DbSet<PromotionalOffer> PromotionalOffer { get; set; }
         public virtual DbSet<Reference> Reference { get; set; }
@@ -45,7 +46,6 @@ namespace Independiente.DataAccess
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<WorkCenter> WorkCenter { get; set; }
-        public virtual DbSet<Payment> Payment { get; set; }
         public virtual DbSet<ChargeView> ChargeView { get; set; }
         public virtual DbSet<ClientView> ClientView { get; set; }
         public virtual DbSet<CreditApplicationListView> CreditApplicationListView { get; set; }

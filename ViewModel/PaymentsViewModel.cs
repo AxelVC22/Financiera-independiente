@@ -1,10 +1,12 @@
 ﻿using Independiente.Commands;
 using Independiente.DataAccess.Repositories;
 using Independiente.Model;
+using Independiente.Properties;
 using Independiente.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,6 +56,8 @@ namespace Independiente.ViewModel
 
         private bool _isOrderedAscendent = false;
 
+        public ICommand SaveCommand { get; set; }
+
         public Dictionary<string, PaymentStatus?> StateFilterOptions { get; } = new Dictionary<string, PaymentStatus?>
         {
             { "Todos", null },
@@ -83,6 +87,8 @@ namespace Independiente.ViewModel
 
             GenerateCommand = new RelayCommand(Generate, CanDoIt);
 
+            SaveCommand = new RelayCommand(Save, CanDoIt);
+
             Pagination = new PaginationViewModelBase(_paymentService.CountPayments(Query));
 
             Query = new PaymentQuery { PageNumber = Pagination.PageNumber, PageSize = Pagination.PageSize };
@@ -93,11 +99,40 @@ namespace Independiente.ViewModel
 
             SelectedStateFilter = StateFilterOptions.First();
 
-            BanksList = new ObservableCollection<Bank>(_catalogService.GetBanks(new CatalogQuery ()));
+            BanksList = new ObservableCollection<Bank>(_catalogService.GetBanks(new CatalogQuery()));
 
 
             Search(null);
 
+        }
+
+
+        private void Save(object obj)
+        {
+            if (obj is Payment payment)
+            {
+                string path = _filePickerService.PickFile();
+
+                if (!string.IsNullOrEmpty(path) && Path.GetExtension(path).Equals(".csv", StringComparison.OrdinalIgnoreCase))
+                {
+                    try
+                    {
+                        _paymentService.UploadCharges(path, payment);
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        _dialogService.Dismiss(ex.Message, System.Windows.MessageBoxImage.Information);
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        _dialogService.Dismiss(ex.Message, System.Windows.MessageBoxImage.Warning);
+                    }
+                }
+                else
+                {
+                    _dialogService.Dismiss("Solo se permiten archivos .CSV", System.Windows.MessageBoxImage.Information);
+                }
+            }
         }
 
         private bool CanDoIt(object obj)
@@ -114,13 +149,29 @@ namespace Independiente.ViewModel
         private void Generate(object obj)
         {
 
+            Console.WriteLine(Messages.ResourceManager.GetString("LayoutGeneratedMessage"));
             string ruta = _filePickerService.SelectPath();
 
             if (!string.IsNullOrEmpty(ruta))
             {
-                _paymentService.GenerateLayout(ruta, ChargeQuery);
+                try
+                {
+                    if (_paymentService.GenerateLayout(ruta, ChargeQuery))
+                    {
+                        Search(null);
+                        _dialogService.Dismiss("El layout de cobro fue generado correctamente", System.Windows.MessageBoxImage.Information);
+                    }
+                }
+                catch (ArgumentException e)
+                {
+                    _dialogService.Dismiss(e.Message, System.Windows.MessageBoxImage.Information);
+                }
+                catch (InvalidOperationException e)
+                {
+                    _dialogService.Dismiss(e.Message, System.Windows.MessageBoxImage.Warning);
+                }
             }
-            
+
         }
 
         private void Restore(object obj)

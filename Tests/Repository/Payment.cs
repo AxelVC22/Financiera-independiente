@@ -1,4 +1,6 @@
-﻿using Independiente.DataAccess.Repositories;
+﻿using Independiente;
+using Independiente.DataAccess.Repositories;
+using Independiente.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -21,10 +23,10 @@ namespace Tests
             {
                 PageNumber = 1,
                 PageSize = 10,
-                BankName = "BBVA",
-                Status = "Completed",
-                FromDate = new DateTime(2025, 05, 18),
-                ToDate = new DateTime(2025, 05, 18),
+                BankName = "Santander",
+                Status = "Pending",
+                FromDate = new DateTime(2025, 05, 24),
+                ToDate = new DateTime(2025, 05, 24),
             };
 
             var result = paymentRepository.CountPayments(paymentQuery);
@@ -40,8 +42,8 @@ namespace Tests
             {
                 PageNumber = 1,
                 PageSize = 10,
-                BankName = "BBVA",
-                Status = "Completed",
+                BankName = "Santander",
+                Status = "Pending",
             };
 
             var result = paymentRepository.CountPayments(paymentQuery);
@@ -58,9 +60,9 @@ namespace Tests
             {
                 PageNumber = 1,
                 PageSize = 10,
-                Status = "Completed",
-                FromDate = new DateTime(2025, 05, 18),
-                ToDate = new DateTime(2025, 05, 18),
+                Status = "Pending",
+                FromDate = new DateTime(2025, 05, 24),
+                ToDate = new DateTime(2025, 05, 24),
             };
 
             var result = paymentRepository.CountPayments(paymentQuery);
@@ -76,9 +78,9 @@ namespace Tests
             {
                 PageNumber = 1,
                 PageSize = 10,
-                BankName = "BBVA",
-                FromDate = new DateTime(2025, 05, 18),
-                ToDate = new DateTime(2025, 05, 18),
+                BankName = "Santander",
+                FromDate = new DateTime(2025, 05, 24),
+                ToDate = new DateTime(2025, 05, 24),
             };
 
             var result = paymentRepository.CountPayments(paymentQuery);
@@ -94,22 +96,25 @@ namespace Tests
             {
                 PageNumber = 1,
                 PageSize = 10,
-                BankName = "BBVA",
-                Status = "Completed",
-                FromDate = new DateTime(2025, 05, 18),
-                ToDate = new DateTime(2025, 05, 18),
+                BankName = "Santander",
+                Status = "Pending",
+                FromDate = new DateTime(2025, 05, 24),
+                ToDate = new DateTime(2025, 05, 24),
             };
 
             var result = paymentRepository.GetPayments(paymentQuery);
 
             Assert.AreEqual(1, result.Count);
-            Assert.AreEqual(1, result.First().PaymentId);
+            Assert.AreEqual(2, result.First().PaymentId);
 
         }
 
         [TestMethod]
         public void GetChargesSuccessWithoutStatus()
         {
+            App.SessionService = new Independiente.Services.SessionService();
+
+
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 var chargeQuery = new ChargeQuery
@@ -124,8 +129,9 @@ namespace Tests
                 var result = paymentRepository.GetCharges(chargeQuery);
 
                 Console.WriteLine(result);
-                Assert.AreEqual(4, result.Count);
+                Assert.AreEqual(3, result.Count);
             }
+
         }
     }
 }

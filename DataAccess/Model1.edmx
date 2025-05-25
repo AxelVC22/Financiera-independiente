@@ -118,18 +118,9 @@
           </Key>
           <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'Independiente.dbo.Payment' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Payment">
           <Key>
             <PropertyRef Name="PaymentId" />
-            <PropertyRef Name="EmployeeId" />
-            <PropertyRef Name="TotalAmount" />
-            <PropertyRef Name="ActualAmount" />
-            <PropertyRef Name="RegistrationDate" />
-            <PropertyRef Name="BankId" />
-            <PropertyRef Name="TotalCredits" />
-            <PropertyRef Name="ActualCredits" />
           </Key>
           <Property Name="PaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
@@ -247,7 +238,7 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.ChargeView' no tiene defin
           <Property Name="PaymentNumber" Type="int" Nullable="false" />
           <Property Name="PaymentDate" Type="date" Nullable="false" />
           <Property Name="FixedPayment" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="Interest" Type="decimal" Precision="5" Scale="4" Nullable="false" />
+          <Property Name="Interest" Type="decimal" Precision="4" Scale="4" Nullable="false" />
           <Property Name="OutstandingBalance" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="CreditId" Type="int" Nullable="false" />
@@ -729,6 +720,7 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="File" EntityType="Self.File" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonalData" EntityType="Self.PersonalData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PromotionalOffer" EntityType="Self.PromotionalOffer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reference" EntityType="Self.Reference" Schema="dbo" store:Type="Tables" />
@@ -737,20 +729,6 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkCenter" EntityType="Self.WorkCenter" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Payment" EntityType="Self.Payment" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Payment].[PaymentId] AS [PaymentId], 
-    [Payment].[EmployeeId] AS [EmployeeId], 
-    [Payment].[TotalAmount] AS [TotalAmount], 
-    [Payment].[ActualAmount] AS [ActualAmount], 
-    [Payment].[RegistrationDate] AS [RegistrationDate], 
-    [Payment].[BankId] AS [BankId], 
-    [Payment].[TotalCredits] AS [TotalCredits], 
-    [Payment].[ActualCredits] AS [ActualCredits], 
-    [Payment].[Status] AS [Status], 
-    [Payment].[UploadDate] AS [UploadDate]
-    FROM [dbo].[Payment] AS [Payment]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="ChargeView" EntityType="Self.ChargeView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [ChargeView].[CLABE] AS [CLABE], 
@@ -1100,6 +1078,23 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           </Key>
           <Property Name="LogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="PaymentId" />
+          </Key>
+          <Property Name="PaymentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="ActualAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="RegistrationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="BankId" Type="Int32" Nullable="false" />
+          <Property Name="TotalCredits" Type="Int32" Nullable="false" />
+          <Property Name="ActualCredits" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UploadDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Bank" Relationship="Self.Payment_Bank" FromRole="Payment" ToRole="Bank" />
+          <NavigationProperty Name="Employee" Relationship="Self.Payment_Employee" FromRole="Payment" ToRole="Employee" />
+        </EntityType>
         <EntityType Name="PersonalData">
           <Key>
             <PropertyRef Name="PersonalDataId" />
@@ -1183,30 +1178,6 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <Property Name="MontlyIncome" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
           <NavigationProperty Name="Client" Relationship="Self.Client_WorkCenter" FromRole="WorkCenter" ToRole="Client" />
         </EntityType>
-        <EntityType Name="Payment">
-          <Key>
-            <PropertyRef Name="PaymentId" />
-            <PropertyRef Name="EmployeeId" />
-            <PropertyRef Name="TotalAmount" />
-            <PropertyRef Name="ActualAmount" />
-            <PropertyRef Name="RegistrationDate" />
-            <PropertyRef Name="BankId" />
-            <PropertyRef Name="TotalCredits" />
-            <PropertyRef Name="ActualCredits" />
-          </Key>
-          <Property Name="PaymentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
-          <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="ActualAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="RegistrationDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="BankId" Type="Int32" Nullable="false" />
-          <Property Name="TotalCredits" Type="Int32" Nullable="false" />
-          <Property Name="ActualCredits" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="UploadDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Bank" Relationship="Self.Payment_Bank" FromRole="Payment" ToRole="Bank" />
-          <NavigationProperty Name="Employee" Relationship="Self.Payment_Employee" FromRole="Payment" ToRole="Employee" />
-        </EntityType>
         <EntityType Name="ChargeView">
           <Key>
             <PropertyRef Name="CLABE" />
@@ -1228,7 +1199,7 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <Property Name="PaymentNumber" Type="Int32" Nullable="false" />
           <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="FixedPayment" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="Interest" Type="Decimal" Precision="5" Scale="4" Nullable="false" />
+          <Property Name="Interest" Type="Decimal" Precision="4" Scale="4" Nullable="false" />
           <Property Name="OutstandingBalance" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CreditId" Type="Int32" Nullable="false" />
@@ -1651,6 +1622,7 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <EntitySet Name="Employee" EntityType="Self.Employee" />
           <EntitySet Name="File" EntityType="Self.File" />
           <EntitySet Name="Log" EntityType="Self.Log" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" />
           <EntitySet Name="PersonalData" EntityType="Self.PersonalData" />
           <EntitySet Name="PromotionalOffer" EntityType="Self.PromotionalOffer" />
           <EntitySet Name="Reference" EntityType="Self.Reference" />
@@ -1658,7 +1630,6 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="User" EntityType="Self.User" />
           <EntitySet Name="WorkCenter" EntityType="Self.WorkCenter" />
-          <EntitySet Name="Payment" EntityType="Self.Payment" />
           <EntitySet Name="ChargeView" EntityType="Self.ChargeView" />
           <EntitySet Name="ClientView" EntityType="Self.ClientView" />
           <EntitySet Name="CreditApplicationListView" EntityType="Self.CreditApplicationListView" />
@@ -1916,6 +1887,22 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Payment">
+            <EntityTypeMapping TypeName="IndependienteModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="ActualAmount" ColumnName="ActualAmount" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="BankId" ColumnName="BankId" />
+                <ScalarProperty Name="TotalCredits" ColumnName="TotalCredits" />
+                <ScalarProperty Name="ActualCredits" ColumnName="ActualCredits" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PersonalData">
             <EntityTypeMapping TypeName="IndependienteModel.PersonalData">
               <MappingFragment StoreEntitySet="PersonalData">
@@ -1994,22 +1981,6 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
                 <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="HiringDate" ColumnName="HiringDate" />
                 <ScalarProperty Name="MontlyIncome" ColumnName="MontlyIncome" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Payment">
-            <EntityTypeMapping TypeName="IndependienteModel.Payment">
-              <MappingFragment StoreEntitySet="Payment">
-                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-                <ScalarProperty Name="ActualAmount" ColumnName="ActualAmount" />
-                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
-                <ScalarProperty Name="BankId" ColumnName="BankId" />
-                <ScalarProperty Name="TotalCredits" ColumnName="TotalCredits" />
-                <ScalarProperty Name="ActualCredits" ColumnName="ActualCredits" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
