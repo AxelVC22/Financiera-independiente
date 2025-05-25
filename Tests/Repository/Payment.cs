@@ -1,4 +1,5 @@
 ﻿using Independiente;
+using Independiente.DataAccess;
 using Independiente.DataAccess.Repositories;
 using Independiente.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -133,5 +134,73 @@ namespace Tests
             }
 
         }
+
+
+        [TestMethod]
+        public void TestUploadChargesSuccess()
+        {
+            int result = 0;
+
+            var charge = new ChargeView
+            {
+                CLABE = "002180340118359714",
+                ClientName = "Mauricio Diaz Tapia",
+                BankName = "Santander",
+                PaymentNumber = 5,
+                PaymentDate = new DateTime(2025, 09, 04),
+                FixedPayment = 464.67m,
+                CreditId = 13,
+                Status = "Completed"
+            };
+
+            List<ChargeView> list = new List<ChargeView>();
+            list.Add(charge);
+
+            var payment = new Independiente.DataAccess.Payment
+            {
+                PaymentId = 2
+            };
+
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                result = paymentRepository.UploadCharges(list, payment);
+                Assert.IsTrue(result > 0);
+            }
+        }
+
+        [ExpectedException(typeof(InvalidOperationException))]
+
+
+        [TestMethod]
+        public void TestUploadChargesFailByNotSpecifiedStatus()
+        {
+            int result = 0;
+
+            var charge = new ChargeView
+            {
+                CLABE = "002180340118359714",
+                ClientName = "Mauricio Diaz Tapia",
+                BankName = "Santander",
+                PaymentNumber = 5,
+                PaymentDate = new DateTime(2025, 09, 04),
+                FixedPayment = 464.67m,
+                CreditId = 13,
+               // without status
+            };
+
+            List<ChargeView> list = new List<ChargeView>();
+            list.Add(charge);
+
+            var payment = new Independiente.DataAccess.Payment
+            {
+                PaymentId = 2
+            };
+
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                result = paymentRepository.UploadCharges(list, payment);
+            }
+        }
+
     }
 }

@@ -133,27 +133,27 @@ namespace Independiente.Services
         {
             var charges = new List<ChargeView>();
 
-            var lineas = System.IO.File.ReadLines(rutaCsv).ToList();
-            if (lineas.Count <= 1) return charges;
+            var lines = System.IO.File.ReadLines(rutaCsv).ToList();
+            if (lines.Count <= 1) return charges;
 
-            foreach (var linea in lineas.Skip(1))
+            foreach (var line in lines.Skip(1))
             {
-                var columnas = linea.Split(',');
+                var columns = line.Split(',');
 
-                if (columnas.Length > 7)
+                if (columns.Length > 7 || columns.Length < 7)
                 {
-                    throw new ArgumentException("El numero de columnas es mayor al esperado");
+                    throw new ArgumentException("El número de columnas es mayor al esperado");
                 }
 
                 var charge = new ChargeView
                 {
-                    CLABE = columnas[0],
-                    ClientName = columnas[1],
-                    BankName = columnas[2],
-                    PaymentDate = DateTime.Parse(columnas[3]),
-                    FixedPayment = decimal.Parse(columnas[4], CultureInfo.InvariantCulture),
-                    CreditId = int.TryParse(columnas[5], out var creditId) ? creditId : 0,
-                    Status = columnas[6],
+                    CLABE = columns[0],
+                    ClientName = columns[1],
+                    BankName = columns[2],
+                    PaymentDate = DateTime.Parse(columns[3]),
+                    FixedPayment = decimal.Parse(columns[4], CultureInfo.InvariantCulture),
+                    CreditId = int.TryParse(columns[5], out var creditId) ? creditId : 0,
+                    Status = columns[6],
                 };
 
                 charges.Add(charge);

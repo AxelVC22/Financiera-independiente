@@ -101,6 +101,7 @@ namespace Independiente.ViewModel
 
             BanksList = new ObservableCollection<Bank>(_catalogService.GetBanks(new CatalogQuery()));
 
+            BanksList.Insert(0, new Bank { });
 
             Search(null);
 
@@ -117,7 +118,11 @@ namespace Independiente.ViewModel
                 {
                     try
                     {
-                        _paymentService.UploadCharges(path, payment);
+                        if (_paymentService.UploadCharges(path, payment) > 0)
+                        {
+                            _dialogService.Dismiss("El pago de los creditos ha sido subido correctamente", System.Windows.MessageBoxImage.Information);
+                            Search(null);
+                        }
                     }
                     catch (ArgumentException ex)
                     {
