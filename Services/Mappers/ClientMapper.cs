@@ -18,7 +18,12 @@ namespace Independiente.Services.Mappers
                 {
                     PersonalData = source?.PersonalData != null ? PersonalDataMapper.ToDataModel(source.PersonalData) : null,
                     AddressData = source?.AddressData != null ? AddressDataMapper.ToDataModel(source.AddressData) : null,
-
+                    Reference = source?.SecondReference != null ? ReferenceMapper.ToDataModel(source.SecondReference) : null,
+                    Reference1 = source?.FirstReference != null ? ReferenceMapper.ToDataModel(source.FirstReference) : null,
+                    Account = source?.DepositAccount != null ? AccountMapper.ToDataModel(source.DepositAccount) : null,
+                    Account1 = source?.PaymentAccount != null ? AccountMapper.ToDataModel(source.PaymentAccount) : null,
+                    WorkCenter = source?.WorkCenter != null ? WorkCenterMapper.ToDataModel(source.WorkCenter) : null,
+                    EmployeeId = source.Employee,
                 };
             }
             return client;
@@ -126,4 +131,103 @@ namespace Independiente.Services.Mappers
         }
     }
 
+    public static class ReferenceMapper
+    {
+        public static DataAccess.Reference ToDataModel(Independiente.Model.Reference source)
+        {
+            DataAccess.Reference reference = new DataAccess.Reference();
+            if (source != null)
+            {
+                reference = new DataAccess.Reference
+                {
+                    Name = source.Name,
+                    FullLastName = source.FullLastName,
+                    Relationship = source.Relationship,
+                    PhoneNumber = source.PhoneNumber,
+                    Email = source.Email
+                };
+            }
+            return reference;
+        }
+        public static Model.Reference ToViewModel(Independiente.DataAccess.Reference source)
+        {
+            Model.Reference reference = new Model.Reference();
+            if (source != null)
+            {
+                reference = new Model.Reference
+                {
+                    Name = source.Name,
+                    FullLastName = source.FullLastName,
+                    Relationship = source.Relationship,
+                    PhoneNumber = source.PhoneNumber,
+                    Email = source.Email
+                };
+            }
+            return reference;
+        }
+    }
+
+    public static class AccountMapper
+    {
+        public static DataAccess.Account ToDataModel(Independiente.Model.Account source)
+        {
+            DataAccess.Account account = new DataAccess.Account();
+            if (source != null)
+            {
+                account = new DataAccess.Account
+                {
+                    CLABE = source.CLABE,
+                    BankId = source.Bank,
+                };
+            }
+            return account;
+        }
+        public static Model.Account ToViewModel(Independiente.DataAccess.Account source)
+        {
+            Model.Account account = new Model.Account();
+            if (source != null)
+            {
+                account = new Model.Account
+                {
+                    CLABE = source.CLABE,
+                    Bank = source.BankId,
+                };
+            }
+            return account;
+        }
+    }
+
+    public static class WorkCenterMapper
+    {
+        public static DataAccess.WorkCenter ToDataModel(Independiente.Model.WorkCenter source)
+        {
+            DataAccess.WorkCenter workCenter = new DataAccess.WorkCenter();
+            if (source != null)
+            {
+                workCenter = new DataAccess.WorkCenter
+                {
+                    Name = source.Name,
+                    Role = source.Role,
+                    HiringDate = (DateTime)source.HiringDate,
+                    MontlyIncome = (Decimal)source.MontlyIncome,
+                };
+            }
+            return workCenter;
+        }
+        public static Model.WorkCenter ToViewModel(Independiente.DataAccess.WorkCenter source)
+        {
+            Model.WorkCenter workCenter = new Model.WorkCenter();
+            if (source != null)
+            {
+                workCenter = new Model.WorkCenter
+                {
+                    Name = source.Name,
+                    Role = source.Role,
+                    HiringDate = (DateTime)source.HiringDate,
+                    MontlyIncome = (Decimal)source.MontlyIncome,
+                };
+            }
+            return workCenter;
+        }
+    }
 }

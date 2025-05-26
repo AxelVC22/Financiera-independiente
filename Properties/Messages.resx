@@ -120,6 +120,9 @@
   <data name="CredentialsNotFoundMessage" xml:space="preserve">
     <value>Las credenciales ingresadas no son válidas. Verifique su nombre de usuario y contraseña e inténtelo de nuevo</value>
   </data>
+  <data name="IncompleteDocumentationMessage" xml:space="preserve">
+    <value>Debe subir el INE, Comprobante de domicilio y la caratula de estado de cuenta para generar  la solicitud de credito</value>
+  </data>
   <data name="InvalidCityMessage" xml:space="preserve">
     <value>La ciudad es inválida. Solo se permiten letras, espacios y guiones.</value>
   </data>
@@ -173,5 +176,14 @@
   </data>
   <data name="UnderEighteenYearsMessage" xml:space="preserve">
     <value>El cliente debe tener al menos 18 años para solicitar un crédito.</value>
+  </data>
+  <data name="AcceptApplicationConfirmationMessage" xml:space="preserve">
+    <value>Se aceptará la solicitud de crédito ¿Estás seguro de continuar con esta acción?</value>
+  </data>
+  <data name="RejectApplicationConfirmationMessage" xml:space="preserve">
+    <value>Se rechazará la solicitud de crédito ¿Estás seguro de continuar con esta acción?</value>
+  </data>
+  <data name="SentReportMessage" xml:space="preserve">
+    <value>El dictamen ha sido enviado correctamente</value>
   </data>
 </root>

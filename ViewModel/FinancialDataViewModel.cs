@@ -33,7 +33,6 @@ namespace Independiente.ViewModel
 
         public Account ChargeAccount { get; set; }
 
-
         public Account DepositAccount { get; set; }
 
         public Client Client { get; set; }
@@ -48,7 +47,7 @@ namespace Independiente.ViewModel
             _navigationService.GoBack();
         }
 
-        public FinancialDataViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode, IClientManagementService clientManagementService, ICatalogService catalogManagerService)
+        public FinancialDataViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode, IClientManagementService clientManagementService, ICatalogService catalogManagerService, Client client)
         {
             NextCommand = new RelayCommand(Next, CanNext);
             EditCommand = new RelayCommand(Edit, CanNext);
@@ -63,7 +62,8 @@ namespace Independiente.ViewModel
             DepositAccount = new Account();
             _clientManagementService = clientManagementService;
             _catalogService = catalogManagerService;
-           // BanksList = new ObservableCollection<Bank>(_catalogService.GetBanks());
+            BanksList = new ObservableCollection<Bank>(_catalogService.GetBanks(new DataAccess.Repositories.CatalogQuery()));
+            Client = client;
         }
         private void Next(object obj)
         {
@@ -74,7 +74,7 @@ namespace Independiente.ViewModel
             {
                 if (FieldValidator.IsValidCLABE(ChargeAccount.CLABE) && FieldValidator.IsValidCLABE(DepositAccount.CLABE))
                 {
-                    if (ChargeAccount.Bank == null || DepositAccount.Bank == null)
+                    if (ChargeAccount == null || DepositAccount == null)
                     {
                         message = Messages.NoBankSelectedMessage;
                     }
@@ -89,15 +89,15 @@ namespace Independiente.ViewModel
                 message = exception.Message;
             }
 
-            MessageBox.Show(Client.PersonalData.Name);
-
             if (validation)
             {
-                _navigationService.NavigateTo<ReferencesViewModel>(new PersonDataParams(_pageMode));
+                Client.PaymentAccount = ChargeAccount;
+                Client.DepositAccount = DepositAccount;
+                _navigationService.NavigateTo<ReferencesViewModel>(new ClientDataParams(_pageMode, Client));
             } 
             else
             {
-              //  _dialogService.Dismiss(message);
+                _dialogService.Dismiss(message, MessageBoxImage.Exclamation);
             }
         }
 

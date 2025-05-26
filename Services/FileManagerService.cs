@@ -11,6 +11,8 @@ namespace Independiente.Services
     {
         string PickFile();
 
+
+        string SaveFile(string defaultFileName);
         string SelectPath();
     }
 
@@ -19,6 +21,7 @@ namespace Independiente.Services
         public string PickFile()
         {
             var openFileDialog = new Microsoft.Win32.OpenFileDialog();
+
             if (openFileDialog.ShowDialog() == true)
             {
                 return openFileDialog.FileName; 
@@ -26,6 +29,37 @@ namespace Independiente.Services
             return null; 
         }
 
+        public string SaveFile(string defaultFileName)
+        {
+            var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+            {
+                FileName = defaultFileName,
+                Filter = "Archivos PDF (*.pdf)|*.pdf",
+                DefaultExt = System.IO.Path.GetExtension(defaultFileName)
+            };
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                return saveFileDialog.FileName;
+            }
+            return null;
+        }
+
+        public string saveCSV(string defaultFileName)
+        {
+            var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+            {
+                FileName = defaultFileName,
+                Filter = "Archivos PDF (*.pdf)|*.pdf",
+                DefaultExt = System.IO.Path.GetExtension(defaultFileName)
+            };
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                return saveFileDialog.FileName;
+            }
+            return null;
+        }
 
         public string SelectPath()
         {

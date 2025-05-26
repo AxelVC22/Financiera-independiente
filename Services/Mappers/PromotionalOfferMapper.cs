@@ -39,7 +39,8 @@ namespace Independiente.Services.Mappers
                     InteresRate = (decimal)source.InterestRate,
                     LoanTerm = (int)source.LoanTerm,
                     PaymenteFrecuency = source.PaymentFrecuency,
-                    IVA = source.IVA
+                    IVA = source.IVA,
+                    Description = source.Name
                 };
             }           
             return promotionalOffer;

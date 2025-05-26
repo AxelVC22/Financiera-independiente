@@ -9,6 +9,7 @@ namespace Independiente.Model
     public interface  IPerson
     {
         PersonalData PersonalData { get; }
-      
+        AddressData AddressData { get; }
+
     }
 }

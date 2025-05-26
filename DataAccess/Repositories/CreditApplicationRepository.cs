@@ -111,8 +111,6 @@ namespace Independiente.DataAccess.Repositories
 
         int AddCreditApplication(CreditApplication creditApplication);
 
-        int DeleteCreditApplication(CreditApplication creditApplication);
-
         List<CreditApplicationListView> GetCreditApplications(CreditApplicationQuery query);
 
         CreditApplication GetCreditApplication(int creditApplicationId);
@@ -141,13 +139,9 @@ namespace Independiente.DataAccess.Repositories
                     total = context.CreditApplicationListView.Count(predicate);
                 }
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception ex)
             {
-
-            }
-            catch (EntityException ex)
-            {
-
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return total;
@@ -181,60 +175,14 @@ namespace Independiente.DataAccess.Repositories
                     id = newCreditApplication.CreditApplicationId;
                 }
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception ex)
             {
-
-            }
-            catch (EntityException ex)
-            {
-
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return id;
         }
 
-        public int DeleteCreditApplication(CreditApplication creditApplication)
-        {
-            int result = 0;
-
-            try
-            {
-                using (var context = new IndependienteEntities())
-                {
-                    using (var transaction = context.Database.BeginTransaction())
-                    {
-                        try
-                        {
-                            var creditApplicationForDelete = context.CreditApplication.Find(creditApplication.CreditApplicationId);
-
-                            if (creditApplicationForDelete != null)
-                            {
-                                context.CreditApplication.Remove(creditApplicationForDelete);
-
-                                result = context.SaveChanges();
-
-                                transaction.Commit();
-                            }
-
-                        }
-                        catch (Exception)
-                        {
-                            transaction.Rollback();
-                            throw;
-                        }
-                    }
-                }
-            }
-            catch (DbUpdateException ex)
-            {
-
-            }
-            catch (EntityException ex)
-            {
-            }
-
-            return result;
-        }
 
         public CreditApplication GetCreditApplication(int creditApplicationId)
         {
@@ -259,11 +207,9 @@ namespace Independiente.DataAccess.Repositories
                     }
                 }
             }
-            catch (DbUpdateException ex)
+            catch (Exception ex)
             {
-            }
-            catch (EntityException ex)
-            {
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return creditApplication;
@@ -293,11 +239,9 @@ namespace Independiente.DataAccess.Repositories
                     }
                 }
             }
-            catch (DbUpdateException ex)
+            catch (Exception ex)
             {
-            }
-            catch (EntityException ex)
-            {
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return creditApplication;
@@ -322,11 +266,9 @@ namespace Independiente.DataAccess.Repositories
 
                 }
             }
-            catch (DbUpdateException ex)
+            catch (Exception ex)
             {
-            }
-            catch (EntityException ex)
-            {
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return documentationFile;
@@ -347,7 +289,7 @@ namespace Independiente.DataAccess.Repositories
                     {
                         if (creditApplication.Status != CreditApplicationStates.Pending.ToString())
                         {
-                            throw new ArgumentException("El estado de la solicitud no es válido para enviar el dictamen.");
+                            throw new InvalidOperationException("El estado de la solicitud no es válido para enviar el dictamen.");
                         }
 
                         creditApplication.Status = report.CreditApplication.Status;
@@ -383,10 +325,10 @@ namespace Independiente.DataAccess.Repositories
                         transaction.Commit();
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
                     transaction.Rollback();
-                    throw;
+                    throw DbExceptionHandler.Handle(ex);
                 }
             }
 
@@ -421,11 +363,9 @@ namespace Independiente.DataAccess.Repositories
                         result = report;
                     }
                 }
-                catch (DbUpdateException ex)
+                catch (Exception ex)
                 {
-                }
-                catch (EntityException ex)
-                {
+                    throw DbExceptionHandler.Handle(ex);
                 }
             }
 

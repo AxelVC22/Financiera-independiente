@@ -1,6 +1,8 @@
 ﻿using Independiente.DataAccess;
+using Independiente.DataAccess.Repositories;
 using Independiente.Model;
 using Independiente.Properties;
+using Independiente.Services.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,7 @@ namespace Independiente.Services
 {
     public interface IClientManagementService
     {
-       // Client[] GetAllClientsBy
+        List<Model.Client> GetAllClientsByEmployeeId(int employeeId);
         bool ValidatePersonalData(Model.PersonalData personalData);
 
         bool ValidateAddressData(Model.AddressData addressData);
@@ -23,10 +25,31 @@ namespace Independiente.Services
         bool IsValidAge(DateTime birthDate, out string message);
 
         bool IsPhoneNumberRepeated(string phoneNumber, string alternativePhoneNumber, out string message);
+
+        int AddClient(Model.Client client);
     }
 
     public class ClientManagerService : IClientManagementService
     {
+        public List<Model.Client> GetAllClientsByEmployeeId(int employeeId)
+        {
+            List<Model.Client> clients = new List<Model.Client>();
+            Console.WriteLine("EmployeeId: " + employeeId);
+
+            using (var context = new IndependienteEntities())
+            {
+                var Clients = context.ClientView.Where(client => client.EmployeeId == employeeId).ToList();
+
+                foreach (var Client in Clients)
+                {
+                    clients.Add(Model.Client.FromClientView(Client));
+                }
+            }
+
+            return clients;
+
+        }
+
         public bool IsRFCRegistered(string RFC, out string message)
         {
             message = null;
@@ -107,6 +130,16 @@ namespace Independiente.Services
                 validation = true;
             }
             return validation;
+        }
+
+        public int AddClient(Model.Client client)
+        {
+            int success = 0;
+
+            IClientRepository clientRepository = new ClientRepository();
+            success = clientRepository.AddClient(ClientMapper.ToDataModel(client));
+
+            return success;
         }
     }
 }
