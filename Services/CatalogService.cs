@@ -35,9 +35,12 @@ namespace Independiente.Services
 
         private bool ValidateQuery(CatalogQuery query)
         {
-            FieldValidator.IsValidName(query.Name);
+            if (string.IsNullOrEmpty(query.Name))
+            {
+                FieldValidator.IsValidName(query.Name);
+            }            
             return true;
-        }       
+        }
 
         public int CountBanks(CatalogQuery query)
         {

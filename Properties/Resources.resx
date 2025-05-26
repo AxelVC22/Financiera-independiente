@@ -366,4 +366,10 @@
   <data name="ResultsLabelGlobal" xml:space="preserve">
     <value>Resultados</value>
   </data>
+  <data name="SearchCreditPolicyByNameGlobal" xml:space="preserve">
+    <value>Buscar política de crédito por nombre</value>
+  </data>
+  <data name="StartDateLabelGlobal" xml:space="preserve">
+    <value>Fecha de inicio</value>
+  </data>
 </root>

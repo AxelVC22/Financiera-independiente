@@ -67,7 +67,7 @@
                                  Width="300"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
-                                 Tag="{x:Static p:Resources.SearchClientByRFCPlaceHolderGlobal}"
+                                 Tag="{x:Static p:Resources.SearchCreditPolicyByNameGlobal}"
                                  CharacterCasing="Upper" />
 
                         <Button x:Name="HidePasswordButton"
@@ -130,12 +130,11 @@
                                       SelectedItem="{Binding SelectedCreditPolicy}"
                                       IsManipulationEnabled="True"
                                       BorderThickness="0"
-                                      HorizontalAlignment="Stretch"
                                       MaxWidth="990"
                                       Height="440"
                                       MinHeight="400"
                                       MaxHeight="450"
-                                      Background="Transparent">
+                                      Background="Transparent" SelectionChanged="ListView_SelectionChanged_1">
 
                                 <ListView.Resources>
                                     <Style TargetType="GridViewColumnHeader"
@@ -144,78 +143,59 @@
 
                                 <ListView.View>
                                     <GridView>
-                                        <GridViewColumn Width="180">
+                                        <GridViewColumn Width="300">
                                             <GridViewColumn.Header>
-                                                <Grid HorizontalAlignment="Stretch"
-                                                      Width="Auto">
+                                                <Grid HorizontalAlignment="Stretch">
                                                     <Button Content="{x:Static p:Resources.NameLabelGlobal}"
                                                             Style="{StaticResource HeaderButtonStyle}"
                                                             Command="{Binding OrderByCommand}"
-                                                            CommandParameter="Name" />
+                                                            CommandParameter="FullName" />
                                                 </Grid>
 
                                             </GridViewColumn.Header>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding Name}" />
+                                                    <TextBlock Text="{Binding Client.PersonalData.FullName}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
 
-
-                                        <GridViewColumn Width="390">
+                                        <GridViewColumn Width="230">
                                             <GridViewColumn.Header>
                                                 <Grid HorizontalAlignment="Stretch">
-                                                    <Button Content="{x:Static p:Resources.DescriptionLabelGlobal}"
+                                                    <Button Content="{x:Static p:Resources.StartDateLabelGlobal}"
                                                             Style="{StaticResource HeaderButtonStyle}"
                                                             Command="{Binding OrderByCommand}"
-                                                            CommandParameter="Description" />
+                                                            CommandParameter="LoanAmount" />
                                                 </Grid>
 
                                             </GridViewColumn.Header>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding Description}" />
+                                                    <TextBlock Text="{Binding LoanAmount}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
 
-                                        <GridViewColumn Width="150">
-                                            <GridViewColumn.Header>
-                                                <Grid HorizontalAlignment="Stretch">
-                                                    <Button Content="{x:Static p:Resources.RegistrationDateLabelGlobal}"
-                                                            Style="{StaticResource HeaderButtonStyle}"
-                                                            Command="{Binding OrderByCommand}"
-                                                            CommandParameter="RegistrationDate" />
-                                                </Grid>
-
-                                            </GridViewColumn.Header>
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding RegistrationDate}" />
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
-
-                                        <GridViewColumn Width="150">
+                                        <GridViewColumn Width="230">
                                             <GridViewColumn.Header>
                                                 <Grid HorizontalAlignment="Stretch">
                                                     <Button Content="{x:Static p:Resources.EndDateLabelGlobal}"
                                                             Style="{StaticResource HeaderButtonStyle}"
                                                             Command="{Binding OrderByCommand}"
-                                                            CommandParameter="EndDate" />
+                                                            CommandParameter="LoanAmountDate" />
                                                 </Grid>
 
                                             </GridViewColumn.Header>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding EndDate}" />
+                                                    <TextBlock Text="{Binding LoanApplicationDate}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
 
 
-                                        <GridViewColumn Width="120">
+                                        <GridViewColumn Width="230">
                                             <GridViewColumn.Header>
                                                 <Grid HorizontalAlignment="Stretch">
                                                     <Button Content="{x:Static p:Resources.StateLabelGlobal}"
@@ -232,66 +212,98 @@
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
 
+
+
                                     </GridView>
                                 </ListView.View>
                             </ListView>
                         </Border>
 
-                        <Border Width="90"
-                                Height="30"
-                                Background="Transparent"
-                                CornerRadius="8"
-                                Grid.Column="0"
-                                Grid.Row="1"
-                                Margin="0"
-                                HorizontalAlignment="Right"
-                                BorderBrush="Black"
-                                BorderThickness="1">
-                            <Grid Margin="5,0,5,0">
-                                <Button Style="{DynamicResource PaginationButtonStyle}"
-                                        Height="24"
-                                        Width="24"
-                                        HorizontalAlignment="Left"
-                                        >
-                                    <Grid>
-                                        <Viewbox Stretch="Uniform">
-                                            <Canvas Width="24"
-                                                    Height="24">
-                                                <Path Data="{StaticResource KeyboardArrowLeft}"
-                                                      Fill="{StaticResource IconBlueColor}" />
-                                            </Canvas>
-                                        </Viewbox>
-                                    </Grid>
-                                </Button>
+                        <TextBlock Margin="10,5,0,0"
+                                   Width="Auto"
+                                   Height="30"
+                                   Grid.Column="0"
+                                   Grid.Row="1"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Top"
+                                   Foreground="Gray">
+                            <Run Text="{Binding Pagination.TotalItems}" />
+                            <Run Text="{x:Static p:Resources.ResultsLabelGlobal}" />
+                        </TextBlock>
 
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="10,25,0,0"
+                                    Width="Auto"
+                                    Height="30"
+                                    Grid.Column="0"
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Right">
+                            <Button Content="⏮"
+                                    Margin="2"
+                                    Command="{Binding GoToPageCommand}"
+                                    CommandParameter="1"
+                                    IsEnabled="{Binding Pagination.CanGoFirst}"
+                                    Style="{StaticResource PaginationButtonStyle}" />
+                            <Button Content="◀"
+                                    Margin="2"
+                                    Command="{Binding GoToPageCommand}"
+                                    CommandParameter="{Binding Pagination.PreviousPageNumber}"
+                                    IsEnabled="{Binding Pagination.CanGoPrevious}"
+                                    Style="{StaticResource PaginationButtonStyle}" />
 
-                                <Button Style="{DynamicResource PaginationButtonStyle}"
-                                        Height="24"
-                                        Width="24" 
-                                        HorizontalAlignment="Center"
-                                        Content="{Binding PaginationIndex}" />
+                            <ItemsControl ItemsSource="{Binding Pagination.PageLinks}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
 
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <ContentControl>
+                                            <ContentControl.Style>
+                                                <Style TargetType="ContentControl">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding PageNumber}"
+                                                                     Value="{x:Null}">
+                                                            <Setter Property="Content"
+                                                                    Value="..." />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
 
-                                <Button Style="{DynamicResource PaginationButtonStyle}"
-                                        Height="24"
-                                        Width="24"
-                                        HorizontalAlignment="Right">
-                                    <Grid>
-                                        <Viewbox Stretch="Uniform">
-                                            <Canvas Width="24"
-                                                    Height="24">
-                                                <Path Data="{StaticResource KeyboardArrowRight}"
-                                                      Fill="{DynamicResource IconBlueColor}" />
-                                            </Canvas>
-                                        </Viewbox>
-                                    </Grid>
-                                </Button>
+                                                    <Setter Property="Content">
+                                                        <Setter.Value>
+                                                            <Button x:Name="NumberPageButton"
+                                                                    Content="{Binding PageNumber}"
+                                                                    Style="{StaticResource PaginationButtonStyle}"
+                                                                    Margin="2"
+                                                                    FontWeight="{Binding IsCurrent, Converter={StaticResource BoolToFontWeightConverter}}"
+                                                                    Command="{Binding ElementName=CreditApplicationsPage , Path=DataContext.GoToPageCommand}"
+                                                                    CommandParameter="{Binding}" />
 
-                            </Grid>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </ContentControl.Style>
+                                        </ContentControl>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
 
+                            <Button Content="▶"
+                                    Margin="2"
+                                    Command="{Binding GoToPageCommand}"
+                                    CommandParameter="{Binding Pagination.NextPageNumber}"
+                                    IsEnabled="{Binding Pagination.CanGoNext}"
+                                    Style="{StaticResource PaginationButtonStyle}" />
 
-
-                        </Border>
+                            <Button Content="⏭"
+                                    Margin="2"
+                                    Command="{Binding GoToPageCommand}"
+                                    CommandParameter="{Binding Pagination.TotalPages}"
+                                    IsEnabled="{Binding Pagination.CanGoLast}"
+                                    Style="{StaticResource PaginationButtonStyle}" />
+                        </StackPanel>
 
                         <Border Grid.Column="2"
                                 Grid.Row="0"
@@ -392,28 +404,35 @@
                                          Height="60"
                                          IsEnabled="{Binding SelectedCreditPolicy.IsEditable}"
                                          VerticalAlignment="Top" />
-
+                                
                                 <Label Foreground="Black"
-                                       Content="{x:Static p:Resources.RegistrationDateLabelGlobal}"
+                                       Content="{x:Static p:Resources.StartDateLabelGlobal}"
                                        Margin="10,185,0,0"
                                        FontSize="10"
                                        VerticalAlignment="Top"
                                        Width="100"
                                        HorizontalAlignment="Left" />
-
-                                <TextBox Width="135"
-                                         Text="{Binding SelectedCreditPolicy.RegistrationDate}"
-                                         Style="{StaticResource TextBoxWithPlaceholderStyle}"
-                                         HorizontalAlignment="Left"
-                                         FontSize="10"
-                                         FontWeight="Bold"
-                                         Foreground="Black"
-                                         Margin="10,210,0,0"
-                                         Height="24"
-                                         IsEnabled="False"
-                                         VerticalAlignment="Top" />
-
-
+                                <Border CornerRadius="8"
+                                        Padding="2"
+                                        BorderThickness="1"
+                                        BorderBrush="Black"
+                                        Background="White"
+                                        Width="135"
+                                        Height="24"
+                                        Margin="10,210,0,0"
+                                        VerticalAlignment="Top"
+                                        HorizontalAlignment="Left">
+                                    <DatePicker SelectedDate="{Binding SelectedCreditPolicy.RegistrationDate, Mode=TwoWay}"
+                                                Width="100"
+                                                SelectedDateFormat="Short"
+                                                Height="24"
+                                                FontSize="10"
+                                                VerticalAlignment="Center"
+                                                BorderThickness="0"
+                                                Style="{StaticResource CustomDatePickerStyle}"
+                                                IsEnabled="{Binding SelectedCreditPolicy.IsEditable}" />
+                                </Border>
+                                
                                 <Label Foreground="Black"
                                        Content="{x:Static p:Resources.EndDateLabelGlobal}"
                                        Margin="180,185,0,0"
@@ -439,8 +458,7 @@
                                                 VerticalAlignment="Center"
                                                 BorderThickness="0"
                                                 Style="{StaticResource CustomDatePickerStyle}"
-                                                IsEnabled="{Binding SelectedCreditPolicy.IsEditable}">
-                                    </DatePicker>
+                                                IsEnabled="{Binding SelectedCreditPolicy.IsEditable}" />
                                 </Border>
 
                                 <Canvas Grid.Column="2"
@@ -457,14 +475,10 @@
                                             HorizontalAlignment="Right"
                                             Command="{Binding RegisterCommand}"
                                             Margin="0,0,0,0" />
-
-
+                                    
                                 </Canvas>
 
-
-
                             </Grid>
-
 
                         </Border>
                     </Grid>

@@ -30,11 +30,12 @@ namespace Independiente.ViewModel
 
         public INavigationService _navigationService;
         public ICommand GoToPageCommand { get; set; }
-        public ICommand RegisterCommand { get; set; }
-        
+        public ICommand RegisterCommand { get; set; }          
+        public ICommand SaveCommand { get; set; }
+        public ICommand EditCommand { get; set; }
         public ICommand SearchCommand { get; set; }
-        public ICommand RestoreCommand { get; set; }
-        public ICommand SeeDetailsCommand { get; set; }
+        public ICommand RestoreCommand { get; set; }        
+        public ICommand CancelCommand { get; set; }
         public ICommand GoBackCommand { get; set; }
 
         private bool _isOrderedAscendent = false;
@@ -85,9 +86,7 @@ namespace Independiente.ViewModel
             SearchCommand = new RelayCommand(Search, CanDoIt);
 
             RestoreCommand = new RelayCommand(Restore, CanDoIt);
-
-            SeeDetailsCommand = new RelayCommand(SeeDetails, CanDoIt);
-
+            
             Search(null);       
 
             _selectedCreditPolicy = new CreditPolicy();            
@@ -121,26 +120,11 @@ namespace Independiente.ViewModel
             _navigationService.GoBack();
         }
 
-        private void SeeDetails(object obj)
-        {
-            Independiente.Model.CreditPolicy creditPolicy;
-
-            if (obj is Independiente.Model.CreditPolicy policy)
-            {
-                creditPolicy = _service.GetCreditPolicy(policy.CredditPolicyId);
-
-                if (creditPolicy != null)
-                {
-                    //TODO _navigationService.NavigateTo<> AQUI manda a la ventana donde se ven los detalles LOL
-                }
-            }
-        }
-
         private void Restore(object obj)
         {
             Query.Name = null;
-            Query.Status = null;
-            Query.Validity = null;           
+            //Query.Status = null;
+            //Query.Validity = null;
 
             SelectedStateFilter = StateFilterOptions.First();
             SelectedValidityFilter = ValidityFilterOptions.First();
@@ -205,26 +189,10 @@ namespace Independiente.ViewModel
 
         private void Register(object obj)
         {
-            CreditPolicy newCreditPolicy = new CreditPolicy { IsEditable = true, RegistrationDate = DateTime.Today };
+            //CreditPolicy newCreditPolicy = new CreditPolicy { IsEditable = true, RegistrationDate = DateTime.Today };
+            CreditPolicy newCreditPolicy = new CreditPolicy { IsEditable = true };
             CreditPoliciesList.Add(newCreditPolicy);
         }
-
-        //private void OrderByName(object obj)
-        //{
-        //    List<CreditPolicy> listaOrdenada = new List<CreditPolicy>();
-        //    if (_isOrderedAscendent)
-        //    {
-        //        listaOrdenada = CreditPoliciesList.OrderByDescending(x => x.Name).ToList();
-        //        _isOrderedAscendent = false;
-        //    }
-        //    else
-        //    {
-        //        listaOrdenada = CreditPoliciesList.OrderBy(x => x.Name).ToList();
-        //        _isOrderedAscendent = true;
-        //    }
-        //    CreditPoliciesList = new ObservableCollection<CreditPolicy>(listaOrdenada);
-        //    OnPropertyChanged(nameof(CreditPoliciesList));
-        //}
 
         public ICommand OrderByCommand => new RelayCommand(param =>
         {
@@ -232,10 +200,7 @@ namespace Independiente.ViewModel
             {
                 case "Name":
                     OrderByProperty(x => x.Name);
-                    break;
-                case "Description":
-                    OrderByProperty(x => x.Description);
-                    break;
+                    break;                
                 case "RegistrationDate":
                     OrderByProperty(x => x.RegistrationDate);
                     break;

@@ -140,9 +140,12 @@ namespace Independiente.DataAccess.Repositories
             {
                 using (var context = new IndependienteEntities())
                 {
-                    // cambio
-                    var creditPolicyForSearch = context.CreditPolicy.Where(c => c.Status == query.Status)
-                       .ToList();
+                    var creditPolicyForSearch = context.CreditPolicy
+                        .Where(predicate)
+                        .OrderBy(x => x.RegistrationDate)
+                        .Skip((query.PageNumber - 1) * query.PageSize)
+                        .Take(query.PageSize)
+                        .ToList();
 
                     if (creditPolicyForSearch != null)
                     {

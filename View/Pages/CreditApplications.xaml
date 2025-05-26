@@ -318,7 +318,7 @@
                                    HorizontalAlignment="Right"
                                    VerticalAlignment="Top"
                                    Foreground="Gray">
-    <Run Text="{Binding Pagination.TotalItems}" />
+                            <Run Text="{Binding Pagination.TotalItems}" />
                             <Run Text="{x:Static p:Resources.ResultsLabelGlobal}" />
 
 
