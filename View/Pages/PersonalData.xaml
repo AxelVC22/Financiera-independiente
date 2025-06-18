@@ -201,6 +201,7 @@
                                  TextWrapping="Wrap"
                                  MinWidth="150"
                                  Width="300"
+                                 MaxLength="13"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
                                  CharacterCasing="Upper"
@@ -215,6 +216,7 @@
                                  TextWrapping="Wrap"
                                  MinWidth="150"
                                  Width="300"
+                                 MaxLength="18"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
                                  Tag="{x:Static p:Resources.CURPPlaceHolderGlobal}"
@@ -242,6 +244,7 @@
                                  TextWrapping="Wrap"
                                  MinWidth="150"
                                  Width="300"
+                                 MaxLength="10"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
                                  Tag="{x:Static 
@@ -257,6 +260,7 @@
                                  TextWrapping="Wrap"
                                  MinWidth="150"
                                  Width="300"
+                                 MaxLength="10"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
                                  Tag="{x:Static p:Resources.PhoneNumberPlaceHolderGlobal}" />

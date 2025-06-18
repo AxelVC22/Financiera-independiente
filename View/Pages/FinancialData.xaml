@@ -135,6 +135,7 @@
                                  TextWrapping="Wrap"
                                  MinWidth="150"
                                  Width="300"
+                                 MaxLength="18"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
                                  Tag="{x:Static p:Resources.InterBankCLABEPlaceHolderGlobal}" />
@@ -146,20 +147,17 @@
                                FontWeight="Bold" />
 
                         <ComboBox 
-                                  Tag="{x:Static p:Resources.BankPlaceHolderGlobal}"
-                                  Style="{StaticResource CustomComboBoxStyle}"
-                                  MinWidth="150"
-                                  Width="300"
-                                  HorizontalAlignment="Left"
-                                  VerticalAlignment="Center"
-                                  ItemsSource="{Binding BanksList}"
-                                  SelectedItem="{Binding DepositAccount.Bank, Mode=TwoWay}">
+                            ItemsSource="{Binding BanksList}"
+                            SelectedItem="{Binding DepositBank, Mode=TwoWay}"
+                            Tag="{x:Static p:Resources.BankPlaceHolderGlobal}"
+                            Style="{StaticResource CustomComboBoxStyle}"
+                            MinWidth="150"
+                            Width="300"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            DisplayMemberPath="Name"
+                            SelectedValuePath="BankId">
                         </ComboBox>
-
-
-
-
-
 
 
                         <Label Content="{x:Static p:Resources.BankChargeAccountLabelGlobal}"
@@ -179,6 +177,7 @@
                                  TextWrapping="Wrap"
                                  MinWidth="150"
                                  Width="300"
+                                 MaxLength="18"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
                                  Tag="{x:Static p:Resources.InterBankCLABEPlaceHolderGlobal}" />
@@ -189,7 +188,7 @@
                                FontWeight="Bold" />
                         <ComboBox 
                                   ItemsSource="{Binding BanksList}"
-                                  SelectedItem="{Binding ChargeAccount.Bank, Mode=TwoWay}"
+                                  SelectedItem="{Binding ChargeBank, Mode=TwoWay}"
                                   Tag="{x:Static p:Resources.BankPlaceHolderGlobal}"
                                   Style="{StaticResource CustomComboBoxStyle}"
                                   MinWidth="150"

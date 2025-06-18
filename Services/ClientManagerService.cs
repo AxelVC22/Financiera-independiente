@@ -20,13 +20,21 @@ namespace Independiente.Services
 
         bool ValidateReference(Model.Reference reference);
 
-        bool IsRFCRegistered(string RFC, out string message);
+        bool ValidateWorkCenter(Model.WorkCenter workCenter);
+
+        bool IsRFCRegistered(string RFC, int currentPersonalDataId, out string message);
 
         bool IsValidAge(DateTime birthDate, out string message);
 
         bool IsPhoneNumberRepeated(string phoneNumber, string alternativePhoneNumber, out string message);
 
         int AddClient(Model.Client client);
+
+        (string message, Model.PersonalData personalData) UpdatePersonalData(Model.PersonalData personalData);
+
+        (string message, Model.AddressData addressData) UpdateAddressData(Model.AddressData addressData);
+
+        (string message, Model.Account depositAccount, Model.Account paymentAccount) UpdateAccounts(Model.Account depositAccount, Model.Account paymentAccount);
     }
 
     public class ClientManagerService : IClientManagementService
@@ -34,8 +42,6 @@ namespace Independiente.Services
         public List<Model.Client> GetAllClientsByEmployeeId(int employeeId)
         {
             List<Model.Client> clients = new List<Model.Client>();
-            Console.WriteLine("EmployeeId: " + employeeId);
-
             using (var context = new IndependienteEntities())
             {
                 var Clients = context.ClientView.Where(client => client.EmployeeId == employeeId).ToList();
@@ -50,13 +56,13 @@ namespace Independiente.Services
 
         }
 
-        public bool IsRFCRegistered(string RFC, out string message)
+        public bool IsRFCRegistered(string RFC, int currentPersonalDataId, out string message)
         {
             message = null;
             bool validation = false;
             using (var context = new IndependienteEntities())
             {
-                if (context.PersonalData.Any(personalData => personalData.RFC == RFC))
+                if (context.PersonalData.Any(pd => pd.RFC == RFC && pd.PersonalDataId != currentPersonalDataId))
                 {
                     message = Messages.RFCRegisteredMessage;
                     validation = true;
@@ -75,7 +81,8 @@ namespace Independiente.Services
                    FieldValidator.IsValidCURP(personalData.CURP) &&
                    FieldValidator.IsValidPhoneNumber(personalData.PhoneNumber) &&
                    FieldValidator.IsValidPhoneNumber(personalData.AlternativePhoneNumber) &&
-                   FieldValidator.IsValidEmail(personalData.Email);
+                   FieldValidator.IsValidEmail(personalData.Email) &&
+                   FieldValidator.IsValidDate(personalData.BirthDate);
         }
 
         public bool ValidateAddressData(Model.AddressData addressData)
@@ -91,6 +98,14 @@ namespace Independiente.Services
                 FieldValidator.IsValidSurname(reference.FullLastName) &&
                 FieldValidator.IsValidEmail(reference.Email) &&
                 FieldValidator.IsValidPhoneNumber(reference.PhoneNumber);
+        }
+
+        public bool ValidateWorkCenter(Model.WorkCenter workCenter)
+        {
+            return FieldValidator.IsValidName(workCenter.Name) &&
+                FieldValidator.IsValidRole(workCenter.Role) &&
+                FieldValidator.IsValidMoney(workCenter.MontlyIncome) &&
+                FieldValidator.IsValidDate(workCenter.HiringDate);
         }
 
         public bool IsValidAge(DateTime birthDate, out string message)
@@ -140,6 +155,83 @@ namespace Independiente.Services
             success = clientRepository.AddClient(ClientMapper.ToDataModel(client));
 
             return success;
+        }
+
+        public (string message, Model.PersonalData personalData) UpdatePersonalData(Model.PersonalData personalData)
+        {
+            int success = 0;
+            string message = null;
+            Model.PersonalData updatedPersonalData = null;
+
+            IClientRepository clientRepository = new ClientRepository();
+            (success, updatedPersonalData) = clientRepository.UpdatePersonalData(personalData);
+
+            message = GetUpdateMessage(success);
+
+            return (message, updatedPersonalData);
+        }
+
+        public (string message, Model.AddressData addressData) UpdateAddressData(Model.AddressData addressData)
+        {
+            int success = 0;
+            string message = null;
+            Model.AddressData updatedAddressData = null;
+
+            IClientRepository clientRepository = new ClientRepository();
+            (success, updatedAddressData) = clientRepository.UpdateAddressData(addressData);
+            message = GetUpdateMessage(success);
+            return (message, updatedAddressData);
+        }
+
+        public (string message, Model.Account depositAccount, Model.Account paymentAccount) UpdateAccounts(Model.Account depositAccount, Model.Account paymentAccount)
+        {
+            int successDeposit = 0;
+            int successPayment = 0;
+            string message = string.Empty;
+            Model.Account updatedDeposit = null;
+            Model.Account updatedPayment = null;
+            IClientRepository clientRepository = new ClientRepository();
+
+            if (depositAccount?.AccountId > 0)
+            {
+                (successDeposit, updatedDeposit) = clientRepository.UpdateAccount(depositAccount);
+            }
+
+            if (paymentAccount?.AccountId > 0)
+            {
+                (successPayment, updatedPayment) = clientRepository.UpdateAccount(paymentAccount);
+            }
+
+            if (successDeposit == -1 || successPayment == -1)
+            {
+                message = GetUpdateMessage(-1);
+            }
+            else if (successDeposit == 0 && successPayment == 0)
+            {
+                message = GetUpdateMessage(0);
+            }
+            else
+            {
+                message = GetUpdateMessage(successDeposit);
+            }
+
+            return (message, updatedDeposit ?? depositAccount, updatedPayment ?? paymentAccount);
+        }
+
+
+        private string GetUpdateMessage(int result)
+        {
+            switch (result)
+            {
+                case -1:
+                    return "Error en la base de datos";
+                case 0:
+                    return "";
+                case 1:
+                    return "Datos actualizados exitosamente";
+                default:
+                    return $"Se actualizaron {result} registros";
+            }
         }
     }
 }

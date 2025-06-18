@@ -17,6 +17,7 @@ namespace Independiente.DataAccess
         public string Street { get; set; }
         public string State { get; set; }
         public string Neighborhood { get; set; }
+        public string City { get; set; }
         public int ClientId { get; set; }
         public string ClientName { get; set; }
         public string ClientLastname { get; set; }
@@ -25,6 +26,7 @@ namespace Independiente.DataAccess
         public string RFC { get; set; }
         public string CURP { get; set; }
         public string ClientPhoneNumber { get; set; }
+        public string AlternativePhoneNumber { get; set; }
         public string ClientEmail { get; set; }
         public string FirstReferenceName { get; set; }
         public string FirstReferenceLastname { get; set; }
@@ -52,6 +54,9 @@ namespace Independiente.DataAccess
         public int DepositBank { get; set; }
         public string PaymentCLABE { get; set; }
         public int PaymentBank { get; set; }
-        public string City { get; set; }
+        public string DepositBankName { get; set; }
+        public string DepositBankStatus { get; set; }
+        public string PaymentBankName { get; set; }
+        public string PaymentBankStatus { get; set; }
     }
 }

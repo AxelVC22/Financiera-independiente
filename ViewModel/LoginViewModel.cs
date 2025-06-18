@@ -33,7 +33,7 @@ namespace Independiente.ViewModel
 
 
         public LoginViewModel()
-        {
+        {       
             LoginCommand = new RelayCommand(Login, CanLogin);
             ShowPasswordCommand = new RelayCommand(ShowPassword, CanLogin);
             HidePasswordCommand = new RelayCommand(HidePassword, CanLogin);
@@ -42,10 +42,10 @@ namespace Independiente.ViewModel
 
         private void Login(object obj)
         {
-            //var (success, message) = App.SessionService.AuthEmployee(EmailAddress, Password);
+            var (success, message) = App.SessionService.AuthEmployee(EmailAddress, Password);
 
-            //if (success)
-            //{
+            if (success)
+            {
                 IsLoginSuccessful = true;
                 RequestClose?.Invoke(this, EventArgs.Empty);
             }

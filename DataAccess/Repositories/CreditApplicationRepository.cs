@@ -162,11 +162,11 @@ namespace Independiente.DataAccess.Repositories
                         Status = creditApplication.Status,
                         ClientId = creditApplication.ClientId,
                         PromotionalOfferId = creditApplication.PromotionalOfferId,
-                        File = new File
+                        File = new DataAccess.File
                         {
-                            ClientId = creditApplication.File.ClientId,
+                            ClientId = creditApplication.ClientId,
                             Type = creditApplication.File.Type,
-                            File1 = creditApplication.File.File1
+                            File1 = creditApplication.File.File1,
                         }
 
                     };

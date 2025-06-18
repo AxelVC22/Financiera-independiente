@@ -186,4 +186,16 @@
   <data name="SentReportMessage" xml:space="preserve">
     <value>El dictamen ha sido enviado correctamente</value>
   </data>
+  <data name="InvalidMoneyMessage" xml:space="preserve">
+    <value>Ingrese una cantidad de dinero valida. No numeros negativos, 2 digitos decimales y solo digitos numericos.</value>
+  </data>
+  <data name="InvalidRoleMessage" xml:space="preserve">
+    <value>El puesto solo debe contener letras (A-Z, áéíóú, ñ, ü) y espacios/apóstrofes. Además debe tener una longitud mínima de 2 caracteres y máximo 50.</value>
+  </data>
+  <data name="InvalidDateMessage" xml:space="preserve">
+    <value>Ingrese una fecha valida</value>
+  </data>
+  <data name="ClientRegistrationError" xml:space="preserve">
+    <value>Error al registrar al cliente. Intente de nuevo mas tarde.</value>
+  </data>
 </root>

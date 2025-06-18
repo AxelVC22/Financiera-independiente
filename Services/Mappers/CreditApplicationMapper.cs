@@ -19,12 +19,18 @@ namespace Independiente.Services.Mappers
             {
                 creditApplication = new DataAccess.CreditApplication
                 {
-                    CreditApplicationId = source.CreditApplicationId,
+                    //CreditApplicationId = source.CreditApplicationId,
                     LoanAmount = (decimal)source.LoanAmount,
                     LoanApplicationDate = source.LoanApplicationDate,
                     Status = source.Status.ToString(),
-                    Client = source?.Client != null ? ClientMapper.ToDataModel(source.Client) : null,
-                    PromotionalOffer = source?.PromotionalOffer != null ? PromotionalOfferMapper.ToDataModel(source.PromotionalOffer) : null,
+                    ClientId = source.Client.ClientId,
+                    PromotionalOfferId = source.PromotionalOffer.PromotionalOfferId,
+                    File = new DataAccess.File
+                    {
+                        ClientId = source.Client.ClientId,
+                        Type = source.File.FileType.ToString(),
+                        File1 = source.File.FileContent
+                    }
                 };
             }
 

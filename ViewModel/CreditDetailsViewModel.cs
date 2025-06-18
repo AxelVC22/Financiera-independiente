@@ -83,7 +83,6 @@ namespace Independiente.ViewModel
 
             _clientManagementService = clientManagementService;
             CreditApplication = new CreditApplication();
-            CreditApplication.LoanApplicationDate = DateTime.Now;
             _dialogService = dialogService;
             _navigationService = navigationService;
             _filePickerService = new FilePickerService();
@@ -91,6 +90,8 @@ namespace Independiente.ViewModel
             _creditApplicationGeneratorService = creditApplicationGeneratorService;
             _client = client;
             SwitchMode(mode);
+
+            CreditApplication.LoanApplicationDate = DateTime.Now;
             //LoadPaymentFrecuencies();
 
         }
@@ -267,28 +268,40 @@ namespace Independiente.ViewModel
 
         private void Next(object obj)
         {
-            if (INEPath != null 
-                && ProofOfAddressPath != null 
-                && AccountStatementCoverPagePath != null 
-                && CreditApplicationPath != null)
+            try
             {
-                _client.Employee = App.SessionService.CurrentUser.EmployeeId;
-                if (_clientManagementService.AddClient(_client) > 0)
+                if (INEPath != null
+                    && ProofOfAddressPath != null
+                    && AccountStatementCoverPagePath != null
+                    && CreditApplicationPath != null
+                    && FieldValidator.IsValidMoney(CreditApplication.LoanAmount))
                 {
-                    CreditApplication.PromotionalOffer = SelectedPromotion;
-                    CreditApplication.Client = _client;
-                    CreditApplication.File = new Model.File
-                    {
-                        FileType = FileType.CA,
-                        FileContent = System.IO.File.ReadAllBytes(CreditApplicationPath),
-                        Client = _client
-                    };
-                    _navigationService.NavigateTo<EmployeeAndClientConsultationViewModel>();
+                    _client.Employee = App.SessionService.CurrentUser.EmployeeId;
+                    _client.ClientId = _clientManagementService.AddClient(_client);
+                    if (_client.ClientId > 0)
+                    { 
+                        CreditApplication.PromotionalOffer = SelectedPromotion;
+                        CreditApplication.Client = _client;
+                        CreditApplication.File = new Model.File
+                        {
+                            FileType = FileType.CA,
+                            FileContent = System.IO.File.ReadAllBytes(CreditApplicationPath),
+                            Client = _client
+                        };
+                        if (_creditApplicationService.AddCreditApplication(CreditApplication) > 0)
+                        {
+                            _navigationService.NavigateTo<EmployeeAndClientConsultationViewModel>();
+                        }                        
+                    }
+                }
+                else
+                {
+                    _dialogService.Dismiss(Properties.Messages.IncompleteDocumentationMessage, System.Windows.MessageBoxImage.Information);
                 }
             }
-            else
+            catch (ArgumentException exception)
             {
-                _dialogService.Dismiss(Properties.Messages.IncompleteDocumentationMessage, System.Windows.MessageBoxImage.Information);
+                _dialogService.Dismiss(exception.Message, System.Windows.MessageBoxImage.Exclamation);
             }
         }
 

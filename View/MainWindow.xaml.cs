@@ -51,7 +51,6 @@ namespace Independiente
         public ICatalogService CatalogService { get; private set; }
         public IPromotionalOfferService PromotionalOfferService { get; set; }
         public IPromotionalOfferRepository PromotionalOfferRepository { get; set; }
-        public Client Client { get; private set; }
 
         public Model.Client Client { get; private set; }
 
@@ -78,6 +77,9 @@ namespace Independiente
             AmortizationScheduleService = new AmortizationScheduleService(AmortizationScheduleRepository);
             PaymentService = new PaymentService(PaymentRepository);
             CreditPolicyService = new CreditPolicyService(CreditPolicyRepository);
+            PromotionalOfferRepository = new PromotionalOfferRepository();
+            PromotionalOfferService = new PromotionalOfferService(PromotionalOfferRepository);
+            CreditApplicationGeneratorService = new CreditApplicationGeneratorService();
 
             NavigationService = new FrameNavigationService(
                 PageFrame,
