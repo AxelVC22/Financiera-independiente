@@ -77,6 +77,9 @@ namespace Independiente
             AmortizationScheduleService = new AmortizationScheduleService(AmortizationScheduleRepository);
             PaymentService = new PaymentService(PaymentRepository);
             CreditPolicyService = new CreditPolicyService(CreditPolicyRepository);
+            PromotionalOfferRepository = new PromotionalOfferRepository();
+            PromotionalOfferService = new PromotionalOfferService(PromotionalOfferRepository);
+            CreditApplicationGeneratorService = new CreditApplicationGeneratorService();
 
             NavigationService = new FrameNavigationService(
                 PageFrame,

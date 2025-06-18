@@ -1,4 +1,5 @@
-﻿using Independiente.Services;
+﻿using Independiente.DataAccess.Repositories;
+using Independiente.Services;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,6 +15,14 @@ namespace Independiente
     /// </summary>
     public partial class App : Application
     {
-        public static SessionService SessionService = new SessionService();
+        public static SessionService SessionService;
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            IUserRepository userRepository = new UserRepository();
+            SessionService = new SessionService(userRepository);
+        }
     }
 }

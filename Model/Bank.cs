@@ -84,5 +84,19 @@ namespace Independiente.Model
         {
             return Name;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Bank otherBank)
+            {
+                return this.BankId == otherBank.BankId;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return BankId.GetHashCode();
+        }
     }
 }

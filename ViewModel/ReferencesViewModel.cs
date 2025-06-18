@@ -88,7 +88,8 @@ namespace Independiente.ViewModel
             try
             {
                 if (_clientManagementService.ValidateReference(FirstReference) &&
-                        _clientManagementService.ValidateReference(SecondReference))
+                        _clientManagementService.ValidateReference(SecondReference) &&
+                        _clientManagementService.ValidateWorkCenter(WorkCenter))
                 {
                     validation = true;
                 }

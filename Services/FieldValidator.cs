@@ -21,6 +21,7 @@ namespace Independiente.Services
         private const string NeighborhoodRegex = @"^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ0-9\s\-\.\,]+$";
         private const string CityRegex = @"^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s\-]+$";
         private const string CLABERegex = @"^\d{18}$";
+        private const string MoneyRegex = @"^\d+(\.\d{1,2})?$";
 
         public static bool IsValidPassword(string password)
         {
@@ -124,6 +125,33 @@ namespace Independiente.Services
             return true;
         }
 
+        public static bool IsValidMoney(decimal? money)
+        {
+            if (!money.HasValue || money.Value <= 0 || money.Value >= 1000000 || money == null)
+            {
+                throw new ArgumentException(Messages.InvalidMoneyMessage);
+            }
+
+            return true;
+        }
+
+        public static bool IsValidRole(string role)
+        {
+            if (string.IsNullOrEmpty(role) || !Regex.IsMatch(role, NameRegex))
+            {
+                throw new ArgumentException(Messages.InvalidRoleMessage);
+            }
+            return true;
+        }
+
+        public static bool IsValidDate(DateTime? date)
+        {
+            if (!date.HasValue || date.Value > DateTime.Now)
+            {
+                throw new ArgumentException(Messages.InvalidDateMessage);
+            }
+            return true;
+        }
     }
 }
 

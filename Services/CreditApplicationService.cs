@@ -274,10 +274,10 @@ namespace Independiente.Services
             switch (paymentFrequency.ToLower())
             {
                 case "quincenal":
-                    return (termInYears * 24, TimeSpan.FromDays(15)); 
+                    return (termInYears * 24, TimeSpan.FromDays(15));
                 case "mensual":
                 default:
-                    return (termInYears * 12, TimeSpan.FromDays(30)); 
+                    return (termInYears * 12, TimeSpan.FromDays(30));
             }
         }
 

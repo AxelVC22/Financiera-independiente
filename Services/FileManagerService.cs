@@ -10,8 +10,6 @@ namespace Independiente.Services
     public interface IFilePickerService
     {
         string PickFile();
-
-
         string SaveFile(string defaultFileName);
         string SelectPath();
     }

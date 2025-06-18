@@ -33,7 +33,7 @@ namespace Independiente.ViewModel
 
 
         public LoginViewModel()
-        {
+        {       
             LoginCommand = new RelayCommand(Login, CanLogin);
             ShowPasswordCommand = new RelayCommand(ShowPassword, CanLogin);
             HidePasswordCommand = new RelayCommand(HidePassword, CanLogin);
