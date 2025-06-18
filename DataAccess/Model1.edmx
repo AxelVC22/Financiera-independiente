@@ -1078,20 +1078,12 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
           <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="ActualAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-<<<<<<< HEAD
           <Property Name="RegistrationDate" Type="DateTime" Nullable="false" Precision="3" />
-=======
-          <Property Name="RegistrationDate" Type="DateTime" Nullable="false" Precision="0" />
->>>>>>> f568a5bed656a25741bd745082a5d087572d9732
           <Property Name="BankId" Type="Int32" Nullable="false" />
           <Property Name="TotalCredits" Type="Int32" Nullable="false" />
           <Property Name="ActualCredits" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-<<<<<<< HEAD
           <Property Name="UploadDate" Type="DateTime" Precision="3" />
-=======
-          <Property Name="UploadDate" Type="DateTime" Precision="0" />
->>>>>>> f568a5bed656a25741bd745082a5d087572d9732
           <NavigationProperty Name="Bank" Relationship="Self.Payment_Bank" FromRole="Payment" ToRole="Bank" />
           <NavigationProperty Name="Employee" Relationship="Self.Payment_Employee" FromRole="Payment" ToRole="Employee" />
         </EntityType>

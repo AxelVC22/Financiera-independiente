@@ -177,15 +177,7 @@
     <Compile Include="DataAccess\Repositories\EmployeeRepository.cs" />
     <Compile Include="DataAccess\Repositories\PaymentRepository.cs" />
     <Compile Include="DataAccess\Repositories\PromotionalOfferRepository.cs" />
-    <Compile Include="DataAccess\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataAccess\sp_helpdiagrams_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataAccess\sysdiagrams.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
+    <Compile Include="DataAccess\Repositories\UserRepository.cs" />
     <Compile Include="DataAccess\User.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
