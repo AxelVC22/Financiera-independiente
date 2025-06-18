@@ -25,6 +25,8 @@ namespace Independiente.DataAccess.Repositories
 
         public int PageCount { get; set; } = 1;
 
+        public int PageNumber { get; set; }
+
         public string Name
         {
             get => _name;
@@ -37,11 +39,7 @@ namespace Independiente.DataAccess.Repositories
                 }
             }
         }
-
-
-        public DateTime RegistrationDate { get; set; } = DateTime.Now;
-        public int PageNumber { get; set; }
-
+                
         public string Status
         {
             get => _status;

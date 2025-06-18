@@ -34,9 +34,13 @@ namespace Independiente.Services
         }
         private bool ValidateQuery(CreditPolicyQuery query)
         {
-           // FieldValidatr.IsValidName(query.Name);
+            if (!string.IsNullOrEmpty(query.Name))
+            {
+                FieldValidator.IsValidName(query.Name);
+            }            
             return true;
         }
+        
         public int CountCreditPolicies(CreditPolicyQuery query)
         {
             int total = 0;
@@ -83,8 +87,16 @@ namespace Independiente.Services
 
             if (creditPolicy != null)
             {
-                id = _creditPolicyRepository.AddCreditPolicy(CreditPolicyMapper.ToDataModel(creditPolicy));
-
+                CreditPolicyQuery query = new CreditPolicyQuery();
+                query.Name = creditPolicy.Name;
+                if (CountCreditPolicies(query) == 0)
+                {
+                    id = _creditPolicyRepository.AddCreditPolicy(CreditPolicyMapper.ToDataModel(creditPolicy));
+                }
+                else
+                {
+                    // Nombre duplicado
+                }
             }
             return id;
         }
@@ -95,7 +107,16 @@ namespace Independiente.Services
 
             if (creditPolicy != null)
             {
-                affectedRows = _creditPolicyRepository.UpdateCreditPolicy(CreditPolicyMapper.ToDataModel(creditPolicy));
+                CreditPolicyQuery query = new CreditPolicyQuery();
+                query.Name = creditPolicy.Name;
+                if (CountCreditPolicies(query) == 0)
+                {
+                    affectedRows = _creditPolicyRepository.UpdateCreditPolicy(CreditPolicyMapper.ToDataModel(creditPolicy));
+                } 
+                else
+                {
+                    // Nombre duplicado
+                }
             }
             return affectedRows;
         }

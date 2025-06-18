@@ -25,11 +25,8 @@ namespace Independiente.Services.Mappers
                     Status = source.Status.ToString(),
                 };
             }
-
             return creditPolicy;
         }
-
-
 
         public static Model.CreditPolicy ToViewModel(this DataAccess.CreditPolicy source)
         {
@@ -48,7 +45,6 @@ namespace Independiente.Services.Mappers
                     Status  = (CreditPolicyStates)Enum.Parse(typeof(CreditPolicyStates), source.Status)
                 };
             }
-
             return creditPolicy;
         }
     }

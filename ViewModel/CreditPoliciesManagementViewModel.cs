@@ -21,7 +21,7 @@ namespace Independiente.ViewModel
         public PaginationViewModelBase Pagination { get; }
         public ObservableCollection<CreditPolicy> CreditPoliciesList { get; set; } = new ObservableCollection<CreditPolicy>();
 
-        public CreditPolicy _selectedCreditPolicy;
+        public CreditPolicy _selectedCreditPolicy;        
         public CreditPolicyQuery Query { get; set; } = new CreditPolicyQuery();
 
         private ICreditPolicyService _service;
@@ -91,6 +91,16 @@ namespace Independiente.ViewModel
 
             _selectedCreditPolicy = new CreditPolicy();            
         }
+        private void Save(object obj)
+        {
+            if (_service.AddCreditPolicy(_selectedCreditPolicy) > 0)
+            {
+                // mensaje de exito y clear a la ventana de registro
+            } else
+            {
+                // Mensaje de falla y nose
+            }
+        }
 
         private void Edit(object obj)
         {
@@ -101,15 +111,7 @@ namespace Independiente.ViewModel
         {
             _selectedCreditPolicy.IsEditable = false;
         }
-
-        private void Save(object obj)
-        {
-            if (obj is CreditPolicy creditPolicy)
-            {
-                creditPolicy.IsEditable = false;
-            }
-        }
-
+        
         private bool CanDoIt(object obj)
         {
             return true;
@@ -122,9 +124,7 @@ namespace Independiente.ViewModel
 
         private void Restore(object obj)
         {
-            Query.Name = null;
-            //Query.Status = null;
-            //Query.Validity = null;
+            Query.Name = null;            
 
             SelectedStateFilter = StateFilterOptions.First();
             SelectedValidityFilter = ValidityFilterOptions.First();
@@ -273,7 +273,5 @@ namespace Independiente.ViewModel
                 OnPropertyChanged(nameof(SelectedValidityFilter));
             }
         }
-
-
     }
 }
