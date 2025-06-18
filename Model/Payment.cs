@@ -14,7 +14,8 @@ namespace Independiente.Model
     {
         Pending,
         Completed,
-        Failed
+        Failed,
+        InProgress
     }
 
     public class Payment : INotifyPropertyChanged

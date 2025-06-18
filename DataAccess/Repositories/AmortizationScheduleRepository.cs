@@ -39,7 +39,7 @@ namespace Independiente.DataAccess.Repositories
         {
             return c =>
           (string.IsNullOrEmpty(Status) || c.Status == Status) &&
-          (CreditApplicaitonId == 0 || c.CreditId == CreditApplicaitonId);
+          (c.CreditId == CreditApplicaitonId);
         }
     }
 

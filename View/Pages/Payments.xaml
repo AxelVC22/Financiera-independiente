@@ -377,7 +377,7 @@
                                                             Margin="4"
                                                             HorizontalAlignment="Center"
                                                             VerticalAlignment="Center"
-                                                            Command="{Binding ElementName=PaymentsPage , Path=DataContext.CheckCommand}"
+                                                            Command="{Binding ElementName=PaymentsPage , Path=DataContext.SaveCommand}"
                                                             CommandParameter="{Binding}"
                                                             IsEnabled="{Binding IsUploadEnabled}" />
                                                 </DataTemplate>

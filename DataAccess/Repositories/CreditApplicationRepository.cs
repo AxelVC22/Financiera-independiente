@@ -179,11 +179,11 @@ namespace Independiente.DataAccess.Repositories
             {
                 throw DbExceptionHandler.Handle(ex);
             }
-           
+
             return id;
         }
 
-       
+
         public CreditApplication GetCreditApplication(int creditApplicationId)
         {
             CreditApplication creditApplication = new CreditApplication();

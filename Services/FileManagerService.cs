@@ -10,6 +10,11 @@ namespace Independiente.Services
     public interface IFilePickerService
     {
         string PickFile();
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> f568a5bed656a25741bd745082a5d087572d9732
         string SaveFile(string defaultFileName);
         string SelectPath();
     }
@@ -19,6 +24,7 @@ namespace Independiente.Services
         public string PickFile()
         {
             var openFileDialog = new Microsoft.Win32.OpenFileDialog();
+
             if (openFileDialog.ShowDialog() == true)
             {
                 return openFileDialog.FileName; 
@@ -41,6 +47,26 @@ namespace Independiente.Services
             }
             return null;
         }
+<<<<<<< HEAD
+=======
+
+        public string saveCSV(string defaultFileName)
+        {
+            var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+            {
+                FileName = defaultFileName,
+                Filter = "Archivos PDF (*.pdf)|*.pdf",
+                DefaultExt = System.IO.Path.GetExtension(defaultFileName)
+            };
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                return saveFileDialog.FileName;
+            }
+            return null;
+        }
+
+>>>>>>> f568a5bed656a25741bd745082a5d087572d9732
         public string SelectPath()
         {
             using (var dialog = new System.Windows.Forms.FolderBrowserDialog())

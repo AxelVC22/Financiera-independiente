@@ -1,4 +1,4 @@
-﻿using Independiente.DataAccess;
+using Independiente.DataAccess;
 using Independiente.DataAccess.Repositories;
 using Independiente.Model;
 using Independiente.Services.Mappers;

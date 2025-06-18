@@ -58,7 +58,9 @@
     <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreditApplication.cs" />
+    <Compile Include="Repository\AmortizationSchedule.cs" />
+    <Compile Include="Repository\CreditApplication.cs" />
+    <Compile Include="Repository\Payment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
