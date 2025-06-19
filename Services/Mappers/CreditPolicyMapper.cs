@@ -17,7 +17,7 @@ namespace Independiente.Services.Mappers
             {
                 creditPolicy = new DataAccess.CreditPolicy
                 {
-                    CreditPolicyId = source.CredditPolicyId,
+                    CreditPolicyId = source.CreditPolicyId,
                     Description = source.Description,
                     EndDate = source.EndDate,
                     RegistrationDate = source.RegistrationDate,
@@ -40,7 +40,7 @@ namespace Independiente.Services.Mappers
                     RegistrationDate= source.RegistrationDate,
                     EndDate= source.EndDate,
                     Name = source.Name,
-                    CredditPolicyId = source.CreditPolicyId,
+                    CreditPolicyId = source.CreditPolicyId,
                     IsEditable = false,
                     Status  = (CreditPolicyStates)Enum.Parse(typeof(CreditPolicyStates), source.Status)
                 };

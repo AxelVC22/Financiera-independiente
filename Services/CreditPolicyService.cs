@@ -2,6 +2,7 @@
 using Independiente.DataAccess.Repositories;
 using Independiente.Model;
 using Independiente.Services.Mappers;
+using Org.BouncyCastle.Tls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,11 +92,18 @@ namespace Independiente.Services
                 query.Name = creditPolicy.Name;
                 if (CountCreditPolicies(query) == 0)
                 {
-                    id = _creditPolicyRepository.AddCreditPolicy(CreditPolicyMapper.ToDataModel(creditPolicy));
+                    if (AreDatesValid(creditPolicy))
+                    {
+                        id = _creditPolicyRepository.AddCreditPolicy(CreditPolicyMapper.ToDataModel(creditPolicy));
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Las fechas ingresadas no son válidas. La fecha de inicio debe ser igual o posterior a hoy, y la fecha de fin debe ser posterior a la de inicio.");
+                    }
                 }
                 else
                 {
-                    // Nombre duplicado
+                    throw new ArgumentException("El nombre de la política de crédito ya está en uso. Verifique e ingrese un nombre diferente.");
                 }
             }
             return id;
@@ -107,15 +115,22 @@ namespace Independiente.Services
 
             if (creditPolicy != null)
             {
-                CreditPolicyQuery query = new CreditPolicyQuery();
-                query.Name = creditPolicy.Name;
-                if (CountCreditPolicies(query) == 0)
+                var matches = _creditPolicyRepository.GetCreditPolicyByName(creditPolicy.Name);
+                bool isDuplicateNameUsedByAnother = matches.Any(p => p.CreditPolicyId != creditPolicy.CreditPolicyId);
+                if (!isDuplicateNameUsedByAnother)
                 {
-                    affectedRows = _creditPolicyRepository.UpdateCreditPolicy(CreditPolicyMapper.ToDataModel(creditPolicy));
-                } 
+                    if (AreDatesValid(creditPolicy))
+                    {
+                        affectedRows = _creditPolicyRepository.UpdateCreditPolicy(CreditPolicyMapper.ToDataModel(creditPolicy));
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Las fechas ingresadas no son válidas. La fecha de inicio debe ser igual o posterior a hoy, y la fecha de fin debe ser posterior a la de inicio.");
+                    }
+                }
                 else
                 {
-                    // Nombre duplicado
+                    throw new ArgumentException("El nombre de la política de crédito ya está en uso. Verifique e ingrese un nombre diferente.");
                 }
             }
             return affectedRows;
@@ -130,6 +145,24 @@ namespace Independiente.Services
                 result = _creditPolicyRepository.DeleteCreditPolicy(CreditPolicyMapper.ToDataModel(creditPolicy));
             }
             return result;
+        }
+
+        private bool AreDatesValid(Independiente.Model.CreditPolicy creditPolicy)
+        {
+            DateTime? startDate = creditPolicy.RegistrationDate;
+            DateTime? endDate = creditPolicy.EndDate;
+         
+            if (!startDate.HasValue || !endDate.HasValue)
+                return false;
+
+            DateTime today = DateTime.Today;            
+            if (startDate.Value.Date < today)
+                return false;
+
+            if (endDate.Value.Date <= startDate.Value.Date)
+                return false;
+
+            return true;
         }
     }
 }

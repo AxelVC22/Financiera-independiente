@@ -10,7 +10,7 @@
       mc:Ignorable="d"
       d:DesignHeight="1000"
       d:DesignWidth="1500"
-      Title="PersonalData">
+      x:Name="CreditPoliciesPage">
 
     <Page.DataContext>
         <vm:CreditPoliciesManagementViewModel />
@@ -23,6 +23,7 @@
             </ResourceDictionary.MergedDictionaries>
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <conv:DateTimeToStringConverter  x:Key="DateTimeToStringConverter " />
+            <conv:BoolToFontWeightConverter x:Key="BoolToFontWeightConverter" />
 
         </ResourceDictionary>
     </Page.Resources>
@@ -68,9 +69,10 @@
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
                                  Tag="{x:Static p:Resources.SearchCreditPolicyByNameGlobal}"
-                                 CharacterCasing="Upper" />
+                                 CharacterCasing="Upper" 
+                                 Text="{Binding Query.Name, Mode=TwoWay}"/>
 
-                        <Button x:Name="HidePasswordButton"
+                        <Button x:Name="SearchButton"
                                 Style="{DynamicResource IconButtonStyle}"
                                 Tag="{DynamicResource SearchIcon}"
                                 Foreground="{StaticResource IconBlackColor}"
@@ -79,7 +81,8 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Margin="150,0"
-                                Panel.ZIndex="2" />
+                                Panel.ZIndex="2"
+                                Command="{Binding SearchCommand}"/>
 
                         <ComboBox x:Name="StatusComboBox"
                                   Width="100"
@@ -89,7 +92,10 @@
                                   FontWeight="Bold"
                                   Foreground="Black"
                                   Margin="320,0,0,0"
-                                  Height="24" />
+                                  Height="24"
+                                  ItemsSource="{Binding StateFilterOptions}"                                                                  
+                                  SelectedItem="{Binding SelectedStateFilter, Mode=TwoWay}"
+                                  DisplayMemberPath="Key" />
                     </Grid>
 
 
@@ -149,13 +155,13 @@
                                                     <Button Content="{x:Static p:Resources.NameLabelGlobal}"
                                                             Style="{StaticResource HeaderButtonStyle}"
                                                             Command="{Binding OrderByCommand}"
-                                                            CommandParameter="FullName" />
+                                                            CommandParameter="Name" />
                                                 </Grid>
 
                                             </GridViewColumn.Header>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding Client.PersonalData.FullName}" />
+                                                    <TextBlock Text="{Binding Name}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
@@ -166,13 +172,13 @@
                                                     <Button Content="{x:Static p:Resources.StartDateLabelGlobal}"
                                                             Style="{StaticResource HeaderButtonStyle}"
                                                             Command="{Binding OrderByCommand}"
-                                                            CommandParameter="LoanAmount" />
+                                                            CommandParameter="RegistrationDate" />
                                                 </Grid>
 
                                             </GridViewColumn.Header>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding LoanAmount}" />
+                                                    <TextBlock Text="{Binding RegistrationDate}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
@@ -183,13 +189,13 @@
                                                     <Button Content="{x:Static p:Resources.EndDateLabelGlobal}"
                                                             Style="{StaticResource HeaderButtonStyle}"
                                                             Command="{Binding OrderByCommand}"
-                                                            CommandParameter="LoanAmountDate" />
+                                                            CommandParameter="EndDate" />
                                                 </Grid>
 
                                             </GridViewColumn.Header>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding LoanApplicationDate}" />
+                                                    <TextBlock Text="{Binding EndDate}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
@@ -278,7 +284,7 @@
                                                                     Style="{StaticResource PaginationButtonStyle}"
                                                                     Margin="2"
                                                                     FontWeight="{Binding IsCurrent, Converter={StaticResource BoolToFontWeightConverter}}"
-                                                                    Command="{Binding ElementName=CreditApplicationsPage , Path=DataContext.GoToPageCommand}"
+                                                                    Command="{Binding ElementName=CreditPoliciesPage , Path=DataContext.GoToPageCommand}"
                                                                     CommandParameter="{Binding}" />
 
                                                         </Setter.Value>
@@ -325,7 +331,7 @@
                                         Command="{Binding EditCommand}"
                                         Margin="10"
                                         HorizontalAlignment="Right"
-                                        Visibility="{Binding SelectedCreditPolicy.IsEditable, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}"
+                                        Visibility="{Binding IsEditButtonVisible, Converter={StaticResource BoolToVisibilityConverter}}"
                                         VerticalAlignment="Top" />
                                 <Button Width="18"
                                         Height="18"
@@ -335,20 +341,20 @@
                                         Foreground="{StaticResource IconBlackColor}"
                                         Margin="10"
                                         HorizontalAlignment="Right"
-                                        Command="{Binding CancelCommand}"
-                                        Visibility="{Binding SelectedCreditPolicy.IsEditable, Converter={StaticResource BoolToVisibilityConverter}}"
+                                        Command="{Binding CancelEditCommand}"
+                                        Visibility="{Binding IsCancelEditButtonVisible, Converter={StaticResource BoolToVisibilityConverter}}"
                                         VerticalAlignment="Top" />
-                                <Button x:Name="SaveButton"
+                                <Button x:Name="SaveChangesButton"
                                         Width="18"
                                         Height="18"
                                         Style="{StaticResource IconButtonStyle}"
                                         Tag="{DynamicResource SaveIcon}"
                                         Foreground="{StaticResource IconBlueColor}"
                                         Margin="0,10,40,0"
-                                        Command="{Binding SaveCommand}"
+                                        Command="{Binding SaveChangesCommand}"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Top"
-                                        Visibility="{Binding SelectedCreditPolicy.IsEditable, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                        Visibility="{Binding IsSaveChangesButtonVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
 
 
                                 <ComboBox Width="100"
@@ -363,7 +369,7 @@
                                           Height="20"
                                           ItemsSource="{Binding StatesList}"
                                           IsEnabled="{Binding SelectedCreditPolicy.IsEditable}"
-                                          VerticalAlignment="Top"
+                                          VerticalAlignment="Top"                                          
                                           Cursor="" />
 
 
@@ -395,7 +401,7 @@
                                        HorizontalAlignment="Left" />
                                 <TextBox Width="340"
                                          Text="{Binding SelectedCreditPolicy.Description}"
-                                         Tag="{x:Static p:Resources.NameLabelGlobal}"
+                                         Tag="{x:Static p:Resources.DescriptionLabelGlobal}"
                                          HorizontalAlignment="Left"
                                          FontSize="10"
                                          Foreground="Black"
@@ -468,14 +474,33 @@
                                         Margin="0,440,10,0"
                                         Width="400"
                                         Height="30">
+                                    
                                     <Button Content="{x:Static p:Resources.AddButtonGlobal}"
                                             Style="{DynamicResource MainButtonStyle}"
                                             Width="400"
                                             Height="30"
-                                            HorizontalAlignment="Right"
                                             Command="{Binding RegisterCommand}"
-                                            Margin="0,0,0,0" />
+                                            Visibility="{Binding IsAddButtonVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+                                            Canvas.Left="0"
+                                            Canvas.Top="0" />
                                     
+                                    <Button Content="{x:Static p:Resources.CancelButtonGlobal}"
+                                            Style="{DynamicResource DismissButtonStyle}"
+                                            Width="200"
+                                            Height="30"
+                                            Command="{Binding CancelCommand}"
+                                            Visibility="{Binding IsCancelButtonVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+                                            Canvas.Left="0"
+                                            Canvas.Top="0" />
+                                    
+                                    <Button Content="{x:Static p:Resources.SaveButtonGlobal}"
+                                            Style="{DynamicResource MainButtonStyle}"
+                                            Width="200"
+                                            Height="30"
+                                            Command="{Binding SaveCommand}"
+                                            Visibility="{Binding IsSaveButtonVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+                                            Canvas.Left="200"
+                                            Canvas.Top="0" />
                                 </Canvas>
 
                             </Grid>

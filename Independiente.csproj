@@ -177,6 +177,7 @@
     <Compile Include="DataAccess\Repositories\EmployeeRepository.cs" />
     <Compile Include="DataAccess\Repositories\PaymentRepository.cs" />
     <Compile Include="DataAccess\Repositories\PromotionalOfferRepository.cs" />
+    <Compile Include="DataAccess\Repositories\UserRepository.cs" />
     <Compile Include="DataAccess\User.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -205,10 +206,14 @@
     <Compile Include="Properties\PaymentFrecuencies.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Messages.resx</DependentUpon>
+      <DependentUpon>PaymentFrecuencies.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\PaymentFrecuencies.Designer.cs" />
-    <Compile Include="Properties\Relationships.Designer.cs" />
+    <Compile Include="Properties\Relationships.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Relationships.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\States.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

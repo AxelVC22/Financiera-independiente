@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Independiente.Model;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -95,6 +96,8 @@ namespace Independiente.DataAccess.Repositories
 
         CreditPolicy GetCreditPolicy(int creditPolicyId);
 
+        List<CreditPolicy> GetCreditPolicyByName(string name);
+
         int AddCreditPolicy(CreditPolicy creditPolicy);
 
         int UpdateCreditPolicy(CreditPolicy creditPolicy);
@@ -153,9 +156,11 @@ namespace Independiente.DataAccess.Repositories
             }
             catch (DbUpdateException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
             catch (EntityException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return creditPolicies;
@@ -179,12 +184,24 @@ namespace Independiente.DataAccess.Repositories
             }
             catch (DbUpdateException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
             catch (EntityException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return creditPolicy;
+        }
+
+        public List<CreditPolicy> GetCreditPolicyByName(string name)
+        {
+            using (var context = new IndependienteEntities())
+            {
+                return context.CreditPolicy
+                              .Where(c => c.Name == name)
+                              .ToList();
+            }
         }
 
         public int AddCreditPolicy(CreditPolicy creditPolicy)
@@ -211,9 +228,11 @@ namespace Independiente.DataAccess.Repositories
             }
             catch (DbUpdateException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
             catch (EntityException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
             return id;
         }
@@ -241,10 +260,12 @@ namespace Independiente.DataAccess.Repositories
                 }
             }
             catch (DbUpdateException ex)
-            {                
+            {
+                throw DbExceptionHandler.Handle(ex);
             }
             catch (EntityException ex)
-            {                
+            {
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return affectedRows;
@@ -284,10 +305,11 @@ namespace Independiente.DataAccess.Repositories
             }
             catch (DbUpdateException ex)
             {
-
+                throw DbExceptionHandler.Handle(ex);
             }
             catch (EntityException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
             return result;
         }

@@ -207,10 +207,17 @@ namespace Independiente
                         );
                         return new Payments(viewModel);
                     }
+                    else if (viewModelType == typeof(CreditPoliciesManagementViewModel))
+                    {
+                        var viewModel = new CreditPoliciesManagementViewModel(
+                            dialogService, NavigationService, CreditPolicyService
+                        );
+                        return new CreditPoliciesManagement(viewModel);
+                    }
                     throw new ArgumentException("ViewModel desconocido");
                 });
 
-            NavigationService.NavigateTo<PaymentsViewModel>();
+            NavigationService.NavigateTo<CreditPoliciesManagementViewModel>();
 
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(dialogService);
             this.DataContext = mainWindowViewModel;

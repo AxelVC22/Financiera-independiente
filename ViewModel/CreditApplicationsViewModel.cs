@@ -91,7 +91,7 @@ namespace Independiente.ViewModel
             Search(null);
 
         }
-
+        
         private bool CanDoIt(object obj)
         {
             return true;
