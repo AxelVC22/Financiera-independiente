@@ -119,8 +119,6 @@ namespace Independiente.Services
 
             }
 
-
-
             return creditApplications1;
         }
 
@@ -170,6 +168,11 @@ namespace Independiente.Services
 
             List<DataAccess.AmortizationSchedule> amortizationScheduleList = new List<DataAccess.AmortizationSchedule>();
 
+            if (string.IsNullOrEmpty(report.Notes))
+            {
+                throw new ArgumentException("Se necesita ingresar una nota de observaciones para la validación");
+            }
+            
 
             if (report != null)
             {

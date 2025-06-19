@@ -13,9 +13,11 @@ namespace Independiente.Services
 {
     public sealed class SessionService
     {
-        public static SessionService Innstance { get; private set; }
-        public Model.User CurrentUser { get; private set; }
-        private readonly IUserRepository _userRepository;
+        private static readonly Lazy<SessionService> _instance = new Lazy<SessionService>(() => new SessionService());
+
+        public static SessionService Instance => _instance.Value;
+
+        public Model.User CurrentUser { get;  set; }
 
         public SessionService(IUserRepository userRepository)
         {

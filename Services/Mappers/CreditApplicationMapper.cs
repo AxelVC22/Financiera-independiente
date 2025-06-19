@@ -19,8 +19,10 @@ namespace Independiente.Services.Mappers
             {
                 creditApplication = new DataAccess.CreditApplication
                 {
-                    //CreditApplicationId = source.CreditApplicationId,
-                    LoanAmount = (decimal)source.LoanAmount,
+                    CreditApplicationId = source.CreditApplicationId,
+                    LoanAmount = source.LoanAmount.HasValue
+                    ? source.LoanAmount.Value
+                    : 0m,
                     LoanApplicationDate = source.LoanApplicationDate,
                     Status = source.Status.ToString(),
                     ClientId = source.Client.ClientId,
@@ -31,6 +33,27 @@ namespace Independiente.Services.Mappers
                         Type = source.File.FileType.ToString(),
                         File1 = source.File.FileContent
                     }
+                };
+            }
+
+            return creditApplication;
+        }
+
+        public static DataAccess.CreditApplication ToDataModelWithoutClient(this Model.CreditApplication source)
+        {
+            DataAccess.CreditApplication creditApplication = new DataAccess.CreditApplication();
+
+            if (source != null)
+            {
+                creditApplication = new DataAccess.CreditApplication
+                {
+                    CreditApplicationId = source.CreditApplicationId,
+                    LoanAmount = source.LoanAmount.HasValue
+                    ? source.LoanAmount.Value
+                    : 0m,
+                    LoanApplicationDate = source.LoanApplicationDate,
+                    Status = source.Status.ToString(),
+                    PromotionalOffer = source?.PromotionalOffer != null ? PromotionalOfferMapper.ToDataModel(source.PromotionalOffer) : null,
                 };
             }
 

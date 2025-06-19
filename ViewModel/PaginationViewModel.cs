@@ -55,7 +55,7 @@ namespace Independiente.ViewModel
                 Refresh();                                          
             }
         }
-        public int PageSize { get; set; } = 2;
+        public int PageSize { get; set; } = 15;
 
         int _totalItems;
 

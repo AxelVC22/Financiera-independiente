@@ -22,6 +22,8 @@
                 <ResourceDictionary Source="pack://application:,,,/View/ViewResources/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <conv:BoolToFontWeightConverter x:Key="BoolToFontWeightConverter" />
+            <conv:CreditApplicationStateToSpanishConverter x:Key="StateToSpanishConverter" />
+            <conv:DateOnlyConverter x:Key="DateOnlyConverter" />
 
         </ResourceDictionary>
     </Page.Resources>
@@ -38,13 +40,7 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Button Style="{DynamicResource IconButtonStyle}"
-                Tag="{DynamicResource BackIcon}"
-                Foreground="{StaticResource IconBlackColor}"
-                Margin="0,7,7,7"
-                Command="{Binding GoBackCommand}"
-                Grid.Column="1" />
-
+       
 
         <ScrollViewer Grid.Column="2"
                       Grid.Row="1"
@@ -62,7 +58,8 @@
                         HorizontalAlignment="Stretch">
                     <StackPanel Width="1000"
                                 Orientation="Horizontal"
-                                HorizontalAlignment="Left">
+                                HorizontalAlignment="Left"
+                                Cursor="Hand">
 
                         <TextBox Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  Margin="10,0,0,0"
@@ -192,10 +189,27 @@
 
                                 <ListView.View>
                                     <GridView>
+                                        <GridViewColumn Width="100">
+                                            <GridViewColumn.Header>
+                                                <Grid HorizontalAlignment="Stretch">
+                                                    <Button Content="Folio"
+                                                            Style="{StaticResource HeaderButtonStyle}"
+                                                            Command="{Binding OrderByCommand}"
+                                                            CommandParameter="Id" />
+                                                </Grid>
+
+                                            </GridViewColumn.Header>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding CreditApplicationId}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+
                                         <GridViewColumn Width="300">
                                             <GridViewColumn.Header>
                                                 <Grid HorizontalAlignment="Stretch">
-                                                    <Button Content="{x:Static p:Resources.NameLabelGlobal}"
+                                                    <Button Content="Nombre de cliente"
                                                             Style="{StaticResource HeaderButtonStyle}"
                                                             Command="{Binding OrderByCommand}"
                                                             CommandParameter="FullName" />
@@ -247,7 +261,7 @@
                                         <GridViewColumn Width="190">
                                             <GridViewColumn.Header>
                                                 <Grid HorizontalAlignment="Stretch">
-                                                    <Button Content="{x:Static p:Resources.LoanAmountLabelGlobal}"
+                                                    <Button Content="Fecha de solicitud"
                                                             Style="{StaticResource HeaderButtonStyle}"
                                                             Command="{Binding OrderByCommand}"
                                                             CommandParameter="LoanAmountDate" />
@@ -256,7 +270,7 @@
                                             </GridViewColumn.Header>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding LoanApplicationDate}" />
+                                                    <TextBlock Text="{Binding LoanApplicationDate, Converter={StaticResource DateOnlyConverter}}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
@@ -274,12 +288,12 @@
                                             </GridViewColumn.Header>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding Status}" />
+                                                    <TextBlock Text="{Binding Status, Converter={StaticResource StateToSpanishConverter}}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
 
-                                        <GridViewColumn Width="150">
+                                        <GridViewColumn Width="100">
                                             <GridViewColumn.Header>
                                                 <Grid HorizontalAlignment="Stretch">
                                                     <Label> ... </Label>
