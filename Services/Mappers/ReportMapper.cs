@@ -28,7 +28,7 @@ namespace Independiente.Services.Mappers
                     CreditApplicationId = source.CreditApplication.CreditApplicationId,
                     ReviewingDate = source.ReviewingDate,
                     Notes = source.Notes,
-                    CreditApplication = CreditApplicationMapper.ToDataModel(source.CreditApplication),
+                    CreditApplication = CreditApplicationMapper.ToDataModelWithoutClient(source.CreditApplication),
                     CreditPolicy = creditPolicies
                 }; 
             }

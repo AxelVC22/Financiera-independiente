@@ -126,12 +126,12 @@
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="ActualAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="RegistrationDate" Type="date" Nullable="false" />
+          <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
           <Property Name="BankId" Type="int" Nullable="false" />
           <Property Name="TotalCredits" Type="int" Nullable="false" />
           <Property Name="ActualCredits" Type="int" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="10" />
-          <Property Name="UploadDate" Type="date" />
+          <Property Name="UploadDate" Type="datetime" />
         </EntityType>
         <EntityType Name="PersonalData">
           <Key>
@@ -146,6 +146,7 @@
           <Property Name="CURP" Type="nvarchar" MaxLength="18" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="AlternativePhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="PromotionalOffer">
           <Key>
@@ -1086,12 +1087,12 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
           <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="ActualAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="RegistrationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RegistrationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="BankId" Type="Int32" Nullable="false" />
           <Property Name="TotalCredits" Type="Int32" Nullable="false" />
           <Property Name="ActualCredits" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="UploadDate" Type="DateTime" Precision="0" />
+          <Property Name="UploadDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Bank" Relationship="Self.Payment_Bank" FromRole="Payment" ToRole="Bank" />
           <NavigationProperty Name="Employee" Relationship="Self.Payment_Employee" FromRole="Payment" ToRole="Employee" />
         </EntityType>
@@ -1108,6 +1109,7 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <Property Name="CURP" Type="String" MaxLength="18" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AlternativePhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Client" Relationship="Self.Client_PersonalData" FromRole="PersonalData" ToRole="Client" />
           <NavigationProperty Name="Employee" Relationship="Self.Employee_PersonalData" FromRole="PersonalData" ToRole="Employee" />
         </EntityType>
@@ -1915,6 +1917,7 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
                 <ScalarProperty Name="CURP" ColumnName="CURP" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AlternativePhoneNumber" ColumnName="AlternativePhoneNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

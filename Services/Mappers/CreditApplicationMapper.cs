@@ -20,10 +20,33 @@ namespace Independiente.Services.Mappers
                 creditApplication = new DataAccess.CreditApplication
                 {
                     CreditApplicationId = source.CreditApplicationId,
-                    LoanAmount = (decimal)source.LoanAmount,
+                    LoanAmount = source.LoanAmount.HasValue
+                    ? source.LoanAmount.Value
+                    : 0m,
                     LoanApplicationDate = source.LoanApplicationDate,
                     Status = source.Status.ToString(),
                     Client = source?.Client != null ? ClientMapper.ToDataModel(source.Client) : null,
+                    PromotionalOffer = source?.PromotionalOffer != null ? PromotionalOfferMapper.ToDataModel(source.PromotionalOffer) : null,
+                };
+            }
+
+            return creditApplication;
+        }
+
+        public static DataAccess.CreditApplication ToDataModelWithoutClient(this Model.CreditApplication source)
+        {
+            DataAccess.CreditApplication creditApplication = new DataAccess.CreditApplication();
+
+            if (source != null)
+            {
+                creditApplication = new DataAccess.CreditApplication
+                {
+                    CreditApplicationId = source.CreditApplicationId,
+                    LoanAmount = source.LoanAmount.HasValue
+                    ? source.LoanAmount.Value
+                    : 0m,
+                    LoanApplicationDate = source.LoanApplicationDate,
+                    Status = source.Status.ToString(),
                     PromotionalOffer = source?.PromotionalOffer != null ? PromotionalOfferMapper.ToDataModel(source.PromotionalOffer) : null,
                 };
             }

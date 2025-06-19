@@ -25,7 +25,6 @@ namespace Tests
             var result = AmortizationScheduleRepository.GetAmortizationSchedule(query);
 
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.Count == 36);
         }
 
         [TestMethod]

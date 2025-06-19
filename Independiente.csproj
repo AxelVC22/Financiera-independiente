@@ -85,6 +85,8 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Converters\BoolToFontWeightConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter .cs" />
+    <Compile Include="Converters\CreditApplicationStateToSpanishConverter.cs" />
+    <Compile Include="Converters\DateOnlyConverter.cs" />
     <Compile Include="Converters\DateTimeToStringConverter .cs" />
     <Compile Include="Converters\EmptyStringToVisibilityConverter.cs" />
     <Compile Include="Converters\NullToBooleanConverter.cs" />

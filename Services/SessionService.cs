@@ -15,7 +15,7 @@ namespace Independiente.Services
 
         public static SessionService Instance => _instance.Value;
 
-        public Model.User CurrentUser { get; private set; }
+        public Model.User CurrentUser { get;  set; }
 
         public SessionService()
         {

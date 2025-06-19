@@ -188,6 +188,9 @@ namespace Independiente.ViewModel
         {
             switch (param as string)
             {
+                case "Id":
+                    OrderByProperty(x => x.CreditApplicationId);
+                    break;
                 case "FullName":
                     OrderByProperty(x => x.Client.PersonalData.FullName);
                     break;
