@@ -22,9 +22,14 @@ namespace Independiente.Services.Mappers
                     HireDate = source.HireDate,
                     Department = source.Department,
                     Status = source.Status.ToString(),
-                    PersonalData = source?.PersonalData != null ? PersonalDataMapper.ToDataModel(source.PersonalData) : null,
-                    AddressData = source?.AddressData != null ? AddressDataMapper.ToDataModel(source.AddressData) : null,
-                    //User = source?.User != null ? UserMapper.ToDataModel(source.User) : null, TODO
+                    PersonalData = source.PersonalData != null ? PersonalDataMapper.ToDataModel(source.PersonalData) : null,
+                    AddressData = source.AddressData != null ? AddressDataMapper.ToDataModel(source.AddressData) : null,
+                    User = source.User != null ? new DataAccess.User
+                    {
+                        UserId = source.User.Id,
+                        Role = source.User.UserRole.ToString(), // enum a string
+                        Password = source.User.Password
+                    } : null
                 };
             }
             return employee;
@@ -72,18 +77,21 @@ namespace Independiente.Services.Mappers
                         RFC = source.RFC,
                         CURP = source.CURP,
                         PhoneNumber = source.PhoneNumber,
-                        Email = source.Email
+                        Email = source.Email,
+                        AlternativePhoneNumber = source.AlternativePhoneNumber,
                     },
                     AddressData = new Independiente.Model.AddressData
                     {
                         Street = source.Street,
                         State = source.State,
-                        NeighborHood = source.Neighborhood
+                        NeighborHood = source.Neighborhood,
+                        City = source.City,
                     },
                     User = new Independiente.Model.User
                     {
                         Role = source.Role,
-                        Password = source.Password,                        
+                        Password = source.Password,
+                        UserRole = (UserRole)Enum.Parse(typeof(UserRole), source.Role)
                     }
                 };
             }

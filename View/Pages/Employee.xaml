@@ -1,4 +1,4 @@
-﻿<Page x:Class="Independiente.View.Pages.PersonalData"
+﻿<Page x:Class="Independiente.View.Pages.Employee"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -8,12 +8,12 @@
       xmlns:vm="clr-namespace:Independiente.ViewModel"
       xmlns:conv="clr-namespace:Independiente.Converters"
       mc:Ignorable="d"
-      d:DesignHeight="450"
-      d:DesignWidth="800"
+      d:DesignHeight="850"
+      d:DesignWidth="1200"
       Title="PersonalData">
 
     <Page.DataContext>
-        <vm:PersonalDataViewModel />
+        <vm:EmployeeViewModel />
     </Page.DataContext>
 
     <Page.Resources>
@@ -23,6 +23,9 @@
             </ResourceDictionary.MergedDictionaries>
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <conv:DateTimeToStringConverter  x:Key="DateTimeToStringConverter " />
+
+            <conv:UserRoleToSpanishConverter x:Key="RoleConverter" />
+
 
         </ResourceDictionary>
     </Page.Resources>
@@ -112,10 +115,11 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="10" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0"
-                                VerticalAlignment="Stretch" >
+                                VerticalAlignment="Stretch">
                         <Label Content="{x:Static p:Resources.PersonalDataLabelGlobal}"
                                Foreground="Black"
                                HorizontalAlignment="Left"
@@ -129,7 +133,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding Person.PersonalData.Name, Mode=TwoWay}"
+                        <TextBox Text="{Binding Employee.PersonalData.Name, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -143,7 +147,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding Person.PersonalData.LastName, Mode=TwoWay}"
+                        <TextBox Text="{Binding Employee.PersonalData.LastName, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -157,7 +161,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding Person.PersonalData.Surname, Mode=TwoWay}"
+                        <TextBox Text="{Binding Employee.PersonalData.Surname, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -177,7 +181,7 @@
                                     BorderThickness="1"
                                     BorderBrush="Gray"
                                     Background="White">
-                                <DatePicker SelectedDate="{Binding Person.PersonalData.BirthDate, Mode=TwoWay}"
+                                <DatePicker SelectedDate="{Binding Employee.PersonalData.BirthDate, Mode=TwoWay}"
                                             Width="300"
                                             SelectedDateFormat="Short"
                                             FontSize="10"
@@ -196,7 +200,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding Person.PersonalData.RFC, Mode=TwoWay}"
+                        <TextBox Text="{Binding Employee.PersonalData.RFC, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -211,7 +215,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding Person.PersonalData.CURP, Mode=TwoWay}"
+                        <TextBox Text="{Binding Employee.PersonalData.CURP, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -220,6 +224,22 @@
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
                                  Tag="{x:Static p:Resources.CURPPlaceHolderGlobal}"
+                                 CharacterCasing="Upper" />
+
+                        <Label Content="NSS"
+                               Foreground="Black"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               FontWeight="Bold" />
+                        <TextBox Text="{Binding Employee.NSS, Mode=TwoWay}"
+                                 Style="{StaticResource TextBoxWithPlaceholderStyle}"
+                                 TextWrapping="Wrap"
+                                 MinWidth="150"
+                                 Width="300"
+                                 MaxLength="18"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Center"
+                                 Tag="12345678901"
                                  CharacterCasing="Upper" />
 
 
@@ -239,7 +259,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding Person.PersonalData.PhoneNumber, Mode=TwoWay}"
+                        <TextBox Text="{Binding Employee.PersonalData.PhoneNumber, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -255,7 +275,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding Person.PersonalData.AlternativePhoneNumber, Mode=TwoWay}"
+                        <TextBox Text="{Binding Employee.PersonalData.AlternativePhoneNumber, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -270,7 +290,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding Person.PersonalData.Email, Mode=TwoWay}"
+                        <TextBox Text="{Binding Employee.PersonalData.Email, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -296,7 +316,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding Person.AddressData.Street, Mode=TwoWay}"
+                        <TextBox Text="{Binding Employee.AddressData.Street, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -311,7 +331,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding Person.AddressData.NeighborHood, Mode=TwoWay}"
+                        <TextBox Text="{Binding Employee.AddressData.NeighborHood, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -326,7 +346,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding Person.AddressData.City, Mode=TwoWay}"
+                        <TextBox Text="{Binding Employee.AddressData.City, Mode=TwoWay}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
@@ -346,9 +366,73 @@
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Center"
                                   ItemsSource="{Binding StatesList}"
-                                  SelectedItem="{Binding Person.AddressData.State, Mode=TwoWay}">
+                                  SelectedItem="{Binding Employee.AddressData.State, Mode=TwoWay}">
                         </ComboBox>
 
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="3"
+                                VerticalAlignment="Stretch"
+                                Margin="10,0">
+                        <Label Content="Datos de usuario"
+                               Foreground="Black"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               FontWeight="Black"
+                               Margin="0,10,0,10" />
+
+
+                        <Label Content="Rol"
+                               Foreground="Black"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               FontWeight="Bold" />
+
+                        <ComboBox ItemsSource="{Binding Roles}"
+                                  Style="{StaticResource CustomComboBoxStyle}"
+                                  SelectedItem="{Binding Employee.User.UserRole, Mode=TwoWay}"
+                                  MinWidth="150"
+                                  Width="300"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Center">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource RoleConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <Label Content="Departamento"
+                               Foreground="Black"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               FontWeight="Bold" />
+                        <TextBox Text="{Binding Employee.Department, Mode=TwoWay}"
+                                 Style="{StaticResource TextBoxWithPlaceholderStyle}"
+                                 TextWrapping="Wrap"
+                                 MinWidth="150"
+                                 Width="300"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Center"
+                                 Tag="Cajas" />
+
+                        <Label Content="Contraseña"
+                               Foreground="Black"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               FontWeight="Bold"
+                                />
+                      
+                       
+                        <PasswordBox x:Name="PasswordPasswordBox"
+                                     Width="300"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Center"
+                                     Style="{StaticResource PasswordBoxWithPlaceholderStyle}"
+                                     PasswordChanged="PasswordPasswordBox_PasswordChanged"
+                                     Tag="Contraseña"
+                                     />
 
 
                     </StackPanel>
@@ -356,6 +440,8 @@
 
             </StackPanel>
         </ScrollViewer>
+        
+        
         <Canvas x:Name="ReadOnlyModeCanvas"
                 Grid.Column="1"
                 Grid.Row="1"
@@ -366,13 +452,13 @@
                 Height="30"
                 Visibility="{Binding IsReadOnlyMode, Converter={StaticResource BoolToVisibilityConverter}}">
 
-            <Button Content="{x:Static p:Resources.NextButtonGlobal}"
+            <Button Content="{x:Static p:Resources.SaveButtonGlobal}"
                     Style="{DynamicResource MainButtonStyle}"
                     Width="135"
                     Height="30"
                     HorizontalAlignment="Right"
-                    Command="{Binding NextCommand}"
-                    Margin="160,0,0,0" />
+                    Command="{Binding RegisterCommand}"
+                    Visibility="{Binding IsRegistrationMode, Converter={StaticResource BoolToVisibilityConverter}}" />
 
             <Canvas x:Name="ViewModeCanvas"
                     Visibility="{Binding IsViewMode, Converter={StaticResource BoolToVisibilityConverter}}">
@@ -382,6 +468,8 @@
                         Height="30"
                         HorizontalAlignment="Right"
                         Command="{Binding EditCommand}" />
+
+              
             </Canvas>
         </Canvas>
 

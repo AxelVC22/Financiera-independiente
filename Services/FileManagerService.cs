@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,10 +11,10 @@ namespace Independiente.Services
     public interface IFilePickerService
     {
         string PickFile();
-
-
         string SaveFile(string defaultFileName);
         string SelectPath();
+        bool SaveFileFromBytes(byte[] fileContent, string defaultFileName);
+        bool SaveFileFromBytesToPath(byte[] fileContent, string filePath); 
     }
 
     public class FilePickerService : IFilePickerService
@@ -75,6 +76,40 @@ namespace Independiente.Services
                 }
 
                 return null;
+            }
+        }
+
+        public bool SaveFileFromBytes(byte[] fileContent, string defaultFileName)
+        {
+            if (fileContent == null || fileContent.Length == 0)
+                return false;
+
+            string filePath = SaveFile(defaultFileName);
+            if (string.IsNullOrEmpty(filePath))
+                return false;
+
+            return SaveFileFromBytesToPath(fileContent, filePath);
+        }
+
+        public bool SaveFileFromBytesToPath(byte[] fileContent, string filePath)
+        {
+            try
+            {
+                if (fileContent == null || fileContent.Length == 0)
+                    return false;
+
+                string directory = Path.GetDirectoryName(filePath);
+                if (!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+
+                File.WriteAllBytes(filePath, fileContent);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
 

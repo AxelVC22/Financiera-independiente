@@ -100,6 +100,8 @@ namespace Independiente.ViewModel
             IsAccepted = (creditApplication.Status == CreditApplicationStates.Accepted) ? true : false;
             IsRejected = (creditApplication.Status == CreditApplicationStates.Rejected) ? true : false;
 
+
+            
             try
             {
                 if (!IsEditable)
@@ -114,6 +116,11 @@ namespace Independiente.ViewModel
             catch (InvalidOperationException ex)
             {
                 _dialogService.Dismiss(ex.Message, MessageBoxImage.Error);
+            }
+
+            if (App.SessionService.CurrentUser.UserRole != UserRole.Analyst)
+            {
+                IsEditable = false;
             }
         }
 

@@ -23,7 +23,7 @@
             </ResourceDictionary.MergedDictionaries>
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <conv:DateTimeToStringConverter  x:Key="DateTimeToStringConverter " />
-
+            <conv:DecimalNullableConverter x:Key="DecimalNullableConverter"  />
         </ResourceDictionary>
     </Page.Resources>
 
@@ -179,6 +179,7 @@
                                  TextWrapping="Wrap"
                                  MinWidth="150"
                                  Width="300"
+                                 MaxLength="10"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
                                  Tag="{x:Static p:Resources.PhoneNumberPlaceHolderGlobal}" />
@@ -214,7 +215,7 @@
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
-                                 Width="300"
+                                 Width="300"                                 
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
                                  Tag="{x:Static p:Resources.NamePlaceHolderGlobal}" />
@@ -260,6 +261,7 @@
                                  TextWrapping="Wrap"
                                  MinWidth="150"
                                  Width="300"
+                                 MaxLength="10"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
                                  Tag="{x:Static p:Resources.PhoneNumberPlaceHolderGlobal}" />
@@ -345,14 +347,12 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding WorkCenter.MontlyIncome, Mode=TwoWay}"
+                        <TextBox Text="{Binding WorkCenter.MontlyIncome, Mode=TwoWay, Converter={StaticResource DecimalNullableConverter}}"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
-                                 TextWrapping="Wrap"
-                                 MinWidth="150"
+                                 Tag="{x:Static p:Resources.MoneyPlaceHolderGlobal}"
                                  Width="300"
                                  HorizontalAlignment="Left"
-                                 VerticalAlignment="Center"
-                                 Tag="{x:Static p:Resources.MontlyIncomeLabelGlobal}" />
+                                 VerticalAlignment="Center" />
 
                     </StackPanel>
 

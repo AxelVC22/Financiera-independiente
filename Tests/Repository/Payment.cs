@@ -16,6 +16,7 @@ namespace Tests
     public class Payment
     {
         public IPaymentRepository paymentRepository { get; set; } = new Independiente.DataAccess.Repositories.PaymentRepository();
+        public IUserRepository userRepository { get; set; } = new Independiente.DataAccess.Repositories.UserRepository();
 
         [TestMethod]
         public void CountPaymentsSuccess()
@@ -113,7 +114,7 @@ namespace Tests
         [TestMethod]
         public void GetChargesSuccessWithoutStatus()
         {
-            App.SessionService = new Independiente.Services.SessionService();
+            App.SessionService = new Independiente.Services.SessionService(new UserRepository());
             App.SessionService.CurrentUser = new Independiente.Model.User
             {
                 EmployeeId = 3

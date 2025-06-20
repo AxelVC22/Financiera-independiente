@@ -22,7 +22,7 @@
                 <ResourceDictionary Source="pack://application:,,,/View/ViewResources/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-           
+            <conv:DecimalNullableConverter x:Key="DecimalNullableConverter"  />
         </ResourceDictionary>
     </Page.Resources>
 
@@ -129,7 +129,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                FontWeight="Bold" />
-                        <TextBox Text="{Binding CreditApplication.LoanAmount, Mode=TwoWay}"
+                        <TextBox Text="{Binding CreditApplication.LoanAmount, Mode=TwoWay, Converter={StaticResource DecimalNullableConverter}}"
                                  PreviewTextInput="ValidateDecimal"
                                  DataObject.Pasting="ValidatePasting"
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
@@ -152,7 +152,7 @@
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Center"
                                   ItemsSource="{Binding PromotionOffersList}"
-                                  SelectedItem="{Binding CreditApplication.PromotionalOffer, Mode=TwoWay}"
+                                  SelectedItem="{Binding SelectedPromotion, Mode=TwoWay}"
                                   DisplayMemberPath="Description">
                         </ComboBox>
 
@@ -168,7 +168,8 @@
                                   Width="300"
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Center"
-                                  Text="{Binding CreditApplication.PromotionalOffer.PaymenteFrecuency, Mode=TwoWay}">
+                                  Text="{Binding CreditApplication.PromotionalOffer.PaymenteFrecuency, Mode=TwoWay}"
+                                  IsReadOnly="True">
 
                         </TextBox>
 
@@ -186,7 +187,8 @@
                                  Width="300"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
-                                 Tag="{x:Static p:Resources.LoanTermPlaceHolderGlobal}" />
+                                 Tag="{x:Static p:Resources.LoanTermPlaceHolderGlobal}" 
+                                 IsReadOnly="True"/>
 
                         <Label Content="{x:Static p:Resources.InteresRateLabelGlobal}"
                                Foreground="Black"
@@ -202,7 +204,8 @@
                                  Width="300"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
-                                 Tag="{x:Static p:Resources.InteresRatePlaceHolderGlobal}" />
+                                 Tag="{x:Static p:Resources.InteresRatePlaceHolderGlobal}" 
+                                 IsReadOnly="True"/>
 
                     </StackPanel>
 
@@ -360,7 +363,7 @@
                         Style="{DynamicResource SecondaryButtonStyle}"
                         Width="135"
                         Height="30"
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         Command="{Binding EditCommand}" />
             </Canvas>
         </Canvas>

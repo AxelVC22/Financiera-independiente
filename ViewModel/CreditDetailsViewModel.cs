@@ -62,7 +62,7 @@ namespace Independiente.ViewModel
 
         }
 
-        public CreditDetailsViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode, Client client, ICreditApplicationService creditApplicationService, 
+        public CreditDetailsViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode, Client client, ICreditApplicationService creditApplicationService,
             IPromotionalOfferService promotionalOfferService, ICreditApplicationGeneratorService creditApplicationGeneratorService, IClientManagementService clientManagementService)
         {
             _promotionalOfferService = promotionalOfferService;
@@ -83,7 +83,6 @@ namespace Independiente.ViewModel
 
             _clientManagementService = clientManagementService;
             CreditApplication = new CreditApplication();
-            CreditApplication.LoanApplicationDate = DateTime.Now;
             _dialogService = dialogService;
             _navigationService = navigationService;
             _filePickerService = new FilePickerService();
@@ -91,6 +90,8 @@ namespace Independiente.ViewModel
             _creditApplicationGeneratorService = creditApplicationGeneratorService;
             _client = client;
             SwitchMode(mode);
+
+            CreditApplication.LoanApplicationDate = DateTime.Now;
             //LoadPaymentFrecuencies();
 
         }
@@ -226,7 +227,7 @@ namespace Independiente.ViewModel
             else
             {
                 CreditApplicationPath = OpenFile();
-            } 
+            }
 
         }
 
@@ -264,32 +265,62 @@ namespace Independiente.ViewModel
             }
             return folderPath;
         }
-
         private void Next(object obj)
         {
-            if (INEPath != null 
-                && ProofOfAddressPath != null 
-                && AccountStatementCoverPagePath != null 
-                && CreditApplicationPath != null)
+            try
             {
-                _client.Employee = App.SessionService.CurrentUser.EmployeeId;
-                if (_clientManagementService.AddClient(_client) > 0)
+                if (ValidateInput())
                 {
-                    CreditApplication.PromotionalOffer = SelectedPromotion;
-                    CreditApplication.Client = _client;
-                    CreditApplication.File = new Model.File
+                    _client.Employee = App.SessionService.CurrentUser.EmployeeId;
+                    _client.ClientId = _clientManagementService.AddClient(_client);
+
+                    if (_client.ClientId > 0)
                     {
-                        FileType = FileType.CA,
-                        FileContent = System.IO.File.ReadAllBytes(CreditApplicationPath),
-                        Client = _client
-                    };
-                    _navigationService.NavigateTo<EmployeeAndClientConsultationViewModel>();
+                        CreditApplication.PromotionalOffer = SelectedPromotion;
+                        CreditApplication.Client = _client;
+
+                        var files = new List<Model.File>
+                        {
+                            CreateFileModel(INEPath, FileType.INE),
+                            CreateFileModel(ProofOfAddressPath, FileType.POA),
+                            CreateFileModel(AccountStatementCoverPagePath, FileType.ASCP),
+                            CreateFileModel(CreditApplicationPath, FileType.CA)
+                        };
+
+                        var resultId = _creditApplicationService.AddCreditApplicationWithFiles(CreditApplication, files);
+
+                        if (resultId > 0)
+                        {
+                            _navigationService.NavigateTo<EmployeeAndClientConsultationViewModel>();
+                        }
+                    }
+                }
+                else
+                {
+                    _dialogService.Dismiss(Properties.Messages.IncompleteDocumentationMessage, System.Windows.MessageBoxImage.Information);
                 }
             }
-            else
+            catch (ArgumentException ex)
             {
-                _dialogService.Dismiss(Properties.Messages.IncompleteDocumentationMessage, System.Windows.MessageBoxImage.Information);
+                _dialogService.Dismiss(ex.Message, System.Windows.MessageBoxImage.Exclamation);
             }
+        }
+        private Model.File CreateFileModel(string path, FileType fileType)
+        {
+            return new Model.File
+            {
+                FileType = fileType,
+                FileContent = System.IO.File.ReadAllBytes(path),
+                Client = _client
+            };
+        }
+        private bool ValidateInput()
+        {
+            return !string.IsNullOrEmpty(INEPath) &&
+                   !string.IsNullOrEmpty(ProofOfAddressPath) &&
+                   !string.IsNullOrEmpty(AccountStatementCoverPagePath) &&
+                   !string.IsNullOrEmpty(CreditApplicationPath) &&
+                   FieldValidator.IsValidMoney(CreditApplication.LoanAmount);
         }
 
         private void GoBack(object obj)

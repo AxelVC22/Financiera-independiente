@@ -32,6 +32,12 @@ namespace Independiente.Model
 
         private User _user;
 
+        public Employee()
+        {
+            PersonalData = new PersonalData();
+            _addressData = new AddressData();
+            _user = new User();
+        }
         public int EmployeeId
         {
             get => _employeeId;

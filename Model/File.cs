@@ -11,7 +11,8 @@ namespace Independiente.Model
     {
         INE,
         POA,
-        CA
+        CA,
+        ASCP
     }
 
     public class File : INotifyPropertyChanged

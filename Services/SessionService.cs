@@ -1,4 +1,5 @@
 ﻿using Independiente.DataAccess;
+using Independiente.DataAccess.Repositories;
 using Independiente.Model;
 using Independiente.Properties;
 using System;
@@ -6,52 +7,44 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
+using System.Windows.Forms.Design;
 
 namespace Independiente.Services
 {
     public sealed class SessionService
     {
-        private static readonly Lazy<SessionService> _instance = new Lazy<SessionService>(() => new SessionService());
-
-        public static SessionService Instance => _instance.Value;
-
+        public static SessionService Innstance { get; private set; }
         public Model.User CurrentUser { get;  set; }
+        private readonly IUserRepository _userRepository;
 
-        public SessionService()
+        public SessionService(IUserRepository userRepository)
         {
+            _userRepository = userRepository;
             CurrentUser = null;
+            Innstance = this;
         }
 
         public (bool success, string message) AuthEmployee(string email, string password)
         {
             bool auth = false;
             string infoMessage = string.Empty;
+            Model.User tempUser = null;
 
             try
             {
                 if (FieldValidator.IsValidEmail(email) && FieldValidator.IsValidPassword(password))
                 {
-                    using (var context = new IndependienteEntities())
-                    {
-                        var searchedEmployee = context.EmployeeView.FirstOrDefault(
-                            employee => employee.Email == email && employee.Password == password);
 
-                        if (searchedEmployee != null)
-                        {
-                            CurrentUser = new Model.User
-                            {
-                                Id = searchedEmployee.UserId,
-                                EmployeeId = searchedEmployee.EmployeeId,
-                                Name = searchedEmployee.EmployeeName,
-                                Role = searchedEmployee.Role,
-                            };
-                            auth = true;
-                        }
-                        else
-                        {
-                            auth = false;
-                            infoMessage = Messages.CredentialsNotFoundMessage;
-                        }
+                    tempUser = _userRepository.GetUserByEmployeeCredentials(email, password);
+                    if (tempUser != null)
+                    {
+                        CurrentUser = tempUser;
+                        auth = true;
+                    }
+                    else
+                    {
+                        auth = false;
+                        infoMessage = Messages.CredentialsNotFoundMessage;
                     }
                 }
             }
