@@ -179,6 +179,7 @@
                                  TextWrapping="Wrap"
                                  MinWidth="150"
                                  Width="300"
+                                 MaxLength="10"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
                                  Tag="{x:Static p:Resources.PhoneNumberPlaceHolderGlobal}" />
@@ -214,7 +215,7 @@
                                  Style="{StaticResource TextBoxWithPlaceholderStyle}"
                                  TextWrapping="Wrap"
                                  MinWidth="150"
-                                 Width="300"
+                                 Width="300"                                 
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
                                  Tag="{x:Static p:Resources.NamePlaceHolderGlobal}" />
@@ -260,6 +261,7 @@
                                  TextWrapping="Wrap"
                                  MinWidth="150"
                                  Width="300"
+                                 MaxLength="10"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
                                  Tag="{x:Static p:Resources.PhoneNumberPlaceHolderGlobal}" />

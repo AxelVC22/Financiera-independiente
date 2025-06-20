@@ -88,6 +88,7 @@
     <Compile Include="Converters\DateTimeToStringConverter .cs" />
     <Compile Include="Converters\DecimalNullableConverter.cs" />
     <Compile Include="Converters\EmptyStringToVisibilityConverter.cs" />
+    <Compile Include="Converters\InverseBoolConverter.cs" />
     <Compile Include="Converters\NullToBooleanConverter.cs" />
     <Compile Include="Converters\PreviousPageConverter.cs" />
     <Compile Include="DataAccess\Account.cs">

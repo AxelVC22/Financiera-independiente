@@ -22,7 +22,7 @@
                 <ResourceDictionary Source="pack://application:,,,/View/ViewResources/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-            <conv:DecimalNullableConverter x:Key="DecimalNullableConverter"  />           
+            <conv:DecimalNullableConverter x:Key="DecimalNullableConverter"  />
         </ResourceDictionary>
     </Page.Resources>
 

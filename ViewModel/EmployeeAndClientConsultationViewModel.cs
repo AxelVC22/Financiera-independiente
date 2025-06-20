@@ -44,8 +44,6 @@ namespace Independiente.ViewModel
             RegisterCommand = new RelayCommand(Register, CanDoIt);
             _navigationService = navigationService;
             _dialogService = dialogService;
-
-            Console.WriteLine(PeopleList.ToString());
         }
 
         private void ShowSelected(object obj)

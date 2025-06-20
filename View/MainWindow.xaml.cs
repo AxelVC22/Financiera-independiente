@@ -210,7 +210,7 @@ namespace Independiente
                     throw new ArgumentException("ViewModel desconocido");
                 });
 
-            NavigationService.NavigateTo<PaymentsViewModel>();
+            NavigationService.NavigateTo<EmployeeAndClientConsultationViewModel>();
 
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(dialogService);
             this.DataContext = mainWindowViewModel;

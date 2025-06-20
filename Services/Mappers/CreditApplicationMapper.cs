@@ -58,6 +58,25 @@ namespace Independiente.Services.Mappers
             return creditApplication;
         }
 
+        public static Model.CreditApplication ToViewModelWithFile(this DataAccess.CreditApplication source)
+        {
+            if (source == null) return null;
+
+            var creditApplication = new Model.CreditApplication
+            {
+                CreditApplicationId = source.CreditApplicationId,
+                LoanAmount =  (decimal)source.LoanAmount,
+                LoanApplicationDate = source.LoanApplicationDate,
+                Status = (CreditApplicationStates)Enum.Parse(typeof(CreditApplicationStates), source.Status),
+                Client = source.Client != null ? ClientMapper.ToViewModel(source.Client) : null,
+                PromotionalOffer = source.PromotionalOffer != null ? PromotionalOfferMapper.ToViewModel(source.PromotionalOffer) : null,
+                File = source.File != null ? FileMapper.ToViewModel(source.File) : null
+            };
+
+            return creditApplication;
+        }
+
+
         public static Model.CreditApplication ToViewModel(this DataAccess.CreditApplicationListView source)
         {
             Model.CreditApplication creditApplication = new Model.CreditApplication();

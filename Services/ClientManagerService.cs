@@ -35,6 +35,9 @@ namespace Independiente.Services
         (string message, Model.AddressData addressData) UpdateAddressData(Model.AddressData addressData);
 
         (string message, Model.Account depositAccount, Model.Account paymentAccount) UpdateAccounts(Model.Account depositAccount, Model.Account paymentAccount);
+
+        (string message, Model.Reference updatedRef1, Model.Reference updatedRef2, Model.WorkCenter updatedWorkCenter) UpdateReferencesAndWorkCenter(Model.Reference ref1, Model.Reference ref2, Model.WorkCenter workCenter);
+
     }
 
     public class ClientManagerService : IClientManagementService
@@ -216,6 +219,21 @@ namespace Independiente.Services
             }
 
             return (message, updatedDeposit ?? depositAccount, updatedPayment ?? paymentAccount);
+        }
+
+        public (string message, Model.Reference updatedRef1, Model.Reference updatedRef2, Model.WorkCenter updatedWorkCenter) UpdateReferencesAndWorkCenter(Model.Reference ref1, Model.Reference ref2, Model.WorkCenter workCenter)
+        {
+            var repository = new ClientRepository();
+
+            var (result1, updatedRef1, result2, updatedRef2, resultWC, updatedWC) = repository.UpdateReferencesAndWorkCenter(ref1, ref2, workCenter);
+
+            if (result1 == -1 || result2 == -1 || resultWC == -1)
+                return ("Error en la base de datos", null, null, null);
+
+            if (result1 == 0 && result2 == 0 && resultWC == 0)
+                return ("No se realizaron cambios", updatedRef1 ?? ref1, updatedRef2 ?? ref2, updatedWC ?? workCenter);
+
+            return ("Datos actualizados correctamente", updatedRef1 ?? ref1, updatedRef2 ?? ref2, updatedWC ?? workCenter);
         }
 
 
