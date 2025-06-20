@@ -2,6 +2,7 @@
 using Independiente.Services.Mappers;
 using Independiente.View;
 using Independiente.View.Pages;
+using iTextSharp.text;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using static System.Data.Entity.Infrastructure.Design.Executor;
 
 namespace Independiente.DataAccess.Repositories
 {
@@ -131,9 +133,20 @@ namespace Independiente.DataAccess.Repositories
     public class CreditApplicationRepository : ICreditApplicationRepository
     {
 
+        private bool Validate(CreditApplicationQuery query)
+        {
+           
+            if (query.FromDate.HasValue && query.ToDate.HasValue && query.FromDate > query.ToDate)
+                throw new ArgumentException("La fecha inicial no puede ser posterior a la fecha final.");
+
+            return true;
+        }
+
         public int CountCreditApplications(CreditApplicationQuery query)
         {
             int total = 0;
+
+            Validate(query);
 
             var predicate = query.BuildExpression();
 

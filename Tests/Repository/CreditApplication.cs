@@ -31,6 +31,20 @@ namespace Tests
             Assert.AreEqual(1, result);
         }
 
+        [ExpectedException(typeof(ArgumentException))]
+
+        [TestMethod]
+        public void TestCountCreditApplicationsFailNoTQuery()
+        {
+            int result = 0;
+
+            result = CreditApplicationRepository.CountCreditApplications(new CreditApplicationQuery
+            {
+              //nothing
+            });
+
+        }
+
         [TestMethod]
         public void TestCountCreditApplicationsSuccessWithoutRFC()
         {
@@ -132,6 +146,7 @@ namespace Tests
                         FileId = 3,
                         Type = "CA",
                         File1 = new byte[2],
+                        
                     },
                     PromotionalOfferId = 32
 
@@ -142,6 +157,8 @@ namespace Tests
                 var count = CreditApplicationRepository.CountCreditApplications(new CreditApplicationQuery
                 {
                    Status = "Pending",
+                   PageSize=10,
+                    PageNumber = 1
                 });
 
                 Assert.AreEqual(4, count);
@@ -201,6 +218,33 @@ namespace Tests
             }
         }
 
+        [ExpectedException(typeof(InvalidOperationException))]
+        [TestMethod]
+        public void TestAddCreditApplicationFailByNotFindPromotionalOffer()
+        {
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var newApp = new Independiente.DataAccess.CreditApplication
+                {
+                    LoanApplicationDate = DateTime.Now,
+                    LoanAmount = 10000,
+                    Status = "Pending",
+                    ClientId = 3,
+                    File = new Independiente.DataAccess.File
+                    {
+                        ClientId = 0,
+                        FileId = 3,
+                        Type = "CA",
+                        File1 = new byte[2],
+                    },
+                    PromotionalOfferId = 0
+
+                };
+
+                CreditApplicationRepository.AddCreditApplication(newApp);
+            }
+        }
+
         [TestMethod]
         public void TestGetCreditApplicationSuccess()
         {
@@ -220,7 +264,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void TestGetDocumentNotFound()
+        public void TestGetDocumentFailNotFound()
         {
             var result = CreditApplicationRepository.GetDocument(18, "NotFound");
 
@@ -337,9 +381,84 @@ namespace Tests
               
             }
         }
+        [ExpectedException(typeof(InvalidOperationException))]
+
 
         [TestMethod]
-        public void TestSubmitNotFoundApplication()
+        public void TestSubmitAcceptedDecisionFailByNotAmortizationSchedule()
+        {
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var report = new Independiente.DataAccess.Report
+                {
+                    CreditApplicationId = 3,
+                    CreditApplication = new Independiente.DataAccess.CreditApplication
+                    {
+                        CreditApplicationId = 3,
+                        Status = "Accepted"
+                    },
+                    Notes = "nota",
+                    ReviewingDate = DateTime.Now,
+
+                };
+
+                var Amortization = new Independiente.DataAccess.AmortizationSchedule
+                {
+                   //nothing
+                };
+
+                List<Independiente.DataAccess.AmortizationSchedule> list = new List<Independiente.DataAccess.AmortizationSchedule>();
+
+                list.Add(Amortization);
+
+                var result = CreditApplicationRepository.SubmitDecision(report, list);
+                Console.WriteLine(result);
+                Assert.IsTrue(result > 0);
+            }
+        }
+
+        [ExpectedException(typeof(InvalidOperationException))]
+
+
+        [TestMethod]
+        public void TestSubmitAcceptedDecisionFailByNoCreditApplication()
+        {
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var report = new Independiente.DataAccess.Report
+                {
+                    CreditApplicationId = 3,
+                    CreditApplication = new Independiente.DataAccess.CreditApplication
+                    {
+                       //nothing
+                    },
+                    Notes = "nota",
+                    ReviewingDate = DateTime.Now,
+
+                };
+
+                var Amortization = new Independiente.DataAccess.AmortizationSchedule
+                {
+                    PaymentNumber = 1,
+                    PaymentDate = DateTime.Now,
+                    FixedPayment = 1000,
+                    Interest = 0.1m,
+                    OutstandingBalance = 9000,
+                    CreditId = 3,
+                    Status = "Pending"
+                };
+
+                List<Independiente.DataAccess.AmortizationSchedule> list = new List<Independiente.DataAccess.AmortizationSchedule>();
+
+                list.Add(Amortization);
+
+                var result = CreditApplicationRepository.SubmitDecision(report, list);
+                Console.WriteLine(result);
+                Assert.IsTrue(result > 0);
+            }
+        }
+        [TestMethod]
+        public void TestSubmitDecisionSuccessNotFoundApplication()
         {
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
@@ -371,8 +490,75 @@ namespace Tests
                 Assert.AreEqual(0, result);
             }
         }
+        [ExpectedException(typeof(InvalidOperationException))]
 
-       
+        [TestMethod]
+        public void TestSubmitRejectedDecisionFailByNotCreditApplication()
+        {
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var report = new Independiente.DataAccess.Report
+                {
+                    CreditApplicationId = 3,
+                    CreditApplication = new Independiente.DataAccess.CreditApplication
+                    {
+                        //nothing
+                    },
+                    Notes = "nota",
+                    ReviewingDate = DateTime.Now,
+
+                };
+
+                var creditPolicies = new Independiente.DataAccess.CreditPolicy
+                {
+                    Status = "Active",
+                    CreditPolicyId = 3
+                };
+
+                report.CreditPolicy = new HashSet<Independiente.DataAccess.CreditPolicy>
+                {
+                    creditPolicies
+                };
+
+                var result = CreditApplicationRepository.SubmitDecision(report, null);
+                Assert.IsTrue(result > 0);
+            }
+        }
+        [ExpectedException(typeof(InvalidOperationException))]
+        [TestMethod]
+        public void TestSubmitRejectedDecisionFailByNotPolicies()
+        {
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var report = new Independiente.DataAccess.Report
+                {
+                    CreditApplicationId = 3,
+                    CreditApplication = new Independiente.DataAccess.CreditApplication
+                    {
+                        CreditApplicationId = 3,
+                        Status = "Rejected"
+                    },
+                    Notes = "nota",
+                    ReviewingDate = DateTime.Now,
+
+                };
+
+                var creditPolicies = new Independiente.DataAccess.CreditPolicy
+                {
+                    //nothing
+                };
+
+                report.CreditPolicy = new HashSet<Independiente.DataAccess.CreditPolicy>
+                {
+                    creditPolicies
+                };
+
+                var result = CreditApplicationRepository.SubmitDecision(report, null);
+                Assert.IsTrue(result > 0);
+            }
+        }
+
+
 
 
     }

@@ -284,7 +284,7 @@ namespace Independiente.ViewModel
 
         private void LoadCreditPolicies()
         {
-            var creditPolicies = _creditApplicationService.GetCreditPolicies(new CreditPolicyQuery { Status = CreditPolicyStates.Active.ToString() });
+            var creditPolicies = _creditApplicationService.GetCreditPolicies(new CreditPolicyQuery { Status = CreditPolicyStates.Active.ToString() , PageSize = 100, PageNumber = 1});
 
             foreach (Model.CreditPolicy c in creditPolicies)
             {

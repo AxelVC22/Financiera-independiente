@@ -28,7 +28,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void GetAmortizationScheduleNotFound()
+        public void GetAmortizationScheduleSuccessNotFound()
         {
             var query = new AmortizationScheduleQuery
             {
@@ -39,7 +39,21 @@ namespace Tests
 
             var result = AmortizationScheduleRepository.GetAmortizationSchedule(query);
 
-            Console.WriteLine($"Result Count: {result.Count}");
+            Assert.IsTrue(result.Count == 0);
+        }
+
+        [TestMethod]
+        public void GetAmortizationScheduleSuccessNotFoundByStatus()
+        {
+            var query = new AmortizationScheduleQuery
+            {
+                //invalid CreditApplicationId
+                CreditApplicaitonId = 0,
+                Status = ""
+            };
+
+            var result = AmortizationScheduleRepository.GetAmortizationSchedule(query);
+
             Assert.IsTrue(result.Count == 0);
         }
     }
