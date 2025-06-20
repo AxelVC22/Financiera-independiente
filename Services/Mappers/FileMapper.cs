@@ -38,8 +38,21 @@ namespace Independiente.Services.Mappers
                     FileType = (FileType)Enum.Parse(typeof(FileType), source.Type)
                 };
             }
-
             return file;
         }
+
+        public static Model.File ToViewModelCreditApplication(this DataAccess.File source)
+        {
+            if (source == null) return null;
+
+            return new Model.File
+            {
+                FileId = source.FileId,
+                FileType = Enum.TryParse<FileType>(source.Type, out var typeParsed) ? typeParsed : default,
+                FileContent = source.File1, 
+                Client = source.Client != null ? ClientMapper.ToViewModel(source.Client) : null
+            };
+        }
+
     }
 }

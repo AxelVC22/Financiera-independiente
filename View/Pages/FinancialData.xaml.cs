@@ -30,8 +30,5 @@ namespace Independiente.View.Pages
             this.DataContext = _financialDataViewModel;
            
         }
-
-      
-
     }
 }

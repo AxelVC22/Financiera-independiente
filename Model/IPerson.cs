@@ -8,8 +8,8 @@ namespace Independiente.Model
 {
     public interface  IPerson
     {
-        PersonalData PersonalData { get; }
-        AddressData AddressData { get; }
+        PersonalData PersonalData { get; set; }
+        AddressData AddressData { get; set; }
 
     }
 }

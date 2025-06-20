@@ -62,6 +62,7 @@ namespace Independiente.Services.Mappers
                     Surname = source.Surname,
                     RFC = source.RFC,
                     PhoneNumber = source.PhoneNumber,
+                    AlternativePhoneNumber = source.AlternativePhoneNumber,
                     Email = source.Email,
                     BirthDate = (DateTime)source.BirthDate,
                     CURP = source.CURP

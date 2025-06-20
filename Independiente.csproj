@@ -88,9 +88,12 @@
     <Compile Include="Converters\CreditApplicationStateToSpanishConverter.cs" />
     <Compile Include="Converters\DateOnlyConverter.cs" />
     <Compile Include="Converters\DateTimeToStringConverter .cs" />
+    <Compile Include="Converters\DecimalNullableConverter.cs" />
     <Compile Include="Converters\EmptyStringToVisibilityConverter.cs" />
+    <Compile Include="Converters\InverseBoolConverter.cs" />
     <Compile Include="Converters\NullToBooleanConverter.cs" />
     <Compile Include="Converters\PreviousPageConverter.cs" />
+    <Compile Include="Converters\UserRoleToSpanishConverter.cs" />
     <Compile Include="DataAccess\Account.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -178,15 +181,7 @@
     <Compile Include="DataAccess\Repositories\EmployeeRepository.cs" />
     <Compile Include="DataAccess\Repositories\PaymentRepository.cs" />
     <Compile Include="DataAccess\Repositories\PromotionalOfferRepository.cs" />
-    <Compile Include="DataAccess\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataAccess\sp_helpdiagrams_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataAccess\sysdiagrams.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
+    <Compile Include="DataAccess\Repositories\UserRepository.cs" />
     <Compile Include="DataAccess\User.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -256,9 +251,11 @@
     <Compile Include="ViewModel\CreditDetailsViewModel.cs" />
     <Compile Include="ViewModel\CreditPoliciesManagementViewModel.cs" />
     <Compile Include="ViewModel\EmployeeAndClientConsultationViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\FinancialDataViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\MenuOption.cs" />
     <Compile Include="ViewModel\PaginationViewModel.cs" />
     <Compile Include="ViewModel\PaymentsViewModel.cs" />
     <Compile Include="ViewModel\PersonalDataViewModel.cs" />
@@ -288,6 +285,9 @@
     </Compile>
     <Compile Include="View\Pages\CreditPoliciesManagement.xaml.cs">
       <DependentUpon>CreditPoliciesManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\Employee.xaml.cs">
+      <DependentUpon>Employee.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Pages\EmployeeAndClientConsultation.xaml.cs">
       <DependentUpon>EmployeeAndClientConsultation.xaml</DependentUpon>
@@ -351,6 +351,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Pages\CreditPoliciesManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Pages\Employee.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

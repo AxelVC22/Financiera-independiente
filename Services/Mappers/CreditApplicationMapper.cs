@@ -19,14 +19,18 @@ namespace Independiente.Services.Mappers
             {
                 creditApplication = new DataAccess.CreditApplication
                 {
-                    CreditApplicationId = source.CreditApplicationId,
-                    LoanAmount = source.LoanAmount.HasValue
-                    ? source.LoanAmount.Value
-                    : 0m,
+                    //CreditApplicationId = source.CreditApplicationId,
+                    LoanAmount = (decimal)source.LoanAmount,
                     LoanApplicationDate = source.LoanApplicationDate,
                     Status = source.Status.ToString(),
-                    Client = source?.Client != null ? ClientMapper.ToDataModel(source.Client) : null,
-                    PromotionalOffer = source?.PromotionalOffer != null ? PromotionalOfferMapper.ToDataModel(source.PromotionalOffer) : null,
+                    ClientId = source.Client.ClientId,
+                    PromotionalOfferId = source.PromotionalOffer.PromotionalOfferId,
+                    File = new DataAccess.File
+                    {
+                        ClientId = source.Client.ClientId,
+                        Type = source.File.FileType.ToString(),
+                        File1 = source.File.FileContent
+                    }
                 };
             }
 
@@ -74,6 +78,25 @@ namespace Independiente.Services.Mappers
             }
             return creditApplication;
         }
+
+        public static Model.CreditApplication ToViewModelWithFile(this DataAccess.CreditApplication source)
+        {
+            if (source == null) return null;
+
+            var creditApplication = new Model.CreditApplication
+            {
+                CreditApplicationId = source.CreditApplicationId,
+                LoanAmount =  (decimal)source.LoanAmount,
+                LoanApplicationDate = source.LoanApplicationDate,
+                Status = (CreditApplicationStates)Enum.Parse(typeof(CreditApplicationStates), source.Status),
+                Client = source.Client != null ? ClientMapper.ToViewModel(source.Client) : null,
+                PromotionalOffer = source.PromotionalOffer != null ? PromotionalOfferMapper.ToViewModel(source.PromotionalOffer) : null,
+                File = source.File != null ? FileMapper.ToViewModel(source.File) : null
+            };
+
+            return creditApplication;
+        }
+
 
         public static Model.CreditApplication ToViewModel(this DataAccess.CreditApplicationListView source)
         {

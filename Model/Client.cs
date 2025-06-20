@@ -163,7 +163,8 @@ namespace Independiente.Model
                     RFC = view.RFC,
                     CURP = view.CURP,
                     PhoneNumber = view.ClientPhoneNumber,
-                    Email = view.ClientEmail
+                    Email = view.ClientEmail,
+                    AlternativePhoneNumber = view.AlternativePhoneNumber
                 },
 
                 AddressData = new AddressData

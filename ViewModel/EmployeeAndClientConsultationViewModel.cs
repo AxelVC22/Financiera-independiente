@@ -1,4 +1,6 @@
 ﻿using Independiente.Commands;
+using Independiente.DataAccess;
+using Independiente.DataAccess.Repositories;
 using Independiente.Model;
 using Independiente.Services;
 using System;
@@ -25,6 +27,10 @@ namespace Independiente.ViewModel
         public ICommand ShowSelectedCommand {  get; set; }
         public ICommand RegisterCommand { get; set; }
 
+        public EmployeeQuery EmployeeQuery { get; set; }
+
+        public RegistrationType RegistrationType { get; set; }
+
         public EmployeeAndClientConsultationViewModel() { }
 
         public EmployeeAndClientConsultationViewModel(IDialogService dialogService, INavigationService navigationService, RegistrationType registrationType, IClientManagementService clientManagementService, IEmployeeService employeeService)
@@ -33,9 +39,13 @@ namespace Independiente.ViewModel
 
             EmployeeService = employeeService;
 
+            EmployeeQuery = new EmployeeQuery { PageNumber = 1 , PageSize = 50};
+
+            RegistrationType = registrationType;
             if (registrationType == RegistrationType.Employee)
             {
-              //  List<Model.Employee> employees = EmployeeService.GE
+                List<Model.Employee> employees = EmployeeService.GetEmployees(EmployeeQuery);
+                PeopleList = new ObservableCollection<IPerson>(employees);
             } 
             else
             {
@@ -48,20 +58,32 @@ namespace Independiente.ViewModel
             RegisterCommand = new RelayCommand(Register, CanDoIt);
             _navigationService = navigationService;
             _dialogService = dialogService;
-
         }
 
         private void ShowSelected(object obj)
         {
-            if (obj is Client client)
+            if (obj is Model.Client client)
             {
                 _navigationService.NavigateTo<PersonalDataViewModel>(new PersonDataParams(PageMode.View, RegistrationType.Client, client));
+            }
+            if (obj is Model.Employee employee)
+            {
+                _navigationService.NavigateTo<EmployeeViewModel>(new PersonDataParams(PageMode.View, RegistrationType.Client, employee));
             }
         }
 
         private void Register (object obj)
         {
-            _navigationService.NavigateTo<PersonalDataViewModel>(new PersonDataParams(PageMode.Registration, RegistrationType.Client, new Client()));
+            if (RegistrationType == RegistrationType.Client)
+            {
+                _navigationService.NavigateTo<PersonalDataViewModel>(new PersonDataParams(PageMode.Registration, RegistrationType.Client, new Model.Client()));
+
+            }
+            if (RegistrationType == RegistrationType.Employee)
+            {
+                _navigationService.NavigateTo<EmployeeViewModel>(new PersonDataParams(PageMode.Registration, RegistrationType.Employee, new Model.Employee()));
+
+            }
         }
 
         private bool CanDoIt (object obj)

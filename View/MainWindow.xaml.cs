@@ -56,6 +56,8 @@ namespace Independiente
 
         public Model.Client Client { get; private set; }
 
+        public Model.Employee Employee { get; private set; }
+
         public ICreditPolicyService CreditPolicyService { get; private set; }
 
         public ICatalogRepository CatalogRepository { get; set; }
@@ -67,6 +69,7 @@ namespace Independiente
 
             IDialogService dialogService = new DialogService();
             ClientManagementService = new ClientManagerService();
+            EmployeeService = new EmployeeService(new EmployeeRepository());
             CatalogService = new CatalogService(catalogRepository);
             FilePickerService = new FilePickerService();
             Client = new Model.Client();
@@ -79,6 +82,9 @@ namespace Independiente
             AmortizationScheduleService = new AmortizationScheduleService(AmortizationScheduleRepository);
             PaymentService = new PaymentService(PaymentRepository);
             CreditPolicyService = new CreditPolicyService(CreditPolicyRepository);
+            PromotionalOfferRepository = new PromotionalOfferRepository();
+            PromotionalOfferService = new PromotionalOfferService(PromotionalOfferRepository);
+            CreditApplicationGeneratorService = new CreditApplicationGeneratorService();
 
             NavigationService = new FrameNavigationService(
                 PageFrame,
@@ -93,6 +99,16 @@ namespace Independiente
                         );
 
                         return new View.Pages.PersonalData(viewModel);
+                    }
+                    if (viewModelType == typeof(EmployeeViewModel))
+                    {
+                        var param = parameter as PersonDataParams ?? new PersonDataParams(PageMode.Registration, Employee);
+
+                        var viewModel = new EmployeeViewModel(
+                            dialogService, NavigationService, param.Mode, param.RegistrationType, param.Person, ClientManagementService, EmployeeService
+                        );
+
+                        return new View.Pages.Employee(viewModel);
                     }
                     else if (viewModelType == typeof(FinancialDataViewModel))
                     {
@@ -209,13 +225,11 @@ namespace Independiente
                     throw new ArgumentException("ViewModel desconocido");
                 });
 
-            NavigationService.NavigateTo<EmployeeAndClientConsultationViewModel>(new ConsultationParams(RegistrationType.Client));
+            NavigationService.NavigateTo<EmployeeAndClientConsultationViewModel>(new ConsultationParams(RegistrationType.Employee));
 
-            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(dialogService);
+            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(dialogService, NavigationService);
             this.DataContext = mainWindowViewModel;
         }
-
-
 
 
 

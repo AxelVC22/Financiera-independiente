@@ -238,5 +238,37 @@ namespace Independiente.Properties {
                 return ResourceManager.GetString("IncompleteDocumentationMessage", resourceCulture);
             }
         }
+
+        public static string InvalidMoneyMessage
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidMoneyMessage", resourceCulture);
+            }
+        }
+
+        public static string InvalidRoleMessage
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidRoleMessage", resourceCulture);
+            }
+        }
+
+        public static string InvalidDateMessage
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidDateMessage", resourceCulture);
+            }
+        }
+
+        public static string ClientRegistrationError
+        {
+            get
+            {
+                return ResourceManager.GetString("ClientRegistrationError", resourceCulture);
+            }
+        }
     }
 }
