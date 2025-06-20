@@ -89,7 +89,18 @@ namespace Independiente.ViewModel
 
             SaveCommand = new RelayCommand(Save, CanDoIt);
 
-            Pagination = new PaginationViewModelBase(_paymentService.CountPayments(Query));
+            try
+            {
+                BanksList = new ObservableCollection<Bank>(_catalogService.GetBanks(new CatalogQuery()));
+                Pagination = new PaginationViewModelBase(_paymentService.CountPayments(Query));
+
+
+            }
+            catch (InvalidOperationException e)
+            {
+                _dialogService.Dismiss(e.Message, System.Windows.MessageBoxImage.Error);
+            }
+
 
             Query = new PaymentQuery { PageNumber = Pagination.PageNumber, PageSize = Pagination.PageSize };
 
@@ -99,9 +110,10 @@ namespace Independiente.ViewModel
 
             SelectedStateFilter = StateFilterOptions.First();
 
-            BanksList = new ObservableCollection<Bank>(_catalogService.GetBanks(new CatalogQuery()));
 
-            BanksList.Insert(0, new Bank { });
+
+
+            // BanksList.Insert(0, new Bank { });
 
             Search(null);
 
@@ -112,6 +124,8 @@ namespace Independiente.ViewModel
         {
             if (obj is Payment payment)
             {
+                _dialogService.Dismiss("Antes de continuar asegurese de que el layout cuente con las columnas: Clabe, Nombre de cliente, Banco, Fecha de cobro,  Monto, Folio y la columna de estados \nLos estados aceptados son: accepted y failed", System.Windows.MessageBoxImage.Exclamation);
+
                 string path = _filePickerService.PickFile();
 
                 if (!string.IsNullOrEmpty(path) && Path.GetExtension(path).Equals(".csv", StringComparison.OrdinalIgnoreCase))
@@ -153,9 +167,11 @@ namespace Independiente.ViewModel
 
         private void Generate(object obj)
         {
+            
 
-            Console.WriteLine(Messages.ResourceManager.GetString("LayoutGeneratedMessage"));
             string ruta = _filePickerService.SelectPath();
+
+
 
             if (!string.IsNullOrEmpty(ruta))
             {
