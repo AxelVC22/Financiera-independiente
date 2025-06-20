@@ -366,4 +366,19 @@
   <data name="ResultsLabelGlobal" xml:space="preserve">
     <value>Resultados</value>
   </data>
+  <data name="SearchCreditPolicyByNameGlobal" xml:space="preserve">
+    <value>Buscar política de crédito por nombre</value>
+  </data>
+  <data name="StartDateLabelGlobal" xml:space="preserve">
+    <value>Fecha de inicio</value>
+  </data>
+  <data name="SearchPromotionalOfferByNameGlobal" xml:space="preserve">
+    <value>Buscar promoción por nombre</value>
+  </data>
+  <data name="IVALabelGlobal" xml:space="preserve">
+    <value>IVA (%)</value>
+  </data>
+  <data name="IVAPlaceHolderGlobal" xml:space="preserve">
+    <value>00.00</value>
+  </data>
 </root>

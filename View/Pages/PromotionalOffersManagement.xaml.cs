@@ -21,9 +21,7 @@ namespace Independiente.View.Pages
 
         private PromotionalOffersManagementViewModel _promotionlOffersManagement;
 
-        public PromotionalOffersManagement()
-        {
-        }
+        public PromotionalOffersManagement(){}
 
         public PromotionalOffersManagement(PromotionalOffersManagementViewModel promotionalOffersManagementViewModel)
         {
@@ -31,6 +29,20 @@ namespace Independiente.View.Pages
 
             _promotionlOffersManagement = promotionalOffersManagementViewModel;
             this.DataContext = _promotionlOffersManagement;
+        }
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ListView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

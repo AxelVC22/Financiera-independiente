@@ -182,7 +182,7 @@ namespace Independiente
                     {
 
                         var viewModel = new PromotionalOffersManagementViewModel(
-                            dialogService, NavigationService
+                            dialogService, NavigationService, PromotionalOfferService
                         );
 
                         return new PromotionalOffersManagement(viewModel);
@@ -222,10 +222,17 @@ namespace Independiente
                         );
                         return new Payments(viewModel);
                     }
+                    else if (viewModelType == typeof(CreditPoliciesManagementViewModel))
+                    {
+                        var viewModel = new CreditPoliciesManagementViewModel(
+                            dialogService, NavigationService, CreditPolicyService
+                        );
+                        return new CreditPoliciesManagement(viewModel);
+                    }
                     throw new ArgumentException("ViewModel desconocido");
                 });
 
-            NavigationService.NavigateTo<EmployeeAndClientConsultationViewModel>(new ConsultationParams(RegistrationType.Employee));
+            NavigationService.NavigateTo<PromotionalOffersManagementViewModel>();
 
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(dialogService, NavigationService);
             this.DataContext = mainWindowViewModel;

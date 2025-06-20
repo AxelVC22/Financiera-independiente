@@ -182,7 +182,7 @@ namespace Independiente.Services
             table.AddCell(CreateCell(application.PromotionalOffer.LoanTerm.ToString()));
 
             table.AddCell(CreateCell("Periodicidad:", Font.BOLD));
-            table.AddCell(CreateCell(application.PromotionalOffer.PaymenteFrecuency));
+            table.AddCell(CreateCell(application.PromotionalOffer.PaymenteFrecuency.ToString()));
 
             table.AddCell(CreateCell("IVA:", Font.BOLD));
             table.AddCell(CreateCell($"{(application.PromotionalOffer.IVA)*100}%"));
