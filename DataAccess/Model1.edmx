@@ -153,10 +153,10 @@
             <PropertyRef Name="PromotionalOfferId" />
           </Key>
           <Property Name="PromotionalOfferId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="InterestRate" Type="decimal" Precision="4" Scale="4" Nullable="false" />
+          <Property Name="InterestRate" Type="decimal" Precision="10" Scale="4" Nullable="false" />
           <Property Name="LoanTerm" Type="int" Nullable="false" />
           <Property Name="PaymentFrecuency" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="IVA" Type="decimal" Precision="4" Scale="4" />
+          <Property Name="IVA" Type="decimal" Precision="10" Scale="4" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Status" Type="varchar" MaxLength="15" />
         </EntityType>
@@ -373,8 +373,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
             <PropertyRef Name="State" />
             <PropertyRef Name="Neighborhood" />
             <PropertyRef Name="EmployeeId" />
-            <PropertyRef Name="AlternativePhoneNumber" />
             <PropertyRef Name="City" />
+            <PropertyRef Name="AlternativePhoneNumber" />
           </Key>
           <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
@@ -397,8 +397,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <Property Name="State" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Neighborhood" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
-          <Property Name="AlternativePhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="City" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="AlternativePhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -816,8 +816,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
     [EmployeeView].[State] AS [State], 
     [EmployeeView].[Neighborhood] AS [Neighborhood], 
     [EmployeeView].[EmployeeId] AS [EmployeeId], 
-    [EmployeeView].[AlternativePhoneNumber] AS [AlternativePhoneNumber], 
-    [EmployeeView].[City] AS [City]
+    [EmployeeView].[City] AS [City], 
+    [EmployeeView].[AlternativePhoneNumber] AS [AlternativePhoneNumber]
     FROM [dbo].[EmployeeView] AS [EmployeeView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="PaymentView" EntityType="Self.PaymentView" store:Type="Views" store:Schema="dbo">
@@ -1115,10 +1115,10 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
             <PropertyRef Name="PromotionalOfferId" />
           </Key>
           <Property Name="PromotionalOfferId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="InterestRate" Type="Decimal" Precision="4" Scale="4" Nullable="false" />
+          <Property Name="InterestRate" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
           <Property Name="LoanTerm" Type="Int32" Nullable="false" />
           <Property Name="PaymentFrecuency" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IVA" Type="Decimal" Precision="4" Scale="4" />
+          <Property Name="IVA" Type="Decimal" Precision="10" Scale="4" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CreditApplication" Relationship="Self.CreditApplication_PromotionalOffer" FromRole="PromotionalOffer" ToRole="CreditApplication" />
@@ -1326,8 +1326,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
             <PropertyRef Name="State" />
             <PropertyRef Name="Neighborhood" />
             <PropertyRef Name="EmployeeId" />
-            <PropertyRef Name="AlternativePhoneNumber" />
             <PropertyRef Name="City" />
+            <PropertyRef Name="AlternativePhoneNumber" />
           </Key>
           <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -1350,8 +1350,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <Property Name="State" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Neighborhood" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
-          <Property Name="AlternativePhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AlternativePhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="PaymentView">
           <Key>
@@ -2060,8 +2060,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Neighborhood" ColumnName="Neighborhood" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="AlternativePhoneNumber" ColumnName="AlternativePhoneNumber" />
                 <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="AlternativePhoneNumber" ColumnName="AlternativePhoneNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

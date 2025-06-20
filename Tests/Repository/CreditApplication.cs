@@ -144,7 +144,7 @@ namespace Tests
                    Status = "Pending",
                 });
 
-                Assert.AreEqual(2, count);
+                Assert.AreEqual(4, count);
 
             }
         }
@@ -168,6 +168,30 @@ namespace Tests
                         FileId = 3,
                         Type = "CA",
                         File1 = new byte[2],
+                    },
+                    PromotionalOfferId = 32
+
+                };
+
+                CreditApplicationRepository.AddCreditApplication(newApp);
+            }
+        }
+
+        [ExpectedException(typeof(InvalidOperationException))]
+        [TestMethod]
+        public void TestAddCreditApplicationFailByNotCorrectFile()
+        {
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var newApp = new Independiente.DataAccess.CreditApplication
+                {
+                    LoanApplicationDate = DateTime.Now,
+                    LoanAmount = 10000,
+                    Status = "Pending",
+                    ClientId = 3,
+                    File = new Independiente.DataAccess.File
+                    {
+                      //nothing here
                     },
                     PromotionalOfferId = 32
 
