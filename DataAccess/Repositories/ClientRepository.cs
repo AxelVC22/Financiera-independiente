@@ -21,6 +21,7 @@ namespace Independiente.DataAccess.Repositories
 
         (int result, Model.Account account) UpdateAccount(Model.Account account);
 
+        (int resultRef1, Model.Reference updatedRef1, int resultRef2, Model.Reference updatedRef2, int resultWC, Model.WorkCenter updatedWorkCenter) UpdateReferencesAndWorkCenter(Model.Reference ref1, Model.Reference ref2, Model.WorkCenter workCenter);
 
     }
 
@@ -252,6 +253,107 @@ namespace Independiente.DataAccess.Repositories
             }
             return (result, updatedAccount);
         }
+
+        public (int resultRef1, Model.Reference updatedRef1, int resultRef2, Model.Reference updatedRef2, int resultWC, Model.WorkCenter updatedWorkCenter) UpdateReferencesAndWorkCenter(Model.Reference ref1, Model.Reference ref2, Model.WorkCenter workCenter)
+        {
+            int resultRef1 = 0, resultRef2 = 0, resultWC = 0;
+            Model.Reference updatedRef1 = null, updatedRef2 = null;
+            Model.WorkCenter updatedWC = null;
+
+            try
+            {
+                using (var context = new IndependienteEntities())
+                {
+                    using (var transaction = context.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            var ref1Db = context.Reference.Find(ref1.ReferenceId);
+                            if (ref1Db != null)
+                            {
+                                ref1Db.Name = ref1.Name;
+                                ref1Db.FullLastName = ref1.FullLastName;
+                                ref1Db.PhoneNumber = ref1.PhoneNumber;
+                                ref1Db.Relationship = ref1.Relationship;
+                                ref1Db.Email = ref1.Email;
+
+                                resultRef1 = context.SaveChanges();
+
+                                updatedRef1 = new Model.Reference
+                                {
+                                    ReferenceId = ref1Db.ReferenceId,
+                                    Name = ref1Db.Name,
+                                    FullLastName = ref1Db.FullLastName,
+                                    PhoneNumber = ref1Db.PhoneNumber,
+                                    Relationship = ref1Db.Relationship,
+                                    Email = ref1Db.Email
+                                };
+                            }
+
+                            var ref2Db = context.Reference.Find(ref2.ReferenceId);
+                            if (ref2Db != null)
+                            {
+                                ref2Db.Name = ref2.Name;
+                                ref2Db.FullLastName = ref2.FullLastName;
+                                ref2Db.PhoneNumber = ref2.PhoneNumber;
+                                ref2Db.Relationship = ref2.Relationship;
+                                ref2Db.Email = ref2.Email;
+
+                                resultRef2 = context.SaveChanges();
+
+                                updatedRef2 = new Model.Reference
+                                {
+                                    ReferenceId = ref2Db.ReferenceId,
+                                    Name = ref2Db.Name,
+                                    FullLastName = ref2Db.FullLastName,
+                                    PhoneNumber = ref2Db.PhoneNumber,
+                                    Relationship = ref2Db.Relationship,
+                                    Email = ref2Db.Email
+                                };
+                            }
+
+                            var wcDb = context.WorkCenter.Find(workCenter.WorkCenterId);
+                            if (wcDb != null)
+                            {
+                                wcDb.Name = workCenter.Name;
+                                wcDb.Role = workCenter.Role;
+                                wcDb.MontlyIncome = (Decimal)workCenter.MontlyIncome;
+                                wcDb.HiringDate = (DateTime)workCenter.HiringDate;
+
+                                resultWC = context.SaveChanges();
+
+                                updatedWC = new Model.WorkCenter
+                                {
+                                    WorkCenterId = wcDb.WorkCenterId,
+                                    Name = wcDb.Name,
+                                    Role = wcDb.Role,
+                                    MontlyIncome = wcDb.MontlyIncome,
+                                    HiringDate = wcDb.HiringDate
+                                };
+                            }
+
+                            transaction.Commit();
+                        }
+                        catch
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (DbUpdateException)
+            {
+                return (-1, null, -1, null, -1, null);
+            }
+            catch (EntityException)
+            {
+                return (-1, null, -1, null, -1, null);
+            }
+
+            return (resultRef1, updatedRef1, resultRef2, updatedRef2, resultWC, updatedWC);
+        }
+
 
         //Only for tests
         public int DeleteClient(Client client)

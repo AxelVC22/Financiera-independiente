@@ -31,9 +31,9 @@ namespace Independiente.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public File File { get; set; } = new File();
+        public Model.File File { get; set; } = new Model.File();
 
-        public List<File> Documents { get; set; } = new List<File>();
+        public List<Model.File> Documents { get; set; } = new List<Model.File>();
         public CreditApplication()
         {
             _promotionalOffer = new PromotionalOffer();

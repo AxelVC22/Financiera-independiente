@@ -4,7 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
+<<<<<<< HEAD
       <Diagram DiagramId="1676a39c17024d508dc02ddc88b7a8ee" Name="Diagram1">
+=======
+      <Diagram DiagramId="437b118b529e4c40bc6a4e54c21a69cc" Name="Diagram1">
+>>>>>>> dcdb01cc8debf6607b9ec116c97f6f010b631834
         <EntityTypeShape EntityType="IndependienteModel.Account" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="IndependienteModel.AddressData" Width="1.5" PointX="1.5" PointY="17.125" IsExpanded="true" />
         <EntityTypeShape EntityType="IndependienteModel.AmortizationSchedule" Width="1.5" PointX="12" PointY="7.875" IsExpanded="true" />

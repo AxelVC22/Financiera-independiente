@@ -62,7 +62,7 @@ namespace Independiente.ViewModel
 
         }
 
-        public CreditDetailsViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode, Client client, ICreditApplicationService creditApplicationService, 
+        public CreditDetailsViewModel(IDialogService dialogService, INavigationService navigationService, PageMode mode, Client client, ICreditApplicationService creditApplicationService,
             IPromotionalOfferService promotionalOfferService, ICreditApplicationGeneratorService creditApplicationGeneratorService, IClientManagementService clientManagementService)
         {
             _promotionalOfferService = promotionalOfferService;
@@ -227,7 +227,7 @@ namespace Independiente.ViewModel
             else
             {
                 CreditApplicationPath = OpenFile();
-            } 
+            }
 
         }
 
@@ -265,33 +265,34 @@ namespace Independiente.ViewModel
             }
             return folderPath;
         }
-
         private void Next(object obj)
         {
             try
             {
-                if (INEPath != null
-                    && ProofOfAddressPath != null
-                    && AccountStatementCoverPagePath != null
-                    && CreditApplicationPath != null
-                    && FieldValidator.IsValidMoney(CreditApplication.LoanAmount))
+                if (ValidateInput())
                 {
                     _client.Employee = App.SessionService.CurrentUser.EmployeeId;
                     _client.ClientId = _clientManagementService.AddClient(_client);
+
                     if (_client.ClientId > 0)
-                    { 
+                    {
                         CreditApplication.PromotionalOffer = SelectedPromotion;
                         CreditApplication.Client = _client;
-                        CreditApplication.File = new Model.File
+
+                        var files = new List<Model.File>
                         {
-                            FileType = FileType.CA,
-                            FileContent = System.IO.File.ReadAllBytes(CreditApplicationPath),
-                            Client = _client
+                            CreateFileModel(INEPath, FileType.INE),
+                            CreateFileModel(ProofOfAddressPath, FileType.POA),
+                            CreateFileModel(AccountStatementCoverPagePath, FileType.ASCP),
+                            CreateFileModel(CreditApplicationPath, FileType.CA)
                         };
-                        if (_creditApplicationService.AddCreditApplication(CreditApplication) > 0)
+
+                        var resultId = _creditApplicationService.AddCreditApplicationWithFiles(CreditApplication, files);
+
+                        if (resultId > 0)
                         {
                             _navigationService.NavigateTo<EmployeeAndClientConsultationViewModel>();
-                        }                        
+                        }
                     }
                 }
                 else
@@ -299,10 +300,27 @@ namespace Independiente.ViewModel
                     _dialogService.Dismiss(Properties.Messages.IncompleteDocumentationMessage, System.Windows.MessageBoxImage.Information);
                 }
             }
-            catch (ArgumentException exception)
+            catch (ArgumentException ex)
             {
-                _dialogService.Dismiss(exception.Message, System.Windows.MessageBoxImage.Exclamation);
+                _dialogService.Dismiss(ex.Message, System.Windows.MessageBoxImage.Exclamation);
             }
+        }
+        private Model.File CreateFileModel(string path, FileType fileType)
+        {
+            return new Model.File
+            {
+                FileType = fileType,
+                FileContent = System.IO.File.ReadAllBytes(path),
+                Client = _client
+            };
+        }
+        private bool ValidateInput()
+        {
+            return !string.IsNullOrEmpty(INEPath) &&
+                   !string.IsNullOrEmpty(ProofOfAddressPath) &&
+                   !string.IsNullOrEmpty(AccountStatementCoverPagePath) &&
+                   !string.IsNullOrEmpty(CreditApplicationPath) &&
+                   FieldValidator.IsValidMoney(CreditApplication.LoanAmount);
         }
 
         private void GoBack(object obj)

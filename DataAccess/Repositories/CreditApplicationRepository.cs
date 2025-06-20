@@ -1,4 +1,5 @@
 ﻿using Independiente.Model;
+using Independiente.Services.Mappers;
 using Independiente.View;
 using Independiente.View.Pages;
 using System;
@@ -115,10 +116,15 @@ namespace Independiente.DataAccess.Repositories
 
         CreditApplication GetCreditApplication(int creditApplicationId);
 
+        CreditApplication GetPendingCreditApplicationByClientId(int clientId);
+
         int SubmitDecision(Report report, List<AmortizationSchedule> amortizationSchedules);
         File GetDocument(int clientId, string type);
 
         Report GetReport(int creditApplicationId);
+        int AddCreditApplicationWithFiles(Model.CreditApplication creditApplication, List<Model.File> additionalFiles);
+        List<DataAccess.File> GetClientFiles(int clientId);
+        bool DeleteClientFile(int fileId);
     }
 
 
@@ -183,7 +189,6 @@ namespace Independiente.DataAccess.Repositories
             return id;
         }
 
-
         public CreditApplication GetCreditApplication(int creditApplicationId)
         {
             CreditApplication creditApplication = new CreditApplication();
@@ -247,7 +252,203 @@ namespace Independiente.DataAccess.Repositories
             return creditApplication;
         }
 
+        public CreditApplication GetPendingCreditApplicationByClientId(int clientId)
+        {
+            try
+            {
+                using (var context = new IndependienteEntities())
+                {
+                    // Buscar la solicitud pendiente más reciente del cliente
+                    var creditApplication = context.CreditApplication
+                        .Where(ca => ca.ClientId == clientId && ca.Status == "Pending")
+                        .OrderByDescending(ca => ca.LoanApplicationDate)
+                        .FirstOrDefault();
 
+                    if (creditApplication == null)
+                        throw new KeyNotFoundException("No se encontró una solicitud pendiente para el cliente.");
+
+                    // Cargar datos relacionados
+                    creditApplication.Client = creditApplication.Client;
+                    creditApplication.Client.PersonalData = creditApplication.Client.PersonalData;
+                    creditApplication.Client.AddressData = creditApplication.Client.AddressData;
+                    creditApplication.Client.Employee = creditApplication.Client.Employee;
+                    creditApplication.File = creditApplication.File;
+                    creditApplication.PromotionalOffer = creditApplication.PromotionalOffer;
+
+                    return creditApplication;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw DbExceptionHandler.Handle(ex);
+            }
+        }
+
+
+        private CreditApplicationStates ParseCreditApplicationStatus(string status)
+        {
+            return Enum.TryParse(status, out CreditApplicationStates result)
+                ? result
+                : CreditApplicationStates.Pending;
+        }
+
+
+        public int AddCreditApplicationWithFiles(Model.CreditApplication creditApplication, List<Model.File> additionalFiles)
+        {
+            int id = 0;
+
+            using (var context = new IndependienteEntities())
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    var savedFileIds = new List<int>();
+
+                    if (additionalFiles != null && additionalFiles.Any())
+                    {
+                        foreach (var file in additionalFiles.Where(f => f.FileType.ToString() != "CA"))
+                        {
+                            var entityFile = new DataAccess.File
+                            {
+                                ClientId = creditApplication.Client.ClientId,
+                                Type = file.FileType.ToString(),
+                                File1 = file.FileContent
+                            };
+                            context.File.Add(entityFile);
+                            context.SaveChanges();
+                            savedFileIds.Add(entityFile.FileId);
+                        }
+                    }
+
+                    var mainFile = additionalFiles?.FirstOrDefault(f => f.FileType.ToString() == "CA");
+                    int mainFileId = 0;
+
+                    if (mainFile != null)
+                    {
+                        var entityMainFile = new DataAccess.File
+                        {
+                            ClientId = creditApplication.Client.ClientId,
+                            Type = mainFile.FileType.ToString(),
+                            File1 = mainFile.FileContent
+                        };
+                        context.File.Add(entityMainFile);
+                        context.SaveChanges();
+                        mainFileId = entityMainFile.FileId;
+                    }
+
+                    var newCreditApplication = new DataAccess.CreditApplication
+                    {
+                        LoanAmount = creditApplication.LoanAmount ?? 0,
+                        LoanApplicationDate = creditApplication.LoanApplicationDate,
+                        Status = creditApplication.Status.ToString(),
+                        ClientId = creditApplication.Client.ClientId,
+                        PromotionalOfferId = creditApplication.PromotionalOffer.PromotionalOfferId,
+                        FileId = mainFileId
+                    };
+
+                    context.CreditApplication.Add(newCreditApplication);
+                    context.SaveChanges();
+
+                    id = newCreditApplication.CreditApplicationId;
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw DbExceptionHandler.Handle(ex);
+                }
+            }
+
+            return id;
+        }
+
+        public int AddCreditApplication(Model.CreditApplication creditApplication)
+        {
+            int id = 0;
+
+            try
+            {
+                using (var context = new IndependienteEntities())
+                {
+                    int? fileId = null;
+                    if (creditApplication.File != null)
+                    {
+                        var file = new DataAccess.File
+                        {
+                            ClientId = creditApplication.Client.ClientId,
+                            Type = creditApplication.File.FileType.ToString(),
+                            File1 = creditApplication.File.FileContent,
+                        };
+
+                        context.File.Add(file);
+                        context.SaveChanges();
+                        fileId = file.FileId;
+                    }
+
+                    var newCreditApplication = new DataAccess.CreditApplication
+                    {
+                        LoanAmount = (decimal)creditApplication.LoanAmount,
+                        LoanApplicationDate = creditApplication.LoanApplicationDate,
+                        Status = creditApplication.Status.ToString(),
+                        ClientId = creditApplication.Client.ClientId,
+                        PromotionalOfferId = creditApplication.PromotionalOffer.PromotionalOfferId,
+                        FileId = (int)fileId
+                    };
+
+                    context.CreditApplication.Add(newCreditApplication);
+                    context.SaveChanges();
+                    id = newCreditApplication.CreditApplicationId;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw DbExceptionHandler.Handle(ex);
+            }
+
+            return id;
+        }
+
+        public List<DataAccess.File> GetClientFiles(int clientId)
+        {
+            var files = new List<DataAccess.File>();
+
+            try
+            {
+                using (var context = new IndependienteEntities())
+                {
+                    files = context.File.Where(f => f.ClientId == clientId).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw DbExceptionHandler.Handle(ex);
+            }
+
+            return files;
+        }
+
+        public bool DeleteClientFile(int fileId)
+        {
+            try
+            {
+                using (var context = new IndependienteEntities())
+                {
+                    var file = context.File.Find(fileId);
+                    if (file != null)
+                    {
+                        context.File.Remove(file);
+                        context.SaveChanges();
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw DbExceptionHandler.Handle(ex);
+            }
+
+            return false;
+        }
 
         public File GetDocument(int clientId, string type)
         {

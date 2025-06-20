@@ -51,7 +51,7 @@
                     <Button Style="{DynamicResource MenuBarIconStyle}"
                             Command="{Binding ShowAndHideMenuCommand}"
                             Width="32"
-                            Height="32"/>
+                            Height="32" />
                 </DockPanel>
 
                 <Grid x:Name="MenuGrid"
@@ -103,25 +103,19 @@
                         </DockPanel>
 
 
-                        <StackPanel x:Name="Options"
-                                    Height="153"
-                                    Margin="0,10,0,0"
-                                    Width="204">
-                            <Button Content="Opción 1"
-                                    Margin="0,0,0,10"
-                                    Width="200"
-                                    Style="{DynamicResource MenuBarButtonStyle}" />
-                            <Button Content="Opción 2"
-                                    Margin="0,0,0,10"
-                                    Width="200"
-                                    Style="{DynamicResource MenuBarButtonStyle}" />
-                            <Button Content="Opción 3"
-                                    Margin="0,0,0,10"
-                                    Width="200"
-                                    Style="{DynamicResource MenuBarButtonStyle}" />
+                        <ItemsControl ItemsSource="{Binding Options}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Content="{Binding Name}"
+                                            Command="{Binding Command}"
+                                            Style="{StaticResource MenuBarButtonStyle}"
+                                            Width="200"
+                                            Margin="5" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
 
 
-                        </StackPanel>
                     </StackPanel>
 
                     <DockPanel MaxHeight="70"
@@ -142,8 +136,7 @@
         <Grid Grid.Column="1">
 
             <Frame x:Name="PageFrame"
-                   NavigationUIVisibility="Hidden"
-                   />
+                   NavigationUIVisibility="Hidden" />
         </Grid>
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Independiente.Model;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
@@ -59,7 +60,7 @@ namespace Independiente.DataAccess.Repositories
             {
             }
 
-            return id;  
+            return id;
         }
 
         public Model.User GetUserByEmployeeCredentials(string email, string password)
@@ -80,7 +81,9 @@ namespace Independiente.DataAccess.Repositories
                             EmployeeId = searchedEmployee.EmployeeId,
                             Id = searchedEmployee.UserId,
                             Name = searchedEmployee.EmployeeName,
-                            Role = searchedEmployee.Role
+                            Role = searchedEmployee.Role,
+                            UserRole = (UserRole)Enum.Parse(typeof(UserRole), searchedEmployee.Role)
+
                         };
                     }
                 }

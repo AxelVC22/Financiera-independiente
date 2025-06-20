@@ -114,8 +114,12 @@ namespace Tests
         [TestMethod]
         public void GetChargesSuccessWithoutStatus()
         {
-            App.SessionService = new Independiente.Services.SessionService(userRepository);
-                        
+            App.SessionService = new Independiente.Services.SessionService(new UserRepository());
+            App.SessionService.CurrentUser = new Independiente.Model.User
+            {
+                EmployeeId = 3
+              
+            };
 
 
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))

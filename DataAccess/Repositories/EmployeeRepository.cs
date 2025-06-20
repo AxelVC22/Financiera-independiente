@@ -84,7 +84,7 @@ namespace Independiente.DataAccess.Repositories
         }
 
         public Expression<Func<EmployeeView, bool>> BuildExpression()
-        {            
+        {
             return c =>
                 (string.IsNullOrEmpty(RFC) || c.RFC == RFC) &&
                 (string.IsNullOrEmpty(Status) || c.Status == Status) &&
@@ -107,7 +107,7 @@ namespace Independiente.DataAccess.Repositories
         List<EmployeeView> GetEmployees(EmployeeQuery query);
 
         Employee GetEmployee(int employeeId);
-        
+
         int AddEmployee(Employee employee);
 
         int UpdateEmployee(Employee employee);
@@ -130,13 +130,9 @@ namespace Independiente.DataAccess.Repositories
                     total = context.EmployeeView.Count(predicate);
                 }
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception ex)
             {
-
-            }
-            catch (EntityException ex)
-            {
-
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return total;
@@ -165,11 +161,9 @@ namespace Independiente.DataAccess.Repositories
                     }
                 }
             }
-            catch (DbUpdateException ex)
+            catch (Exception ex)
             {
-            }
-            catch (EntityException ex)
-            {
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return employees;
@@ -188,21 +182,19 @@ namespace Independiente.DataAccess.Repositories
                     if (employeeForSearch != null)
                     {
                         employee = employeeForSearch;
-                        
+
                         employee.PersonalData = employeeForSearch.PersonalData;
                         employee.AddressData = employeeForSearch.AddressData;
                         employee.User = employeeForSearch.User;
-                        
+
                         employee.Client = employeeForSearch.Client != null ? employeeForSearch.Client.ToList() : new List<Client>();
                         employee.Payment = employeeForSearch.Payment != null ? employeeForSearch.Payment.ToList() : new List<Payment>();
                     }
                 }
             }
-            catch (DbUpdateException ex)
+            catch (Exception ex)
             {
-            }
-            catch (EntityException ex)
-            {
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return employee;
@@ -214,40 +206,65 @@ namespace Independiente.DataAccess.Repositories
 
             try
             {
-                using (var context = new IndependienteEntities()) 
+                using (var context = new IndependienteEntities())
                 {
                     using (var transaction = context.Database.BeginTransaction())
                     {
                         try
                         {
+                            if (employee.User != null)
+                            {
+                                context.User.Add(employee.User);
+                            }
+
+                            if (employee.AddressData != null)
+                            {
+                                context.AddressData.Add(employee.AddressData);
+                            }
+
+                            if (employee.PersonalData != null)
+                            {
+                                context.PersonalData.Add(employee.PersonalData);
+                            }
+
                             var newEmployee = new Employee
                             {
                                 NSS = employee.NSS,
                                 HireDate = employee.HireDate,
                                 Department = employee.Department,
-                                AddressData = employee.AddressData,
-                                PersonalData = employee.PersonalData,
                                 Status = employee.Status,
-                                User = employee.User
+                                User = employee.User,
+                                AddressData = employee.AddressData,
+                                PersonalData = employee.PersonalData
                             };
-                            context.Employee.Add(newEmployee); 
-                            context.SaveChanges(); 
+
+                            context.Employee.Add(newEmployee);
+                            context.SaveChanges();
                             transaction.Commit();
+
                             id = newEmployee.EmployeeId;
                         }
-                        catch (Exception ex)
+                        catch (DbEntityValidationException ex)
                         {
+                            foreach (var validationErrors in ex.EntityValidationErrors)
+                            {
+                                foreach (var validationError in validationErrors.ValidationErrors)
+                                {
+                                    Console.WriteLine($"Entidad: {validationErrors.Entry.Entity.GetType().Name}, " +
+                                                      $"Propiedad: {validationError.PropertyName}, " +
+                                                      $"Error: {validationError.ErrorMessage}");
+                                }
+                            }
+
                             transaction.Rollback();
                             throw;
                         }
                     }
                 }
             }
-            catch (DbUpdateException ex)
+            catch (Exception ex)
             {
-            }
-            catch (EntityException ex)
-            {
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return id;
@@ -257,40 +274,94 @@ namespace Independiente.DataAccess.Repositories
         {
             int affectedRows = 0;
 
-            try
+            using (var context = new IndependienteEntities())
             {
-                using (var context = new IndependienteEntities())
+                using (var transaction = context.Database.BeginTransaction())
                 {
-                    var existingEmployee = context.Employee
-                        .Include(e => e.PersonalData)
-                        .Include(e => e.AddressData)
-                        .Include(e => e.User)
-                        .FirstOrDefault(e => e.EmployeeId == employee.EmployeeId);
-
-                    if (existingEmployee != null)
+                    try
                     {
+                        var existingEmployee = context.Employee
+                            .Include(e => e.PersonalData)
+                            .Include(e => e.AddressData)
+                            .Include(e => e.User)
+                            .FirstOrDefault(e => e.EmployeeId == employee.EmployeeId);
+
+                        if (existingEmployee == null)
+                            throw new InvalidOperationException("Empleado no encontrado.");
+
+                        if (employee.PersonalData != null)
+                            employee.PersonalData.PersonalDataId = existingEmployee.PersonalDataId;
+
+                        string newRfc = employee.PersonalData?.RFC?.Trim().ToUpperInvariant() ?? "";
+                        string oldRfc = existingEmployee.PersonalData?.RFC?.Trim().ToUpperInvariant() ?? "";
+
+                        if (!newRfc.Equals(oldRfc, StringComparison.OrdinalIgnoreCase))
+                        {
+                            bool rfcExists = context.PersonalData
+                                .Any(p => p.RFC.ToUpper() == newRfc && p.PersonalDataId != existingEmployee.PersonalDataId);
+
+                            if (rfcExists)
+                                throw new InvalidOperationException("El RFC ya está registrado a otro empleado.");
+                        }
+
                         existingEmployee.NSS = employee.NSS;
                         existingEmployee.HireDate = employee.HireDate;
                         existingEmployee.Department = employee.Department;
                         existingEmployee.Status = employee.Status;
 
-                        context.Entry(existingEmployee.PersonalData).CurrentValues.SetValues(employee.PersonalData);
-                        context.Entry(existingEmployee.AddressData).CurrentValues.SetValues(employee.AddressData);
-                        context.Entry(existingEmployee.User).CurrentValues.SetValues(employee.User);
+                        var pd = existingEmployee.PersonalData;
+                        var newPd = employee.PersonalData;
+                        if (pd != null && newPd != null)
+                        {
+                            pd.Name = newPd.Name;
+                            pd.Lastname = newPd.Lastname;
+                            pd.Surname = newPd.Surname;
+                            pd.BirthDate = newPd.BirthDate;
+                            pd.RFC = newPd.RFC;
+                            pd.CURP = newPd.CURP;
+                            pd.PhoneNumber = newPd.PhoneNumber;
+                            pd.AlternativePhoneNumber = newPd.AlternativePhoneNumber;
+                            pd.Email = newPd.Email;
+                        }
+
+                        var ad = existingEmployee.AddressData;
+                        var newAd = employee.AddressData;
+                        if (ad != null && newAd != null)
+                        {
+                            ad.Street = newAd.Street;
+                            ad.City = newAd.City;
+                            ad.State = newAd.State;
+                            ad.Neighborhood = newAd.Neighborhood;
+                        }
+
+                        var u = existingEmployee.User;
+                        var newU = employee.User;
+                        if (u != null && newU != null)
+                        {
+                            u.Role = newU.Role;
+
+                            if (!string.IsNullOrWhiteSpace(newU.Password))
+                            {
+                                u.Password = newU.Password;
+                            }
+                        }
 
                         affectedRows = context.SaveChanges();
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+
+                        throw DbExceptionHandler.Handle(ex);
+
                     }
                 }
-            }
-            catch (DbUpdateException ex)
-            {
-            }
-            catch (EntityException ex)
-            {
             }
 
             return affectedRows;
         }
+
 
         public int DeleteEmployee(Employee employee)
         {
@@ -324,25 +395,20 @@ namespace Independiente.DataAccess.Repositories
                                 result = context.SaveChanges();
 
                                 transaction.Commit();
-                            } 
-                            else
-                            {
-                                //throw new Exception("Employee not found.");
                             }
+                           
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
                             transaction.Rollback();
-                            throw;
+                            throw DbExceptionHandler.Handle(ex);
                         }
                     }
                 }
             }
-            catch (DbUpdateException ex)
+            catch (Exception ex)
             {
-            }
-            catch (EntityException ex)
-            {
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return result;

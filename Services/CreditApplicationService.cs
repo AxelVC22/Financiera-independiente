@@ -19,8 +19,9 @@ namespace Independiente.Services
         int AddCreditApplication(Independiente.Model.CreditApplication creditApplication);
 
         List<Independiente.Model.CreditApplication> GetCreditApplications(CreditApplicationQuery query);
-
         Independiente.Model.CreditApplication GetCreditApplication(int creditApplicationId);
+
+        Model.CreditApplication GetCreditApplicationByClientId(int clientId);
 
         Independiente.Model.File GetDocument(int clientId, string type);
 
@@ -31,6 +32,9 @@ namespace Independiente.Services
         int SubmitDecision(Model.Report report);
 
         List<Model.AmortizationSchedule> GetAmortizationSchedule(Model.CreditApplication creditApplication);
+
+        int AddCreditApplicationWithFiles(Model.CreditApplication creditApplication, List<Model.File> additionalFiles);
+
     }
     public class CreditApplicationService : ICreditApplicationService
     {
@@ -74,6 +78,17 @@ namespace Independiente.Services
             return id;
         }
 
+        public int AddCreditApplicationWithFiles(Model.CreditApplication creditApplication, List<Model.File> additionalFiles)
+        {
+            if (creditApplication == null)
+            {
+                throw new ArgumentNullException(nameof(creditApplication));
+            }
+
+            return _creditApplicationRepository.AddCreditApplicationWithFiles(creditApplication, additionalFiles);
+        }
+
+
         public int CountCreditApplications(CreditApplicationQuery query)
         {
             int total = 0;
@@ -86,6 +101,24 @@ namespace Independiente.Services
 
             return total;
         }
+
+        public Model.CreditApplication GetCreditApplicationByClientId(int clientId)
+        {
+            Model.CreditApplication creditApplicationReturned = null;
+
+            if (clientId > 0)
+            {
+                var creditApplication = _creditApplicationRepository.GetPendingCreditApplicationByClientId(clientId);
+
+                if (creditApplication != null)
+                {
+                    creditApplicationReturned = CreditApplicationMapper.ToViewModelWithFile(creditApplication);
+                }
+            }
+
+            return creditApplicationReturned;
+        }
+
 
         public Independiente.Model.CreditApplication GetCreditApplication(int creditApplicationId)
         {
@@ -111,14 +144,11 @@ namespace Independiente.Services
             {
                 creditApplicationList = _creditApplicationRepository.GetCreditApplications(query);
 
-
                 foreach (var c in creditApplicationList)
                 {
                     creditApplications1.Add(CreditApplicationMapper.ToViewModel(c));
                 }
-
             }
-
             return creditApplications1;
         }
 
