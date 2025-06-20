@@ -77,7 +77,7 @@ namespace Independiente.ViewModel
             {Resources.CreditApplicationLabelGlobal, FileType.CA },
             {Resources.INELabelGlobal,  FileType.INE},
             {Resources.ProofOfAddressLabelGlobal, FileType.POA }
-            
+
         };
 
         private KeyValuePair<string, FileType> _selectedDocumentFilter;
@@ -110,10 +110,10 @@ namespace Independiente.ViewModel
                 {
                     LoadCreditPolicies();
                 }
-            } 
+            }
             catch (InvalidOperationException ex)
             {
-
+                _dialogService.Dismiss(ex.Message, MessageBoxImage.Error);
             }
         }
 
@@ -146,11 +146,23 @@ namespace Independiente.ViewModel
 
                 Report.ReviewingDate = DateTime.Now;
 
-                if (_creditApplicationService.SubmitDecision(Report) > 1)
+                try
                 {
-                    _dialogService.Dismiss(Messages.ResourceManager.GetString("SentReportMessage"), MessageBoxImage.Information);
-                    _navigationService.GoBack();
+                    if (_creditApplicationService.SubmitDecision(Report) > 1)
+                    {
+                        _dialogService.Dismiss(Messages.ResourceManager.GetString("SentReportMessage"), MessageBoxImage.Information);
+                        _navigationService.NavigateTo<CreditApplicationsViewModel>();
+                    }
                 }
+                catch (ArgumentException e)
+                {
+                    _dialogService.Dismiss(e.Message, MessageBoxImage.Information);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    _dialogService.Dismiss(ex.Message, MessageBoxImage.Error);
+                }
+
             }
         }
 
@@ -168,9 +180,16 @@ namespace Independiente.ViewModel
                 {
                     if (CreditApplication.File.FileContent == null)
                     {
-                        var file = _creditApplicationService.GetDocument(CreditApplication.Client.ClientId, selectedDocumentFilter.Value.ToString());
-                        PdfBytes = file.FileContent;
-                        CreditApplication.File = file;
+                        try
+                        {
+                            var file = _creditApplicationService.GetDocument(CreditApplication.Client.ClientId, selectedDocumentFilter.Value.ToString());
+                            PdfBytes = file.FileContent;
+                            CreditApplication.File = file;
+                        }
+                        catch (InvalidOperationException e)
+                        {
+                            _dialogService.Dismiss(e.Message, MessageBoxImage.Error);
+                        }
                     }
                     else
                     {
@@ -187,9 +206,18 @@ namespace Independiente.ViewModel
                     }
                     else
                     {
-                        var file = _creditApplicationService.GetDocument(CreditApplication.Client.ClientId, selectedDocumentFilter.Value.ToString());
-                        PdfBytes = file.FileContent;
-                        CreditApplication.Documents.Add(file);
+                        try
+                        {
+                            var file = _creditApplicationService.GetDocument(CreditApplication.Client.ClientId, selectedDocumentFilter.Value.ToString());
+                            PdfBytes = file.FileContent;
+                            CreditApplication.Documents.Add(file);
+
+                        }
+                        catch (InvalidOperationException e)
+                        {
+                            _dialogService.Dismiss(e.Message, MessageBoxImage.Error);
+                        }
+
                     }
                 }
             }
@@ -233,7 +261,7 @@ namespace Independiente.ViewModel
 
             if (CreditApplication.Status == CreditApplicationStates.Pending)
             {
-                if (_dialogService.Confirm("¿Estás seguro de querer salir sin guardar?"))
+                if (_dialogService.Confirm("¿Estás seguro de querer salir? Los cambios de la validación no se guardarán"))
                 {
                     CreditApplication = _creditApplication;
                     _navigationService.GoBack();
@@ -248,7 +276,7 @@ namespace Independiente.ViewModel
 
         private void LoadCreditPolicies()
         {
-            var creditPolicies = _creditApplicationService.GetCreditPolicies(new CreditPolicyQuery { Status = CreditPolicyStates.Active.ToString()});
+            var creditPolicies = _creditApplicationService.GetCreditPolicies(new CreditPolicyQuery { Status = CreditPolicyStates.Active.ToString() });
 
             foreach (Model.CreditPolicy c in creditPolicies)
             {

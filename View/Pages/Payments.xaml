@@ -495,8 +495,8 @@
                     </Grid>
 
                     <Border Background="Transparent"
-                            Height="90"
-                            Width="320"
+                            Height="140"
+                            Width="420"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Bottom"
                             Margin="0,460,10,0"
@@ -507,7 +507,11 @@
                         <Grid>
                             <TextBlock Margin="8">
                                 <Run Text="Layout de cobro" FontWeight="Bold"/>
+                                <LineBreak />
+                                <Run Text="Para generar el layout de cobro seleccione un rango de fechas y un banco." Foreground="Gray"/>
                             </TextBlock>
+                            
+                            
 
                             <Border CornerRadius="2"
                                     BorderThickness="1"
@@ -515,7 +519,7 @@
                                     Background="White"
                                     Width="280"
                                     Height="24"
-                                    Margin="10,27"
+                                    Margin="10,50"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Top">
 
@@ -555,7 +559,7 @@
                             <StackPanel Orientation="Horizontal"
                                         Background="Transparent"
                                         Height="50"
-                                        Margin="10,-5"
+                                        Margin="10,15"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Bottom">
 
