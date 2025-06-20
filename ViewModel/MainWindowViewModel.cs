@@ -38,6 +38,7 @@ namespace Independiente.ViewModel
 
         }
 
+
         public MainWindowViewModel(IDialogService dialogService, INavigationService navigationService)
         {
             LogoutCommand = new RelayCommand(Logout, CanLogout);
@@ -47,6 +48,7 @@ namespace Independiente.ViewModel
             User = App.SessionService.CurrentUser;
             _navigationService = navigationService;
             ChargeOptionsByRole();
+            NavigateToStartPageByRole();
         }
 
         public void ShowAndHideMenu(object obj)
@@ -100,28 +102,42 @@ namespace Independiente.ViewModel
 
                 case UserRole.Advisor:
                     AddOption("Clientes", _ => _navigationService.NavigateTo<EmployeeAndClientConsultationViewModel>());
-                    AddOption("Creditos", _ => _navigationService.NavigateTo<CreditApplicationsViewModel>());
-
-
                     break;
 
                 case UserRole.Analyst:
-                    AddOption("Clientes", _ => _navigationService.NavigateTo<EmployeeAndClientConsultationViewModel>());
                     AddOption("Creditos", _ => _navigationService.NavigateTo<CreditApplicationsViewModel>());
-
-
                     break;
 
                 case UserRole.Collector:
                     AddOption("Pagos", _ => _navigationService.NavigateTo<PaymentsViewModel>());
-                    AddOption("Creditos", _ => _navigationService.NavigateTo<CreditApplicationsViewModel>());
-
-
                     break;
 
 
             }
         }
+
+        private void NavigateToStartPageByRole()
+        {
+            switch (User.UserRole)
+            {
+                case UserRole.Administrator:
+                    _navigationService.NavigateTo<EmployeeAndClientConsultationViewModel>();
+                    break;
+
+                case UserRole.Advisor:
+                    _navigationService.NavigateTo<EmployeeAndClientConsultationViewModel>();
+                    break;
+
+                case UserRole.Analyst:
+                    _navigationService.NavigateTo<CreditApplicationsViewModel>();
+                    break;
+
+                case UserRole.Collector:
+                    _navigationService.NavigateTo<PaymentsViewModel>();
+                    break;
+            }
+        }
+
 
         private void AddOption(string nombre, Action<object> comando)
         {
@@ -132,7 +148,7 @@ namespace Independiente.ViewModel
         private void ChargeAllOptions()
         {
             AddOption("Politicas", _ => _navigationService.NavigateTo<CreditPoliciesManagementViewModel>());
-            AddOption("Empleados", _ => _navigationService.NavigateTo<EmployeeAndClientConsultationViewModel>(new ConsultationParams(RegistrationType.Employee)));
+            AddOption("Empleados", _ => _navigationService.NavigateTo<EmployeeAndClientConsultationViewModel>());
             AddOption("Ofertas", _ => _navigationService.NavigateTo<PromotionalOffersManagementViewModel>());
 
 

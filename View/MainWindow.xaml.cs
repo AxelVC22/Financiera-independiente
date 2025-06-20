@@ -142,7 +142,19 @@ namespace Independiente
                     }
                     else if (viewModelType == typeof(EmployeeAndClientConsultationViewModel))
                     {
-                        var param = parameter as ConsultationParams ?? new ConsultationParams(RegistrationType.Client);
+                        RegistrationType regType;
+                        var currentUser = App.SessionService.CurrentUser;
+
+                        if (currentUser.UserRole == UserRole.Advisor)
+                        {
+                            regType = RegistrationType.Client; 
+                        }
+                        else
+                        {
+                            regType = RegistrationType.Employee; 
+                        }
+
+                        var param = parameter as ConsultationParams ?? new ConsultationParams(regType);
 
                         var viewModel = new EmployeeAndClientConsultationViewModel(
                             dialogService, NavigationService, param.RegistrationType, ClientManagementService, EmployeeService
@@ -150,6 +162,7 @@ namespace Independiente
 
                         return new EmployeeAndClientConsultation(viewModel);
                     }
+
                     else if (viewModelType == typeof(UserRegistrationViewModel))
                     {
                         var param = parameter as PersonDataParams ?? new PersonDataParams(PageMode.Update, new Employee());
@@ -232,7 +245,7 @@ namespace Independiente
                     throw new ArgumentException("ViewModel desconocido");
                 });
 
-            NavigationService.NavigateTo<PromotionalOffersManagementViewModel>();
+            //NavigationService.NavigateTo<PromotionalOffersManagementViewModel>();
 
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(dialogService, NavigationService);
             this.DataContext = mainWindowViewModel;

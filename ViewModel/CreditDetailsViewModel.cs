@@ -2,18 +2,19 @@
 using Independiente.Model;
 using Independiente.Services;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.IO;
-using System.Collections.ObjectModel;
-using System.Collections;
-using System.Resources;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Independiente.ViewModel
 {
@@ -90,25 +91,14 @@ namespace Independiente.ViewModel
             _creditApplicationGeneratorService = creditApplicationGeneratorService;
             _client = client;
             SwitchMode(mode);
-
             CreditApplication.LoanApplicationDate = DateTime.Now;
-            //LoadPaymentFrecuencies();
+
+            if (CreditApplication != null)
+            {
+                CreditApplication.PropertyChanged += CreditApplication_PropertyChanged;
+            }
 
         }
-
-        //private void LoadPaymentFrecuencies()
-        //{
-        //    PaymentFrecuenciesList = new List<string>();
-        //    var resourceManager = new ResourceManager("Independiente.Properties.PaymentFrecuencies", typeof(PersonalDataViewModel).Assembly);
-
-        //    var resourceSet = resourceManager.GetResourceSet(System.Globalization.CultureInfo.CurrentCulture, true, true);
-
-        //    var states = resourceSet.Cast<DictionaryEntry>()
-        //                            .Where(entry => entry.Value is string)
-        //                            .Select(entry => entry.Value.ToString())
-        //                            .ToList();
-        //    PaymentFrecuenciesList = states;
-        //}
 
         public PromotionalOffer SelectedPromotion
         {
@@ -124,8 +114,25 @@ namespace Independiente.ViewModel
                     {
                         CreditApplication.PromotionalOffer = _selectedPromotion;
                     }
+
+                    ClearCreditApplicationFile();
                 }
             }
+        }
+
+        private void CreditApplication_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(CreditApplication.LoanAmount))
+            {
+                ClearCreditApplicationFile();
+            }
+        }
+
+        private void ClearCreditApplicationFile()
+        {
+            CreditApplicationPath = null;  
+            OnPropertyChanged(nameof(CreditApplicationPath));
+            OnPropertyChanged(nameof(CreditApplicationFileName)); 
         }
 
         public string INEPath
