@@ -373,6 +373,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
             <PropertyRef Name="State" />
             <PropertyRef Name="Neighborhood" />
             <PropertyRef Name="EmployeeId" />
+            <PropertyRef Name="City" />
+            <PropertyRef Name="AlternativePhoneNumber" />
           </Key>
           <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
@@ -395,6 +397,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.EmployeeView' no tiene def
           <Property Name="State" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Neighborhood" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="AlternativePhoneNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -811,7 +815,9 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
     [EmployeeView].[Street] AS [Street], 
     [EmployeeView].[State] AS [State], 
     [EmployeeView].[Neighborhood] AS [Neighborhood], 
-    [EmployeeView].[EmployeeId] AS [EmployeeId]
+    [EmployeeView].[EmployeeId] AS [EmployeeId], 
+    [EmployeeView].[City] AS [City], 
+    [EmployeeView].[AlternativePhoneNumber] AS [AlternativePhoneNumber]
     FROM [dbo].[EmployeeView] AS [EmployeeView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="PaymentView" EntityType="Self.PaymentView" store:Type="Views" store:Schema="dbo">
@@ -1319,6 +1325,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
             <PropertyRef Name="State" />
             <PropertyRef Name="Neighborhood" />
             <PropertyRef Name="EmployeeId" />
+            <PropertyRef Name="City" />
+            <PropertyRef Name="AlternativePhoneNumber" />
           </Key>
           <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -1341,6 +1349,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <Property Name="State" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Neighborhood" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="AlternativePhoneNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PaymentView">
           <Key>
@@ -2028,6 +2038,8 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
           <EntitySetMapping Name="EmployeeView">
             <EntityTypeMapping TypeName="IndependienteModel.EmployeeView">
               <MappingFragment StoreEntitySet="EmployeeView">
+                <ScalarProperty Name="AlternativePhoneNumber" ColumnName="AlternativePhoneNumber" />
+                <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />

@@ -61,26 +61,30 @@
                     <Grid Width="310"
                           HorizontalAlignment="Left">
                         <TextBox x:Name="SearchTextBox"
-                                 Style="{StaticResource TextBoxWithPlaceholderStyle}"
-                                 Margin="10,0,0,0"
-                                 TextWrapping="Wrap"
-                                 MinWidth="150"
-                                 Width="300"
-                                 HorizontalAlignment="Left"
-                                 VerticalAlignment="Center"
-                                 Tag="{x:Static p:Resources.SearchClientByRFCPlaceHolderGlobal}"
-                                 CharacterCasing="Upper" />
+                             Style="{StaticResource TextBoxWithPlaceholderStyle}"
+                             Margin="10,0,0,0"
+                             TextWrapping="Wrap"
+                             MinWidth="150"
+                             Width="300"
+                             MaxLength="13"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Center"
+                             Tag="{x:Static p:Resources.SearchClientByRFCPlaceHolderGlobal}"
+                             CharacterCasing="Upper"
+                             Text="{Binding SearchRFC, UpdateSourceTrigger=PropertyChanged}" />
 
                         <Button 
-                                Style="{DynamicResource IconButtonStyle}"
-                                Tag="{DynamicResource SearchIcon}"
-                                Foreground="{StaticResource IconBlackColor}"
-                                Height="18"
-                                Width="18"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Margin="10,0"
-                                Panel.ZIndex="2" />
+                            Style="{DynamicResource IconButtonStyle}"
+                            Tag="{DynamicResource SearchIcon}"
+                            Foreground="{StaticResource IconBlackColor}"
+                            Height="18"
+                            Width="18"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Margin="10,0"
+                            Panel.ZIndex="2"
+                            Command="{Binding SearchCommand}" />
+
                     </Grid>
                 </Border>
 

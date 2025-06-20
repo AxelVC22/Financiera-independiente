@@ -35,5 +35,7 @@ namespace Independiente.DataAccess
         public string State { get; set; }
         public string Neighborhood { get; set; }
         public int EmployeeId { get; set; }
+        public string City { get; set; }
+        public string AlternativePhoneNumber { get; set; }
     }
 }
