@@ -124,7 +124,7 @@ namespace Independiente.ViewModel
         {
             if (obj is Payment payment)
             {
-                _dialogService.Dismiss("Antes de continuar asegurese de que el layout cuente con las columnas: Clabe, Nombre de cliente, Banco, Fecha de cobro,  Monto, Folio y la columna de estados \nLos estados aceptados son: accepted y failed", System.Windows.MessageBoxImage.Exclamation);
+                _dialogService.Dismiss("Antes de continuar asegurese de que el layout cuente con las columnas: Clabe, Nombre de cliente, Banco, Fecha de cobro,  Monto, Folio y la columna de estados \nLos estados aceptados son: completed y failed", System.Windows.MessageBoxImage.Exclamation);
 
                 string path = _filePickerService.PickFile();
 
