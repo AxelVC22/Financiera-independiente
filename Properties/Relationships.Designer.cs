@@ -61,6 +61,42 @@ namespace Independiente.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Tia.
+        /// </summary>
+        internal static string Aunt {
+            get {
+                return ResourceManager.GetString("Aunt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Hermano.
+        /// </summary>
+        internal static string Brother {
+            get {
+                return ResourceManager.GetString("Brother", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Primo/Prima.
+        /// </summary>
+        internal static string Cousin {
+            get {
+                return ResourceManager.GetString("Cousin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Hija.
+        /// </summary>
+        internal static string Daughter {
+            get {
+                return ResourceManager.GetString("Daughter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Padre.
         /// </summary>
         internal static string Father {
@@ -70,11 +106,65 @@ namespace Independiente.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Abuelo.
+        /// </summary>
+        internal static string Grandfather {
+            get {
+                return ResourceManager.GetString("Grandfather", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Abuela.
+        /// </summary>
+        internal static string Grandmother {
+            get {
+                return ResourceManager.GetString("Grandmother", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Esposo.
+        /// </summary>
+        internal static string Husband {
+            get {
+                return ResourceManager.GetString("Husband", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Madre.
         /// </summary>
         internal static string Mother {
             get {
                 return ResourceManager.GetString("Mother", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Hijo.
+        /// </summary>
+        internal static string Son {
+            get {
+                return ResourceManager.GetString("Son", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Tio.
+        /// </summary>
+        internal static string Uncle {
+            get {
+                return ResourceManager.GetString("Uncle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Esposa.
+        /// </summary>
+        internal static string Wife {
+            get {
+                return ResourceManager.GetString("Wife", resourceCulture);
             }
         }
     }

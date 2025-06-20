@@ -117,10 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Aunt" xml:space="preserve">
+    <value>Tia</value>
+  </data>
+  <data name="Brother" xml:space="preserve">
+    <value>Hermano</value>
+  </data>
+  <data name="Cousin" xml:space="preserve">
+    <value>Primo/Prima</value>
+  </data>
+  <data name="Daughter" xml:space="preserve">
+    <value>Hija</value>
+  </data>
   <data name="Father" xml:space="preserve">
     <value>Padre</value>
   </data>
+  <data name="Grandfather" xml:space="preserve">
+    <value>Abuelo</value>
+  </data>
+  <data name="Grandmother" xml:space="preserve">
+    <value>Abuela</value>
+  </data>
+  <data name="Husband" xml:space="preserve">
+    <value>Esposo</value>
+  </data>
   <data name="Mother" xml:space="preserve">
     <value>Madre</value>
+  </data>
+  <data name="Son" xml:space="preserve">
+    <value>Hijo</value>
+  </data>
+  <data name="Uncle" xml:space="preserve">
+    <value>Tio</value>
+  </data>
+  <data name="Wife" xml:space="preserve">
+    <value>Esposa</value>
   </data>
 </root>
