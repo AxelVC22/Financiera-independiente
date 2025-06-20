@@ -138,7 +138,6 @@ namespace Tests
                 Console.WriteLine(result);
                 Assert.AreEqual(4, result.Count);
             }
-
         }
 
 

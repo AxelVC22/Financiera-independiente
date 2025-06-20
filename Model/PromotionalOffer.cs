@@ -8,13 +8,17 @@ using System.Threading.Tasks;
 
 namespace Independiente.Model
 {
-    public enum PromotionalOfferState
+    public enum PromotionalOfferStates
     {
         Active,
         Inactive
     }
 
-  
+    public enum PromotionalOfferPaymentFrequencies
+    {
+        Quincenal,
+        Mensual
+    }
 
     public class PromotionalOffer :INotifyPropertyChanged
     {
@@ -24,13 +28,13 @@ namespace Independiente.Model
 
         private int? _loanTerm;
 
-        private string _paymenteFrecuency;
+        private PromotionalOfferPaymentFrequencies _paymenteFrecuency;
 
         private decimal? _iva;
 
-        private PromotionalOfferState _status;
+        private PromotionalOfferStates _status;
 
-        private string _description;
+        private string _name;
 
         private bool _isEditable;
         public override string ToString()
@@ -77,7 +81,7 @@ namespace Independiente.Model
             }
         }
 
-        public string PaymenteFrecuency
+        public PromotionalOfferPaymentFrequencies PaymenteFrecuency
         {
             get => _paymenteFrecuency;
             set
@@ -103,7 +107,7 @@ namespace Independiente.Model
             }
         }
 
-        public PromotionalOfferState Status
+        public PromotionalOfferStates Status
         {
             get => _status;
             set
@@ -116,15 +120,15 @@ namespace Independiente.Model
             }
         }
 
-        public string Description
+        public string Name
         {
-            get => _description;
+            get => _name;
             set
             {
-                if (_description != value)
+                if (_name != value)
                 {
-                    _description = value;
-                    OnPropertyChanged(nameof(Description));
+                    _name = value;
+                    OnPropertyChanged(nameof(_name));
                 }
             }
         }

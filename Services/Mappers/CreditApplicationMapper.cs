@@ -19,8 +19,10 @@ namespace Independiente.Services.Mappers
             {
                 creditApplication = new DataAccess.CreditApplication
                 {
-                    //CreditApplicationId = source.CreditApplicationId,
-                    LoanAmount = (decimal)source.LoanAmount,
+                    CreditApplicationId = source.CreditApplicationId,
+                    LoanAmount = source.LoanAmount.HasValue
+                    ? source.LoanAmount.Value
+                    : 0m,
                     LoanApplicationDate = source.LoanApplicationDate,
                     Status = source.Status.ToString(),
                     ClientId = source.Client.ClientId,

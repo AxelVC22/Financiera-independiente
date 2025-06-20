@@ -22,6 +22,7 @@ namespace Independiente.Services
         private const string CityRegex = @"^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s\-]+$";
         private const string CLABERegex = @"^\d{18}$";
         private const string MoneyRegex = @"^\d+(\.\d{1,2})?$";
+        const string DescriptionRegex = @"^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ0-9\s\.,]{5,250}$";
 
         public static bool IsValidPassword(string password)
         {
@@ -152,6 +153,43 @@ namespace Independiente.Services
             }
             return true;
         }
+
+        public static bool IsValidDescription(string description)
+        {            
+            if (string.IsNullOrWhiteSpace(description) || !Regex.IsMatch(description, DescriptionRegex))
+            {
+                throw new ArgumentException("La descripción solo puede contener letras, números, espacios, comas y puntos. Debe tener entre 5 y 250 caracteres.");
+            }
+
+            return true;
+        }
+        public static bool IsValidLoanTerm(int? loanTerm)
+        {
+            if (!loanTerm.HasValue || loanTerm.Value <= 0 || loanTerm.Value > 99)
+            {
+                throw new ArgumentException("El plazo del préstamo debe ser un número entero positivo entre 1 y 99.");
+            }
+            return true;
+        }
+
+        public static bool IsValidInterestRate(decimal? interestRate)
+        {
+            if (!interestRate.HasValue || interestRate.Value < 0 || interestRate.Value > 99)
+            {
+                throw new ArgumentException("La tasa de interés debe ser un número decimal entre 0 y 99.");
+            }
+            return true;
+        }
+
+        public static bool IsValidIVA(decimal? interestRate)
+        {
+            if (!interestRate.HasValue || interestRate.Value < 0 || interestRate.Value > 99)
+            {
+                throw new ArgumentException("El IVA debe ser un número decimal entre 0 y 99.");
+            }
+            return true;
+        }
+
     }
 }
 

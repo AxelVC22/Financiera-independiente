@@ -19,19 +19,19 @@ namespace Independiente.DataAccess.Repositories
 
         public int PageSize { get; set; }
 
-        private string _paymentFrecuency;
+        private string _name;
         
         private string _status;
 
-        public string PaymentFrecuency
+        public string Name
         {
-            get => _paymentFrecuency;
+            get => _name;
             set
             {
-                if (_paymentFrecuency != value)
+                if (_name != value)
                 {
-                    _paymentFrecuency = value;
-                    OnPropertyChanged(nameof(PaymentFrecuency));
+                    _name = value;
+                    OnPropertyChanged(nameof(Name));
                 }
             }
         }
@@ -52,7 +52,7 @@ namespace Independiente.DataAccess.Repositories
         public Expression<Func<PromotionalOffer, bool>> BuildExpression()
         {
             return c =>
-                (string.IsNullOrEmpty(PaymentFrecuency) || c.PaymentFrecuency == PaymentFrecuency) &&
+                (string.IsNullOrEmpty(Name) || c.Name.Contains(Name)) &&
                 (string.IsNullOrEmpty(Status) || c.Status == Status);
         }
 
@@ -71,6 +71,8 @@ namespace Independiente.DataAccess.Repositories
         List<PromotionalOffer> GetPromotionalOffers(PromotionalOfferQuery query);
 
         PromotionalOffer GetPromotionalOffer(int promotionalOfferId);
+
+        List<PromotionalOffer> GetPromotionalOfferByName(string name);
 
         int AddPromotionalOffer(PromotionalOffer promotionalOffer);
 
@@ -94,10 +96,11 @@ namespace Independiente.DataAccess.Repositories
             }
             catch (DbUpdateException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
             catch (EntityException ex)
             {
-
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return total;
@@ -128,9 +131,11 @@ namespace Independiente.DataAccess.Repositories
             }
             catch (DbUpdateException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
             catch (EntityException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return promotionalOffers;
@@ -154,12 +159,24 @@ namespace Independiente.DataAccess.Repositories
             }
             catch (DbUpdateException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
             catch (EntityException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return promotionalOffer;
+        }
+
+        public List<PromotionalOffer> GetPromotionalOfferByName(string name)
+        {
+            using (var context = new IndependienteEntities())
+            {
+                return context.PromotionalOffer
+                              .Where(c => c.Name == name)
+                              .ToList();
+            }
         }
 
         public int AddPromotionalOffer(PromotionalOffer promotionalOffer)
@@ -175,7 +192,9 @@ namespace Independiente.DataAccess.Repositories
                         InterestRate = promotionalOffer.InterestRate,
                         IVA = promotionalOffer.IVA,
                         LoanTerm = promotionalOffer.LoanTerm,
-                        PaymentFrecuency = promotionalOffer.PaymentFrecuency
+                        PaymentFrecuency = promotionalOffer.PaymentFrecuency.ToString(),
+                        Name = promotionalOffer.Name,
+                        Status = promotionalOffer.Status.ToString()
                     };
                     context.PromotionalOffer.Add(newPromotionalOffer);
                     context.SaveChanges();
@@ -184,11 +203,11 @@ namespace Independiente.DataAccess.Repositories
             }
             catch (DbUpdateException ex)
             {
-
+                throw DbExceptionHandler.Handle(ex);
             }
             catch (EntityException ex)
             {
-
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return id;
@@ -217,15 +236,16 @@ namespace Independiente.DataAccess.Repositories
             }
             catch (DbUpdateException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
             catch (EntityException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return affectedRows;
         }
-
-        //Only for tests
+        
         public int DeletePromotionalOffer(PromotionalOffer promotionalOffer)
         {
             int result = 0;

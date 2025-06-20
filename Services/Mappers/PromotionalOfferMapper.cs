@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Independiente.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,8 +21,10 @@ namespace Independiente.Services.Mappers
                     PromotionalOfferId = source.PromotionalOfferId,
                     InterestRate = (decimal)source.InteresRate,
                     LoanTerm = (int)source.LoanTerm,
-                    PaymentFrecuency = source.PaymenteFrecuency,
-                    IVA = source.IVA
+                    PaymentFrecuency = source.PaymenteFrecuency.ToString(),
+                    IVA = source.IVA,
+                    Name = source.Name,
+                    Status = source.Status.ToString()
                 };
             }           
             return promotionalOffer;
@@ -38,9 +41,10 @@ namespace Independiente.Services.Mappers
                     PromotionalOfferId = source.PromotionalOfferId,
                     InteresRate = (decimal)source.InterestRate,
                     LoanTerm = (int)source.LoanTerm,
-                    PaymenteFrecuency = source.PaymentFrecuency,
+                    PaymenteFrecuency = (PromotionalOfferPaymentFrequencies)Enum.Parse(typeof(PromotionalOfferPaymentFrequencies), source.PaymentFrecuency),
                     IVA = source.IVA,
-                    Description = source.Name
+                    Name = source.Name,
+                    Status = (PromotionalOfferStates)Enum.Parse(typeof(PromotionalOfferStates), source.Status)
                 };
             }           
             return promotionalOffer;
