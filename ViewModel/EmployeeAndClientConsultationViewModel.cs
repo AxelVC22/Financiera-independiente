@@ -20,18 +20,22 @@ namespace Independiente.ViewModel
         private IDialogService _dialogService { get; set; }
         private INavigationService _navigationService { get; set; }
         public IClientManagementService ClientManagementService { get; set; }
+
+        public IEmployeeService EmployeeService { get; set; }
         public ICommand ShowSelectedCommand {  get; set; }
         public ICommand RegisterCommand { get; set; }
 
         public EmployeeAndClientConsultationViewModel() { }
 
-        public EmployeeAndClientConsultationViewModel(IDialogService dialogService, INavigationService navigationService, RegistrationType registrationType, IClientManagementService clientManagementService)
+        public EmployeeAndClientConsultationViewModel(IDialogService dialogService, INavigationService navigationService, RegistrationType registrationType, IClientManagementService clientManagementService, IEmployeeService employeeService)
         {
             ClientManagementService = clientManagementService;
 
+            EmployeeService = employeeService;
+
             if (registrationType == RegistrationType.Employee)
             {
-                //TODO aqui va la logica de consulta de empleados
+              //  List<Model.Employee> employees = EmployeeService.GE
             } 
             else
             {
@@ -45,7 +49,6 @@ namespace Independiente.ViewModel
             _navigationService = navigationService;
             _dialogService = dialogService;
 
-            Console.WriteLine(PeopleList.ToString());
         }
 
         private void ShowSelected(object obj)

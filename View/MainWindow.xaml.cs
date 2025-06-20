@@ -48,6 +48,8 @@ namespace Independiente
         public ICreditPolicyRepository CreditPolicyRepository { get; set; }
         public ICreditApplicationGeneratorService CreditApplicationGeneratorService { get; set; }
         public IClientManagementService ClientManagementService { get; private set; }
+
+        public IEmployeeService EmployeeService { get; private set; }
         public ICatalogService CatalogService { get; private set; }
         public IPromotionalOfferService PromotionalOfferService { get; set; }
         public IPromotionalOfferRepository PromotionalOfferRepository { get; set; }
@@ -127,7 +129,7 @@ namespace Independiente
                         var param = parameter as ConsultationParams ?? new ConsultationParams(RegistrationType.Client);
 
                         var viewModel = new EmployeeAndClientConsultationViewModel(
-                            dialogService, NavigationService, param.RegistrationType, ClientManagementService
+                            dialogService, NavigationService, param.RegistrationType, ClientManagementService, EmployeeService
                         );
 
                         return new EmployeeAndClientConsultation(viewModel);
@@ -207,7 +209,7 @@ namespace Independiente
                     throw new ArgumentException("ViewModel desconocido");
                 });
 
-            NavigationService.NavigateTo<PaymentsViewModel>();
+            NavigationService.NavigateTo<EmployeeAndClientConsultationViewModel>(new ConsultationParams(RegistrationType.Client));
 
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(dialogService);
             this.DataContext = mainWindowViewModel;
