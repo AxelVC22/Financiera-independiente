@@ -14,6 +14,7 @@ namespace Independiente.Services
     public sealed class SessionService
     {
         public static SessionService Innstance { get; private set; }
+
         public Model.User CurrentUser { get;  set; }
         private readonly IUserRepository _userRepository;
 

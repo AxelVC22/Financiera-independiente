@@ -250,7 +250,7 @@ namespace Independiente.Services
 
             decimal totalAmountToPay = CalculateTotalAmountToPay(creditApplication);
             (int numberOfPayments, TimeSpan interval) = GetPaymentFrequencyDetails(
-                creditApplication.PromotionalOffer.PaymenteFrecuency,
+                creditApplication.PromotionalOffer.PaymenteFrecuency.ToString(),
                 creditApplication.PromotionalOffer.LoanTerm.Value
             );
 
@@ -287,7 +287,7 @@ namespace Independiente.Services
                    creditApplication.PromotionalOffer.InteresRate != null &&
                    creditApplication.PromotionalOffer.LoanTerm != null &&
                    creditApplication.PromotionalOffer.IVA != null &&
-                   !string.IsNullOrWhiteSpace(creditApplication.PromotionalOffer.PaymenteFrecuency);
+                   creditApplication.PromotionalOffer.PaymenteFrecuency != null;
         }
         private decimal CalculateTotalAmountToPay(Model.CreditApplication creditApplication)
         {

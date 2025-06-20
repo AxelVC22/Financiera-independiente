@@ -35,7 +35,7 @@ namespace Independiente.Model
 
         private bool _isPassed;
 
-        public int CredditPolicyId
+        public int CreditPolicyId
         {
             get => _creditPolicyId;
             set
@@ -43,7 +43,7 @@ namespace Independiente.Model
                 if (_creditPolicyId != value)
                 {
                     _creditPolicyId = value;
-                    OnPropertyChanged(nameof(CredditPolicyId));
+                    OnPropertyChanged(nameof(CreditPolicyId));
                 }
             }
         }

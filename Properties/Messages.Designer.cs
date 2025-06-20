@@ -269,6 +269,6 @@ namespace Independiente.Properties {
             {
                 return ResourceManager.GetString("ClientRegistrationError", resourceCulture);
             }
-        }
+        }        
     }
 }

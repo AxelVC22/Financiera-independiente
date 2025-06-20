@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Independiente.Model;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,6 +26,8 @@ namespace Independiente.DataAccess.Repositories
 
         public int PageCount { get; set; } = 1;
 
+        public int PageNumber { get; set; }
+
         public string Name
         {
             get => _name;
@@ -37,11 +40,7 @@ namespace Independiente.DataAccess.Repositories
                 }
             }
         }
-
-
-        public DateTime RegistrationDate { get; set; } = DateTime.Now;
-        public int PageNumber { get; set; }
-
+                
         public string Status
         {
             get => _status;
@@ -97,6 +96,8 @@ namespace Independiente.DataAccess.Repositories
 
         CreditPolicy GetCreditPolicy(int creditPolicyId);
 
+        List<CreditPolicy> GetCreditPolicyByName(string name);
+
         int AddCreditPolicy(CreditPolicy creditPolicy);
 
         int UpdateCreditPolicy(CreditPolicy creditPolicy);
@@ -120,11 +121,11 @@ namespace Independiente.DataAccess.Repositories
             }
             catch (DbEntityValidationException ex)
             {
-
+                throw DbExceptionHandler.Handle(ex);
             }
             catch (EntityException ex)
             {
-
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return total;
@@ -140,9 +141,12 @@ namespace Independiente.DataAccess.Repositories
             {
                 using (var context = new IndependienteEntities())
                 {
-                    // cambio
-                    var creditPolicyForSearch = context.CreditPolicy.Where(c => c.Status == query.Status)
-                       .ToList();
+                    var creditPolicyForSearch = context.CreditPolicy
+                        .Where(predicate)
+                        .OrderBy(x => x.RegistrationDate)
+                        .Skip((query.PageNumber - 1) * query.PageSize)
+                        .Take(query.PageSize)
+                        .ToList();
 
                     if (creditPolicyForSearch != null)
                     {
@@ -152,9 +156,11 @@ namespace Independiente.DataAccess.Repositories
             }
             catch (DbUpdateException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
             catch (EntityException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return creditPolicies;
@@ -178,12 +184,24 @@ namespace Independiente.DataAccess.Repositories
             }
             catch (DbUpdateException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
             catch (EntityException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return creditPolicy;
+        }
+
+        public List<CreditPolicy> GetCreditPolicyByName(string name)
+        {
+            using (var context = new IndependienteEntities())
+            {
+                return context.CreditPolicy
+                              .Where(c => c.Name == name)
+                              .ToList();
+            }
         }
 
         public int AddCreditPolicy(CreditPolicy creditPolicy)
@@ -210,9 +228,11 @@ namespace Independiente.DataAccess.Repositories
             }
             catch (DbUpdateException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
             catch (EntityException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
             return id;
         }
@@ -240,10 +260,12 @@ namespace Independiente.DataAccess.Repositories
                 }
             }
             catch (DbUpdateException ex)
-            {                
+            {
+                throw DbExceptionHandler.Handle(ex);
             }
             catch (EntityException ex)
-            {                
+            {
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return affectedRows;
@@ -283,10 +305,11 @@ namespace Independiente.DataAccess.Repositories
             }
             catch (DbUpdateException ex)
             {
-
+                throw DbExceptionHandler.Handle(ex);
             }
             catch (EntityException ex)
             {
+                throw DbExceptionHandler.Handle(ex);
             }
             return result;
         }
