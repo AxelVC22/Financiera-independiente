@@ -75,7 +75,7 @@ namespace Independiente.ViewModel
             if (_dialogService.Confirm(Messages.LogOutMessage))
             {
                 App.SessionService.LogOut();
-                RequestClose?.Invoke(this, EventArgs.Empty);
+                App.Current.Shutdown();
             }
 
         }

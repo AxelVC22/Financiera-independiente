@@ -21,7 +21,6 @@ namespace Independiente.View
     {
         private readonly LoginViewModel _loginViewModel;
 
-
         public Login()
         {
             InitializeComponent();
