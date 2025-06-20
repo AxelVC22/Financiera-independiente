@@ -121,11 +121,11 @@ namespace Independiente.DataAccess.Repositories
             }
             catch (DbEntityValidationException ex)
             {
-
+                throw DbExceptionHandler.Handle(ex);
             }
             catch (EntityException ex)
             {
-
+                throw DbExceptionHandler.Handle(ex);
             }
 
             return total;

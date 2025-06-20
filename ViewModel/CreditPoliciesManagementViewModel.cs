@@ -33,8 +33,7 @@ namespace Independiente.ViewModel
         public ICommand EditCommand { get; set; }
         public ICommand SaveChangesCommand { get; set; }
         public ICommand CancelEditCommand { get; set; }
-        public ICommand SearchCommand { get; set; }
-        public ICommand RestoreCommand { get; set; }                
+        public ICommand SearchCommand { get; set; }        
         
         private bool _isOrderedAscendent = false;        
 
@@ -164,8 +163,6 @@ namespace Independiente.ViewModel
             CancelEditCommand = new RelayCommand(CancelEdit, CanDoIt);
 
             SearchCommand = new RelayCommand(Search, CanDoIt);
-
-            RestoreCommand = new RelayCommand(Restore, CanDoIt);
             
             Search(null);       
 
@@ -327,16 +324,6 @@ namespace Independiente.ViewModel
         {
             return true;
         }        
-
-        private void Restore(object obj)
-        {
-            Query.Name = null;            
-
-            SelectedStateFilter = StateFilterOptions.First();
-            SelectedValidityFilter = ValidityFilterOptions.First();
-
-            Search(null);
-        }
 
         private void Search(object obj)
         {

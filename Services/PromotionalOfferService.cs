@@ -23,8 +23,7 @@ namespace Independiente.Services
         int UpdatePromotionalOffer(Independiente.Model.PromotionalOffer promotionalOffer);
 
         int DeletePromotionalOffer(Independiente.Model.PromotionalOffer promotionalOffer);
-
-        //provisional
+        
         List<Independiente.Model.PromotionalOffer> GetAllPromotionalOffers();
 
     }
@@ -37,10 +36,23 @@ namespace Independiente.Services
         {
             _promotionalOfferRepository = promotionalOfferRepository;
         }
+        private bool ValidateQuery(PromotionalOfferQuery query)
+        {
+            if (!string.IsNullOrEmpty(query.Name))
+            {
+                FieldValidator.IsValidName(query.Name);
+            }
+            return true;
+        }
 
         public int CountPromotionalOffers(PromotionalOfferQuery query)
         {
-            return _promotionalOfferRepository.CountPromotionalOffers(query);
+            int total = 0;
+            if (ValidateQuery(query))
+            {
+                total = _promotionalOfferRepository.CountPromotionalOffers(query);
+            }
+            return total;
         }
 
         public List<Independiente.Model.PromotionalOffer> GetPromotionalOffers(PromotionalOfferQuery query)
@@ -49,12 +61,16 @@ namespace Independiente.Services
 
             List<Independiente.Model.PromotionalOffer> promotionalOffers1 = new List<Model.PromotionalOffer>();
 
-            promotionalOffersList = _promotionalOfferRepository.GetPromotionalOffers(query);
-            foreach (var c in promotionalOffersList)
+            if (ValidateQuery(query))
             {
-                promotionalOffers1.Add(PromotionalOfferMapper.ToViewModel(c));
+                promotionalOffersList = _promotionalOfferRepository.GetPromotionalOffers(query);
 
-            }
+                foreach (var c in promotionalOffersList)
+                {
+                    promotionalOffers1.Add(PromotionalOfferMapper.ToViewModel(c));
+
+                }
+            }            
             return promotionalOffers1;
         }
 
@@ -76,8 +92,26 @@ namespace Independiente.Services
 
             if (promotionalOffer != null)
             {
-                id = _promotionalOfferRepository.AddPromotionalOffer(PromotionalOfferMapper.ToDataModel(promotionalOffer));
-
+                try
+                {
+                    if (ValidatePromotionalOffer(promotionalOffer))
+                    {
+                        PromotionalOfferQuery query = new PromotionalOfferQuery();
+                        query.Name = promotionalOffer.Name;
+                        if (CountPromotionalOffers(query) == 0)
+                        {
+                            id = _promotionalOfferRepository.AddPromotionalOffer(PromotionalOfferMapper.ToDataModel(promotionalOffer));
+                        }
+                        else
+                        {
+                            throw new ArgumentException("El nombre de la promoción ya está en uso. Verifique e ingrese un nombre diferente.");
+                        }
+                    }
+                }
+                catch (ArgumentException ex)
+                {
+                    throw new ArgumentException(ex.Message);
+                }
             }
             return id;
         }
@@ -88,7 +122,26 @@ namespace Independiente.Services
 
             if (promotionalOffer != null)
             {
-                affectedRows = _promotionalOfferRepository.UpdatePromotionalOffer(PromotionalOfferMapper.ToDataModel(promotionalOffer));
+                try
+                {
+                    if (ValidatePromotionalOffer(promotionalOffer))
+                    {
+                        var marches = _promotionalOfferRepository.GetPromotionalOfferByName(promotionalOffer.Name);
+                        bool isDuplicateNameUsedByAnother = marches.Any(p => p.PromotionalOfferId != promotionalOffer.PromotionalOfferId);
+                        if (!isDuplicateNameUsedByAnother)
+                        {
+                            affectedRows = _promotionalOfferRepository.UpdatePromotionalOffer(PromotionalOfferMapper.ToDataModel(promotionalOffer));
+                        }
+                        else
+                        {
+                            throw new ArgumentException("El nombre de la promoción ya está en uso. Verifique e ingrese un nombre diferente.");
+                        }
+                    }
+                }
+                catch (ArgumentException ex)
+                {
+                    throw new ArgumentException(ex.Message);
+                }
             }
             return affectedRows;
         }
@@ -103,8 +156,7 @@ namespace Independiente.Services
             }
             return result;
         }
-
-        //provisional
+        
         public List<Independiente.Model.PromotionalOffer> GetAllPromotionalOffers()
         {
             List<Independiente.Model.PromotionalOffer> promotionalOffers1 = new List<Independiente.Model.PromotionalOffer>();
@@ -120,6 +172,14 @@ namespace Independiente.Services
                 
             }
             return promotionalOffers1;
+        }
+
+        private bool ValidatePromotionalOffer(Independiente.Model.PromotionalOffer promotionalOffer)
+        {
+            return FieldValidator.IsValidName(promotionalOffer.Name) &&
+                   FieldValidator.IsValidLoanTerm(promotionalOffer.LoanTerm) &&
+                   FieldValidator.IsValidInterestRate(promotionalOffer.InteresRate) &&
+                   FieldValidator.IsValidIVA(promotionalOffer.IVA);
         }
     }
 }

@@ -167,7 +167,7 @@ namespace Independiente
                     {
 
                         var viewModel = new PromotionalOffersManagementViewModel(
-                            dialogService, NavigationService
+                            dialogService, NavigationService, PromotionalOfferService
                         );
 
                         return new PromotionalOffersManagement(viewModel);
@@ -217,7 +217,7 @@ namespace Independiente
                     throw new ArgumentException("ViewModel desconocido");
                 });
 
-            NavigationService.NavigateTo<CreditPoliciesManagementViewModel>();
+            NavigationService.NavigateTo<PromotionalOffersManagementViewModel>();
 
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(dialogService);
             this.DataContext = mainWindowViewModel;

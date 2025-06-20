@@ -385,6 +385,24 @@ namespace Independiente.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a IVA (%).
+        /// </summary>
+        public static string IVALabelGlobal {
+            get {
+                return ResourceManager.GetString("IVALabelGlobal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a 00.00.
+        /// </summary>
+        public static string IVAPlaceHolderGlobal {
+            get {
+                return ResourceManager.GetString("IVAPlaceHolderGlobal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Monto solicitado.
         /// </summary>
         public static string LoanAmountLabelGlobal {
@@ -714,6 +732,15 @@ namespace Independiente.Properties {
         public static string SearchCreditPolicyByNameGlobal {
             get {
                 return ResourceManager.GetString("SearchCreditPolicyByNameGlobal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Buscar promoción por nombre.
+        /// </summary>
+        public static string SearchPromotionalOfferByNameGlobal {
+            get {
+                return ResourceManager.GetString("SearchPromotionalOfferByNameGlobal", resourceCulture);
             }
         }
         

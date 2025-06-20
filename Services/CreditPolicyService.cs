@@ -88,23 +88,33 @@ namespace Independiente.Services
 
             if (creditPolicy != null)
             {
-                CreditPolicyQuery query = new CreditPolicyQuery();
-                query.Name = creditPolicy.Name;
-                if (CountCreditPolicies(query) == 0)
+                try
                 {
-                    if (AreDatesValid(creditPolicy))
+                    if (ValidateCreditPolicy(creditPolicy))
                     {
-                        id = _creditPolicyRepository.AddCreditPolicy(CreditPolicyMapper.ToDataModel(creditPolicy));
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Las fechas ingresadas no son válidas. La fecha de inicio debe ser igual o posterior a hoy, y la fecha de fin debe ser posterior a la de inicio.");
+                        CreditPolicyQuery query = new CreditPolicyQuery();
+                        query.Name = creditPolicy.Name;
+                        if (CountCreditPolicies(query) == 0)
+                        {
+                            if (AreDatesValid(creditPolicy))
+                            {
+                                id = _creditPolicyRepository.AddCreditPolicy(CreditPolicyMapper.ToDataModel(creditPolicy));
+                            }
+                            else
+                            {
+                                throw new ArgumentException("Las fechas ingresadas no son válidas. La fecha de inicio debe ser igual o posterior a hoy, y la fecha de fin debe ser posterior a la de inicio.");
+                            }
+                        }
+                        else
+                        {
+                            throw new ArgumentException("El nombre de la política de crédito ya está en uso. Verifique e ingrese un nombre diferente.");
+                        }
                     }
                 }
-                else
-                {
-                    throw new ArgumentException("El nombre de la política de crédito ya está en uso. Verifique e ingrese un nombre diferente.");
-                }
+                catch (ArgumentException ex)
+                {                    
+                    throw new ArgumentException(ex.Message);
+                }                                
             }
             return id;
         }
@@ -115,23 +125,33 @@ namespace Independiente.Services
 
             if (creditPolicy != null)
             {
-                var matches = _creditPolicyRepository.GetCreditPolicyByName(creditPolicy.Name);
-                bool isDuplicateNameUsedByAnother = matches.Any(p => p.CreditPolicyId != creditPolicy.CreditPolicyId);
-                if (!isDuplicateNameUsedByAnother)
+                try
                 {
-                    if (AreDatesValid(creditPolicy))
+                    if (ValidateCreditPolicy(creditPolicy))
                     {
-                        affectedRows = _creditPolicyRepository.UpdateCreditPolicy(CreditPolicyMapper.ToDataModel(creditPolicy));
-                    }
-                    else
-                    {
-                        throw new ArgumentException("Las fechas ingresadas no son válidas. La fecha de inicio debe ser igual o posterior a hoy, y la fecha de fin debe ser posterior a la de inicio.");
+                        var matches = _creditPolicyRepository.GetCreditPolicyByName(creditPolicy.Name);
+                        bool isDuplicateNameUsedByAnother = matches.Any(p => p.CreditPolicyId != creditPolicy.CreditPolicyId);
+                        if (!isDuplicateNameUsedByAnother)
+                        {
+                            if (AreDatesValid(creditPolicy))
+                            {
+                                affectedRows = _creditPolicyRepository.UpdateCreditPolicy(CreditPolicyMapper.ToDataModel(creditPolicy));
+                            }
+                            else
+                            {
+                                throw new ArgumentException("Las fechas ingresadas no son válidas. La fecha de inicio debe ser igual o posterior a hoy, y la fecha de fin debe ser posterior a la de inicio.");
+                            }
+                        }
+                        else
+                        {
+                            throw new ArgumentException("El nombre de la política de crédito ya está en uso. Verifique e ingrese un nombre diferente.");
+                        }
                     }
                 }
-                else
-                {
-                    throw new ArgumentException("El nombre de la política de crédito ya está en uso. Verifique e ingrese un nombre diferente.");
-                }
+                catch (ArgumentException ex)
+                {                    
+                    throw new ArgumentException(ex.Message);
+                }                              
             }
             return affectedRows;
         }
@@ -163,6 +183,12 @@ namespace Independiente.Services
                 return false;
 
             return true;
+        }
+
+        private bool ValidateCreditPolicy(Independiente.Model.CreditPolicy creditPolicy)
+        {
+            return FieldValidator.IsValidName(creditPolicy.Name) &&
+                   FieldValidator.IsValidDescription(creditPolicy.Description);
         }
     }
 }

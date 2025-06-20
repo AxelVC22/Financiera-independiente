@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="IndependienteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="IndependienteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="AccountId" />
@@ -153,10 +153,10 @@
             <PropertyRef Name="PromotionalOfferId" />
           </Key>
           <Property Name="PromotionalOfferId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="InterestRate" Type="decimal" Precision="4" Scale="4" Nullable="false" />
+          <Property Name="InterestRate" Type="decimal" Precision="10" Scale="4" Nullable="false" />
           <Property Name="LoanTerm" Type="int" Nullable="false" />
           <Property Name="PaymentFrecuency" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="IVA" Type="decimal" Precision="4" Scale="4" />
+          <Property Name="IVA" Type="decimal" Precision="10" Scale="4" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Status" Type="varchar" MaxLength="15" />
         </EntityType>
@@ -921,8 +921,7 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
             <End Role="Report_CreditPolicy" EntitySet="Report_CreditPolicy" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="IndependienteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1109,10 +1108,10 @@ advertencia 6002: La tabla o vista 'Independiente.dbo.PaymentView' no tiene defi
             <PropertyRef Name="PromotionalOfferId" />
           </Key>
           <Property Name="PromotionalOfferId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="InterestRate" Type="Decimal" Precision="4" Scale="4" Nullable="false" />
+          <Property Name="InterestRate" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
           <Property Name="LoanTerm" Type="Int32" Nullable="false" />
           <Property Name="PaymentFrecuency" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IVA" Type="Decimal" Precision="4" Scale="4" />
+          <Property Name="IVA" Type="Decimal" Precision="10" Scale="4" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CreditApplication" Relationship="Self.CreditApplication_PromotionalOffer" FromRole="PromotionalOffer" ToRole="CreditApplication" />
