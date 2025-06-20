@@ -76,7 +76,8 @@ namespace Independiente.ViewModel
         {
             {Resources.CreditApplicationLabelGlobal, FileType.CA },
             {Resources.INELabelGlobal,  FileType.INE},
-            {Resources.ProofOfAddressLabelGlobal, FileType.POA }
+            {Resources.ProofOfAddressLabelGlobal, FileType.POA },
+              {"Caratula de estado de cuenta", FileType.ASCP }
 
         };
 
