@@ -77,7 +77,7 @@ namespace Independiente.ViewModel
 
             Pagination = new PaginationViewModelBase(_service.CountCreditApplications(Query));
 
-            Query = new CreditApplicationQuery { PageNumber = Pagination.PageNumber, PageSize = Pagination.PageSize };
+            Query = new CreditApplicationQuery { PageNumber = 1, PageSize =  100};
 
 
             SelectedStateFilter = StateFilterOptions.First();

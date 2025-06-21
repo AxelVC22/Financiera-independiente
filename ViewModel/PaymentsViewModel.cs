@@ -110,13 +110,7 @@ namespace Independiente.ViewModel
 
             SelectedStateFilter = StateFilterOptions.First();
 
-
-
-
-            // BanksList.Insert(0, new Bank { });
-
             Search(null);
-
         }
 
 

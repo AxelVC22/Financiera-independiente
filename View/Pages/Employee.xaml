@@ -236,7 +236,7 @@
                                  TextWrapping="Wrap"
                                  MinWidth="150"
                                  Width="300"
-                                 MaxLength="18"
+                                 MaxLength="11"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Center"
                                  Tag="12345678901"

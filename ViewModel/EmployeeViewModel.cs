@@ -95,60 +95,6 @@ namespace Independiente.ViewModel
             StatesList = states;
         }
 
-
-        //private void Next(object obj)
-        //{
-        //    string message = string.Empty;
-        //    bool validation = false;
-        //    Model.Client client = new Model.Client();
-        //    client.PersonalData = Employee.PersonalData;
-        //    client.AddressData = Employee.AddressData;
-
-        //    if (_pageMode == PageMode.Registration)
-        //    {
-        //        switch (_registrationType)
-        //        {
-        //            case RegistrationType.Client:
-        //                try
-        //                {
-        //                    if (_clientManagementService.ValidateAddressData(Employee.AddressData) &&
-        //                        _clientManagementService.ValidatePersonalData(Employee.PersonalData))
-        //                    {
-        //                        if (!_clientManagementService.IsPhoneNumberRepeated(Employee.PersonalData.PhoneNumber, Employee.PersonalData.AlternativePhoneNumber, out message) &&
-        //                            !_clientManagementService.IsRFCRegistered(Employee.PersonalData.RFC, Employee.PersonalData.PersonalDataId, out message) &&
-        //                            _clientManagementService.IsValidAge(Employee.PersonalData.BirthDate.Value, out message))
-        //                        {
-        //                            validation = true;
-        //                        }
-        //                    }
-        //                }
-        //                catch (ArgumentException exception)
-        //                {
-        //                    message = exception.Message;
-        //                }
-        //                break;
-        //            case RegistrationType.Employee:
-
-        //                break;
-        //        }
-
-        //        if (validation)
-        //        {
-        //            _navigationService.NavigateTo<FinancialDataViewModel>(new ClientDataParams(_pageMode, client));
-        //        }
-        //        else
-        //        {
-        //            _dialogService.Dismiss(message, System.Windows.MessageBoxImage.Information);
-        //        }
-        //    }
-        //    else if (_pageMode == PageMode.View)
-        //    {
-
-        //        _navigationService.NavigateTo<FinancialDataViewModel>(new ClientDataParams(_pageMode, client));
-        //    }
-
-        //}
-
         private void Cancel(object obj)
         {
             if (_dialogService.Confirm("¿Desea cancelar los cambios realizados?"))

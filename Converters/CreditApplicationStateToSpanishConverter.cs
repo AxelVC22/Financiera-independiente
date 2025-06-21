@@ -33,7 +33,7 @@ namespace Independiente.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException(); // Solo lectura desde el ViewModel
+            throw new NotImplementedException(); 
         }
     }
 }

@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Repository\AmortizationSchedule.cs" />
     <Compile Include="Repository\CreditApplication.cs" />
+    <Compile Include="Repository\FieldValidatorTest.cs" />
     <Compile Include="Repository\Payment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

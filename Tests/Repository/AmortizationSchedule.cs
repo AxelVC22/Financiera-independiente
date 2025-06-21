@@ -32,7 +32,6 @@ namespace Tests
         {
             var query = new AmortizationScheduleQuery
             {
-                //invalid CreditApplicationId
                 CreditApplicaitonId = 0,
                 Status = "Pending"
             };

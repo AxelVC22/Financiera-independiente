@@ -36,7 +36,7 @@ namespace Independiente.DataAccess
                 message = "Ocurrió un error inesperado. Por favor, inténtalo nuevamente.";
             }
 
-            return new InvalidOperationException(message, ex); // Importante: inner exception
+            return new InvalidOperationException(message, ex); 
         }
     }
 }
